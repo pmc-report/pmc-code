@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gean.pmc_report_manager.modules.base.dao.TmBasShiftDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="gean.pmc_report_manager.modules.base.entity.TmBasShiftEntity" id="tmBasShiftMap">
+        <result property="tmBasShiftId" column="tm_bas_shift_id"/>
+        <result property="shiftNo" column="shift_no"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="breakPattern" column="break_pattern"/>
+        <result property="lastUpdateTime" column="last_update_time"/>
+        <result property="lastUpdateUsername" column="last_update_username"/>
+        <result property="markStatus" column="mark_status"/>
+        <result property="optCounter" column="opt_counter"/>
+        <result property="workshopNo" column="workshop_no"/>
+        <result property="shiftDesc" column="shift_desc"/>
+    </resultMap>
+
+</mapper>

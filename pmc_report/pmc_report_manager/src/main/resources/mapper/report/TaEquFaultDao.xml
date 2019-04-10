@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gean.pmc_report_manager.modules.report.dao.TaEquFaultDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity" id="taEquFaultMap">
+        <result property="taEquFaultId" column="ta_equ_fault_id"/>
+        <result property="area" column="area"/>
+        <result property="zone" column="zone"/>
+        <result property="station" column="station"/>
+        <result property="facilityId" column="facility_id"/>
+        <result property="facilityTex" column="facility_tex"/>
+        <result property="jobId" column="job_id"/>
+        <result property="faultWord1" column="fault_word1"/>
+        <result property="faultWord2" column="fault_word2"/>
+        <result property="faultWord3" column="fault_word3"/>
+        <result property="word31" column="word31"/>
+        <result property="faultDesc" column="fault_desc"/>
+        <result property="reasonCode" column="reason_code"/>
+        <result property="reasonDesc" column="reason_desc"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="duration" column="duration"/>
+        <result property="lastUpdateTime" column="last_update_time"/>
+        <result property="lastUpdateUsername" column="last_update_username"/>
+        <result property="optCounter" column="opt_counter"/>
+    </resultMap>
+
+
+</mapper>

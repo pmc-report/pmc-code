@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>停机状态报表</title>
+		<#include "/header.html">
+</head>
+<body>
+<div id="reportApp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+			<#if shiro.hasPermission("report:pmcbiwstate:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</#if>
+			<#if shiro.hasPermission("report:pmcbiwstate:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+			<#if shiro.hasPermission("report:pmcbiwstate:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">停机状态报表</div>
+        <form class="form-horizontal">
+							                    <div class="form-group">
+                        <div class="col-sm-2 control-label">Station</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.shop" placeholder="Station"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">Equipment</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.zone" placeholder="Equipment"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">FacilityId}</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.line" placeholder="FacilityId"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">Starved</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.equipment" placeholder="Starved"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">Blocked</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.station" placeholder="Blocked"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">Waiting Auxiliry Material</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.facilityId" placeholder="Waiting_AM"/>
+                        </div>
+                    </div>
+																		                    <div class="form-group">
+                        <div class="col-sm-2 control-label">Bypass</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.endTime" placeholder="Bypass"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">${column.comments}</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.duration" placeholder="${column.comments}"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">${column.comments}</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.state" placeholder="${column.comments}"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">${column.comments}</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.breakFlag" placeholder="${column.comments}"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">${column.comments}</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.shift" placeholder="${column.comments}"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">${column.comments}</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.tavFlag" placeholder="${column.comments}"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">${column.comments}</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.webFlag" placeholder="${column.comments}"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">${column.comments}</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.jobId" placeholder="${column.comments}"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">${column.comments}</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.designCycleTime" placeholder="${column.comments}"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">${column.comments}</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.id" placeholder="${column.comments}"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">${column.comments}</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="pmcBiwState.dbTimeStamp" placeholder="${column.comments}"/>
+                        </div>
+                    </div>
+							            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/report/pmcbiwstate.js?_${.now?long}"></script>
+</body>
+</html>

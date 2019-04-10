@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gean.pmc_report_manager.modules.report.dao.PmcBiwStateDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="gean.pmc_report_manager.modules.report.entity.PmcBiwStateEntity" id="pmcBiwStateMap">
+        <result property="shop" column="shop"/>
+        <result property="zone" column="zone"/>
+        <result property="line" column="line"/>
+        <result property="equipment" column="equipment"/>
+        <result property="station" column="station"/>
+        <result property="facilityId" column="facility_id"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="duration" column="duration"/>
+        <result property="state" column="state"/>
+        <result property="breakFlag" column="break_flag"/>
+        <result property="shift" column="shift"/>
+        <result property="tavFlag" column="tav_flag"/>
+        <result property="webFlag" column="web_flag"/>
+        <result property="jobId" column="job_id"/>
+        <result property="designCycleTime" column="design_cycle_time"/>
+        <result property="id" column="ID"/>
+        <result property="dbTimeStamp" column="db_time_stamp"/>
+    </resultMap>
+
+
+</mapper>

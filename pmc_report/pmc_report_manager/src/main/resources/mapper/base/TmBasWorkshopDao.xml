@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gean.pmc_report_manager.modules.base.dao.TmBasWorkshopDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="gean.pmc_report_manager.modules.base.entity.TmBasWorkshopEntity" id="tmBasWorkshopMap">
+        <result property="tmBasWorkshopId" column="TM_BAS_WORKSHOP_ID"/>
+        <result property="shopNo" column="WORKSHOP_NO"/>
+        <result property="tmBasPlantId" column="TM_BAS_PLANT_ID"/>
+        <result property="sapWorkshopNo" column="SAP_WORKSHOP_NO"/>
+        <result property="shopName" column="WORKSHOP_NAME_C"/>
+        <result property="workshopNameE" column="WORKSHOP_NAME_E"/>
+        <result property="workshopNameCS" column="WORKSHOP_NAME_C_S"/>
+        <result property="workshopNameES" column="WORKSHOP_NAME_E_S"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME"/>
+        <result property="lastUpdateUsername" column="LAST_UPDATE_USERNAME"/>
+        <result property="markStatus" column="MARK_STATUS"/>
+        <result property="optCounter" column="OPT_COUNTER"/>
+        <result property="plantNo" column="PLANT_NO"/>
+        <result property="deliveryUnitNo" column="DELIVERY_UNIT_NO"/>
+        <result property="warehouseNo" column="WAREHOUSE_NO"/>
+    </resultMap>
+
+	<sql id="shopVo">
+		select TM_BAS_WORKSHOP_ID,WORKSHOP_NO,WORKSHOP_NAME_C,WORKSHOP_NAME_E from TM_BAS_WORKSHOP
+	</sql>
+
+	<select id="queryAll" resultMap="tmBasWorkshopMap">
+		<include refid="shopVo"/>
+		where 1 = 1 and MARK_STATUS = '1'
+	</select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gean.pmc_report_manager.modules.base.dao.TmBasLineDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="gean.pmc_report_manager.modules.base.entity.TmBasLineEntity" id="tmBasLineMap">
+        <result property="tmBasLineId" column="TM_BAS_LINE_ID"/>
+        <result property="lineNo" column="LINE_NO"/>
+        <result property="tmBasPlantId" column="TM_BAS_PLANT_ID"/>
+        <result property="lineType" column="LINE_TYPE"/>
+        <result property="tmBasWorkshopId" column="TM_BAS_WORKSHOP_ID"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME"/>
+        <result property="lastUpdateUsername" column="LAST_UPDATE_USERNAME"/>
+        <result property="sapLineNo" column="SAP_LINE_NO"/>
+        <result property="lineName" column="LINE_NAME_C"/>
+        <result property="lineNameE" column="LINE_NAME_E"/>
+        <result property="markStatus" column="MARK_STATUS"/>
+        <result property="lineJph" column="LINE_JPH"/>
+        <result property="optCounter" column="OPT_COUNTER"/>
+        <result property="plantNo" column="PLANT_NO"/>
+        <result property="workshopNo" column="WORKSHOP_NO"/>
+    </resultMap>
+
+	<sql id="lineVo">
+		select LINE_NO,LINE_NAME_C from TM_BAS_LINE l
+	</sql>
+
+	<select id="queryLineByShop" parameterType="String" resultMap="tmBasLineMap">
+		<include refid="lineVo"/>
+		where 1 = 1 and MARK_STATUS = '1'
+		AND l.WORKSHOP_NO =#{shopNo}
+	</select>
+
+</mapper>

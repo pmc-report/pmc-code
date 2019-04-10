@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BIW1OPR报表</title>
+	<#include "/header.html">
+</head>
+<body>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+					 <span class='glyphicon glyphicon-search'>&nbsp查询条件</span>
+				</a>
+			</h4>
+		</div>
+		<div id="collapseOne" class="panel-collapse collapse in">
+			<div class="panel-body">
+				<form id="gen-form">
+					<div class="select-list">
+						<ul>
+							<li>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+									         车间： <select id="shop_search" name="shop" lay-verify="required" onchange="selectShop()"></select>
+									</div>
+								 </div>
+							</li>
+							<li>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+									         区域： <select id="area_search" name="area" lay-verify="required" onchange="selectArea()"></select>
+									</div>
+								 </div>
+							</li>
+							<li>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+									    ZONE： <select id="zone_search" name="zone" lay-verify="required"></select>
+									</div>
+								 </div>
+							</li>
+							<li>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+									<!-- 后续换成后台数据 -->
+									   	 班次： <select id="shift_search" name="shift" lay-verify="required">
+									   	 </select>
+									</div>
+								 </div>
+							</li>
+							<li class="select-time" onclick="selectTime()">
+								<label>时间范围： </label>
+								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+								<span>-</span>
+								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
+							</li>
+							<li>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+									<!-- 后续换成后台数据 -->
+									   	 时间频率： <select id="frequency_search" name="frequency" lay-verify="required">
+									   	 </select>
+									</div>
+								 </div>
+							</li>
+							<li>
+								<button type="button" class="btn btn-primary btn-sm" onclick="search('OPR')">&nbsp;查询</button>
+								<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+		</div>    		
+	</div>
+	
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+			    <a data-toggle="collapse" data-parent="#accordion" href="#result">
+					 <span class='glyphicon glyphicon-th'>&nbsp查询结果-表</span>
+				</a>
+			</h3>
+		</div>
+		<div id="result" class="panel-collapse collapse in">
+			<div class="panel-body">
+				<div>
+					<div>
+						<table id="jqGrid"></table>
+						<div id="jqGridPager"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" 
+				   href="#collapseTwo">
+					<span class='glyphicon glyphicon-stats'>&nbsp查询结果-图</span>
+				</a>
+			</h4>
+		</div>
+		<div id="collapseTwo" class="panel-collapse collapse in">
+			<div class="panel-body">
+					
+<div id="main1" style="width:1200px;height:500px;"></div>
+					<script type="text/javascript">
+					var echart=echarts.init(document.getElementById('main1'));
+					
+					var posList = [
+					    'left', 'right', 'top', 'bottom',
+					    'inside',
+					    'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
+					    'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
+					];
+				
+			
+
+					echart.config = {
+					    rotate: 0,
+					    align: 'middle',
+					    verticalAlign: 'middle',
+					    position: 'top',
+					    distance: 15,
+					   /*  onChange: function () {
+					        var labelOption = {
+					            normal: {
+					                rotate: app.config.rotate,
+					                align: app.config.align,
+					                verticalAlign: app.config.verticalAlign,
+					                position: app.config.position,
+					                distance: app.config.distance
+					            }
+					        };
+					        myChart.setOption({
+					            series: [{
+					                label: labelOption
+					            }, {
+					                label: labelOption
+					            }, {
+					                label: labelOption
+					            }, {
+					                label: labelOption
+					            }]
+					        });
+					    } */
+					};
+
+
+					var labelOption = {
+					    normal: {
+					        show: true,
+					        position: echart.config.position,
+					        distance: echart.config.distance,
+
+	
+					        fontSize: 16,
+					        rich: {
+					            name: {
+					                textBorderColor: '#fff'
+					            }
+					        }
+					    }
+					};
+ 
+			
+</script>
+			</div>
+		</div>
+	</div>
+	<script src="${request.contextPath}/statics/js/modules/report/pmcopr.js?_${.now?long}"></script>
+</body>
+</html>

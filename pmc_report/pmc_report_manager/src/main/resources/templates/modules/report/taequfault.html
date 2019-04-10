@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>设备故障报表</title>
+		<#include "/header.html">
+</head>
+<body>
+<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+					 <span class='glyphicon glyphicon-search'>&nbsp查询条件</span>
+				</a>
+			</h4>
+		</div>
+		<div id="collapseOne" class="panel-collapse collapse in">
+			<div class="panel-body">
+				<form id="gen-form">
+					<div class="select-list">
+						<ul>
+							<li>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+									         车间： <select id="shop_search" name="shop" lay-verify="required" onchange="selectShop()"></select>
+									</div>
+								 </div>
+							</li>
+							<li>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+									         区域： <select id="area_search" name="area" lay-verify="required" onchange="selectArea()"></select>
+									</div>
+								 </div>
+							</li>
+							<li>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+									    ZONE： <select id="zone_search" name="zone" lay-verify="required"></select>
+									</div>
+								 </div>
+							</li>
+							<li>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+									   	 JobId： <select id="jobId_search" name="jobId" lay-verify="required">
+									   	 </select>
+									</div>
+								 </div>
+							</li>
+							<li class="select-time" onclick="selectTime()">
+								<label>时间范围： </label>
+								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
+								<span>-</span>
+								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
+							</li>
+							<li>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+									   	 时间频率： <select id="frequency_search" name="frequency" lay-verify="required">
+									   	 </select>
+									</div>
+								 </div>
+							</li>
+							<li>
+								<button type="button" class="btn btn-primary btn-sm" onclick="search('EQUFA')">
+									<span class="glyphicon glyphicon-search"></span>&nbsp;查询
+								</button>
+								<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">
+									<span class="glyphicon glyphicon-refresh"></span>&nbsp;重置
+								</button>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+		</div>    		
+	</div>
+	
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+			    <a data-toggle="collapse" data-parent="#accordion" href="#result">
+					 <span class='glyphicon glyphicon-th'>&nbsp查询结果-表</span>
+				</a>
+			</h3>
+		</div>
+		<div id="result" class="panel-collapse collapse in">
+			<div class="panel-body">
+				<div>
+					<div>
+						<table id="equFaultTable"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="${request.contextPath}/statics/js/modules/report/taequfault.js?_${.now?long}"></script>
+</body>
+</html>

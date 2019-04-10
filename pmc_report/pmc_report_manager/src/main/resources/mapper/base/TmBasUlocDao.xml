@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gean.pmc_report_manager.modules.base.dao.TmBasUlocDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="gean.pmc_report_manager.modules.base.entity.TmBasUlocEntity" id="tmBasUlocMap">
+        <result property="tmBasUlocId" column="TM_BAS_ULOC_ID"/>
+        <result property="ulocNo" column="ULOC_NO"/>
+        <result property="tmBasWorkshopId" column="TM_BAS_WORKSHOP_ID"/>
+        <result property="lastUpdateTime" column="LAST_UPDATE_TIME"/>
+        <result property="lastUpdateUsername" column="LAST_UPDATE_USERNAME"/>
+        <result property="ulocWorkstationsequence" column="ULOC_WORKSTATIONSEQUENCE"/>
+        <result property="markStatus" column="MARK_STATUS"/>
+        <result property="ulocName" column="ULOC_NAME"/>
+        <result property="tmBasLineId" column="TM_BAS_LINE_ID"/>
+        <result property="workshopNo" column="WORKSHOP_NO"/>
+        <result property="tmBasPlantId" column="TM_BAS_PLANT_ID"/>
+        <result property="plantNo" column="PLANT_NO"/>
+        <result property="mapUloc" column="MAP_ULOC"/>
+        <result property="optCounter" column="OPT_COUNTER"/>
+        <result property="scanNo" column="SCAN_NO"/>
+        <result property="lineNo" column="LINE_NO"/>
+        <result property="distanceVarNum" column="DISTANCE_VAR_NUM"/>
+        <result property="tmBasWorksectionId" column="TM_BAS_WORKSECTION_ID"/>
+        <result property="jisReadStatus" column="JIS_READ_STATUS"/>
+        <result property="planReadStatus" column="PLAN_READ_STATUS"/>
+        <result property="innerReadStatus" column="INNER_READ_STATUS"/>
+        <result property="mrReadStatus" column="MR_READ_STATUS"/>
+        <result property="pdeliveryReadStatus" column="PDELIVERY_READ_STATUS"/>
+        <result property="settelProStatus" column="SETTEL_PRO_STATUS"/>
+        <result property="userforWorkshop" column="USERFOR_WORKSHOP"/>
+        <result property="tlsReadStatus" column="TLS_READ_STATUS"/>
+        <result property="atcLongReadStatus" column="ATC_LONG_READ_STATUS"/>
+    </resultMap>
+
+	<sql id="uLocVo">
+		select ULOC_NO,ULOC_NAME from TM_BAS_ULOC u
+	</sql>
+
+	<select id="queryUlocByLine" parameterType="String" resultMap="tmBasUlocMap">
+		<include refid="uLocVo"/>
+		where 1 = 1 and MARK_STATUS = '1'
+		AND u.LINE_NO =#{lineNo}
+	</select>
+
+</mapper>

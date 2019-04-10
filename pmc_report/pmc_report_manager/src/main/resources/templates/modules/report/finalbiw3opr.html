@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BIW3OPR报表</title>
+		<#include "/header.html">
+</head>
+<body>
+<div id="reportApp" v-cloak>
+    <div v-show="showList">
+        <div class="grid-btn">
+        	<#if shiro.hasPermission("report:finalbiw3opr:query")>
+            <a class="btn btn-primary" @click="queryByParams"><i class="fa fa-plus"></i>&nbsp;查询</a>
+            </#if>
+            <#if shiro.hasPermission("report:finalbiw3opr:clear")>
+            <a class="btn btn-primary" @click="clear"><i class="fa fa-plus"></i>&nbsp;清空</a>
+            </#if>
+			<#if shiro.hasPermission("report:finalbiw3opr:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</#if>
+			<#if shiro.hasPermission("report:finalbiw3opr:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+			<#if shiro.hasPermission("report:finalbiw3opr:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+        </div>
+        <table id="jqGrid"></table>
+        <div id="jqGridPager"></div>
+    </div>
+
+    <div v-show="!showList" class="panel panel-default">
+        <div class="panel-heading">{{title}}</div>
+        <form class="form-horizontal">
+						
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">车间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="finalBiw3Opr.shop" placeholder="车间"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">区域</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="finalBiw3Opr.area" placeholder="$区域"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">Zone</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="finalBiw3Opr.zone" placeholder="Zone"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">故障代码</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="finalBiw3Opr.equipment" placeholder="故障代码"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">设备描述</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="finalBiw3Opr.facilityDesc" placeholder="设备描述"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">站点</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="finalBiw3Opr.station" placeholder="站点"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">JobId</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="finalBiw3Opr.jobId" placeholder="JobId"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">开始时间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="finalBiw3Opr.startTime" placeholder="开始时间"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">结束时间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="finalBiw3Opr.endTime" placeholder="结束时间"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">班次</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="finalBiw3Opr.shift" placeholder="班次"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">设备ID</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="finalBiw3Opr.facilityId" placeholder="设备ID"/>
+                        </div>
+                    </div>
+											                    <div class="form-group">
+                        <div class="col-sm-2 control-label">停机时间</div>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" v-model="finalBiw3Opr.downtime" placeholder="停机时间"/>
+                        </div>
+                    </div>
+							            <div class="form-group">
+                <div class="col-sm-2 control-label"></div>
+                <input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+                &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/report/finalbiw3opr.js?_${.now?long}"></script>
+</body>
+</html>
