@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gean.pmc_report_manager.modules.base.dao.TmBasZoneDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="gean.pmc_report_manager.modules.base.entity.TmBasZoneEntity" id="tmBasZoneMap">
+        <result property="tmBasZoneId" column="tm_bas_zone_id"/>
+        <result property="tmBasLineId" column="tm_bas_line_id"/>
+        <result property="zoneNo" column="zone_no"/>
+        <result property="lineNo" column="line_no"/>
+        <result property="lastUpdateTime" column="last_update_time"/>
+        <result property="lastUpdateUsername" column="last_update_username"/>
+        <result property="markStatus" column="mark_status"/>
+        <result property="workshopNo" column="workshop_no"/>
+    </resultMap>
+
+		<sql id="zoneVo">
+			select tm_bas_zone_id,zone_no from TM_BAS_ZONE z
+		</sql>
+	
+		<select id="queryZoneByLine" parameterType="String" resultMap="tmBasZoneMap">
+			<include refid="zoneVo"/>
+			where 1 = 1 and MARK_STATUS = '1'
+			AND z.LINE_NO =#{lineNo}
+		</select>
+
+
+</mapper>

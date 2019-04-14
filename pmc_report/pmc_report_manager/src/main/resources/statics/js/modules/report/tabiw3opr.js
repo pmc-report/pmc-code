@@ -1,0 +1,230 @@
+$(function () {
+	//初始化工厂及下级
+	initShopSelected();	
+	
+	shiftSelected();
+	//初始化AreaOpr表格
+	initAreaTable();
+	//初始化ZoneOpr表格
+	initZoneTable();
+});
+
+function queryReport(tag,params){
+	
+	var url = baseURL + 'report/opr/list';
+	if(tag=='Biw3OPR'){
+		
+		initAreaTable(url,params);
+		initZoneTable(url,params);
+	}
+}
+
+function initAreaTable(url,queryParams){
+	
+	var responseHandler = function (e) {
+	      if (e.areaList && e.areaList.length > 0) {
+	          return { "rows": e.areaList, "total": e.areaList.length };
+	      } else {
+	          return { "rows": [], "total": 0 };
+	      }
+	 }
+	
+	 var uidHandle = function (res) {
+	      var html = "<a href='#'>"+ res + "</a>";
+	      return html;
+	 }
+	 
+   var columns = [
+        
+  	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1}},
+        { field: 'area', title: '区域', align: 'center', sortable:false },
+        { field: 'actual', title: '实际OPR', align: 'center', sortable:false }, 
+        { field: 'shiftPlan', title: '班次计划OPR', align: 'center' },
+        { field: 'variation', title: '变更', halign:'center' }, 
+        { field: 'productionOpr', title: '生产OPR', align: 'center'}, 
+        { field: 'equipmentOpr', title: '设备OPR', align: 'center' }
+    ];
+   
+	  $('#areaTab').empty();
+	  $('#areaTab').bootstrapTable('destroy').bootstrapTable({
+	      url: url,   						  //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
+	      method: "post",                     //使用get请求到服务器获取数据
+	      dataType: "json",
+	      contentType: "application/x-www-form-urlencoded",
+	      toolbar: "#toolbar",                //一个jQuery 选择器，指明自定义的toolbar 例如:#toolbar, .toolbar.
+	    //uniqueId: 'taEquFaultId',           //每一行的唯一标识，一般为主键列
+	      height: 522,						  //document.body.clientHeight-165  //动态获取高度值，可以使表格自适应页面
+	      cache: false,                       // 不缓存
+	      striped: true,                      // 隔行加亮
+	      queryParamsType: '',           	  //设置为"undefined",可以获取pageNumber，pageSize，searchText，sortName，sortOrder 
+	                                          //设置为"limit",符合 RESTFul 格式的参数,可以获取limit, offset, search, sort, order 
+	      sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+	      sortable: true,                     //是否启用排序;意味着整个表格都会排序
+	    //sortName: 'taEquFaultId',           // 设置默认排序为 name
+	      sortOrder: "asc",                   //排序方式
+	     // pagination: true,                   //是否显示分页（*）
+	      search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+	      strictSearch: true,
+	      showColumns: true,                  //是否显示所有的列
+	      showRefresh: true,                  //是否显示刷新按钮
+	      showToggle:true,                    //是否显示详细视图和列表视图
+	      clickToSelect: true,                //是否启用点击选中行
+	      minimumCountColumns: 2,             //最少允许的列数 clickToSelect: true, //是否启用点击选中行
+	      pageNumber: 1,                      //初始化加载第一页，默认第一页
+	      pageSize: 10,                    	  //每页的记录行数（*）
+	      pageList: [10, 25, 50, 100],     	  //可供选择的每页的行数（*）
+	      showExport: true,  				  //是否显示导出按钮  
+		  exportDataType:'all', 			  //导出所有数据
+	      buttonsAlign:"right",  			  //按钮位置  
+	      exportTypes:['excel','csv','txt','xml','word'],  //导出文件类型  
+	      Icons:'glyphicon-export',  
+	     // smartDisplay: true,					//智能显示分页按钮
+	     // paginationPreText: "上一页",
+	     // paginationNextText: "下一页",
+	      responseHandler: responseHandler,
+	      hasPreviousPage: true,
+	     // hasNextPage: true,
+	    //  lastPage: true,
+	    //  firstPage: true,
+	      columns: columns,
+	      queryParams : function(params) {
+		      return {
+			    	//limit : params.pageSize,
+		           // page : params.pageNumber,
+		            //keyword: params.search,//搜索
+					//sortOrder: params.order,//排序
+					//sortName: params.sort,//排序字段
+	            	area : queryParams.area,
+					shift: queryParams.shift,
+					shop: queryParams.shop,
+					sTime: queryParams.sTime,
+		      	}
+		  },
+	      exportOptions : {  
+	          ignoreColumn: [0],  				//忽略某一列的索引  
+	          fileName: '区域OPR报表',  			//文件名称设置  
+	          worksheetName: '区域 OPR',  			//表格工作区名称  
+	          tableName: '区域OPR报表',  
+	          excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],  
+	          onMsoNumberFormat: function DoOnMsoNumberFormat(cell, row, col) {  
+					               var result = "";  
+					               if (row > 0 && col == 0)  
+					                   result = "\\@";  
+					               return result;  
+	           		}    
+	      }, 
+	      onLoadSuccess: function (data) { 		//加载成功时执行
+	          //console.log(data);
+	      },
+	      onLoadError: function (res) { 		//加载失败时执行
+	          //console.log(res);
+	      }
+	  });
+}
+
+function initZoneTable(url,queryParams){
+	
+	var responseHandler = function (e) {
+	     // console.log(e);
+	      if (e.zoneList && e.zoneList.length > 0) {
+	          return { "rows": e.zoneList, "total": e.zoneList.lengtht };
+	      } else {
+	          return { "rows": [], "total": 0 };
+	      }
+	 }
+	
+	 var uidHandle = function (res) {
+	      var html = "<a href='#'>"+ res + "</a>";
+	      return html;
+	 }
+	 
+   var columns = [
+        
+  	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1}},
+        { field: 'starved', title: '堵料时间', align: 'center', sortable:false },
+        { field: 'zone', title: 'Zone', align: 'center', sortable:false }, 
+        { field: 'goodPartCount', title: '合格件总数', align: 'center' },
+        { field: 'downTime', title: '停机时间', halign:'center' }, 
+        { field: 'productionOpr', title: '生产OPR', align: 'center'}, 
+        { field: 'equipmentOpr', title: '设备OPR', align: 'center' },
+        { field: 'equipAvail', title: '设备效率', halign:'center' }, 
+        { field: 'cycleTime', title: '节拍时间', halign:'center' },
+        { field: 'blocked', title: '缺料时间', halign:'center' }
+    ];
+   
+	  $('#zoneTab').empty();
+	  $('#zoneTab').bootstrapTable('destroy').bootstrapTable({
+	      url: url,   						  //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
+	      method: "post",                     //使用get请求到服务器获取数据
+	      dataType: "json",
+	      contentType: "application/x-www-form-urlencoded",
+	      toolbar: "#toolbar",                //一个jQuery 选择器，指明自定义的toolbar 例如:#toolbar, .toolbar.
+	    //uniqueId: 'taEquFaultId',           //每一行的唯一标识，一般为主键列
+	      height: 522,						  //document.body.clientHeight-165  //动态获取高度值，可以使表格自适应页面
+	      cache: false,                       // 不缓存
+	      striped: true,                      // 隔行加亮
+	      queryParamsType: '',           	  //设置为"undefined",可以获取pageNumber，pageSize，searchText，sortName，sortOrder 
+	                                          //设置为"limit",符合 RESTFul 格式的参数,可以获取limit, offset, search, sort, order 
+	      sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+	      sortable: true,                     //是否启用排序;意味着整个表格都会排序
+	    //sortName: 'taEquFaultId',           // 设置默认排序为 name
+	      sortOrder: "asc",                   //排序方式
+	     // pagination: true,                   //是否显示分页（*）
+	      search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+	      strictSearch: true,
+	      showColumns: true,                  //是否显示所有的列
+	      showRefresh: true,                  //是否显示刷新按钮
+	      showToggle:true,                    //是否显示详细视图和列表视图
+	      clickToSelect: true,                //是否启用点击选中行
+	      minimumCountColumns: 2,             //最少允许的列数 clickToSelect: true, //是否启用点击选中行
+	      pageNumber: 1,                      //初始化加载第一页，默认第一页
+	      pageSize: 10,                    	  //每页的记录行数（*）
+	      pageList: [10, 25, 50, 100],     	  //可供选择的每页的行数（*）
+	      showExport: true,  				  //是否显示导出按钮  
+		  exportDataType:'all', 			  //导出所有数据
+	      buttonsAlign:"right",  			  //按钮位置  
+	      exportTypes:['excel','csv','txt','xml','word'],  //导出文件类型  
+	      Icons:'glyphicon-export',  
+	     // smartDisplay: true,					//智能显示分页按钮
+	     // paginationPreText: "上一页",
+	     // paginationNextText: "下一页",
+	      responseHandler: responseHandler,
+	      hasPreviousPage: true,
+	     // hasNextPage: true,
+	    //  lastPage: true,
+	    //  firstPage: true,
+	      columns: columns,
+	      queryParams : function(params) {
+		      return {
+			    	//limit : params.pageSize,
+		           // page : params.pageNumber,
+		            //keyword: params.search,//搜索
+					//sortOrder: params.order,//排序
+					//sortName: params.sort,//排序字段
+	            	area : queryParams.area,
+					shift: queryParams.shift,
+					shop: queryParams.shop,
+					sTime: queryParams.sTime
+		      	}
+		  },
+	      exportOptions : {  
+	          ignoreColumn: [0],  				//忽略某一列的索引  
+	          fileName: 'ZoneOPR报表',  			//文件名称设置  
+	          worksheetName: 'ZoneOPR',  			//表格工作区名称  
+	          tableName: 'ZoneOPR报表',  
+	          excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],  
+	          onMsoNumberFormat: function DoOnMsoNumberFormat(cell, row, col) {  
+					               var result = "";  
+					               if (row > 0 && col == 0)  
+					                   result = "\\@";  
+					               return result;  
+	           		}    
+	      }, 
+	      onLoadSuccess: function (data) { 		//加载成功时执行
+	          //console.log(data);
+	      },
+	      onLoadError: function (res) { 		//加载失败时执行
+	          //console.log(res);
+	      }
+	  });
+}

@@ -9,29 +9,28 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_manager.common.utils.Query;
-import gean.pmc_report_manager.modules.base.dao.TmBasLineDao;
-import gean.pmc_report_manager.modules.base.entity.TmBasLineEntity;
-import gean.pmc_report_manager.modules.base.service.TmBasLineService;
+import gean.pmc_report_manager.modules.base.dao.TmBasZoneDao;
+import gean.pmc_report_manager.modules.base.entity.TmBasZoneEntity;
+import gean.pmc_report_manager.modules.base.service.TmBasZoneService;
 
 
-@Service("tmBasLineService")
-public class TmBasLineServiceImpl extends ServiceImpl<TmBasLineDao, TmBasLineEntity> implements TmBasLineService {
+@Service("tmBasZoneService")
+public class TmBasZoneServiceImpl extends ServiceImpl<TmBasZoneDao, TmBasZoneEntity> implements TmBasZoneService {
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<TmBasLineEntity> page = this.page(
-                new Query<TmBasLineEntity>().getPage(params),
-                new QueryWrapper<TmBasLineEntity>()
+        IPage<TmBasZoneEntity> page = this.page(
+                new Query<TmBasZoneEntity>().getPage(params),
+                new QueryWrapper<TmBasZoneEntity>()
         );
 
         return new PageUtils(page);
     }
 
 	@Override
-	public List<TmBasLineEntity> queryLine(String shop) {
+	public List<TmBasZoneEntity> queryZone(String lineNo) {
 		// TODO Auto-generated method stub
-		List<TmBasLineEntity> list = baseMapper.queryLineByShop(shop);
+		List<TmBasZoneEntity> list = baseMapper.queryZoneByLine(lineNo);
 		return list;
 	}
-
 }

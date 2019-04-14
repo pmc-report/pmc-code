@@ -28,7 +28,7 @@ import gean.pmc_report_manager.modules.base.service.TmBasUlocService;
  * @date 2019-03-22 09:54:06
  */
 @RestController
-@RequestMapping("/modules/report/zone")
+@RequestMapping("")
 public class UlocController {
     @Autowired
     private TmBasUlocService tmBasUlocService;
@@ -90,13 +90,4 @@ public class UlocController {
         return R.ok();
     }
 
-    /**
-     * 根据产线查工位
-     */
-    @RequestMapping("/findZone")
-    public R queryUloc(String lineNo) {
-    	List<TmBasUlocEntity> list = tmBasUlocService.queryUloc(lineNo);
-    	
-    	return R.ok().put("zoneList", list);
-    }
 }

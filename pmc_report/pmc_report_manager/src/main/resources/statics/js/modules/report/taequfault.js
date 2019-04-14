@@ -21,8 +21,8 @@ function initTable(url,queryParams){
 	//console.log(queryParams);
 	
 	var responseHandler = function (e) {
-	      console.log(e);
-	      if (e.page.list && e.page.list.length > 0) {
+	      //console.log(e);
+	      if (e.page.list !=null && e.page.list.length > 0) {
 	          return { "rows": e.page.list, "total": e.page.totalCount };
 	      } else {
 	          return { "rows": [], "total": 0 };
@@ -128,10 +128,10 @@ function initTable(url,queryParams){
 	           		}    
 	      }, 
 	      onLoadSuccess: function (data) { 		//加载成功时执行
-	          console.log(data);
+	          //console.log(data);
 	      },
 	      onLoadError: function (res) { 		//加载失败时执行
-	          console.log(res);
+	          //console.log(res);
 	      }
 	  });
 }

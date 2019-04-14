@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>设备故障报表</title>
+    <title>9Panel报表</title>
 		<#include "/header.html">
 </head>
 <body>
@@ -42,37 +42,8 @@
 							<li>
 								<div class="layui-form-item">
 									<div class="layui-input-block">
-									   	 工位： <select id="station_search" name="jobId" lay-verify="required">
-									   	 		<option>请选择工位</option>
-									   	 		<option>Z01-110</option>
-									   	 		<option>Z01-122</option>
-									   	 		<option>Z01-130</option>
-									   	 		<option>Z01-135</option>
-									   	 		<option>Z01-145</option>
-									   	 		<option>Z01-150</option>
-									   	 		<option>Z02-010</option>
-									   	 		<option>Z02-011RH</option>
-									   	 	</select>	
-									</div>
-								 </div>
-							</li>
-							<li>
-								<div class="layui-form-item">
-									<div class="layui-input-block">
-									   	 故障代码： <select id="equ_search" name="jobId" lay-verify="required">
-										   	 		<option>请选择故障代码</option>
-										   	 		<option>025PutDown</option>
-										   	 		<option>015PutDown</option>
-										   	 		<option>010R1</option>
-										   	 		<option>010TurnTbale</option>
-									   	 		</select>
-									</div>
-								 </div>
-							</li>
-							<li>
-								<div class="layui-form-item">
-									<div class="layui-input-block">
-									   	 JobId： <select id="jobId_search" name="jobId" lay-verify="required">
+									<!-- 后续换成后台数据 -->
+									   	 班次： <select id="shift_search" name="shift" lay-verify="required">
 									   	 </select>
 									</div>
 								 </div>
@@ -86,18 +57,15 @@
 							<li>
 								<div class="layui-form-item">
 									<div class="layui-input-block">
+									<!-- 后续换成后台数据 -->
 									   	 时间频率： <select id="frequency_search" name="frequency" lay-verify="required">
 									   	 </select>
 									</div>
 								 </div>
 							</li>
 							<li>
-								<button type="button" class="btn btn-primary btn-sm" onclick="search('EQUFA')">
-									<span class="glyphicon glyphicon-search"></span>&nbsp;查询
-								</button>
-								<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">
-									<span class="glyphicon glyphicon-refresh"></span>&nbsp;重置
-								</button>
+								<button type="button" class="btn btn-primary btn-sm" onclick="search('9Panel')">&nbsp;查询</button>
+								<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>
 							</li>
 						</ul>
 					</div>
@@ -105,7 +73,35 @@
 			</div>
 		</div>    		
 	</div>
-	
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" 
+				   href="#collapseTwo">
+					<span class='glyphicon glyphicon-stats'>&nbsp查询结果-图</span>
+				</a>
+			</h4>
+		</div>
+		<div id="collapseTwo" class="panel-collapse collapse in">
+			<div class="panel-body" style="display: inline;">
+				<div id="main2" style="width:415px;height:300px;display: inline-block;">
+					<script type="text/javascript">
+						var echart1=echarts.init(document.getElementById('main2'));
+					</script>
+				</div>
+				<div id="main1" style="width:415px;height:300px;display: inline-block; ">
+					<script type="text/javascript">
+						var echart=echarts.init(document.getElementById('main1'));
+					</script>
+				</div>
+				<div id="main3" style="width:415px;height:300px;display: inline-block;">
+					<script type="text/javascript">
+						var echart2=echarts.init(document.getElementById('main3'));
+					</script>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="panel panel-primary">
 		<div class="panel-heading">
 			<h3 class="panel-title">
@@ -117,13 +113,28 @@
 		<div id="result" class="panel-collapse collapse in">
 			<div class="panel-body">
 				<div>
-					<div>
-						<table id="equFaultTable"></table>
+					<div style="display: inline-block;padding: 10px">
+						<table id="preDownTime"></table>
+						
+					</div>
+					<div style="display: inline-block;padding: 10px">
+						<table id="preOcc"></table>
+					</div>
+				</div>
+				<div>
+					<div style="display: inline-block;padding: 10px;width: 45%">
+						<table id="currDownTime"></table>
+						
+					</div>
+					<div style="display: inline-block;padding: 10px;width: 45%">
+						<table id="currOcc"></table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<script src="${request.contextPath}/statics/js/modules/report/taequfault.js?_${.now?long}"></script>
+	
+	
+<script src="${request.contextPath}/statics/js/modules/report/tabiw39panel.js?_${.now?long}"></script>
 </body>
 </html>

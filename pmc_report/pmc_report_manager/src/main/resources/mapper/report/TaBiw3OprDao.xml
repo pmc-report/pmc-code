@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="gean.pmc_report_manager.modules.report.dao.FinalBiw3OprDao">
+<mapper namespace="gean.pmc_report_manager.modules.report.dao.TaBiw3OprDao">
 
-	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="gean.pmc_report_manager.modules.report.entity.FinalBiw3OprEntity" id="finalBiw3OprMap">
-        <result property="rowId" column="row_id"/>
-        <result property="dbTimeStamp" column="db_time_stamp"/>
+    <resultMap type="gean.pmc_report_manager.modules.report.entity.TaBiw3OprEntity" id="taBiw3OprMap">
+        <result property="taBiw3OprId" column="ta_biw3_opr_id"/>
+        <result property="createTime" column="create_time"/>
         <result property="shop" column="shop"/>
         <result property="area" column="area"/>
         <result property="zone" column="zone"/>
@@ -31,6 +30,6 @@
         <result property="facilityId" column="facility_id"/>
         <result property="downtime" column="downtime"/>
     </resultMap>
-
-
+    
+   
 </mapper>

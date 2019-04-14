@@ -60,6 +60,24 @@ tbody > tr > th {font-weight: normal; }
 	width:550px;padding-top:20px;
 }
 
+#preDownTime thead .th-inner {
+	background-color: #FFFF00;
+}
+
+#preOcc thead .th-inner{
+	background-color: #04B45F;
+}
+
+#currDownTime th .th-inner {
+	background-color: #FFFF00;
+}
+
+#currOcc th .th-inner {
+	background-color: #04B45F;
+}
+
+
+
 /** 表单查询条件 */
 ul {
 	margin: 0;

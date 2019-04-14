@@ -25,7 +25,5 @@ public interface TmBasLineDao extends BaseMapper<TmBasLineEntity> {
 	 * 根据产线查询所有
 	 * @return 集合
 	 */
-	@Transactional
-	@DataSource("slave1")
 	List<TmBasLineEntity> queryLineByShop(String shopNo);
 }

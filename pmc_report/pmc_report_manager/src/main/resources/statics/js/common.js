@@ -199,8 +199,7 @@ function selectArea(){
 		if(areaNo!=null && areaNo!=''){
 			setPorpById('zone_search','disabled',false);
 			setCssById('zone_search','background-color','');
-			var str = areaNo.substring(0, 2);
-			initZoneSelected(str);
+			initZoneSelected(areaNo);
 		}
 	}
 }
@@ -220,7 +219,7 @@ function initZoneSelected(areaNo){
             var selectOption ='<option value="" selected="selected" style="display: none">请选择ZONE</option>';
             var list = data.zoneList;
             $.each(list, function(i, zone) { 
-           	 selectOption += '<option value="'+isNull(zone['ulocNo'])+'">'+isNull(zone['ulocNo']) + " - " +isNull(zone['ulocName'])+"</option>";
+           	 selectOption += '<option value="'+isNull(zone['zoneNo'])+'">'+isNull(zone['zoneNo']) + "</option>";
             });  
             $('#zone_search').html(selectOption);
             $('#zoneNo').html(selectOption);

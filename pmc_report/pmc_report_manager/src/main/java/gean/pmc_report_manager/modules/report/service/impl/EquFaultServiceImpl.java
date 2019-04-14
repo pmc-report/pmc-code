@@ -39,8 +39,12 @@ public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFaultEn
 		//后续封装方法简化代码
 		PageParamVo vo = new PageParamVo(params);
 		//DateUtils.format(vo.getStartTime(),DateUtils.DATE_TIME_PATTERN );
-		Timestamp tp = new Timestamp(vo.getStartTime().getTime());
-		System.out.println(tp);
+		Timestamp sTime=null;
+		Timestamp eTime=null;
+		if(vo.getStartTime()!=null) {
+			sTime = new Timestamp(vo.getStartTime().getTime());
+			eTime = new Timestamp(vo.getEndTime().getTime());
+		}
 		IPage<TaEquFaultEntity> page = 
 				this.page( new Query<TaEquFaultEntity>().getPage(params),
 						new QueryWrapper<TaEquFaultEntity>().eq(StringUtils.isNotBlank(vo.getArea()), "area", vo.getArea())
@@ -48,8 +52,8 @@ public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFaultEn
 															.eq(StringUtils.isNotBlank(vo.getZone()), "zone", vo.getZone())
 															.eq(StringUtils.isNotBlank(vo.getStation()), "station", vo.getStation())
 															.eq(StringUtils.isNotBlank(vo.getJobId()), "jobId", vo.getJobId())
-															.ge(StringUtils.isNotNull(vo.getStartTime()), "start_Time", vo.getStartTime())
-															.le(StringUtils.isNotNull(vo.getEndTime()), "end_Time", vo.getEndTime()));
+															.ge(StringUtils.isNotNull(sTime), "start_Time", sTime)
+															.le(StringUtils.isNotNull(eTime), "end_Time", eTime));
 		
 		return new PageUtils(page);
 	}

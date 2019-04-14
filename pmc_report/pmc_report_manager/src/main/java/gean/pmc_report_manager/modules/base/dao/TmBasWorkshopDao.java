@@ -24,7 +24,5 @@ public interface TmBasWorkshopDao extends BaseMapper<TmBasWorkshopEntity> {
 	 * 查询所有
 	 * @return 集合
 	 */
-	@Transactional
-	@DataSource("slave1")
 	List<TmBasWorkshopEntity> queryAll();
 }

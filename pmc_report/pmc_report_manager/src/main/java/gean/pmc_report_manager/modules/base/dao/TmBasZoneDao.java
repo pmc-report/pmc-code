@@ -1,6 +1,6 @@
 package gean.pmc_report_manager.modules.base.dao;
 
-import gean.pmc_report_manager.modules.base.entity.TmBasUlocEntity;
+import gean.pmc_report_manager.modules.base.entity.TmBasZoneEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
@@ -8,18 +8,18 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * 工位信息
+ * ${comments}
  * 
- * @author Jason
+ * @author ''
  * @email xxxxx@gmail.com
- * @date 2019-03-22 09:54:06
+ * @date 2019-04-13 23:24:54
  */
 @Mapper
-public interface TmBasUlocDao extends BaseMapper<TmBasUlocEntity> {
+public interface TmBasZoneDao extends BaseMapper<TmBasZoneEntity> {
 	
 	/**
 	 * 根据产线查询所有
 	 * @return 集合
 	 */
-	List<TmBasUlocEntity> queryUlocByLine(String areaNo);
+	List<TmBasZoneEntity> queryZoneByLine(String areaNo);
 }
