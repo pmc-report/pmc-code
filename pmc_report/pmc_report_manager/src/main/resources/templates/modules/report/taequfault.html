@@ -35,37 +35,21 @@
 							<li>
 								<div class="layui-form-item">
 									<div class="layui-input-block">
-									    ZONE： <select id="zone_search" name="zone" lay-verify="required"></select>
+									    ZONE： <select id="zone_search" name="zone" lay-verify="required" onchange="selectZone()"></select>
 									</div>
 								 </div>
 							</li>
 							<li>
 								<div class="layui-form-item">
 									<div class="layui-input-block">
-									   	 工位： <select id="station_search" name="jobId" lay-verify="required">
-									   	 		<option>All</option>
-									   	 		<option>Z01-110</option>
-									   	 		<option>Z01-122</option>
-									   	 		<option>Z01-130</option>
-									   	 		<option>Z01-135</option>
-									   	 		<option>Z01-145</option>
-									   	 		<option>Z01-150</option>
-									   	 		<option>Z02-010</option>
-									   	 		<option>Z02-011RH</option>
-									   	 	</select>	
+									   	 工位： <select id="station_search" name="station" lay-verify="required" onchange="selectStation()"></select>	
 									</div>
 								 </div>
 							</li>
 							<li>
 								<div class="layui-form-item">
 									<div class="layui-input-block">
-									   	 设备： <select id="equ_search" name="jobId" lay-verify="required">
-										   	 		<option>All</option>
-										   	 		<option>025PutDown</option>
-										   	 		<option>015PutDown</option>
-										   	 		<option>010R1</option>
-										   	 		<option>010TurnTbale</option>
-									   	 		</select>
+									   	 设备： <select id="equ_search" name="jobId" lay-verify="required"></select>
 									</div>
 								 </div>
 							</li>

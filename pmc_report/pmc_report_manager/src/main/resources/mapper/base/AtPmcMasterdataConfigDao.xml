@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gean.pmc_report_manager.modules.base.dao.AtPmcMasterdataConfigDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="gean.pmc_report_manager.modules.base.entity.AtPmcMasterdataConfigEntity" id="atPmcMasterdataConfigMap">
+        <result property="atrKey" column="ATR_KEY"/>
+        <result property="siteNum" column="SITE_NUM"/>
+        <result property="atrName" column="ATR_NAME"/>
+        <result property="purgeStatus" column="PURGE_STATUS"/>
+        <result property="creationTime" column="CREATION_TIME"/>
+        <result property="creationTimeU" column="CREATION_TIME_U"/>
+        <result property="creationTimeZ" column="CREATION_TIME_Z"/>
+        <result property="lastModifiedTime" column="LAST_MODIFIED_TIME"/>
+        <result property="lastModifiedTimeU" column="LAST_MODIFIED_TIME_U"/>
+        <result property="lastModifiedTimeZ" column="LAST_MODIFIED_TIME_Z"/>
+        <result property="xfrInsertPid" column="XFR_INSERT_PID"/>
+        <result property="xfrUpdatePid" column="XFR_UPDATE_PID"/>
+        <result property="trxId" column="TRX_ID"/>
+        <result property="parentKey" column="PARENT_KEY"/>
+        <result property="designCycleTimeI" column="DESIGN_CYCLE_TIME_I"/>
+        <result property="eolFlagY" column="EOL_FLAG_Y"/>
+        <result property="equipmentS" column="EQUIPMENT_S"/>
+        <result property="facilityIdI" column="FACILITY_ID_I"/>
+        <result property="lineS" column="LINE_S"/>
+        <result property="shopS" column="SHOP_S"/>
+        <result property="stationS" column="STATION_S"/>
+        <result property="targetMtbfF" column="TARGET_MTBF_F"/>
+        <result property="targetTavF" column="TARGET_TAV_F"/>
+        <result property="tavPosI" column="TAV_POS_I"/>
+        <result property="tavStationI" column="TAV_STATION_I"/>
+        <result property="zoneS" column="ZONE_S"/>
+        <result property="productionFlagY" column="PRODUCTION_FLAG_Y"/>
+        <result property="equipmentTypeS" column="EQUIPMENT_TYPE_S"/>
+        <result property="standardCycleTimeI" column="STANDARD_CYCLE_TIME_I"/>
+        <result property="facilityDescS" column="FACILITY_DESC_S"/>
+        <result property="targetEquipmentOprF" column="TARGET_EQUIPMENT_OPR_F"/>
+        <result property="targetOeeF" column="TARGET_OEE_F"/>
+        <result property="targetProductionOprF" column="TARGET_PRODUCTION_OPR_F"/>
+        <result property="updateFlagI" column="UPDATE_FLAG_I"/>
+    </resultMap>
+
+	
+	<resultMap type="gean.pmc_report_manager.modules.report.vo.MasterDataVo" id="MasterDataVoMap">
+		<result property="equipmentNo" column="EQUIPMENT_S"/>
+        <result property="facilityId" column="FACILITY_ID_I"/>
+        <result property="lineNo" column="LINE_S"/>
+        <result property="shopNo" column="SHOP_S"/>
+        <result property="stationNo" column="STATION_S"/>
+        <result property="zoneNo" column="ZONE_S"/>
+        <result property="equipmentType" column="EQUIPMENT_TYPE_S"/>
+	</resultMap>
+
+	<sql id="conmmonSql_MasterData">
+		 FROM (SELECT  C.SHOP_S,
+				       C.LINE_S,
+				       C.STATION_S,
+				       C.ZONE_S,
+				       C.FACILITY_ID_I,
+				       C.EQUIPMENT_TYPE_S,
+				       C.EQUIPMENT_S
+  				FROM QMESAMS.AT_PMC_MASTERDATA_CONFIG C
+ 				WHERE C.SHOP_S IN ('CS01_BS3','CS01_BS','CS01_BS2','CS01_BS_E')) TB
+ 		WHERE 1 = 1
+	</sql>
+	
+	<select id="queryAllShop" resultMap="MasterDataVoMap">
+		SELECT DISTINCT TB.SHOP_S 
+		<include refid="conmmonSql_MasterData"/>
+	</select>
+	
+	<select id="queryAllLineForShop" parameterType="String" resultMap="MasterDataVoMap">
+		SELECT DISTINCT TB.LINE_S 
+		<include refid="conmmonSql_MasterData"/>
+		<if test="_parameter!=null and _parameter!=''">
+			and tb.shop_s=#{_parameter}
+		</if>
+	</select>
+	
+	<select id="queryAllZoneForLine" resultMap="MasterDataVoMap">
+		SELECT DISTINCT TB.ZONE_S 
+		<include refid="conmmonSql_MasterData"/>
+		<if test="shopNo!=null and shopNo!=''">
+			and tb.shop_s=#{shopNo}
+		</if>
+		<if test="lineNo!=null and lineNo!=''">
+			and tb.line_s=#{lineNo}
+		</if>
+	</select>
+	<select id="queryAllStationForZone" resultMap="MasterDataVoMap">
+		SELECT DISTINCT TB.STATION_S 
+		<include refid="conmmonSql_MasterData"/>
+		<if test="shopNo!=null and shopNo!=''">
+			and tb.shop_s=#{shopNo}
+		</if>
+		<if test="lineNo!=null and lineNo!=''">
+			and tb.line_s=#{lineNo}
+		</if>
+		<if test="zoneNo!=null and zoneNo!=''">
+			and tb.zone_s=#{zoneNo}
+		</if>
+	</select>
+	
+	<select id="queryEquipmentForStation" resultMap="MasterDataVoMap">
+		SELECT DISTINCT TB.EQUIPMENT_S 
+		<include refid="conmmonSql_MasterData"/>
+		<if test="shopNo!=null and shopNo!=''">
+			and tb.shop_s=#{shopNo}
+		</if>
+		<if test="lineNo!=null and lineNo!=''">
+			and tb.line_s=#{lineNo}
+		</if>
+		<if test="zoneNo!=null and zoneNo!=''">
+			and tb.zone_s=#{zoneNo}
+		</if>
+		<if test="stationNo!=null and stationNo!=''">
+			and tb.station_s=#{stationNo}
+		</if>
+	</select>
+	
+</mapper>

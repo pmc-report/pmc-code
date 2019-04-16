@@ -16,7 +16,9 @@ import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_common.common.utils.R;
 import gean.pmc_report_common.common.validator.ValidatorUtils;
 import gean.pmc_report_manager.modules.base.entity.TmBasLineEntity;
+import gean.pmc_report_manager.modules.base.service.AtPmcMasterdataConfigService;
 import gean.pmc_report_manager.modules.base.service.TmBasLineService;
+import gean.pmc_report_manager.modules.report.vo.MasterDataVo;
 
 
 
@@ -32,6 +34,9 @@ import gean.pmc_report_manager.modules.base.service.TmBasLineService;
 public class LineController {
     @Autowired
     private TmBasLineService tmBasLineService;
+    
+    @Autowired
+    private AtPmcMasterdataConfigService masterService;
 
     /**
      * 列表
@@ -95,7 +100,7 @@ public class LineController {
      */
     @RequestMapping("/findArea")
     public R queryLine(String shopNo) {
-    	List<TmBasLineEntity> list = tmBasLineService.queryLine(shopNo);
+    	List<MasterDataVo> list = masterService.queryMasterDataLine(shopNo);
     	
     	return R.ok().put("areaList", list);
     }

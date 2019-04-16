@@ -90,10 +90,10 @@ function isBlank(value) {
 }
 
 function isNull(val){
-	if(val==''||val==null){
-		return ''
+	if(val!=''&& val!=null){
+		return val
 	}
-	return val;
+	return '';
 }
 
 //校验 true：空   false:非空 值 
@@ -138,7 +138,7 @@ function initShopSelected(){
             var selectOption ='<option value="" selected="selected" style="display: none">请选择车间</option>';
             var list = data.shopList;
             $.each(list, function(i,shop) { 
-            	selectOption += '<option value="'+isNull(shop['shopNo'])+'">'+isNull(shop['shopNo']) + " - " +isNull(shop['shopName'])+"</option>";
+            	selectOption += '<option value="'+isNull(shop['shopNo'])+'">'+isNull(shop['shopNo']) + "</option>";
             });  
             $('#shop_search').html(selectOption);
             $('#shopNo').html(selectOption);
@@ -151,14 +151,22 @@ function initShopSelected(){
 	setCssById('area_search','background-color','#EEEEEE');
 	setPorpById('zone_search','disabled',true);
 	setCssById('zone_search','background-color','#EEEEEE');
+	setPorpById('station_search','disabled',true);
+	setCssById('station_search','background-color','#EEEEEE');
+	setPorpById('equ_search','disabled',true);
+	setCssById('equ_search','background-color','#EEEEEE');
+	setPorpById('jobId_search','disabled',true);
+	setCssById('jobId_search','background-color','#EEEEEE');
 }
 
 //shop下拉框改变事件
 function selectShop(){
-	var workshopNo = $("#shop_search").val();
-	if(workshopNo!=null && workshopNo!=''){
+	var workshopNo = $('#shop_search').val();
+	if(!isNullOrBlank(workshopNo)){
 		setPorpById('area_search','disabled',false);
 		setCssById('area_search','background-color','');
+		setPorpById('jobId_search','disabled',false);
+		setCssById('jobId_search','background-color','');
 		initAreaSelected(workshopNo);
 		initJobIdSelected(workshopNo);
 	}
@@ -179,7 +187,7 @@ function initAreaSelected(workshopNo){
             var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
             var list = data.areaList;
             $.each(list, function(i, area) { 
-           	 selectOption += '<option value="'+isNull(area['lineNo'])+'">'+isNull(area['lineNo']) /*+ " - " +isNull(area['LineName'])*/+"</option>";
+           	 selectOption += '<option value="'+isNull(area['lineNo'])+'">'+isNull(area['lineNo'])+"</option>";
             });  
             $('#area_search').html(selectOption);
             $('#areaNo').html(selectOption);
@@ -192,24 +200,25 @@ function initAreaSelected(workshopNo){
 
 //area框改变事件
 function selectArea(){
-	var workshopNo = $("#shop_search").val();
+	var workshopNo = $('#shop_search').val();
 	
-	if(workshopNo!=null && workshopNo!=''){
-		var areaNo = $("#area_search").val();
-		if(areaNo!=null && areaNo!=''){
+	if(!isNullOrBlank(workshopNo)){
+		var areaNo = $('#area_search').val();
+		if(!isNullOrBlank(areaNo)){
 			setPorpById('zone_search','disabled',false);
 			setCssById('zone_search','background-color','');
-			initZoneSelected(areaNo);
+			initZoneSelected(workshopNo,areaNo);
 		}
 	}
 }
 
 //初始化zone下拉框
-function initZoneSelected(areaNo){
+function initZoneSelected(workshopNo,areaNo){
 	$.ajax({ 
         type: 'post', 
         data:{ 
-        	lineNo : areaNo //车间
+        	shopNo : workshopNo,//车间
+        	lineNo : areaNo //区域
         },
         url: 'zone/findZone',
         cache: false,  
@@ -230,12 +239,99 @@ function initZoneSelected(areaNo){
       });
 }
 
+//zone下拉框改变事件
+function selectZone(){
+	var workshopNo = $('#shop_search').val();
+	var areaNo = $('#area_search').val();
+	var zoneNo = $('#zone_search').val();
+	if(!isNullOrBlank(workshopNo)
+			&&!isNullOrBlank(areaNo)
+				&&!isNullOrBlank(zoneNo)){
+		setPorpById('station_search','disabled',false);
+		setCssById('station_search','background-color','');
+		initStationSelected(workshopNo,areaNo,zoneNo);
+	}
+}
+
+//初始化工位下拉框
+function initStationSelected(workshopNo,areaNo,zoneNo){
+	$.ajax({ 
+        type: 'post', 
+        data:{ 
+        	shopNo : workshopNo,//车间
+        	lineNo : areaNo, //区域
+        	zoneNo : zoneNo //zone
+        },
+        url: 'zone/findStation',
+        cache: false,  
+        async : false,  //同步
+        dataType:'json', 
+        success: function (data) {
+            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
+            var list = data.stationList;
+            $.each(list, function(i, station) { 
+           	 selectOption += '<option value="'+isNull(station['stationNo'])+'">'+isNull(station['stationNo']) + "</option>";
+            });  
+            $('#station_search').html(selectOption);
+            $('#stationNo').html(selectOption);
+        },
+        error: function (data, XMLHttpRequest, textStatus, errorThrown) {
+        	bootbox.alert('data:'+typeof(data) +",XMLHttpRequest:"+XMLHttpRequest+",textStatus:"+textStatus+",errorThrown:"+errorThrown);
+        }
+      });
+}
+
+//工位下拉框改变事件
+function selectStation(){
+	var workshopNo = $('#shop_search').val();
+	var areaNo = $('#area_search').val();
+	var zoneNo = $('#zone_search').val();
+	var stationNo = $('#station_search').val();
+	if(workshopNo != null && workshopNo != ''
+			&& areaNo != null && areaNo != ''
+				&& zoneNo != null && zoneNo != ''
+					&& stationNo != null && stationNo != ''){
+		setPorpById('equ_search','disabled',false);
+		setCssById('equ_search','background-color','');
+		initEquipmentSelected(workshopNo,areaNo,zoneNo,stationNo);
+	}
+}
+
+//初始化设备下拉框
+function initEquipmentSelected(workshopNo,areaNo,zoneNo,stationNo){
+	$.ajax({ 
+        type: 'post', 
+        data:{ 
+        	shopNo : workshopNo,//车间
+        	lineNo : areaNo, //区域
+        	zoneNo : zoneNo, //zone
+        	stationNo : stationNo //工位
+        },
+        url: 'zone/findEqu',
+        cache: false,  
+        async : false,  //同步
+        dataType:'json', 
+        success: function (data) {
+            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
+            var list = data.equipmentList;
+            $.each(list, function(i, equipment) { 
+           	 selectOption += '<option value="'+isNull(equipment['equipmentNo'])+'">'+isNull(equipment['equipmentNo']) + "</option>";
+            });  
+            $('#equ_search').html(selectOption);
+            $('#equipmentNo').html(selectOption);
+        },
+        error: function (data, XMLHttpRequest, textStatus, errorThrown) {
+        	bootbox.alert('data:'+typeof(data) +",XMLHttpRequest:"+XMLHttpRequest+",textStatus:"+textStatus+",errorThrown:"+errorThrown);
+        }
+      });
+}
+
 //初始化JobID
 function initJobIdSelected(shopNo){
 	$.ajax({
 		type:'post',
 		data:{
-			workshopNo: shopNo
+			workshopNo: shopNo //车间
 		},
 		url:'model/findJobId',
 		cache: false,  
@@ -243,7 +339,7 @@ function initJobIdSelected(shopNo){
         dataType:'json', 
         success: function (data) {
         
-            var selectOption ='<option value="" selected="selected" style="display: none">NO JobID</option>';
+            var selectOption ='<option value="" selected="selected" style="display: none">No JobId</option>';
             var list = data;
             $.each(list, function(i, jobId) { 
            	 selectOption += '<option value="'+isNull(jobId['modelNo'])+'">'+isNull(jobId['modelNo'])+"</option>";
@@ -295,7 +391,7 @@ function shiftSelected(){
             var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
             var list = data.tmBasShift;//声明list接受后台返回的值  '.'后面是返回的controller中的list名
             $.each(list, function(i, shift) { //遍历list
-           	 selectOption += '<option value="'+isNull(shift['shiftNo'])+'">'+isNull(shift['shiftNo']) + ' - ' +isNull(shift['shiftDesc']) +"</option>";
+           	 selectOption += '<option value="'+isNull(shift['shiftNo'])+'">'+isNull(shift['shiftNo']) + "</option>";
             });  
             $('#shift_search').html(selectOption);//将前台id为frequency_search的内容替换成声明selectOption(重写)
             $('#value').html(selectOption);
@@ -393,6 +489,8 @@ function resetParam(){
 	$("#shop_search").val('');
 	$("#area_search").val('');
 	$("#zone_search").val('');
+	$("#station_search").val('');
+	$("#equ_search").val('');
 	$("#startTime").val('');
 	$("#endTime").val('');
 	$("#shift_search").val('');
@@ -402,6 +500,10 @@ function resetParam(){
 	setCssById('area_search','background-color','#EEEEEE');
 	setPorpById('zone_search','disabled',true);
 	setCssById('zone_search','background-color','#EEEEEE');
+	setPorpById('station_search','disabled',true);
+	setCssById('station_search','background-color','#EEEEEE');
+	setPorpById('equ_search','disabled',true);
+	setCssById('equ_search','background-color','#EEEEEE');
 	setPorpById('jobId_search','disabled',true);
 	setCssById('jobId_search','background-color','#EEEEEE');
 }

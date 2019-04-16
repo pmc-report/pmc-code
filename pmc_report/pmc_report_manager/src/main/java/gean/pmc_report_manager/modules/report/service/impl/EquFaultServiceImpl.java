@@ -51,7 +51,7 @@ public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFaultEn
 															.eq(StringUtils.isNotBlank(vo.getLine()), "line", vo.getLine())
 															.eq(StringUtils.isNotBlank(vo.getZone()), "zone", vo.getZone())
 															.eq(StringUtils.isNotBlank(vo.getStation()), "station", vo.getStation())
-															.eq(StringUtils.isNotBlank(vo.getJobId()), "jobId", vo.getJobId())
+															.eq(StringUtils.isNotBlank(vo.getJobId()), "job_id", vo.getJobId())
 															.ge(StringUtils.isNotNull(sTime), "start_Time", sTime)
 															.le(StringUtils.isNotNull(eTime), "end_Time", eTime));
 		

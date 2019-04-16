@@ -16,7 +16,9 @@ import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_common.common.utils.R;
 import gean.pmc_report_common.common.validator.ValidatorUtils;
 import gean.pmc_report_manager.modules.base.entity.TmBasWorkshopEntity;
+import gean.pmc_report_manager.modules.base.service.AtPmcMasterdataConfigService;
 import gean.pmc_report_manager.modules.base.service.TmBasWorkshopService;
+import gean.pmc_report_manager.modules.report.vo.MasterDataVo;
 
 
 
@@ -32,6 +34,9 @@ import gean.pmc_report_manager.modules.base.service.TmBasWorkshopService;
 public class WorkshopController {
     @Autowired
     private TmBasWorkshopService workshopService;
+    
+    @Autowired
+    private AtPmcMasterdataConfigService masterService;
 
     /**
      * 列表
@@ -95,7 +100,7 @@ public class WorkshopController {
      */
     @RequestMapping("/findAllShops")
     public R queryAll() {
-    	List<TmBasWorkshopEntity> list = workshopService.queryAllShop();
+    	List<MasterDataVo> list = masterService.queryMasterDataShop();
     	return R.ok().put("shopList", list);
     }
 

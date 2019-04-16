@@ -44,9 +44,9 @@ dynamic:
       #username: MES_RD_OL
       #password: MesReadOnly123
       driver-class-name: oracle.jdbc.OracleDriver
-      url: jdbc:oracle:thin:@172.17.96.250:1521/ORAESBP
-      username: PPSSIT
-      password: 5zC2ZQd98m4V
+      url: jdbc:oracle:thin:@172.17.97.23:1521/ORAMESQ
+      username: MES_RD_OL
+      password: MesReadOnly123
       validation-query: SELECT 1 FROM DUAL
 ##多数据源的配置，需要引用pmc_report_datasource
 #dynamic:
