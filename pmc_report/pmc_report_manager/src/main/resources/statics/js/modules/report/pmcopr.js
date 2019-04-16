@@ -174,34 +174,6 @@ function queryReport(tag,params){
     });
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 function imexport(){
 	var tableid = "jqGrid";

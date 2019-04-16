@@ -43,7 +43,7 @@
 								<div class="layui-form-item">
 									<div class="layui-input-block">
 									   	 工位： <select id="station_search" name="jobId" lay-verify="required">
-									   	 		<option>请选择工位</option>
+									   	 		<option>All</option>
 									   	 		<option>Z01-110</option>
 									   	 		<option>Z01-122</option>
 									   	 		<option>Z01-130</option>
@@ -59,8 +59,8 @@
 							<li>
 								<div class="layui-form-item">
 									<div class="layui-input-block">
-									   	 故障代码： <select id="equ_search" name="jobId" lay-verify="required">
-										   	 		<option>请选择故障代码</option>
+									   	 设备： <select id="equ_search" name="jobId" lay-verify="required">
+										   	 		<option>All</option>
 										   	 		<option>025PutDown</option>
 										   	 		<option>015PutDown</option>
 										   	 		<option>010R1</option>
@@ -86,7 +86,8 @@
 							<li>
 								<div class="layui-form-item">
 									<div class="layui-input-block">
-									   	 时间频率： <select id="frequency_search" name="frequency" lay-verify="required">
+									   <!-- 	 时间频率： <select id="frequency_search" name="frequency" lay-verify="required"> -->
+									   	班次： <select id="shift_search" name="shift" lay-verify="required">
 									   	 </select>
 									</div>
 								 </div>

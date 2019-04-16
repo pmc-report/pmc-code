@@ -3,7 +3,8 @@ $(function () {
 	//初始化工厂及下级
 	initShopSelected();	
 	//初始化时间频率
-	frequencySelected();
+//	frequencySelected();
+	shiftSelected();
 	//初始化表格
 	initTable();
 });
@@ -37,9 +38,10 @@ function initTable(url,queryParams){
           
     	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1}},
           { field: 'area', title: '区域', align: 'center', sortable:false },
+          { field: 'zone', title: '区', align: 'center', sortable:false }, 
           { field: 'station', title: '工位', align: 'center', sortable:false }, 
-          { field: 'facilityId', title: '设备编号', align: 'center', sortable: true, clickToSelect: false, sortName: "facilityId", order:"asc" },
-          { field: 'facilityTex', title: '设备描述', halign:'center' }, 
+          { field: 'facilityId', title: '设备号', align: 'center', sortable: true, clickToSelect: false, sortName: "facilityId", order:"asc" },
+          { field: 'facilityTex', title: '设备名称', halign:'center' }, 
           { field: 'jobId', title: '车型', align: 'center'}, 
           { field: 'faultWord1', title: 'Word1', align: 'center' },
           { field: 'faultWord2', title: 'Word2', align: 'center' }, 

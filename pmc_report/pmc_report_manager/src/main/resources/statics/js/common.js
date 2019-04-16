@@ -176,10 +176,10 @@ function initAreaSelected(workshopNo){
         async : false,  //同步
         dataType:'json', 
         success: function (data) {
-            var selectOption ='<option value="" selected="selected" style="display: none">请选择区域</option>';
+            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
             var list = data.areaList;
             $.each(list, function(i, area) { 
-           	 selectOption += '<option value="'+isNull(area['lineNo'])+'">'+isNull(area['lineNo']) + " - " +isNull(area['LineName'])+"</option>";
+           	 selectOption += '<option value="'+isNull(area['lineNo'])+'">'+isNull(area['lineNo']) /*+ " - " +isNull(area['LineName'])*/+"</option>";
             });  
             $('#area_search').html(selectOption);
             $('#areaNo').html(selectOption);
@@ -216,7 +216,7 @@ function initZoneSelected(areaNo){
         async : false,  //同步
         dataType:'json', 
         success: function (data) {
-            var selectOption ='<option value="" selected="selected" style="display: none">请选择ZONE</option>';
+            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
             var list = data.zoneList;
             $.each(list, function(i, zone) { 
            	 selectOption += '<option value="'+isNull(zone['zoneNo'])+'">'+isNull(zone['zoneNo']) + "</option>";
@@ -243,7 +243,7 @@ function initJobIdSelected(shopNo){
         dataType:'json', 
         success: function (data) {
         
-            var selectOption ='<option value="" selected="selected" style="display: none">请选择JobID</option>';
+            var selectOption ='<option value="" selected="selected" style="display: none">NO JobID</option>';
             var list = data;
             $.each(list, function(i, jobId) { 
            	 selectOption += '<option value="'+isNull(jobId['modelNo'])+'">'+isNull(jobId['modelNo'])+"</option>";
@@ -268,7 +268,7 @@ function frequencySelected(){
         async : false,  //同步
         dataType:'json', //返回的数据类型
         success: function (data) {//data为后台返回的参数
-            var selectOption ='<option value="" selected="selected" style="display: none">请选择</option>';
+            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
             var list = data.dict;//声明list接受后台返回的值
             $.each(list, function(i, frequency) { //遍历list
            	 selectOption += '<option value="'+isNull(frequency['value'])+'">'+isNull(frequency['value']) +"</option>";
@@ -292,7 +292,7 @@ function shiftSelected(){
         async : false,  //同步
         dataType:'json', //返回的数据类型
         success: function (data) {//data为后台返回的参数
-            var selectOption ='<option value="" selected="selected" style="display: none">请选择班次</option>';
+            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
             var list = data.tmBasShift;//声明list接受后台返回的值  '.'后面是返回的controller中的list名
             $.each(list, function(i, shift) { //遍历list
            	 selectOption += '<option value="'+isNull(shift['shiftNo'])+'">'+isNull(shift['shiftNo']) + ' - ' +isNull(shift['shiftDesc']) +"</option>";
