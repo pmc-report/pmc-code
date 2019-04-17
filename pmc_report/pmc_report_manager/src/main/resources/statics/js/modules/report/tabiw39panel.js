@@ -12,15 +12,15 @@ function initPreDownTime(params){
 	
 	var operateFormatter = function (value, row, index) {//赋予的参数
 		if(value != undefined){
-			var color = ' btn';
+			var color = 'style = "border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:12px;outline:none;"';
 			switch(value){
-				case 0 : color = 'style="background:red"';
+				case 0 : color = 'style="background:red;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:12px;outline:none;"';
 				 break;
-				case 1 : color = 'style="background:black"';
+				case 1 : color = 'style="background:black;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:12px;outline:none;"';
 				 break;
-				case 2 : color = 'style="background:yellow"';
+				case 2 : color = 'style="background:yellow;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:12px;outline:none;"';
 				 break;
-				case 3 : color = 'style="background:green"';
+				case 3 : color = 'style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:12px;outline:none;"';
 				 break;
 			}
 			return [ '<button type="button" class="btn btn-circle btn-lg" '+color+'></button>' ].join('');
@@ -119,15 +119,15 @@ function initOccTab(params){
 	
 	var operateFormatter = function (value, row, index) {//赋予的参数
 		if(value != undefined){
-			var color = ' btn';
+			var color = 'style = "border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:12px;outline:none;"';
 			switch(value){
-				case 0 : color = 'style="background:red"';
+				case 0 : color = 'style="background:red;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:12px;outline:none;"';
 				 break;
-				case 1 : color = 'style="background:black"';
+				case 1 : color = 'style="background:black;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:12px;outline:none;"';
 				 break;
-				case 2 : color = 'style="background:yellow"';
+				case 2 : color = 'style="background:yellow;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:12px;outline:none;"';
 				 break;
-				case 3 : color = 'style="background:green"';
+				case 3 : color = 'style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:12px;outline:none;"';
 				 break;
 			}
 			return [ '<button type="button" class="btn btn-circle btn-lg" '+color+'></button>' ].join('');
@@ -429,7 +429,8 @@ function echars(params){
 			                y:30,
 			                x2:50,
 			                y2:30,
-			                borderWidth:1
+			                borderWidth:1,
+			                bottom:'20%'
 			            },
 						title: {  
 	                        //主标题文本，'\n'指定换行  
@@ -488,14 +489,29 @@ function echars(params){
 				    xAxis: [
 				        {
 				            type: 'category',
-				            axisTick: {show: false},
+				            axisTick: {show: true},
 				            axisLabel :{
 				                interval:0,
-				                rotate:-30   //倾斜度
+				                //rotate:45,   //倾斜度
+				                fontSize:10
 				            },
 				            data: ['17/12','24/12','31/12','07/01','14/01','21/01','04/02','11/02','18/02','25/02','04/03','11/03','18/03','25/03','01/04','08/04','15/04','22/04']
 				          
 				        }
+				    ],
+				    dataZoom : [
+				    	{   //设置X轴拖动
+			                type: 'slider',
+			                show: true,
+			                start: 50,
+			                end: 0,
+			                top:'90%'
+			            },
+			            {  //设置图表里拖动
+			                type: 'inside',
+			                start: 0,
+			                end: 100
+			            },
 				    ],
 				    yAxis: [
 				        {
@@ -524,6 +540,9 @@ function echars(params){
         	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
 	        window.onresize = echart.resize;
 	        echart.setOption(option);
+	        window.addEventListener("resize",function(){
+	        	echart.resize();
+	        });
         }
 	});
 }
@@ -573,7 +592,8 @@ function echars1(params){
 			                y:30,
 			                x2:50,
 			                y2:30,
-			                borderWidth:1
+			                borderWidth:1,
+			                bottom:'20%'
 			            },
 						title: {  
 	                        //主标题文本，'\n'指定换行  
@@ -632,10 +652,11 @@ function echars1(params){
 				    xAxis: [
 				        {
 				            type: 'category',
-				            axisTick: {show: false},
+				            axisTick: {show: true},
 				            axisLabel :{
 				                interval:0,
-				                rotate:-30   
+				                //rotate:45,
+				                fontSize:10
 				            },
 				            data: ['17/12','24/12','31/12','07/01','14/01','21/01','04/02','11/02','18/02','25/02','04/03','11/03','18/03','25/03','01/04','08/04','15/04','22/04']
 				          
@@ -663,11 +684,28 @@ function echars1(params){
 				            data: ['101','101','171','151','174','101','0','171','15','94','141','151','71','15.1','13','131','91']
 				        },
 				       
+				    ],
+				    dataZoom : [
+				    	{   //设置X轴拖动
+			                type: 'slider',
+			                show: true,
+			                start: 50,
+			                end: 0,
+			                top:'90%'
+			            },
+			            {  //设置图表里拖动
+			                type: 'inside',
+			                start: 0,
+			                end: 100
+			            },
 				    ]
-				};
+        	};
         	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
 	        window.onresize = echart1.resize;
 	        echart1.setOption(option);
+	        window.addEventListener("resize",function(){
+	        	echart1.resize();
+	        });
         }
 	});
 }
@@ -718,8 +756,8 @@ function echars2(params){
 			                y:30,
 			                x2:50,
 			                y2:30,
-			                borderWidth:1
-			      
+			                borderWidth:1,
+			                bottom:'15%'
 			            },
 						title: {  
 	                        //主标题文本，'\n'指定换行  
@@ -779,9 +817,9 @@ function echars2(params){
 				    xAxis: [
 				        {
 				            type: 'category',
-				            axisTick: {show: false},
-				            data: ['8/11','10/11','10/11','15/11','19/11']
-				          
+				            axisTick: {show: true},
+				            data: ['8/11','10/11','10/11','15/11','19/11','23/11','25/11']
+				            
 				        }
 				    ],
 				    yAxis: [
@@ -799,13 +837,13 @@ function echars2(params){
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
-				            data: ['81.1','101.1','115.7','211','111']
+				            data: ['81.1','101.1','115.7','211','111','150','120']
 				        },
 				        {
 				            name: 'Target TAV',
 				            type: 'bar',
 				            label: labelOption,
-				            data: ['181','211','271','100','11']
+				            data: ['181','211','271','100','51','110','90']
 				        },
 				       
 				    ]
@@ -813,6 +851,9 @@ function echars2(params){
         	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
 	        window.onresize = echart2.resize;
 	        echart2.setOption(option);
+	        window.addEventListener("resize",function(){
+	        	echart2.resize();
+	        });
         }
 	});
 }
