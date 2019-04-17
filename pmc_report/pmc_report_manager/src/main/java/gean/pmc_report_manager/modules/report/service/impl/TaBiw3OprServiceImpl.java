@@ -41,7 +41,10 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 	public List<AreaOprVo> queryOprForArea(Map<String, Object> params) {
 		// TODO Auto-generated method stub
 		PageParamVo vo = new PageParamVo(params);
-		Timestamp sTime = new Timestamp(vo.getStartTime().getTime());
+		Timestamp sTime = null;
+		if(vo.getStartTime()!=null) {
+			sTime = new Timestamp(vo.getStartTime().getTime());
+		}
 		QueryWrapper<TaBiw3OprEntity> wrapper = new QueryWrapper<>();
 		wrapper.eq(StringUtils.isNotBlank(vo.getShop()),"shop", vo.getShop())
 				.eq(StringUtils.isNotBlank(vo.getArea()), "area",vo.getArea())

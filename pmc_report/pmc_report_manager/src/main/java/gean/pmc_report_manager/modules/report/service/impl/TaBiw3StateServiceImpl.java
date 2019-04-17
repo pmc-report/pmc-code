@@ -40,9 +40,14 @@ public class TaBiw3StateServiceImpl extends ServiceImpl<TaBiw3StateDao, TaBiw3St
     @Override
 	public List<ZoneOprVo> queryOprForZone(Map<String, Object> params) {
 		// TODO Auto-generated method stub
-		Date date = DateUtils.stringToDate(params.get("sTime").toString(),DateUtils.DATE_TIME_PATTERN);
-		String s_date = DateUtils.format(date, "yyyyMMdd");
-		Long workDay = Long.parseLong(s_date);
+    	
+    	Long workDay = 0l;
+    	if(params.get("sTime")!=null) {
+    		Date date = DateUtils.stringToDate(params.get("sTime").toString(),DateUtils.DATE_TIME_PATTERN);
+    		String s_date = DateUtils.format(date, "yyyyMMdd");
+    		workDay = Long.parseLong(s_date);
+    	}
+		
 		params.put("sTime", workDay);
 		List<TaBiw3StateEntity> zoneOprList = baseMapper.queryZoneOpr(params);
 		

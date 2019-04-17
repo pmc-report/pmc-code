@@ -5,27 +5,31 @@
 
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity" id="taEquFaultMap">
-        <result property="taEquFaultId" column="ta_equ_fault_id"/>
+        <result property="rowId" column="row_id"/>
+        <result property="dbTimeStamp" column="db_time_stamp"/>
+        <result property="shop" column="shop"/>
         <result property="area" column="area"/>
         <result property="zone" column="zone"/>
+        <result property="equipment" column="equipment"/>
+        <result property="facilityDesc" column="facility_desc"/>
         <result property="station" column="station"/>
         <result property="facilityId" column="facility_id"/>
-        <result property="facilityTex" column="facility_tex"/>
         <result property="jobId" column="job_id"/>
-        <result property="faultWord1" column="fault_word1"/>
-        <result property="faultWord2" column="fault_word2"/>
-        <result property="faultWord3" column="fault_word3"/>
-        <result property="word31" column="word31"/>
-        <result property="faultDesc" column="fault_desc"/>
-        <result property="reasonCode" column="reason_code"/>
-        <result property="reasonDesc" column="reason_desc"/>
         <result property="startTime" column="start_time"/>
         <result property="endTime" column="end_time"/>
         <result property="duration" column="duration"/>
-        <result property="lastUpdateTime" column="last_update_time"/>
-        <result property="lastUpdateUsername" column="last_update_username"/>
-        <result property="optCounter" column="opt_counter"/>
+        <result property="faultWord1" column="fault_word1"/>
+        <result property="faultWord2" column="fault_word2"/>
+        <result property="faultWord3" column="fault_word3"/>
+        <result property="faultDescription" column="fault_description"/>
+        <result property="reasonCode" column="reason_code"/>
+        <result property="reasonDescription" column="reason_description"/>
+        <result property="shift" column="shift"/>
+        <result property="tavFlag" column="tav_flag"/>
+        <result property="posWord31" column="pos_word31"/>
+        <result property="historical" column="historical"/>
+        <result property="processedFlag" column="processed_flag"/>
+        <result property="workDay" column="work_day"/>
     </resultMap>
-
 
 </mapper>

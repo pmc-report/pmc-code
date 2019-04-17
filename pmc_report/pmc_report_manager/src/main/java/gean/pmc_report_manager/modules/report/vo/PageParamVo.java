@@ -19,11 +19,13 @@ public class PageParamVo {
 	private Date endTime;
 	private String area;
 	private String jobId;
+	private String equipment;
 
 	public PageParamVo(Map<String, Object> params) {
 		shop = (String)params.get("shop")==null?"":(String)params.get("shop");
 		line = (String)params.get("line")==null?"":(String)params.get("line");
 		zone = (String)params.get("zone")==null?"":(String)params.get("zone");
+		equipment = (String)params.get("equipment")==null?"":(String)params.get("equipment");
 		station = (String)params.get("station")==null?"":(String)params.get("station");
 		frequency = (String)params.get("frequency")==null?"":(String)params.get("frequency");
 		shift = (String)params.get("shift")==null?"":(String)params.get("shift");

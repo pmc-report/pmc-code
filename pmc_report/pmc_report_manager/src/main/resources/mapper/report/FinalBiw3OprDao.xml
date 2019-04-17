@@ -31,6 +31,5 @@
         <result property="facilityId" column="facility_id"/>
         <result property="downtime" column="downtime"/>
     </resultMap>
-
-
+    
 </mapper>

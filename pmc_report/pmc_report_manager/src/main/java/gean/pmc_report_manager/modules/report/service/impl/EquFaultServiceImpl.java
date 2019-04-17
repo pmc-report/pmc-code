@@ -47,10 +47,13 @@ public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFaultEn
 		}
 		IPage<TaEquFaultEntity> page = 
 				this.page( new Query<TaEquFaultEntity>().getPage(params),
-						new QueryWrapper<TaEquFaultEntity>().eq(StringUtils.isNotBlank(vo.getArea()), "area", vo.getArea())
+						new QueryWrapper<TaEquFaultEntity>().eq(StringUtils.isNotBlank(vo.getShop()), "shop", vo.getShop())
+															.eq(StringUtils.isNotBlank(vo.getArea()), "area", vo.getArea())
 															.eq(StringUtils.isNotBlank(vo.getLine()), "line", vo.getLine())
 															.eq(StringUtils.isNotBlank(vo.getZone()), "zone", vo.getZone())
 															.eq(StringUtils.isNotBlank(vo.getStation()), "station", vo.getStation())
+															.eq(StringUtils.isNotBlank(vo.getEquipment()), "equipment", vo.getEquipment())
+															.eq(StringUtils.isNotBlank(vo.getShift()), "station", vo.getShift())
 															.eq(StringUtils.isNotBlank(vo.getJobId()), "job_id", vo.getJobId())
 															.ge(StringUtils.isNotNull(sTime), "start_Time", sTime)
 															.le(StringUtils.isNotNull(eTime), "end_Time", eTime));

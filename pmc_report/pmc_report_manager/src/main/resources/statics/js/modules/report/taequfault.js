@@ -19,7 +19,7 @@ function queryReport(tag,params){
 }
 
 function initTable(url,queryParams){
-	//console.log(queryParams);
+	console.log(queryParams);
 	
 	var responseHandler = function (e) {
 	      //console.log(e);
@@ -38,18 +38,18 @@ function initTable(url,queryParams){
           
     	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1}},
           { field: 'area', title: '区域', align: 'center', sortable:false },
-          { field: 'zone', title: '区', align: 'center', sortable:false }, 
+          { field: 'zone', title: 'Zone', align: 'center', sortable:false }, 
           { field: 'station', title: '工位', align: 'center', sortable:false }, 
           { field: 'facilityId', title: '设备号', align: 'center', sortable: true, clickToSelect: false, sortName: "facilityId", order:"asc" },
-          { field: 'facilityTex', title: '设备名称', halign:'center' }, 
+          { field: 'facilityDesc', title: '设备名称', halign:'center' }, 
           { field: 'jobId', title: '车型', align: 'center'}, 
           { field: 'faultWord1', title: 'Word1', align: 'center' },
           { field: 'faultWord2', title: 'Word2', align: 'center' }, 
           { field: 'faultWord3', title: 'Word3', align: 'center' }, 
           { field: 'word31', title: 'Word31', align: 'center' },
-          { field: 'faultDesc', title: '故障描述', align: 'center' }, 
+          { field: 'faultDescription', title: '故障描述', align: 'center' }, 
           { field: 'reasonCode', title: '原因代码', align: 'center' },
-          { field: 'reasonDesc', title: '原因描述', align: 'center' },
+          { field: 'reasonDescription', title: '原因描述', align: 'center' },
           { field: 'startTime', title: '开始时间', align: 'center', width: 90 },
           { field: 'endTime', title: '结束时间', align: 'center', width: 90 }, 
           { field: 'duration', title: '持续时间', align: 'center' }
@@ -108,12 +108,13 @@ function initTable(url,queryParams){
 	            	area : queryParams.area,
 					zone : queryParams.zone,
 					eTime: queryParams.eTime,
-					frequency: queryParams.frequency,
 					sTime: queryParams.sTime,
 					shift: queryParams.shift,
 					shop: queryParams.shop,
 					zone: queryParams.zone,
-					jobId : queryParams.jobId
+					jobId : queryParams.jobId,
+					station : queryParams.station,
+					equipment : queryParams.equipment
 		      	}
 		  },
 	      exportOptions : {  

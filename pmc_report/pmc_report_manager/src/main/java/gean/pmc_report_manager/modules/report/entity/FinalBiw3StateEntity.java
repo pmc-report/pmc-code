@@ -9,13 +9,13 @@ import java.util.Date;
 
 /**
  * 
- * @author Jason
+ * @author ''
  * @email xxxxx@gmail.com
- * @date 2019-03-30 09:27:53
+ * @date 2019-04-17 21:02:05
  */
 @Data
-@TableName("Final_BIW3_FAULT")
-public class TaEquFaultEntity implements Serializable {
+@TableName("Final_BIW3_STATE")
+public class FinalBiw3StateEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -74,27 +74,11 @@ public class TaEquFaultEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private Integer faultWord1;
+	private String state;
 	/**
 	 * $column.comments
 	 */
-	private Integer faultWord2;
-	/**
-	 * $column.comments
-	 */
-	private Integer faultWord3;
-	/**
-	 * $column.comments
-	 */
-	private String faultDescription;
-	/**
-	 * $column.comments
-	 */
-	private Integer reasonCode;
-	/**
-	 * $column.comments
-	 */
-	private String reasonDescription;
+	private Integer designCycleTime;
 	/**
 	 * $column.comments
 	 */
@@ -103,10 +87,6 @@ public class TaEquFaultEntity implements Serializable {
 	 * $column.comments
 	 */
 	private Boolean tavFlag;
-	/**
-	 * $column.comments
-	 */
-	private Integer posWord31;
 	/**
 	 * $column.comments
 	 */
@@ -119,4 +99,5 @@ public class TaEquFaultEntity implements Serializable {
 	 * $column.comments
 	 */
 	private Long workDay;
+
 }

@@ -41,6 +41,7 @@ public class TaBiw39panelController {
     
     @RequestMapping("/listPrePanel")
     public Object listPrePanel(Map<String,Object> form) {
+    	//假数据
         int totalCount = 10;
         if(totalCount > 0){
             List<PanelVo> user = new ArrayList<>();
@@ -56,6 +57,7 @@ public class TaBiw39panelController {
             	vo.setStatus((int)(0+Math.random()*(5-1+1)));
             	user.add(vo);
             }
+            /////////////
             return new PageUtils(user, totalCount, totalCount, 0);
         }
         return null;
@@ -63,6 +65,7 @@ public class TaBiw39panelController {
     
     @RequestMapping("/listCurrPanel")
     public Object listCurrPanel(Map<String,Object> form) {
+    	//假数据 
         int totalCount = 10;
         if(totalCount > 0){
             List<PanelVo> user = new ArrayList<>();
@@ -75,6 +78,7 @@ public class TaBiw39panelController {
             	vo.setStn((int)(100+Math.random()*(2000-1+1)));
             	user.add(vo);
             }
+            ///////////
             return new PageUtils(user, totalCount, totalCount, 0);
         }
         return null;

@@ -465,7 +465,9 @@ function getParams(){
 		eTime : $("#endTime").val(),
 		shift : $("#shift_search").val(),
 		frequency : $("#frequency_search").val(),
-		jobId : $("#jobId_search").val()
+		jobId : $("#jobId_search").val(),
+		equipment : $('#equ_search').val(),
+		station : $('#station_search').val()
 	}
 	return params;
 	
