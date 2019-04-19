@@ -113,27 +113,36 @@
 		<div id="result" class="panel-collapse collapse in">
 			<div class="panel-body">
 				<div>
-					<div style="display: inline-block;padding: 10px">
-						<table id="preDownTime"></table>
-						
+					<div>
+						<table id="preDownTime" style="border: 1px solid"></table>
 					</div>
-					<div style="display: inline-block;padding: 10px">
-						<table id="preOcc"></table>
+					<div style="padding-top: 3px">
+						<table id="preOcc" style="border: 1px solid"></table>
 					</div>
 				</div>
-				<div>
-					<div style="display: inline-block;padding: 10px;width: 45%">
-						<table id="currDownTime"></table>
-						
+				<!-- <div>
+					<div>
+						<table id="preOcc" style="border: 1px solid"></table>
 					</div>
-					<div style="display: inline-block;padding: 10px;width: 45%">
+					<div style="display: inline-block;padding: 1px;">
+						<table id="rootCauseOcc"></table>
+					</div>
+					<div style="display: inline-block;padding: 1px;">
 						<table id="currOcc"></table>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
-	
+	 <div style = "display : block">
+		<form id="fromexport"  method="post" onsubmit="return report()">
+			<input type = "hidden" name = "echarepxport" id = "echarepxport" value =""/>
+			<input type = "hidden" name = "echarepxport1" id = "echarepxport1" value =""/>
+			<input type = "hidden" name = "echarepxport2" id = "echarepxport2" value =""/>
+			<input type = "submit" value = "导出"/>		
+		</form>	
+		<!-- <button type = "button" onclick = "report()">导出</button> -->
+	</div> 
 	
 <script src="${request.contextPath}/statics/js/modules/report/tabiw39panel.js?_${.now?long}"></script>
 </body>
