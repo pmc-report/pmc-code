@@ -9,7 +9,6 @@ $(function () {
 });
 
 function initPreDownTime(params){ 
-	
 	var operateFormatter = function (value, row, index) {//赋予的参数
 		if(value != undefined){
 			var color = 'style = "border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:12px;outline:none;"';
@@ -54,7 +53,7 @@ function initPreDownTime(params){
 		//pageSize: 10,   //每页的记录行数（*）
 		//pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
 		search: false, //显示搜索框
-		showFooter: true,
+		showFooter: true,  //显示底部栏
 		sidePagination: "server", //服务端处理分页
 		responseHandler: responseHandler,
 		 columns: [
@@ -100,8 +99,9 @@ function initPreDownTime(params){
 				  title: 'Status',
 				  align: 'center',
 		          valign: 'middle',
-		          formatter: operateFormatter //自定义方法，添加操作按钮
+		          formatter: operateFormatter, //自定义方法，添加操作按钮
 				 }]
+				
 		],
 		 queryParams : function queryParams(params) {
 	            var param = {
@@ -419,7 +419,7 @@ function echars(params){
 	};
 	$.ajax({
         type: "post",
-        url: baseURL + 'report/pmcopr/oprTest',
+        url: baseURL + 'modules/report/panel/panelTest',
         data: '',
         dataType: "json",
         success: function(data){
@@ -582,7 +582,7 @@ function echars1(params){
 	};
 	$.ajax({
         type: "post",
-        url: baseURL + 'report/pmcopr/oprTest',
+        url: baseURL + 'modules/report/panel/panelTest',
         data: '',
         dataType: "json",
         success: function(data){
@@ -746,7 +746,7 @@ function echars2(params){
 	};
 	$.ajax({
         type: "post",
-        url: baseURL + 'report/pmcopr/oprTest',
+        url: baseURL + 'modules/report/panel/panelTest',
         data: '',
         dataType: "json",
         success: function(data){
@@ -856,4 +856,40 @@ function echars2(params){
 	        });
         }
 	});
+}
+
+function report() {
+	
+	var image = new Image();
+	var image1 = new Image();
+	var image2 = new Image();
+	
+	image.src = echart.getDataURL({
+		type:"png",
+        pixelRatio: 2,
+        backgroundColor: '#fff'
+	});
+	image1.src = echart1.getDataURL({
+		type:"png",
+        pixelRatio: 2,
+        backgroundColor: '#fff'
+	});
+	image2.src = echart2.getDataURL({
+		type:"png",
+        pixelRatio: 2,
+        backgroundColor: '#fff'
+	});
+	
+	// console.log(image.src);
+	// console.log(image1.src);
+	// console.log(image2.src);
+	var echarepxport = image.src.replace("data:image/png;base64,", "");
+	var echarepxport1 = image1.src.replace("data:image/png;base64,", "");
+	var echarepxport2 = image2.src.replace("data:image/png;base64,", "");
+	document.getElementById("echarepxport").value = echarepxport;
+	document.getElementById("echarepxport1").value = echarepxport1;
+	document.getElementById("echarepxport2").value = echarepxport2;
+	document.getElementById("fromexport").action = baseURL +'modules/report/panel/report';
+	// console.log(document.getElementById("fromexport").action);
+	return true;
 }

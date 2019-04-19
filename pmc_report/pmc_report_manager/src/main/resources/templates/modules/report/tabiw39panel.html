@@ -133,7 +133,15 @@
 			</div>
 		</div>
 	</div>
-	
+	 <div style = "display : block">
+		<form id="fromexport"  method="post" onsubmit="return report()">
+			<input type = "hidden" name = "echarepxport" id = "echarepxport" value =""/>
+			<input type = "hidden" name = "echarepxport1" id = "echarepxport1" value =""/>
+			<input type = "hidden" name = "echarepxport2" id = "echarepxport2" value =""/>
+			<input type = "submit" value = "导出"/>		
+		</form>	
+		<!-- <button type = "button" onclick = "report()">导出</button> -->
+	</div> 
 	
 <script src="${request.contextPath}/statics/js/modules/report/tabiw39panel.js?_${.now?long}"></script>
 </body>
