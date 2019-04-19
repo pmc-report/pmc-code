@@ -43,7 +43,7 @@ public class TaBiw3StateServiceImpl extends ServiceImpl<TaBiw3StateDao, TaBiw3St
     	
     	Long workDay = 0l;
     	if(params.get("sTime")!=null) {
-    		Date date = DateUtils.stringToDate(params.get("sTime").toString(),DateUtils.DATE_TIME_PATTERN);
+    		Date date = DateUtils.stringToDate(params.get("sTime").toString(),DateUtils.DATE_PATTERN);
     		String s_date = DateUtils.format(date, "yyyyMMdd");
     		workDay = Long.parseLong(s_date);
     	}

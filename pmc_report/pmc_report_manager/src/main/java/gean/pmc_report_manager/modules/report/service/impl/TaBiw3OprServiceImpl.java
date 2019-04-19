@@ -1,9 +1,6 @@
 package gean.pmc_report_manager.modules.report.service.impl;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +10,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import gean.pmc_report_common.common.utils.DateUtils;
 import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_common.common.utils.StringUtils;
 import gean.pmc_report_manager.common.utils.Query;
@@ -22,6 +18,7 @@ import gean.pmc_report_manager.modules.report.entity.TaBiw3OprEntity;
 import gean.pmc_report_manager.modules.report.service.TaBiw3OprService;
 import gean.pmc_report_manager.modules.report.vo.AreaOprVo;
 import gean.pmc_report_manager.modules.report.vo.PageParamVo;
+import gean.pmc_report_manager.modules.report.vo.ZoneOprVo;
 
 
 @Service("taBiw3OprService")
@@ -41,21 +38,20 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 	public List<AreaOprVo> queryOprForArea(Map<String, Object> params) {
 		// TODO Auto-generated method stub
 		PageParamVo vo = new PageParamVo(params);
-		Timestamp sTime = null;
-		if(vo.getStartTime()!=null) {
-			sTime = new Timestamp(vo.getStartTime().getTime());
-		}
-		QueryWrapper<TaBiw3OprEntity> wrapper = new QueryWrapper<>();
-		wrapper.eq(StringUtils.isNotBlank(vo.getShop()),"shop", vo.getShop())
-				.eq(StringUtils.isNotBlank(vo.getArea()), "area",vo.getArea())
-				.eq(StringUtils.isNotBlank(vo.getShift()),"shift", vo.getShift())
-				.eq("work_day", sTime);
-		List<TaBiw3OprEntity> areaOprList = this.list(wrapper);
+		
+		List<TaBiw3OprEntity> areaOprList = baseMapper.qureyOPRList(vo);
 		
 		List<AreaOprVo> aOprList = new ArrayList<>();
-		
+		List<ZoneOprVo> zOprList = new ArrayList<>();
 		if(!StringUtils.isEmpty(areaOprList)) {
 			for(TaBiw3OprEntity en : areaOprList) {
+				if("zone".equals(en.getOprLevel())) {
+					ZoneOprVo zvo = new ZoneOprVo();
+					zvo.setZone(en.getZone());
+					zvo.setEquipmentOpr(en.getActualEquipmentOpr());
+					zvo.setProductionOpr(en.getActualProductionOpr());
+					zOprList.add(zvo);
+				}
 				AreaOprVo avo = new AreaOprVo();
 				avo.setActual(196);
 				avo.setArea(en.getArea());
@@ -64,6 +60,7 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 				avo.setShiftPlan(en.getTargetProductionOpr());
 				avo.setVariation(0);
 				avo.setZone(en.getZone());
+				avo.setZoneList(zOprList);
 				aOprList.add(avo);
 			}
 			return aOprList;

@@ -402,6 +402,21 @@ function shiftSelected(){
       });
 }
 
+function selectDate(){
+	layui.use('laydate', function() {
+		 var laydate = layui.laydate;
+		 
+		 var startDate = laydate.render({
+			  elem: '#startTime',
+			  trigger: 'click',
+			  format: 'yyyy-MM-dd',
+			  theme: 'molv',
+			  value: new Date()
+		 });
+	});
+	
+}
+
 //初始化时间选择
 function selectTime() {
 	layui.use('laydate', function() {
@@ -411,21 +426,23 @@ function selectTime() {
 	        max: $('#endTime').val(),
 	        theme: 'molv',
 	        trigger: 'click',
-	        type: 'datetime',
-	        format: 'yyyy-MM-dd HH:mm:ss',
-	        istime: true, //是否开启时间选择
+	        //type: 'datetime',
+	        type: 'date',
+	        //format: 'yyyy-MM-dd HH:mm:ss',
+	        format: 'yyyy-MM-dd',
+	        istime: false, //是否开启时间选择
 	        done: function(value, date) {
 	            // 结束时间大于开始时间
 	            if (value !== '') {
 	                endDate.config.min.year = date.year;
 	                endDate.config.min.month = date.month - 1;
 	                endDate.config.min.date = date.date;
-	                endDate.config.min.time = date.time;
+	                //endDate.config.min.time = date.time;
 	            } else {
 	                endDate.config.min.year = '';
 	                endDate.config.min.month = '';
 	                endDate.config.min.date = '';
-	                endDate.config.min.time = '';
+	                //endDate.config.min.time = '';
 	            }
 	        }
 	    });
@@ -434,21 +451,23 @@ function selectTime() {
 	        min: $('#startTime').val(),
 	        theme: 'molv',
 	        trigger: 'click',
-	        type: 'datetime',
-	        format: 'yyyy-MM-dd HH:mm:ss',
-	        istime: true, //是否开启时间选择
+	        //type: 'datetime',
+	        type: 'date',
+	        //format: 'yyyy-MM-dd HH:mm:ss',
+	        format: 'yyyy-MM-dd',
+	        istime: false, //是否开启时间选择
 	        done: function(value, date) {
 	            // 开始时间小于结束时间
 	            if (value !== '') {
 	                startDate.config.max.year = date.year;
 	                startDate.config.max.month = date.month - 1;
 	                startDate.config.max.date = date.date;
-	                startDate.config.max.time = date.time;
+	                //startDate.config.max.time = date.time;
 	            } else {
 	                startDate.config.max.year = '';
 	                startDate.config.max.month = '';
 	                startDate.config.max.date = '';
-	                startDate.config.max.time = '';
+	                //startDate.config.max.time = '';
 	            }
 	        }
 	    });

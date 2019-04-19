@@ -1,8 +1,13 @@
 package gean.pmc_report_manager.modules.report.dao;
 
-import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
+import gean.pmc_report_manager.modules.report.vo.PageParamVo;
 
 /**
  * ${comments}
@@ -13,5 +18,7 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface TaEquFaultDao extends BaseMapper<TaEquFaultEntity> {
+	
+	List<TaEquFaultEntity> qureyFualtList(PageParamVo vo);
 	
 }

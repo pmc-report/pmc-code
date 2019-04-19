@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="gean.pmc_report_manager.modules.report.dao.FinalBiw3OprDao">
+<mapper namespace="gean.pmc_report_manager.modules.report.dao.TaBiw3OprDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="gean.pmc_report_manager.modules.report.entity.FinalBiw3OprEntity" id="finalBiw3OprMap">
+    <resultMap type="gean.pmc_report_manager.modules.report.entity.TaBiw3OprEntity" id="taBiw3OprMap">
         <result property="rowId" column="row_id"/>
         <result property="dbTimeStamp" column="db_time_stamp"/>
         <result property="shop" column="shop"/>
@@ -32,4 +32,22 @@
         <result property="downtime" column="downtime"/>
     </resultMap>
     
+    <sql id="common_sql">
+    	select * from BIW3.dbo.Final_BIW3_OPR o where 1 = 1
+    </sql>
+    <select id="qureyOPRList" resultMap="taBiw3OprMap">
+    	<include refid="common_sql"/>
+    	<if test="shop!=null and shop!=''">
+    		AND shop  = #{shop}
+    	</if>
+    	<if test="area!=null and area!=''">
+			AND area = #{area}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift = #{shift}
+		</if>
+		<if test="startTime!=null">
+			AND work_day = CONVERT(datetime2,#{startTime},121)
+		</if>
+    </select>
 </mapper>

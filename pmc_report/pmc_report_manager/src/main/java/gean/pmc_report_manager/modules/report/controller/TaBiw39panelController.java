@@ -1,9 +1,14 @@
 package gean.pmc_report_manager.modules.report.controller;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import gean.pmc_report_common.common.validator.ValidatorUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -14,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mysql.fabric.xmlrpc.base.Array;
-
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 import gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity;
 import gean.pmc_report_manager.modules.report.service.TaBiw39panelService;
 import gean.pmc_report_manager.modules.report.vo.PanelVo;
@@ -140,5 +145,83 @@ public class TaBiw39panelController {
 
         return R.ok();
     }
+    
+    /**
+     * 测试用
+     */
+    @RequestMapping("/panelTest")
+    public R panelTest() {
+    	return R.ok();
+    }
+    
+    /**
+     * 导出echarts图表
+     * @param request
+     * @param response
+     * @param params
+     * @throws Exception
+     */
+    @RequestMapping("/report")
+    public void index(HttpServletRequest request,HttpServletResponse response,
+			@RequestParam Map<String, Object> params) throws Exception {
+    	
+		// String realPath=request.getServletContext().getRealPath("pmc_report_manager"); //得到项目的绝对路径
+		// System.out.println(realPath);
+		// String tagertFile = "d:/Test/word.doc"; //word模板的目录
+
+		String tagertFile = "src/main/java/gean/pmc_report_manager/modules/report/controller/exportModel/word.doc";
+		// String sourceFile = "d:/Test"; //word生成的目标目录
+		Configuration configuration = new Configuration();
+		configuration.setDefaultEncoding("utf-8");
+		// configuration.setDirectoryForTemplateLoading(new File(sourceFile));   //根据绝对路径加载文件
+		//System.out.println(this.getClass());
+		configuration.setClassForTemplateLoading(this.getClass(), "exportModel"); // 获取需要加载文件的相对路径 只到上级包
+
+		Writer writer = new OutputStreamWriter(new FileOutputStream(new File(tagertFile)), "utf-8");
+		Template template = configuration.getTemplate("word.xml");
+		Map<String, String> map = new HashMap<>();
+		for (String str : params.keySet()) {
+			map.put(str, params.get(str) == null ? null : params.get(str).toString());
+		}
+		// map.put("data", data);
+		template.process(map, writer);
+		writer.close();
+
+		File file = new File(tagertFile);
+		if (file.exists()) {
+			response.setContentType("application/force-download");// 设置强制下载不打开            
+			response.addHeader("Content-Disposition", "attachment;fileName=" + "word.doc");
+			byte[] buffer = new byte[102400];
+			FileInputStream fis = null;
+			BufferedInputStream bis = null;
+			try {
+				fis = new FileInputStream(file);
+				bis = new BufferedInputStream(fis);
+				OutputStream outputStream = response.getOutputStream();
+				int i = bis.read(buffer);
+				while (i != -1) {
+					outputStream.write(buffer, 0, i);
+					i = bis.read(buffer);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (bis != null) {
+					try {
+						bis.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				if (fis != null) {
+					try {
+						fis.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
 
 }

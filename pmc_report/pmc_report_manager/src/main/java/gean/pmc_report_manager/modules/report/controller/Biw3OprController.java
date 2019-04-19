@@ -17,9 +17,7 @@ import gean.pmc_report_common.common.utils.R;
 import gean.pmc_report_common.common.validator.ValidatorUtils;
 import gean.pmc_report_manager.modules.report.entity.TaBiw3OprEntity;
 import gean.pmc_report_manager.modules.report.service.TaBiw3OprService;
-import gean.pmc_report_manager.modules.report.service.TaBiw3StateService;
 import gean.pmc_report_manager.modules.report.vo.AreaOprVo;
-import gean.pmc_report_manager.modules.report.vo.ZoneOprVo;
 
 
 
@@ -35,11 +33,7 @@ import gean.pmc_report_manager.modules.report.vo.ZoneOprVo;
 public class Biw3OprController {
     @Autowired
     private TaBiw3OprService oprService;
-    
-    @Autowired
-    private TaBiw3StateService stateService;
-    
-    
+       
     
     /**
      * 表格
@@ -48,8 +42,7 @@ public class Biw3OprController {
     @RequiresPermissions("report:biw3opr:list")
     public R queryList(@RequestParam Map<String, Object> params){
     	List<AreaOprVo> areaList = oprService.queryOprForArea(params);
-    	List<ZoneOprVo> zoneList = stateService.queryOprForZone(params);
-        return R.ok().put("areaList", areaList).put("zoneList", zoneList);
+        return R.ok().put("areaList", areaList).put("zoneList", areaList.get(0).getZoneList());
     }
 
     /**

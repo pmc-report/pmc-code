@@ -14,89 +14,90 @@ import java.util.Date;
  * @date 2019-04-10 13:54:04
  */
 @Data
-@TableName("TA_BIW3_OPR")
+@TableName("Final_BIW3_OPR")
 public class TaBiw3OprEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+
 	/**
-	 * id
+	 * $column.comments
 	 */
 	@TableId
-	private Integer taBiw3OprId;
+	private Integer rowId;
 	/**
-	 * 创建时间
+	 * $column.comments
 	 */
-	private Date createTime;
+	private Date dbTimeStamp;
 	/**
-	 * 车间
+	 * $column.comments
 	 */
 	private String shop;
 	/**
-	 * 区域
+	 * $column.comments
 	 */
 	private String area;
 	/**
-	 * zone
+	 * $column.comments
 	 */
 	private String zone;
 	/**
-	 * 设备
+	 * $column.comments
 	 */
 	private String equipment;
 	/**
-	 * 设备ID
+	 * $column.comments
 	 */
 	private String facilityDesc;
 	/**
-	 * 站点
+	 * $column.comments
 	 */
 	private String station;
 	/**
-	 * 车型
+	 * $column.comments
 	 */
 	private String jobId;
 	/**
-	 * 开始时间
+	 * $column.comments
 	 */
 	private Date startTime;
 	/**
-	 * 结束时间
+	 * $column.comments
 	 */
 	private Date endTime;
 	/**
-	 * 持续时间
+	 * $column.comments
 	 */
 	private Integer duration;
 	/**
-	 * 实际设备opr
+	 * $column.comments
 	 */
 	private Float actualEquipmentOpr;
 	/**
-	 * 实际生产opr
+	 * $column.comments
 	 */
 	private Float actualProductionOpr;
 	/**
-	 * 目标设备opr
+	 * $column.comments
 	 */
 	private Float targetEquipmentOpr;
 	/**
-	 * 目标生产opr
+	 * $column.comments
 	 */
 	private Float targetProductionOpr;
 	/**
-	 * 生产量
+	 * $column.comments
 	 */
 	private Integer productionVolume;
 	/**
-	 * opr等级
+	 * $column.comments
 	 */
 	private String oprLevel;
 	/**
-	 * 时间频率
+	 * $column.comments
 	 */
 	private String frequency;
 	/**
-	 * 班次
+	 * $column.comments
 	 */
 	private String shift;
 	/**
@@ -104,20 +105,21 @@ public class TaBiw3OprEntity implements Serializable {
 	 */
 	private Boolean tavFlag;
 	/**
-	 * 历史标识
+	 * $column.comments
 	 */
 	private Integer historical;
 	/**
-	 * 工作日
+	 * $column.comments
 	 */
 	private Date workDay;
 	/**
-	 * 设备ID
+	 * $column.comments
 	 */
 	private Integer facilityId;
 	/**
-	 * 停机时间
+	 * $column.comments
 	 */
 	private Integer downtime;
+
 
 }

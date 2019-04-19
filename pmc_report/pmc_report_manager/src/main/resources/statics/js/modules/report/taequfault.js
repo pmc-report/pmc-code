@@ -46,7 +46,7 @@ function initTable(url,queryParams){
           { field: 'faultWord1', title: 'Word1', align: 'center' },
           { field: 'faultWord2', title: 'Word2', align: 'center' }, 
           { field: 'faultWord3', title: 'Word3', align: 'center' }, 
-          { field: 'word31', title: 'Word31', align: 'center' },
+          { field: 'posWord31', title: 'Word31', align: 'center' },
           { field: 'faultDescription', title: '故障描述', align: 'center' }, 
           { field: 'reasonCode', title: '原因代码', align: 'center' },
           { field: 'reasonDescription', title: '原因描述', align: 'center' },

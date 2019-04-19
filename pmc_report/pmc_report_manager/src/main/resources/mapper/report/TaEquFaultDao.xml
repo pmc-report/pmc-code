@@ -32,4 +32,41 @@
         <result property="workDay" column="work_day"/>
     </resultMap>
 
+	<sql id="common_sql">
+		select * from BIW3.dbo.Final_BIW3_FAULT t where 1 = 1 
+	</sql>
+	
+	<select id="qureyFualtList" resultMap="taEquFaultMap">
+		<include refid="common_sql"/>
+		<if test="shop!=null and shop!=''">
+			AND	shop = #{shop}
+		</if>
+		<if test="area!=null and area!=''">
+			AND area = #{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND ZONE = #{zone}
+		</if>
+		<if test="station!=null and station!=''">
+			AND station = #{station}
+		</if>
+		<if test="equipment!=null and equipment!=''">
+			AND equipment = #{equipment}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift = #{shift}
+		</if>
+		<if test="jobId!=null and jobId!=''">
+			AND job_id = #{jobId}
+		</if>
+		<if test="startTime!=null">
+			AND start_Time &gt; CONVERT(datetime2,#{startTime},121)
+		</if>
+		<if test="endTime!=null">
+			AND end_Time &lt; CONVERT(datetime2,#{endTime},121)
+		</if>
+		
+		
+	</select>
+
 </mapper>
