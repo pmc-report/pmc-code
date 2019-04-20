@@ -1039,15 +1039,16 @@ function queryReport(tag,params){
 	}
 }
 
+var _data = '';
+
 function echars(params){
+	
 	var posList = [
 	    'left', 'right', 'top', 'bottom',
 	    'inside',
 	    'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
 	    'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
 	];
-
-
 
 	echart.config = {
 	    rotate: 0,
@@ -1073,13 +1074,23 @@ function echars(params){
 	};
 	$.ajax({
         type: "post",
-        url: baseURL + 'modules/report/panel/panelTest',
-        data: '',
+        url: baseURL + 'modules/report/panel/echarts',
+        data: params,
         dataType: "json",
         success: function(data){
+        	var date = [];
+      	    var mtbf = [];
+      	    var tarMtbf = [];
+      	    
+      	    for(var i=0;i<data.list.length;i++){
+      	    	date.push(data.list[i].monday);
+      	    	data.list[i].mtbf==0?mtbf.push(''):mtbf.push(data.list[i].mtbf);
+      	    	data.list[i].targetMtbf==0?tarMtbf.push(''):tarMtbf.push(data.list[i].targetMtbf);
+      	    }
+        	
         	var	option = {
 					 grid:{
-						   x:50,
+						    x:50,
 			                y:30,
 			                x2:50,
 			                y2:30,
@@ -1149,8 +1160,7 @@ function echars(params){
 				                //rotate:45,   //倾斜度
 				                fontSize:10
 				            },
-				            data: ['17/12','24/12','31/12','07/01','14/01','21/01','04/02','11/02','18/02','25/02','04/03','11/03','18/03','25/03','01/04','08/04','15/04','22/04']
-				          
+				            data: date
 				        }
 				    ],
 				    dataZoom : [
@@ -1180,13 +1190,13 @@ function echars(params){
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
-				            data: ['81.1','101.1','125.7','211','121','0','0','32.5','40','0',,'0','37.5','140','0','42','32.5','40','0','33.6','32.5','20','15']
+				            data: mtbf
 				        },
 				        {
 				            name: 'Target MTBF',
 				            type: 'line',
 				            label: labelOption,
-				            data: ['181','211','171','151','194','0','32.5','140','0','50','137.5','140','20','42','38.5','48','0','33.6','92.5','26','15']
+				            data: tarMtbf
 				        },
 				       
 				    ]
@@ -1209,8 +1219,6 @@ function echars1(params){
 	    'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
 	    'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
 	];
-
-
 
 	echart1.config = {
 	    rotate: 0,
@@ -1236,10 +1244,19 @@ function echars1(params){
 	};
 	$.ajax({
         type: "post",
-        url: baseURL + 'modules/report/panel/panelTest',
-        data: '',
+        url: baseURL + 'modules/report/panel/echarts',
+        data: params,
         dataType: "json",
         success: function(data){
+        	var date = [];
+      	    var tav = [];
+      	    var tarTav = [];
+      	    
+      	    for(var i=0;i<data.list.length;i++){
+      	    	date.push(data.list[i].monday);
+      	    	data.list[i].tav==0?tav.push(''):tav.push(data.list[i].tav);
+      	    	data.list[i].targetTav==0?tarTav.push(''):tarTav.push(data.list[i].targetTav);
+      	    }
         	var	option = {
 					 grid:{
 			                x:50,
@@ -1270,7 +1287,6 @@ function echars1(params){
 	                       },
       
 	                    }, 
-	                    
 	                    
 				    color: ['#FFA500', '#2E9AFE'],
 				    tooltip: {
@@ -1312,15 +1328,17 @@ function echars1(params){
 				                //rotate:45,
 				                fontSize:10
 				            },
-				            data: ['17/12','24/12','31/12','07/01','14/01','21/01','04/02','11/02','18/02','25/02','04/03','11/03','18/03','25/03','01/04','08/04','15/04','22/04']
-				          
+				            data: date
 				        }
 				    ],
 				    yAxis: [
-				        {
-				    /*    min:'0',
-				         max:'100'*/
-				        }
+				    	{
+				    	type:'value',
+				    	scale:true,
+				    	max:120,
+				    	min:0,
+				    	splitNumber:5
+				    	}
 				    ],
 				    series: [
 				    
@@ -1329,13 +1347,13 @@ function echars1(params){
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
-				            data: ['81.1','101.1','0','211','11','181.1','101.1','115.7','201','16','231.1','141.1','115.7','211','11']
+				            data: tav
 				        },
 				        {
 				            name: 'Target TAV',
 				            type: 'line',
 				            label: labelOption,
-				            data: ['101','101','171','151','174','101','0','171','15','94','141','151','71','15.1','13','131','91']
+				            data: tarTav
 				        },
 				       
 				    ],
@@ -1374,8 +1392,6 @@ function echars2(params){
 	    'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
 	];
 
-
-
 	echart2.config = {
 	    rotate: 0,
 	    align: 'middle',
@@ -1400,10 +1416,21 @@ function echars2(params){
 	};
 	$.ajax({
         type: "post",
-        url: baseURL + 'modules/report/panel/panelTest',
-        data: '',
+        url: baseURL + 'modules/report/panel/echarts',
+        data: params,
         dataType: "json",
         success: function(data){
+        	
+        	var date = [];
+      	    var tav = [];
+      	    var tarTav = [];
+  	    	for(var i=11;i<data.list.length;i++){
+      	    	date.push(data.list[i].monday);
+      	    	data.list[i].tav==0?tav.push(''):tav.push(data.list[i].tav);
+      	    	data.list[i].targetTav==0?tarTav.push(''):tarTav.push(data.list[i].targetTav);
+      	    }
+      	    
+        	
         	var	option = {
 					 grid:{
 						   x:50,
@@ -1470,19 +1497,24 @@ function echars2(params){
 				    //calculable: true,
 				    xAxis: [
 				        {
-				            type: 'category',
+				        	type: 'category',
 				            axisTick: {show: true},
-				            data: ['8/11','10/11','10/11','15/11','19/11','23/11','25/11']
-				            
+				            axisLabel :{
+				                interval:0,
+				                //rotate:45,
+				                fontSize:10
+				            },
+				            data: date
 				        }
 				    ],
 				    yAxis: [
-				    
-				        {
-				    /*    min:'0',
-				         max:'100'*/
-	
-				        }
+				    	{
+					    	type:'value',
+					    	scale:true,
+					    	max:120,
+					    	min:0,
+					    	splitNumber:5
+				    	}
 				    ],
 				    series: [
 				    
@@ -1491,13 +1523,13 @@ function echars2(params){
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
-				            data: ['81.1','101.1','115.7','211','111','150','120']
+				            data: tav
 				        },
 				        {
 				            name: 'Target TAV',
 				            type: 'bar',
 				            label: labelOption,
-				            data: ['181','211','271','100','51','110','90']
+				            data: tarTav
 				        },
 				       
 				    ]

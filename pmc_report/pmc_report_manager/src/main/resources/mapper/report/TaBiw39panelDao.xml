@@ -24,17 +24,92 @@
         <result property="shift" column="shift"/>
         <result property="tarTechAvail" column="tar_tech_avail"/>
         <result property="tarMtbf" column="tar_mtbf"/>
-        <result property="tarMtbfSum" column="tar_mtbf_sum"/>
-        <result property="tarTechAvailSum" column="tar_tech_avail_sum"/>
-        <result property="mtbfSum" column="mtbf_sum"/>
-        <result property="techAvailSum" column="tech_avail_sum"/>
         <result property="counter" column="counter"/>
-        <result property="taBiw39panelId" column="ta_biw3_9panel_id"/>
+        <result property="rowId" column="row_id"/>
         <result property="dbTimeStamp" column="db_time_stamp"/>
-        <result property="historical" column="historical"/>
         <result property="restDuration" column="rest_duration"/>
         <result property="processedFlag" column="processed_flag"/>
     </resultMap>
+	
+	<!--private Integer old;
+	private Integer _new;
+	private Integer occ;
+	private Float mins;
+	private Integer stn;
+	private String description;
+	private Float pareto;
+	private Integer status;
+	private Integer weekRange;
+	private Date monday;
+	private Integer weekNo;
+	private Float tav;
+	private Float targetTav;
+	private Date startTime;
+	private Float mtbf;
+	private Float targetMtbf;
+	private Float week;  -->
+	
+	<resultMap type="gean.pmc_report_manager.modules.report.vo.PanelVo" id="panelVoMap">
+		<result property="weekRange" column="WeekRange"/>
+		<result property="monday" column="MondayOfCurrentWeek"/>
+		<result property="tav" column="TAV"/>
+		<result property="targetTav" column="Target_TAV"/>
+		<result property="startTime" column="start_time"/>
+		<result property="mtbf" column="mtbf"/>
+		<result property="targetMtbf" column="Target_MTBF"/>
+		<result property="week" column="Week"/>
+		<result property="weekNo" column="WeekNumber"/>
+	</resultMap>
 
+	<sql id="common_sql_header">
+		select * from  
+	</sql>
+	<sql id="common_sql_footer">
+		<if test="shop!=null and shop!=''">
+    		AND shop  = #{shop}
+    	</if>
+    	<if test="area!=null and area!=''">
+			AND area = #{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND ZONE = #{zone}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift = #{shift}
+		</if>
+	</sql>
 
+	<select id="queryEchart" resultMap="panelVoMap">
+		<include refid="common_sql_header"/>
+				(SELECT 
+					 WeekRange ,
+					 DATEADD(wk,WeekRange,DATEADD(wk, DATEDIFF(wk,0,getdate()), 0)) "MondayOfCurrentWeek",
+					  DATEPART("wk", DATEADD(wk,WeekRange,DATEADD(wk, DATEDIFF(wk,0,getdate()), 0))) "WeekNumber"
+		 FROM  ( SELECT 0 AS WeekRange UNION ALL
+		                SELECT -1 AS WeekRange UNION ALL
+		                SELECT -2 AS WeekRange UNION ALL
+		                SELECT -3 AS WeekRange UNION ALL
+		                SELECT -4 AS WeekRange UNION ALL
+		                SELECT -5 AS WeekRange UNION ALL
+		                SELECT -6 AS WeekRange UNION ALL
+		                SELECT -7 AS WeekRange UNION ALL
+		                SELECT -8 AS WeekRange UNION ALL
+		                SELECT -9 AS WeekRange UNION ALL
+		                SELECT -10 AS WeekRange UNION ALL
+		                SELECT -11 AS WeekRange UNION ALL
+		                SELECT -12 AS WeekRange UNION ALL
+		                SELECT -13 AS WeekRange UNION ALL
+		                SELECT -14 AS WeekRange UNION ALL
+		                SELECT -15 AS WeekRange UNION ALL
+		                SELECT -16 AS WeekRange UNION ALL
+		                SELECT -17 AS WeekRange 
+		       )t2 )Q left join ( select TOP 18 DATEADD(dd, -(DATEPART(DW, start_time)-2), start_time) "Week",
+											tech_avail*100 "TAV",tar_tech_avail "Target_TAV",
+											mtbf/60 "MTBF",tar_mtbf/60 "Target_MTBF",start_time
+									from BIW3.dbo.Final_BIW3_TA t
+									where 1 = 1 
+									<include refid="common_sql_footer"/> 
+									order by  t.start_time desc )P
+		on DATEPART(WK,Week)=WeekNumber;
+	</select>
 </mapper>

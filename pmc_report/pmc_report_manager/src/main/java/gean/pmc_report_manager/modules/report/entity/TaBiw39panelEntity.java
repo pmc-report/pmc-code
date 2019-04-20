@@ -15,9 +15,10 @@ import java.util.Date;
  * @date 2019-04-13 14:15:33
  */
 @Data
-@TableName("TA_BIW3_9PANEL")
+@TableName("Final_BIW3_TA")
 public class TaBiw39panelEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 
 	/**
 	 * $column.comments
@@ -98,36 +99,16 @@ public class TaBiw39panelEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private Float tarMtbfSum;
-	/**
-	 * $column.comments
-	 */
-	private Float tarTechAvailSum;
-	/**
-	 * $column.comments
-	 */
-	private Float mtbfSum;
-	/**
-	 * $column.comments
-	 */
-	private Float techAvailSum;
-	/**
-	 * $column.comments
-	 */
 	private Integer counter;
 	/**
 	 * $column.comments
 	 */
 	@TableId
-	private Integer taBiw39panelId;
+	private Integer rowId;
 	/**
 	 * $column.comments
 	 */
 	private Date dbTimeStamp;
-	/**
-	 * $column.comments
-	 */
-	private Integer historical;
 	/**
 	 * $column.comments
 	 */

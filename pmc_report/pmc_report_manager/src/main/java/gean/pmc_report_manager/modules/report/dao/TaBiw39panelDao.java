@@ -1,8 +1,14 @@
 package gean.pmc_report_manager.modules.report.dao;
 
-import gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+
+import gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity;
+import gean.pmc_report_manager.modules.report.vo.PageParamVo;
+import gean.pmc_report_manager.modules.report.vo.PanelVo;
 
 /**
  * ${comments}
@@ -14,4 +20,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TaBiw39panelDao extends BaseMapper<TaBiw39panelEntity> {
 	
+    List<PanelVo> queryEchart(PageParamVo vo);
 }

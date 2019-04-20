@@ -90,14 +90,12 @@ public class TaBiw39panelController {
     }
 
     /**
-     * 列表
+     * 图表
      */
-    @RequestMapping("/list")
-    @RequiresPermissions("report:tabiw39panel:list")
+    @RequestMapping("/echarts")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = taBiw39panelService.queryPage(params);
-
-        return R.ok().put("page", page);
+       List<PanelVo> list = taBiw39panelService.queryEchart(params);
+        return R.ok().put("list", list);
     }
 
 

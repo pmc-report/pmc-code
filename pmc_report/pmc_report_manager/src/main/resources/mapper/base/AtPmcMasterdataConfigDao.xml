@@ -68,6 +68,7 @@
 	<select id="queryAllShop" resultMap="MasterDataVoMap">
 		SELECT DISTINCT TB.SHOP_S 
 		<include refid="conmmonSql_MasterData"/>
+		order by TB.SHOP_S desc
 	</select>
 	
 	<select id="queryAllLineForShop" parameterType="String" resultMap="MasterDataVoMap">
@@ -76,6 +77,7 @@
 		<if test="_parameter!=null and _parameter!=''">
 			and tb.shop_s=#{_parameter}
 		</if>
+		order by TB.LINE_S desc
 	</select>
 	
 	<select id="queryAllZoneForLine" resultMap="MasterDataVoMap">
@@ -87,6 +89,7 @@
 		<if test="lineNo!=null and lineNo!=''">
 			and tb.line_s=#{lineNo}
 		</if>
+		order by TB.ZONE_S desc
 	</select>
 	<select id="queryAllStationForZone" resultMap="MasterDataVoMap">
 		SELECT DISTINCT TB.STATION_S 
@@ -100,6 +103,7 @@
 		<if test="zoneNo!=null and zoneNo!=''">
 			and tb.zone_s=#{zoneNo}
 		</if>
+		order by TB.STATION_S desc
 	</select>
 	
 	<select id="queryEquipmentForStation" resultMap="MasterDataVoMap">
@@ -117,6 +121,7 @@
 		<if test="stationNo!=null and stationNo!=''">
 			and tb.station_s=#{stationNo}
 		</if>
+		order by TB.EQUIPMENT_S desc
 	</select>
 	
 </mapper>
