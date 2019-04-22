@@ -124,4 +124,12 @@
 		order by TB.EQUIPMENT_S desc
 	</select>
 	
+	<select id="queryDates" parameterType="String" resultType="java.lang.String">
+		SELECT to_char(FromWeekDateVal,'dd-mm-yyyy') FromWeekDateVal from (
+		<if test="_parameter!=null and _parameter!=''">
+			SELECT        to_date(#{_parameter,jdbcType=VARCHAR},'yyyy/MM/dd') - LEVEL + 1 FromWeekDateVal
+		</if>
+		FROM            dual Connect BY level BETWEEN 1 AND 7)
+	</select>
+	
 </mapper>

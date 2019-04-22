@@ -47,4 +47,9 @@ public interface AtPmcMasterdataConfigDao extends BaseMapper<AtPmcMasterdataConf
 	@Transactional
     @DataSource("slave1")
     List<MasterDataVo> queryEquipmentForStation(Map<String, Object> params);
+	
+	 /** 工位下的设备*/
+	@Transactional
+    @DataSource("slave1")
+    List<String> queryDates(String params);
 }

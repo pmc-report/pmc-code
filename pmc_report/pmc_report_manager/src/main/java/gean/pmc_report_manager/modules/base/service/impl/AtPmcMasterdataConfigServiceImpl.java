@@ -2,12 +2,14 @@ package gean.pmc_report_manager.modules.base.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import gean.pmc_report_common.common.utils.PageUtils;
+import gean.pmc_report_common.common.utils.StringUtils;
 import gean.pmc_report_manager.common.utils.Query;
 import gean.pmc_report_manager.modules.base.dao.AtPmcMasterdataConfigDao;
 import gean.pmc_report_manager.modules.base.entity.AtPmcMasterdataConfigEntity;
@@ -61,6 +63,16 @@ public class AtPmcMasterdataConfigServiceImpl extends ServiceImpl<AtPmcMasterdat
 		// TODO Auto-generated method stub
 		List<MasterDataVo> equList = baseMapper.queryEquipmentForStation(params);
 		return equList;
+	}
+
+	@Override
+	public List<String> queryDates(String params) {
+		// TODO Auto-generated method stub
+		if(StringUtils.isNotEmpty(params)) {
+			List<String> dateList = baseMapper.queryDates(params);
+			return dateList;
+		}
+		return null;
 	}
 
 }

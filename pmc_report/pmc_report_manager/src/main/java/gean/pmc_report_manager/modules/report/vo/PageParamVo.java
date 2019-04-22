@@ -1,6 +1,7 @@
 package gean.pmc_report_manager.modules.report.vo;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import gean.pmc_report_common.common.utils.DateUtils;
@@ -22,6 +23,8 @@ public class PageParamVo {
 	private String equipment;
 	private String limit;
 	private String page;
+	private String[] _fromDate;
+	private List<String> _toDate;
 
 	public PageParamVo(Map<String, Object> params) {
 		
@@ -46,5 +49,7 @@ public class PageParamVo {
 		
 		area = (String)params.get("area");
 		jobId = (String)params.get("jobId");
+		_fromDate = (String[])params.get("_fromDateList")==null?null:(String[])params.get("_fromDateList");
+		_toDate = (List<String>)params.get("_toDate")==null?null:(List<String>)params.get("_toDate");;
 	}
 }

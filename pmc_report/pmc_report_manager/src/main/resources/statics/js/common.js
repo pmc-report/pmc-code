@@ -411,9 +411,26 @@ function selectDate(){
 			  trigger: 'click',
 			  format: 'yyyy-MM-dd',
 			  theme: 'molv',
-			  value: new Date()
+			  value: new Date(),
+			  done: function(value, date, endDate){//控件选择完毕后的回调---点击日期、清空、现在、确定均会触发。
+				    intitFromDateArr(value);
+			 }
+		 });
+		 
+		 var startDate = laydate.render({
+			  elem: '#endTime',
+			  trigger: 'click',
+			  format: 'yyyy-MM-dd',
+			  theme: 'molv',
+			  value: new Date(),
+			  done: function(value, date, endDate){//控件选择完毕后的回调---点击日期、清空、现在、确定均会触发。
+				    intitToDateArr(value);
+			 }
 		 });
 	});
+	
+	
+	
 	
 }
 
@@ -474,8 +491,87 @@ function selectTime() {
 	});
 }
 
+function initDate(){
+	$('#toDates').multiselect({
+		includeSelectAllOption: true,
+        enableClickableOptGroups: true,
+        enableCollapsibleOptGroups: true,
+        //buttonWidth: 195,
+        maxHeight: 300,
+	}); 
+	
+	$('#fromDates').multiselect({
+		includeSelectAllOption: true,
+        enableClickableOptGroups: true,
+        enableCollapsibleOptGroups: true,
+        //buttonWidth: 195,
+        maxHeight: 300,
+	});
+	
+	 $('.selectpicker').selectpicker();
+}
+
+function intitFromDateArr(param){
+	if(param==null)return;
+	$.ajax({ 
+        type: 'post',  //请求的类型
+        data:{
+        	params : param
+        },//传到后台的参数
+        url: 'shop/findDates',//请求地址
+        cache: false,   //缓存
+        async : false,  //同步
+        dataType:'json', //返回的数据类型
+        success: function (data) {//data为后台返回的参数
+            var selectOption;
+            var list = data.dateList;//声明list接受后台返回的值  '.'后面是返回的controller中的list名
+            for(var i = 0; i < list.length; i++){
+            	selectOption += '<option value="'+isNull(list[i])+'">'+isNull(list[i]) + "</option>";
+            }
+            $('#fDate').html('');//将前台id为frequency_search的内容替换成声明selectOption(重写)
+            $('#fDate').append(selectOption)
+            $('#value').html(selectOption);
+            $('#fDate').selectpicker('refresh');//动态刷新
+        },
+        error: function (data, XMLHttpRequest, textStatus, errorThrown) {
+        	bootbox.alert('data:'+typeof(data) +",XMLHttpRequest:"+XMLHttpRequest+",textStatus:"+textStatus+",errorThrown:"+errorThrown);
+        }
+      });
+}
+
+function intitToDateArr(param){
+		if(param==null)return;
+		$.ajax({ 
+	        type: 'post',  //请求的类型
+	        data:{
+	        	params : param
+	        },//传到后台的参数
+	        url: 'shop/findDates',//请求地址
+	        cache: false,   //缓存
+	        async : false,  //同步
+	        dataType:'json', //返回的数据类型
+	        success: function (data) {//data为后台返回的参数
+	            var selectOption;
+	            var list = data.dateList;//声明list接受后台返回的值  '.'后面是返回的controller中的list名
+	            for(var i = 0; i < list.length; i++){
+	            	selectOption += '<option value="'+isNull(list[i])+'">'+isNull(list[i]) + "</option>";
+	            }  
+	            $('#tDate').html('');//将前台id为frequency_search的内容替换成声明selectOption(重写)
+	            $('#tDate').append(selectOption)
+	            $('#value').html(selectOption);
+	            $('#tDate').selectpicker('refresh');//动态刷新
+	        },
+	        error: function (data, XMLHttpRequest, textStatus, errorThrown) {
+	        	bootbox.alert('data:'+typeof(data) +",XMLHttpRequest:"+XMLHttpRequest+",textStatus:"+textStatus+",errorThrown:"+errorThrown);
+	        }
+	      });
+}
+
 //获取查询参数方法
 function getParams(){
+	var fromDate = $('#fDate').val();
+	var toDate = $('#tDate').val();
+	
 	var params = {
 		shop : $("#shop_search").val(),
 		area : $("#area_search").val(),
@@ -486,10 +582,23 @@ function getParams(){
 		frequency : $("#frequency_search").val(),
 		jobId : $("#jobId_search").val(),
 		equipment : $('#equ_search').val(),
-		station : $('#station_search').val()
+		station : $('#station_search').val(),
+		fromDates : this.toObj(fromDate),
+		toDates : this.toObj(toDate)
 	}
 	return params;
 	
+}
+
+function toObj(arr){
+	if(arr!=null&&arr.length>0){
+		var result = {};
+	    for(var a=0; a<arr.length; a++) {
+	        result[a] = arr[a];
+	    }
+	    return result;
+	}
+	return;
 }
 
 /*

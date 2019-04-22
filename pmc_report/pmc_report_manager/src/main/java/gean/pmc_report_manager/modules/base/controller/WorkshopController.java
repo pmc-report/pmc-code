@@ -104,4 +104,11 @@ public class WorkshopController {
     	return R.ok().put("shopList", list);
     }
 
+    @RequestMapping("/findDates")
+    public R queryDates(String params) {
+    	List<String> dateList=masterService.queryDates(params);
+		return R.ok().put("dateList", dateList);
+    }
+    
+    
 }

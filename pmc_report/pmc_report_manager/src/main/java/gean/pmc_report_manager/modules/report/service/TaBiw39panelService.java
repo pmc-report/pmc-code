@@ -3,6 +3,7 @@ package gean.pmc_report_manager.modules.report.service;
 import java.util.List;
 import java.util.Map;
 
+
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import gean.pmc_report_common.common.utils.PageUtils;
@@ -21,5 +22,7 @@ public interface TaBiw39panelService extends IService<TaBiw39panelEntity> {
     PageUtils queryPage(Map<String, Object> params);
     
     List<PanelVo> queryEchart(Map<String, Object> params);
+    
+    List<PanelVo> queryTop10DownTime(Map<String, Object> params);
 }
 

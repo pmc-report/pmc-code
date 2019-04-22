@@ -34,5 +34,8 @@ public interface AtPmcMasterdataConfigService extends IService<AtPmcMasterdataCo
     
     /** 工位下的设备*/
     List<MasterDataVo> queryMasterDataEquipment(Map<String, Object> params);
+    
+    /** 工位下的设备*/
+    List<String> queryDates(String params);
 }
 

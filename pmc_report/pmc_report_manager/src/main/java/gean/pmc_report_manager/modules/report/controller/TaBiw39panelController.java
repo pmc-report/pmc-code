@@ -45,9 +45,9 @@ public class TaBiw39panelController {
     
     
     @RequestMapping("/listPrePanel")
-    public Object listPrePanel(Map<String,Object> form) {
+    public Object listPrePanel(@RequestParam Map<String,Object> params) {
     	//假数据
-        int totalCount = 10;
+       /* int totalCount = 10;
         if(totalCount > 0){
             List<PanelVo> user = new ArrayList<>();
             for(int i=1; i<11; i++) {
@@ -62,10 +62,24 @@ public class TaBiw39panelController {
             	vo.setStatus((int)(0+Math.random()*(5-1+1)));
             	user.add(vo);
             }
-            /////////////
             return new PageUtils(user, totalCount, totalCount, 0);
         }
-        return null;
+            /////////////
+           return null;*/
+    
+    	String[] fromDateList= new String[7];
+    	List<String> toDateList = new ArrayList<>();
+    	for(int i=0;i<=6;i++ ) {
+    		String fromDate = (String)params.get("fromDate["+i+"]");
+    		String toDate = (String)params.get("toDate["+i+"]");
+    		fromDateList[i]=fromDate;
+    		toDateList.add(toDate);
+    	}
+    	if(fromDateList.length > 0 ) {
+        	params.put("_fromDateList", fromDateList);
+    	}
+    	List<PanelVo> list = taBiw39panelService.queryTop10DownTime(params);
+        return R.ok().put("preDownTimeList", list);
     }
     
     @RequestMapping("/listCurrPanel")

@@ -44,7 +44,6 @@ public class ShiftController {
 		return R.ok().put("tmBasShift", shiftList);
     }
     
-    
     /**
      * 列表
      */

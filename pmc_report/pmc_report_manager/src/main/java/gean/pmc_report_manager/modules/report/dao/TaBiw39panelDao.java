@@ -3,6 +3,7 @@ package gean.pmc_report_manager.modules.report.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
@@ -21,4 +22,6 @@ import gean.pmc_report_manager.modules.report.vo.PanelVo;
 public interface TaBiw39panelDao extends BaseMapper<TaBiw39panelEntity> {
 	
     List<PanelVo> queryEchart(PageParamVo vo);
+    
+    List<PanelVo> queryTop10DownTime(PageParamVo vo);
 }

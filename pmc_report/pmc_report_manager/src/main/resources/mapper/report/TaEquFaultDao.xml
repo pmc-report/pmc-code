@@ -31,9 +31,42 @@
         <result property="processedFlag" column="processed_flag"/>
         <result property="workDay" column="work_day"/>
     </resultMap>
+    
+   <!-- private Integer old;
+	private Integer _new;
+	private Integer occ;
+	private Float mins;
+	private Integer stn;
+	private String description;
+	private Float pareto;
+	private Integer status;
+	private Integer weekRange; -->
+    
+
+	<resultMap type="gean.pmc_report_manager.modules.report.vo.PanelVo" id="panelVoMap">
+		<result property="occ" column="Occurrences1"/>
+		<result property="mins" column="Duration1"/>
+		<result property="stn" column="facility_id1"/>
+		<result property="description" column="fault_description1"/>
+	</resultMap>
 
 	<sql id="common_sql">
 		select * from BIW3.dbo.Final_BIW3_FAULT t where 1 = 1 
+	</sql>
+	
+	<sql id="common_sql_footer">
+		<if test="shop!=null and shop!=''">
+    		AND shop  = #{shop}
+    	</if>
+    	<if test="area!=null and area!=''">
+			AND area = #{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND ZONE = #{zone}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift = #{shift}
+		</if>
 	</sql>
 	
 	<select id="qureyFualtList" resultMap="taEquFaultMap">
@@ -65,8 +98,6 @@
 		<if test="endTime!=null">
 			AND end_Time &lt; CONVERT(datetime2,#{endTime},121)
 		</if>
-		
-		
 	</select>
-
+	
 </mapper>

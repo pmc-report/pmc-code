@@ -25,5 +25,6 @@ public class MasterDataVo {
     
     /*** 设备类型*/
     private String equipmentType;
+    
 
 }

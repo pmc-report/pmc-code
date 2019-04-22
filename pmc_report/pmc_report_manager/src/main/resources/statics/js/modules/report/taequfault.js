@@ -19,7 +19,7 @@ function queryReport(tag,params){
 }
 
 function initTable(url,queryParams){
-	console.log(queryParams);
+	//console.log(queryParams);
 	
 	var responseHandler = function (e) {
 	      //console.log(e);
