@@ -1386,6 +1386,11 @@ function echars1(params){
 	       // window.addEventListener("resize",function(){
 	        //	echart1.resize();
 	       // });
+	        window.onresize = echart1.resize;
+	        echart1.setOption(option);
+	        /*window.addEventListener("resize",function(){
+	        	echart1.resize();
+	        });*/
         }
 	});
 }
@@ -1545,9 +1550,9 @@ function echars2(params){
         	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
 	        window.onresize = echart2.resize;
 	        echart2.setOption(option);
-	        window.addEventListener("resize",function(){
+	        /*window.addEventListener("resize",function(){
 	        	echart2.resize();
-	        });
+	        });*/
         }
 	});
 }
