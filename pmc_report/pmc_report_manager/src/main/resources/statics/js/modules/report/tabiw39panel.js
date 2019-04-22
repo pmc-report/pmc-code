@@ -93,7 +93,7 @@ function initPreDownTime1(queryParams){
 		url: 'panel/listPrePanel', 
 		method: "post",                     //使用get请求到服务器获取数据
 	    dataType: "json",
-	    //contentType: "application/x-www-form-urlencoded",
+	    contentType: "application/x-www-form-urlencoded",
 		//toolbar: '#toolbar',  //工具按钮用哪个容器
 		//striped: true,   //是否显示行间隔色
 		//singleSelect: false,
@@ -101,7 +101,7 @@ function initPreDownTime1(queryParams){
 		//pageNumber:1,   //初始化加载第一页，默认第一页
 		//pageSize: 10,   //每页的记录行数（*）
 		//pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
-		//queryParamsType: '', //参数格式,发送标准的RESTFul类型的参数请求 
+		queryParamsType: '', //参数格式,发送标准的RESTFul类型的参数请求 
 		search: false, //显示搜索框
 		showFooter: true,  //显示底部栏
 		sidePagination: "server", //服务端处理分页
@@ -1171,7 +1171,8 @@ function echars(params){
 				            data: date
 				        }
 				    ],
-				    dataZoom : [
+				    /*dataZoom : [
+				   /*dataZoom : [
 				    	{   //设置X轴拖动
 			                type: 'slider',
 			                show: true,
@@ -1184,7 +1185,7 @@ function echars(params){
 			                start: 0,
 			                end: 100
 			            },
-				    ],
+				    ],*/
 				    yAxis: [
 				        {
 				    /*    min:'0',
@@ -1365,7 +1366,7 @@ function echars1(params){
 				        },
 				       
 				    ],
-				    dataZoom : [
+				    /*dataZoom : [
 				    	{   //设置X轴拖动
 			                type: 'slider',
 			                show: true,
@@ -1378,7 +1379,7 @@ function echars1(params){
 			                start: 0,
 			                end: 100
 			            },
-				    ]
+				    ]*/
         	};
         	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
 	       // window.onresize = echart1.resize;
