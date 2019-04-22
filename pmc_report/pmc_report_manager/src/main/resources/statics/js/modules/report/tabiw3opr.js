@@ -52,8 +52,7 @@ function initAreaTable(url,queryParams){
 	      dataType: "json",
 	      contentType: "application/x-www-form-urlencoded",
 	      toolbar: "#toolbar",                //一个jQuery 选择器，指明自定义的toolbar 例如:#toolbar, .toolbar.
-	    //uniqueId: 'taEquFaultId',           //每一行的唯一标识，一般为主键列
-	      height: 522,						  //document.body.clientHeight-165  //动态获取高度值，可以使表格自适应页面
+	    //uniqueId: 'taEquFaultId',           //每一行的唯一标识，一般为主键列						  //document.body.clientHeight-165  //动态获取高度值，可以使表格自适应页面
 	      cache: false,                       // 不缓存
 	      striped: true,                      // 隔行加亮
 	      queryParamsType: '',           	  //设置为"undefined",可以获取pageNumber，pageSize，searchText，sortName，sortOrder 
@@ -160,7 +159,7 @@ function initZoneTable(url,queryParams){
 	      contentType: "application/x-www-form-urlencoded",
 	      toolbar: "#toolbar",                //一个jQuery 选择器，指明自定义的toolbar 例如:#toolbar, .toolbar.
 	    //uniqueId: 'taEquFaultId',           //每一行的唯一标识，一般为主键列
-	      height: 522,						  //document.body.clientHeight-165  //动态获取高度值，可以使表格自适应页面
+						  //document.body.clientHeight-165  //动态获取高度值，可以使表格自适应页面
 	      cache: false,                       // 不缓存
 	      striped: true,                      // 隔行加亮
 	      queryParamsType: '',           	  //设置为"undefined",可以获取pageNumber，pageSize，searchText，sortName，sortOrder 

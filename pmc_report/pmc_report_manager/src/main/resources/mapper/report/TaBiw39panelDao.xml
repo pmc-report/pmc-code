@@ -142,12 +142,10 @@
 											ISNULL(end_time,GETDATE()) Current_End_Time
 									from BIW3.dbo.Final_BIW3_FAULT t where 1 = 1 
 									<if test="_fromDate!=null">
-										<trim  prefix="" prefixoverride="">
-											AND CONVERT (VARCHAR(10), start_time, 105) IN 
-											<foreach collection="_fromDate" item="_date" open="(" separator="," close=")">
-												#{_date}
-										　　　</foreach>
-										</trim>
+										AND CONVERT (VARCHAR(10), start_time, 105) IN 
+										<foreach collection="_fromDate" item="_date" open="(" separator="," close=")">
+											#{_date}
+									　　　</foreach>
 									</if>
 								<include refid="common_sql_footer"/>
 								and area!='BDC'
