@@ -1,6 +1,7 @@
 package gean.pmc_report_manager.modules.report.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,5 +21,7 @@ import gean.pmc_report_manager.modules.report.vo.PageParamVo;
 public interface TaEquFaultDao extends BaseMapper<TaEquFaultEntity> {
 	
 	List<TaEquFaultEntity> qureyFualtList(PageParamVo vo);
+	
+	public List<TaEquFaultEntity>queryTotalMins(Map<String, String> params);
 	
 }

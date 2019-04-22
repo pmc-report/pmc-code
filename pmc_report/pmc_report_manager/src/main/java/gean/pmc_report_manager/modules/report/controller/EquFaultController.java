@@ -1,6 +1,7 @@
 package gean.pmc_report_manager.modules.report.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import gean.pmc_report_common.common.validator.ValidatorUtils;
@@ -33,6 +34,12 @@ public class EquFaultController {
     @Autowired
     private EquFaultService EquFaultService;
 
+    @RequestMapping("/duration")
+    public R queryTotalMins(@RequestParam Map<String, Object> params) {
+    	List<TaEquFaultEntity> totalList = EquFaultService.queryTotalMins(params);
+    	return R.ok().put("TotalList", totalList);
+    }
+    
     /**
      * 列表
      */

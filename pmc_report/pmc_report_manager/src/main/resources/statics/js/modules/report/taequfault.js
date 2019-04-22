@@ -9,6 +9,24 @@ $(function () {
 	initTable();
 });
 
+//合并页脚
+function merge_footer() {
+    //获取table表中footer 并获取到这一行的所有列
+    var footer_tbody = $('.fixed-table-footer table tbody');
+    var footer_tr = footer_tbody.find('>tr');
+    var footer_td = footer_tr.find('>td');
+    var footer_td_1 = footer_td.eq(0);
+    //由于我们这里做统计只需要两列，故可以将除第一列与最后一列的列全部隐藏，然后再设置第一列跨列
+    //遍历隐藏中间的列 下标从1开始
+    for(var i=1;i<footer_td.length;i++) {
+        footer_td.eq(i).hide();
+    }
+    //设置跨列
+    footer_td_1.attr('colspan', footer_td.length-1).show();
+    //这里可以根据自己的表格来设置列的宽度 使对齐
+    footer_td_1.attr('width', "1500px").show();
+}
+
 function queryReport(tag,params){
 	
 	var url = baseURL + 'report/fault/list';
