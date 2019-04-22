@@ -38,20 +38,29 @@ public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFaultEn
 		// TODO Auto-generated method stub
 		//后续封装方法简化代码
 		PageParamVo vo = new PageParamVo(params);
-		//DateUtils.format(vo.getStartTime(),DateUtils.DATE_TIME_PATTERN );
-		/*Timestamp sTime=null;
+		
+		String str = vo.getEquipment();
+		str = str.replaceAll("&amp;", "&");
+		vo.setEquipment(str);
+		Timestamp sTime=null;
 		Timestamp eTime=null;
 		if(vo.getStartTime()!=null) {
 			sTime = new Timestamp(vo.getStartTime().getTime());
 			eTime = new Timestamp(vo.getEndTime().getTime());
-		}*/
-		String str = vo.getEquipment();
-		str = str.replaceAll("&amp;", "&");
-		vo.setEquipment(str);
-		List<TaEquFaultEntity> faultList = baseMapper.qureyFualtList(vo);
-		int pageSize = Integer.parseInt(vo.getLimit());
-		int currPage = Integer.parseInt(vo.getPage());
-		return new PageUtils(faultList,faultList.size(),pageSize,currPage);
+		}
+		IPage<TaEquFaultEntity> page = 
+				this.page( new Query<TaEquFaultEntity>().getPage(params),
+						new QueryWrapper<TaEquFaultEntity>().eq(StringUtils.isNotBlank(vo.getShop()), "shop", vo.getShop())
+															.eq(StringUtils.isNotBlank(vo.getArea()), "area", vo.getArea())
+															.eq(StringUtils.isNotBlank(vo.getLine()), "line", vo.getLine())
+															.eq(StringUtils.isNotBlank(vo.getZone()), "zone", vo.getZone())
+															.eq(StringUtils.isNotBlank(vo.getStation()), "station", vo.getStation())
+															.eq(StringUtils.isNotBlank(vo.getEquipment()), "equipment", vo.getEquipment())
+															.eq(StringUtils.isNotBlank(vo.getShift()), "shift", vo.getShift())
+															.eq(StringUtils.isNotBlank(vo.getJobId()), "job_id", vo.getJobId())
+															.ge(StringUtils.isNotNull(sTime), "start_Time", sTime)
+															.le(StringUtils.isNotNull(eTime), "end_Time", eTime));
+		return new PageUtils(page);
 	}
 
 }
