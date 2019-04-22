@@ -144,9 +144,9 @@
 									<if test="_fromDate!=null">
 										<trim  prefix="" prefixoverride="">
 											AND CONVERT (VARCHAR(10), start_time, 105) IN 
-											replace(<foreach collection="_fromDate" item="_date" open="(" separator="," close=")">
+											<foreach collection="_fromDate" item="_date" open="(" separator="," close=")">
 												#{_date}
-										　　　</foreach>,)
+										　　　</foreach>
 										</trim>
 									</if>
 								<include refid="common_sql_footer"/>
