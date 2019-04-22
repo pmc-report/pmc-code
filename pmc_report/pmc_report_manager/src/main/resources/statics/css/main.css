@@ -68,6 +68,12 @@ tbody > tr > th {font-weight: normal; }
 	background-color: #04B45F;
 }
 
+#equFaultTableStyle table thead .th-inner{
+	background-color : #2E8B57;
+	color:#fff;
+}
+
+
 /** 表单查询条件 */
 ul {
 	margin: 0;
