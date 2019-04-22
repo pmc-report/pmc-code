@@ -1103,7 +1103,7 @@ function echars(params){
 			                x2:50,
 			                y2:30,
 			                borderWidth:1,
-			                bottom:'20%'
+//			                bottom:'20%'
 			            },
 						title: {  
 	                        //主标题文本，'\n'指定换行  
@@ -1171,7 +1171,7 @@ function echars(params){
 				            data: date
 				        }
 				    ],
-				    dataZoom : [
+				   /*dataZoom : [
 				    	{   //设置X轴拖动
 			                type: 'slider',
 			                show: true,
@@ -1184,7 +1184,7 @@ function echars(params){
 			                start: 0,
 			                end: 100
 			            },
-				    ],
+				    ],*/
 				    yAxis: [
 				        {
 				    /*    min:'0',
@@ -1212,9 +1212,9 @@ function echars(params){
         	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
 	        window.onresize = echart.resize;
 	        echart.setOption(option);
-	        window.addEventListener("resize",function(){
+	        /*window.addEventListener("resize",function(){
 	        	echart.resize();
-	        });
+	        });*/
         }
 	});
 }
@@ -1272,7 +1272,7 @@ function echars1(params){
 			                x2:50,
 			                y2:30,
 			                borderWidth:1,
-			                bottom:'20%'
+//			                bottom:'20%'
 			            },
 						title: {  
 	                        //主标题文本，'\n'指定换行  
@@ -1365,7 +1365,7 @@ function echars1(params){
 				        },
 				       
 				    ],
-				    dataZoom : [
+				    /*dataZoom : [
 				    	{   //设置X轴拖动
 			                type: 'slider',
 			                show: true,
@@ -1378,14 +1378,9 @@ function echars1(params){
 			                start: 0,
 			                end: 100
 			            },
-				    ]
+				    ]*/
         	};
         	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
-	       // window.onresize = echart1.resize;
-	       // echart1.setOption(option);
-	       // window.addEventListener("resize",function(){
-	        //	echart1.resize();
-	       // });
 	        window.onresize = echart1.resize;
 	        echart1.setOption(option);
 	        /*window.addEventListener("resize",function(){
@@ -1451,7 +1446,7 @@ function echars2(params){
 			                x2:50,
 			                y2:30,
 			                borderWidth:1,
-			                bottom:'15%'
+//			                bottom:'15%'
 			            },
 						title: {  
 	                        //主标题文本，'\n'指定换行  
@@ -1470,7 +1465,7 @@ function echars2(params){
 	                           //字体系列
 	                           //fontFamily:'sans-serif',
 	                           //字体大小
-	                   　　　　			 fontSize:13
+	                   　　　　	fontSize:13
 	                       },
       
 	                    }, 
