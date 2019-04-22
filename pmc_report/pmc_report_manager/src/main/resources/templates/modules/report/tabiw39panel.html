@@ -48,20 +48,36 @@
 									</div>
 								 </div>
 							</li>
-							<li class="select-time" onclick="selectTime()">
-								<label>时间范围： </label>
-								<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>
-								<span>-</span>
-								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>
+							<li class="select-time" onclick="selectDate()">
+								<label>开始周： </label>
+								<input type="text" class="time-input" id="startTime" placeholder="请选择日期" name="params[beginTime]"/>
 							</li>
 							<li>
 								<div class="layui-form-item">
 									<div class="layui-input-block">
-									<!-- 后续换成后台数据 -->
-									   	 时间频率： <select id="frequency_search" name="frequency" lay-verify="required">
-									   	 </select>
+										<select id="fDate" name="select" 
+										 		class="selectpicker show-tick form-control" 
+										 			multiple data-actions-box="true" data-selected-text-format="count > 3"
+										 				title="请选择日期">
+											  </select>
 									</div>
-								 </div>
+							 	</div>
+							</li>
+							<li class="select-time" onclick="selectDate()">
+								<label>结束周： </label>
+								<input type="text" class="time-input" id="endTime" placeholder="请选择日期" name="params[beginTime]"/>
+							</li>
+							<li >
+								
+								<div class="layui-form-item">
+									<div  class="layui-input-block">
+										 	<select id="tDate" name="select" 
+										 		class="selectpicker show-tick form-control" 
+										 			multiple data-actions-box="true" data-selected-text-format="count > 3"
+										 				title="请选择日期">
+											   </select>
+									</div>
+								</div>
 							</li>
 							<li>
 								<button type="button" class="btn btn-primary btn-sm" onclick="search('9Panel')">&nbsp;查询</button>
@@ -73,8 +89,8 @@
 			</div>
 		</div>    		
 	</div>
-	<div class="panel panel-primary">
-		<div class="panel-heading">
+	<div class="panel panel-primary" style = "width:100%;overflow : auto">
+		<div class="panel-heading" style = "width:3000px;">
 			<h4 class="panel-title">
 				<a data-toggle="collapse" data-parent="#accordion" 
 				   href="#collapseTwo">
@@ -82,19 +98,19 @@
 				</a>
 			</h4>
 		</div>
-		<div id="collapseTwo" class="panel-collapse collapse in">
+		<div id="collapseTwo" class="panel-collapse collapse in" style = "width:3000px;">
 			<div class="panel-body" style="display: inline;padding: 2px">
-				<div id="main2" style="width:33%;height:340px;display: inline-block;">
+				<div id="main2" style="width:990px;height:340px;display: inline-block;">
 					<script type="text/javascript">
 						var echart1=echarts.init(document.getElementById('main2'));
 					</script>
 				</div>
-				<div id="main1" style="width:33%;height:340px;display: inline-block; ">
+				<div id="main1" style="width:990px;height:340px;display: inline-block; ">
 					<script type="text/javascript">
 						var echart=echarts.init(document.getElementById('main1'));
 					</script>
 				</div>
-				<div id="main3" style="width:33%;height:340px;display: inline-block;">
+				<div id="main3" style="width:990px;height:340px;display: inline-block;">
 					<script type="text/javascript">
 						var echart2=echarts.init(document.getElementById('main3'));
 					</script>
@@ -143,7 +159,6 @@
 		</form>	
 		<!-- <button type = "button" onclick = "report()">导出</button> -->
 	</div> 
-	
 <script src="${request.contextPath}/statics/js/modules/report/tabiw39panel.js?_${.now?long}"></script>
 </body>
 </html>

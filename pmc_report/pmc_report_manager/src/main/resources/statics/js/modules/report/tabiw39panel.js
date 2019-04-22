@@ -5,11 +5,11 @@ $(function () {
 	frequencySelected();
 	//初始化班次
 	shiftSelected();
-   
+	initDate();
 });
 
-function initPreDownTime1(params){ 
-	
+function initPreDownTime1(queryParams){ 
+	console.log(queryParams)
 	var occ = '';
 	var mins = '';
 	var operateFormatter = function (value, row, index) {//赋予的参数
@@ -91,20 +91,22 @@ function initPreDownTime1(params){
 	$('#preDownTime').empty();
 	$('#preDownTime').bootstrapTable('destroy').bootstrapTable({
 		url: 'panel/listPrePanel', 
-		method: "post",  
-		dataType: "json",
+		method: "post",                     //使用get请求到服务器获取数据
+	    dataType: "json",
+	    //contentType: "application/x-www-form-urlencoded",
 		//toolbar: '#toolbar',  //工具按钮用哪个容器
-		striped: true,   //是否显示行间隔色
-		singleSelect: false,
+		//striped: true,   //是否显示行间隔色
+		//singleSelect: false,
 		//pagination: true, //分页
 		//pageNumber:1,   //初始化加载第一页，默认第一页
 		//pageSize: 10,   //每页的记录行数（*）
 		//pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
+		//queryParamsType: '', //参数格式,发送标准的RESTFul类型的参数请求 
 		search: false, //显示搜索框
 		showFooter: true,  //显示底部栏
 		sidePagination: "server", //服务端处理分页
 		responseHandler: responseHandler,
-		 columns: [
+		columns: [
 				[{
 	                 title : "Previous Faults Ranked by Downtime",
 	                 halign : "center",
@@ -231,15 +233,25 @@ function initPreDownTime1(params){
 				  formatter: fontFormatter
 				 }]
 		],
-		 queryParams : function queryParams(params) {
-	            var param = {
-	                pageNumber : params.pageNumber,
-	                pageSize : params.pageSize
-	            };
-	            return param;
-	        },
-		 onLoadSuccess : function(data) { // 加载成功时执行
-		 }
+		queryParams : function(params) {
+		      return {
+	                area : queryParams.area,
+					zone : queryParams.zone,
+					eTime: queryParams.eTime,
+					sTime: queryParams.sTime,
+					shift: queryParams.shift,
+					shop: queryParams.shop,
+					jobId : queryParams.jobId,
+					fromDate : queryParams.fromDates,
+					toDate : queryParams.toDates
+	            }
+	     },
+		 onLoadSuccess: function (data) { 		//加载成功时执行
+	          //console.log(data);
+	     },
+	     onLoadError: function (res) { 		//加载失败时执行
+	          //console.log(res);
+	     }
 	});
 }
 
@@ -707,7 +719,8 @@ function initOccTab(params){
 		 queryParams : function queryParams(params) {
 	            var param = {
 	                pageNumber : params.pageNumber,
-	                pageSize : params.pageSize
+	                pageSize : params.pageSize,
+					
 	            };
 	            return param;
 	        },
@@ -1025,14 +1038,9 @@ function queryReport(tag,params){
 	var url = baseURL + 'report/panel/list';
 	if(tag=='9Panel'){
 		
-		initPreDownTime1(params);
+		initPreDownTime1(params)
 		initOccTab1(params);
-		//initPreDownTime(params);
-		//initOccTab(params);
-		//initCurrDownTime(params);
-		//initCurrOccTab(params);
-		//initRootCauseDownTime();
-		//initRootCauseOcc();
+		
 		echars(params);
 		echars1(params);
 		echars2(params);
@@ -1373,11 +1381,11 @@ function echars1(params){
 				    ]
         	};
         	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
-	        window.onresize = echart1.resize;
-	        echart1.setOption(option);
-	        window.addEventListener("resize",function(){
-	        	echart1.resize();
-	        });
+	       // window.onresize = echart1.resize;
+	       // echart1.setOption(option);
+	       // window.addEventListener("resize",function(){
+	        //	echart1.resize();
+	       // });
         }
 	});
 }
