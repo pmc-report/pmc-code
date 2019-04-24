@@ -25,7 +25,7 @@ import gean.pmc_report_manager.modules.report.vo.PageParamVo;
 public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFaultEntity> implements EquFaultService {
 
 	@Override
-	 public List<TaEquFaultEntity> queryTotalMins(Map<String, Object> params){
+	 public TaEquFaultEntity queryTotalMins(Map<String, Object> params){
 			 Map<String, String> TaEquFaultEntity = new HashMap<String, String>();
 				for(String str : params.keySet()) {
 					TaEquFaultEntity.put(str, params.get(str) != null ? params.get(str).toString() : null);

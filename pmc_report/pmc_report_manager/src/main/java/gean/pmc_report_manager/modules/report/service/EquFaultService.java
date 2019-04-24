@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface EquFaultService extends IService<TaEquFaultEntity> {
 	
-	List<TaEquFaultEntity> queryTotalMins(Map<String, Object> params);
+	TaEquFaultEntity queryTotalMins(Map<String, Object> params);
 
     PageUtils queryPage(Map<String, Object> params);
     

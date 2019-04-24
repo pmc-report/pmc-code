@@ -101,7 +101,7 @@
 	</select>
 	
 	<select id="queryTotalMins" resultMap="taEquFaultMap" >    
-	select sum(t.duration) from [Final_BIW3_FAULT] duration
+	select sum(t.duration) duration from Final_BIW3_FAULT t
     WHERE 1 = 1
     <if test="shop!=null and shop!=''">
 			AND t.shop =#{shop}

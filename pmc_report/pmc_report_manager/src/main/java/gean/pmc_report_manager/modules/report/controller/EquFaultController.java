@@ -36,8 +36,9 @@ public class EquFaultController {
 
     @RequestMapping("/duration")
     public R queryTotalMins(@RequestParam Map<String, Object> params) {
-    	List<TaEquFaultEntity> totalList = EquFaultService.queryTotalMins(params);
-    	return R.ok().put("TotalList", totalList);
+    	TaEquFaultEntity totalList = EquFaultService.queryTotalMins(params);
+    	int duration = totalList.getDuration();
+    	return R.ok().put("duration", duration);
     }
     
     /**
