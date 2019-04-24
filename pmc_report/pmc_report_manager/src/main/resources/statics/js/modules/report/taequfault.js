@@ -68,7 +68,7 @@ function initTable(url,queryParams,duration){
 	 }
      var columns = [
           
-    	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1},
+    	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1;},
     		  footerFormatter : function(rows){
     				if(duration >=0){
     					return "总持续时间: "+duration;
@@ -132,6 +132,11 @@ function initTable(url,queryParams,duration){
 	      paginationPreText: "上一页",
 	      paginationNextText: "下一页",
 	      responseHandler: responseHandler,
+	      showFooter: true,
+	      onPostBody:function () {
+	    	    //合并页脚(回调)
+	    	    merge_footer();
+	    	},
 	      hasPreviousPage: true,
 	      hasNextPage: true,
 	      lastPage: true,
