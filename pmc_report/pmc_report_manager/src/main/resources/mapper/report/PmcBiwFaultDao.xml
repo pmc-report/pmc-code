@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gean.pmc_report_manager.modules.report.dao.TaEquFaultDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="gean.pmc_report_manager.modules.report.entity.PmcBiwFaultEntity" id="pmcBiwFaultMap">
+        <result property="shop" column="shop"/>
+        <result property="zone" column="zone"/>
+        <result property="area" column="line"/>
+        <result property="equipment" column="equipment"/>
+        <result property="station" column="station"/>
+        <result property="jobId" column="job_id"/>
+        <result property="facilityId" column="facility_id"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="duration" column="duration"/>
+        <result property="faultWord1" column="fault_word1"/>
+        <result property="faultWord2" column="fault_word2"/>
+        <result property="faultWord3" column="fault_word3"/>
+        <result property="faultDescription" column="fault_description"/>
+        <result property="reasonCode" column="reason_code"/>
+        <result property="reasonDescription" column="reason_description"/>
+        <result property="breakFlag" column="break_flag"/>
+        <result property="shift" column="shift"/>
+        <result property="tavFlag" column="tav_flag"/>
+        <result property="webFlag" column="web_flag"/>
+        <result property="posWord31" column="pos_word31"/>
+        <result property="dbTimeStamp" column="db_time_stamp"/>
+    </resultMap>
+
+
+	<sql id="common_sql">
+		select * from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
+	</sql>
+	
+	<sql id="common_sql_footer">
+		<if test="shop!=null and shop!=''">
+    		AND shop  = #{shop}
+    	</if>
+    	<if test="area!=null and area!=''">
+			AND line = #{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND ZONE = #{zone}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift = #{shift}
+		</if>
+	</sql>
+	
+	<select id="qureyFualtList" resultMap="pmcBiwFaultMap">
+		<include refid="common_sql"/>
+		<if test="shop!=null and shop!=''">
+			AND	shop = #{shop}
+		</if>
+		<if test="area!=null and area!=''">
+			AND line = #{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND ZONE = #{zone}
+		</if>
+		<if test="station!=null and station!=''">
+			AND station = #{station}
+		</if>
+		<if test="equipment!=null and equipment!=''">
+			AND equipment = #{equipment}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift = #{shift}
+		</if>
+		<if test="jobId!=null and jobId!=''">
+			AND job_id = #{jobId}
+		</if>
+		<if test="startTime!=null">
+			AND start_Time &gt; CONVERT(datetime2,#{startTime},121)
+		</if>
+		<if test="endTime!=null">
+			AND end_Time &lt; CONVERT(datetime2,#{endTime},121)
+		</if>
+	</select>
+
+</mapper>

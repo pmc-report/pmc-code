@@ -19,7 +19,7 @@ spring:
 #    password: 1234
     #SQLServer配置
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://172.17.97.22:1433;DatabaseName=report
+    url: jdbc:sqlserver://172.17.97.22:1433;DatabaseName=PMC
     username: MesQAT
     password: MesQAT01
     #PostgreSQL配置
