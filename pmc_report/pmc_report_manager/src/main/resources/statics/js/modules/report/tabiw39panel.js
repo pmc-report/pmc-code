@@ -577,7 +577,39 @@ function echars(params){
 	                    }, 
 
 				    color: ['#FFA500', '#2E9AFE'],
+<<<<<<< HEAD
 				   
+=======
+				    /*tooltip: {
+				        trigger: 'axis',
+				        axisPointer: {
+				            type: 'shadow'
+				        }
+				    },
+				    legend: {
+				    	   data: ['MTBF', 'Target MTBF'],
+					       // orient: 'vertical',
+					    	x:'right',
+					    	y:'top',
+					    	textStyle: {
+					               fontSize: 8
+					           }
+				    
+				    },*/
+	/* 			    toolbox: {
+				        show: true,
+				        orient: 'vertical',
+				        left: 'right',
+				        top: 'center',
+				        feature: {
+				            mark: {show: true},
+				            dataView: {show: true, readOnly: false},
+				            magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+				            restore: {show: true},
+				            saveAsImage: {show: true}
+				        }
+				    }, */
+>>>>>>> c2606e5262b7eba4f5e481152ed698b54d4b3f45
 				    //calculable: true,
 				    xAxis: [
 				        {
@@ -685,6 +717,38 @@ function echars1(params){
 	                    }, 
 	                    
 				    color: ['#FFA500', '#2E9AFE'],
+<<<<<<< HEAD
+=======
+				    /*tooltip: {
+				        trigger: 'axis',
+				        axisPointer: {
+				            type: 'shadow'
+				        }
+				    },
+				    legend: {
+				        data: ['TAV', 'Target TAV'],
+				       // orient: 'vertical',
+				    	x:'right',
+				    	y:'top',
+				    	textStyle: {
+				               fontSize: 8
+				           }
+				    
+				    },*/
+	/* 			    toolbox: {
+				        show: true,
+				        orient: 'vertical',
+				        left: 'right',
+				        top: 'center',
+				        feature: {
+				            mark: {show: true},
+				            dataView: {show: true, readOnly: false},
+				            magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+				            restore: {show: true},
+				            saveAsImage: {show: true}
+				        }
+				    }, */
+>>>>>>> c2606e5262b7eba4f5e481152ed698b54d4b3f45
 				    //calculable: true,
 				    xAxis: [
 				        {
@@ -801,6 +865,39 @@ function echars2(params){
 	                       },
 	                    }, 
 				    color: ['#FFA500', '#6fa8dc'],
+<<<<<<< HEAD
+=======
+				    /*tooltip: {
+				        trigger: 'axis',
+				        axisPointer: {
+				            type: 'shadow'
+				        }
+				    },
+				    legend: {
+				    	   data: ['TAV', 'Target TAV'],
+					       // orient: 'vertical',
+				    	   textStyle: {
+				               fontSize: 8
+				           },
+
+					    	x:'right',
+					    	y:'top',
+
+				    },*/
+	/* 			    toolbox: {
+				        show: true,
+				        orient: 'vertical',
+				        left: 'right',
+				        top: 'center',
+				        feature: {
+				            mark: {show: true},
+				            dataView: {show: true, readOnly: false},
+				            magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+				            restore: {show: true},
+				            saveAsImage: {show: true}
+				        }
+				    }, */
+>>>>>>> c2606e5262b7eba4f5e481152ed698b54d4b3f45
 				    //calculable: true,
 				    xAxis: [
 				        {
