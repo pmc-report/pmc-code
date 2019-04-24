@@ -1,6 +1,5 @@
 package gean.pmc_report_manager.modules.report.service.impl;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import gean.pmc_report_common.common.utils.PageUtils;
-import gean.pmc_report_common.common.utils.StringUtils;
 import gean.pmc_report_manager.common.utils.Query;
 import gean.pmc_report_manager.modules.report.dao.TaEquFaultDao;
 import gean.pmc_report_manager.modules.report.entity.PmcBiwFaultEntity;
@@ -24,7 +22,8 @@ import gean.pmc_report_manager.modules.report.vo.PageParamVo;
 public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, PmcBiwFaultEntity> implements EquFaultService {
 
 	@Override
-	 public List<PmcBiwFaultEntity> queryTotalMins(Map<String, Object> params){
+	 public PmcBiwFaultEntity queryTotalMins(Map<String, Object> params){
+
 			 Map<String, String> TaEquFaultEntity = new HashMap<String, String>();
 				for(String str : params.keySet()) {
 					TaEquFaultEntity.put(str, params.get(str) != null ? params.get(str).toString() : null);

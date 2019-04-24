@@ -26,6 +26,6 @@ public interface TaEquFaultDao extends BaseMapper<PmcBiwFaultEntity> {
 	@Transactional
 	List<PmcBiwFaultEntity> qureyFualtList(PageParamVo vo);
 	
-	public List<PmcBiwFaultEntity>queryTotalMins(Map<String, String> params);
-	
+	public PmcBiwFaultEntity queryTotalMins(Map<String, String> params);
+
 }

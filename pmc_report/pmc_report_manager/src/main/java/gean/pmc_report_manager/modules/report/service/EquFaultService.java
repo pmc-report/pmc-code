@@ -1,12 +1,10 @@
 package gean.pmc_report_manager.modules.report.service;
 
-import java.util.List;
-import java.util.Map;
-
 import com.baomidou.mybatisplus.extension.service.IService;
-
 import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_manager.modules.report.entity.PmcBiwFaultEntity;
+
+import java.util.Map;
 
 /**
  * ${comments}
@@ -17,7 +15,7 @@ import gean.pmc_report_manager.modules.report.entity.PmcBiwFaultEntity;
  */
 public interface EquFaultService extends IService<PmcBiwFaultEntity> {
 	
-	List<PmcBiwFaultEntity> queryTotalMins(Map<String, Object> params);
+	PmcBiwFaultEntity queryTotalMins(Map<String, Object> params);
 
     PageUtils queryPage(Map<String, Object> params);
     
