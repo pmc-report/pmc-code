@@ -59,6 +59,21 @@
 		<result property="targetMtbf" column="Target_MTBF"/>
 		<result property="week" column="Week"/>
 		<result property="weekNo" column="WeekNumber"/>
+		
+		<result property="old" column="id1"/>
+		<result property="_new" column="id2"/>		
+		<result property="occ1" column="Occurrences1"/>
+		<result property="occ2" column="Occurrences2"/>		
+		<result property="mins1" column="Duration1"/>
+		<result property="mins2" column="Duration2"/>		
+		<result property="stn1" column="facility_id1"/>
+		<result property="stn2" column="facility_id2"/>		
+		<result property="description1" column="fault_description1"/>
+		<result property="description2" column="fault_description2"/>
+		<result property="totalDuration1" column="TotDuration1"/>
+		<result property="totalOcc1" column="TotOcc1"/>
+		<result property="totalDuration2" column="TotDuration2"/>
+		<result property="totalOcc2" column="TotOcc2"/>
 	</resultMap>
 
 	<sql id="common_sql_header">
@@ -116,46 +131,124 @@
 		on DATEPART(WK,Week)=WeekNumber;
 	</select>
 	
-	<select id="queryTop10DownTime" resultMap="panelVoMap">
+	<select id="queryTop10DownTimeOld" resultMap="panelVoMap">
 		SELECT TOP 10
-		facility_id1,
-		fault_description1,
-		Occurrences1,
-		Duration1
-  FROM (
-				Select 
-					ROW_NUMBER() OVER (PARTITION BY fault_description ORDER BY TotalDuration desc) ROWNUMS,
-					facility_id "facility_id1",
-					fault_description "fault_description1",
-					Occurrences "Occurrences1",
-					TotalDuration "Duration1"
-				FROM (
-							select 
-									facility_id,
-									fault_description,
-									count(fault_description) Occurrences,
-									sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotalDuration
-							from(
+				ROW_NUMBER() OVER ( ORDER BY Duration1 desc) "id1",
+				facility_id1,
+				fault_description1,
+				Occurrences1,
+				Duration1
+		  FROM (
+						Select 
+							ROW_NUMBER() OVER (PARTITION BY fault_description ORDER BY TotalDuration desc) ROWNUMS,
+							facility_id "facility_id1",
+							fault_description "fault_description1",
+							Occurrences "Occurrences1",
+							TotalDuration "Duration1"
+						FROM (
 									select 
+											facility_id,
 											fault_description,
-											facility_id,start_time,
-											ISNULL(end_time,GETDATE()) Current_End_Time
-									from BIW3.dbo.Final_BIW3_FAULT t where 1 = 1 
-									<if test="_fromDate!=null">
-										AND CONVERT (VARCHAR(10), start_time, 105) IN 
-										<foreach collection="_fromDate" item="_date" open="(" separator="," close=")">
-											#{_date}
-									　　　</foreach>
-									</if>
-								<include refid="common_sql_footer"/>
-								and area!='BDC'
-								and tav_flag!=1
-						)T
-						group by facility_id,fault_description
-			)ALL_DATA
+											count(fault_description) Occurrences,
+											sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotalDuration
+									from(
+											select 
+													fault_description,
+													facility_id,start_time,
+													ISNULL(end_time,GETDATE()) Current_End_Time
+											from BIW3.dbo.Final_BIW3_FAULT t where 1 = 1 
+											AND CONVERT (VARCHAR(10), start_time, 105) IN (#{fromDate0},#{fromDate1},#{fromDate2},#{fromDate3},#{fromDate4},#{fromDate5},#{fromDate6}) 
+										<include refid="common_sql_footer"/>
+										and area!='BDC'
+										and tav_flag!=1
+								)T
+								group by facility_id,fault_description
+					)ALL_DATA
 		  )FINAL
 		  where ROWNUMS = 1
 		  order by Duration1 desc, Occurrences1 desc, facility_id1,fault_description1;
+	</select>
+	
+	<select id="queryTotalDurationTimeOld" resultMap="panelVoMap">
+		select 
+			count(fault_description) "TotOcc1" ,
+			sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotDuration1
+		from(
+			select 
+				fault_description,
+				facility_id,start_time,
+				ISNULL(end_time,GETDATE()) Current_End_Time
+			from BIW3.dbo.Final_BIW3_FAULT t
+			where 1 = 1
+			and convert(varchar(10),start_time,105) in (#{fromDate0},#{fromDate1},#{fromDate2},#{fromDate3},#{fromDate4},#{fromDate5},#{fromDate6})
+			<include refid="common_sql_footer"/>
+			and t.area!='BDC'
+			and t.tav_flag!= 1
+		)T
+	</select>
+	
+	<select id="queryTop10DownTimeNew" resultMap="panelVoMap">
+		select  
+			ROW_NUMBER() OVER ( ORDER BY Duration2 desc) "id2",
+			facility_id2,
+			fault_description2,
+			Occurrences2,
+			Duration2 
+		from (
+					SELECT TOP 100000000000
+						facility_id2,
+						fault_description2,
+						Occurrences2,
+						Duration2
+					FROM(
+								Select 
+									ROW_NUMBER() OVER (PARTITION BY fault_description ORDER BY TotalDuration desc) ROWNUMS,
+									facility_id "facility_id2",
+									fault_description "fault_description2",
+									Occurrences "Occurrences2",
+									TotalDuration "Duration2"
+								FROM (
+											select 
+												facility_id,
+												fault_description,
+												count(fault_description) Occurrences,
+												sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotalDuration
+											from(
+														select 
+															fault_description,facility_id,
+															start_time,
+															ISNULL(end_time,GETDATE()) Current_End_Time
+														from BIW3.dbo.Final_BIW3_FAULT t
+														where 1 = 1  
+														and convert(varchar(10),start_time,105) in (#{toDate0},#{toDate1},#{toDate2},#{toDate3},#{toDate4},#{toDate5},#{toDate6})
+														<include refid="common_sql_footer"/>
+														and t.area!='BDC'
+														and t.tav_flag!= 1
+													)T
+													group by facility_id,fault_description
+								)ALL_DATA
+					)FINAL
+					where ROWNUMS = 1
+					order by Duration2 desc, Occurrences2 desc, facility_id2,fault_description2
+		  )TOPVALS order by Duration2 desc;
+	</select>
+	
+	<select id="queryTotalDurationTimeNew" resultMap="panelVoMap">
+		select 
+			count(fault_description) "TotOcc2" ,
+			sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotDuration2
+		from(
+			select 
+				fault_description,
+				facility_id,start_time,
+				ISNULL(end_time,GETDATE()) Current_End_Time
+			from BIW3.dbo.Final_BIW3_FAULT t
+			where 1 = 1
+			and convert(varchar(10),start_time,105) in (#{toDate0},#{toDate1},#{toDate2},#{toDate3},#{toDate4},#{toDate5},#{toDate6})
+			<include refid="common_sql_footer"/>
+			and t.area!='BDC'
+			and t.tav_flag!= 1
+		)T
 	</select>
 	
 </mapper>

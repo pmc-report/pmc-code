@@ -31,12 +31,26 @@ function queryReport(tag,params){
 	
 	var url = baseURL + 'report/fault/list';
 	if(tag=='EQUFA'){
-		
-		initTable(url,params);
+		var duration = (JSON.parse((queryTotal(params)).responseText)).duration;
+		initTable(url,params,duration);
 	}
 }
 
-function initTable(url,queryParams){
+function queryTotal(queryParams) {
+	var num = $.ajax({
+		type : "post",
+		url : baseURL + 'report/fault/duration',
+		data : queryParams,
+		dataType : "json",
+		async : false,
+		success : function(data) {
+			return;
+		}
+	});
+	return num;
+}
+
+function initTable(url,queryParams,duration){
 	//console.log(queryParams);
 	
 	var responseHandler = function (e) {
@@ -54,8 +68,16 @@ function initTable(url,queryParams){
 	 }
      var columns = [
           
-    	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1}},
-          { field: 'area', title: '区域', align: 'center', sortable:false },
+    	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1;},
+    		  footerFormatter : function(rows){
+    				if(duration >=0){
+    					return "总持续时间: "+duration;
+    				}else{
+    					return "总持续时间: 0";
+    				}
+    			}
+    	  },
+          { field: 'line', title: '区域', align: 'center', sortable:false },
           { field: 'zone', title: 'Zone', align: 'center', sortable:false }, 
           { field: 'station', title: '工位', align: 'center', sortable:false }, 
           { field: 'facilityId', title: '设备号', align: 'center', sortable: true, clickToSelect: false, sortName: "facilityId", order:"asc" },
@@ -110,6 +132,11 @@ function initTable(url,queryParams){
 	      paginationPreText: "上一页",
 	      paginationNextText: "下一页",
 	      responseHandler: responseHandler,
+	      showFooter: true,
+	      onPostBody:function () {
+	    	    //合并页脚(回调)
+	    	    merge_footer();
+	    	},
 	      hasPreviousPage: true,
 	      hasNextPage: true,
 	      lastPage: true,

@@ -4,8 +4,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import gean.pmc_report_common.common.utils.PageUtils;
+import gean.pmc_report_common.common.utils.StringUtils;
 import gean.pmc_report_manager.common.utils.Query;
 import gean.pmc_report_manager.modules.report.dao.TaBiw39panelDao;
 import gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity;
@@ -49,7 +52,7 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 		
 		//组装数组
 		for(PanelVo panel : list) {
-			if(panel!=null) {
+			if(panel.getWeek()!=null&&panel.getStartTime()!=null) {
 				_new = new PanelVo();
 				if(panel.getMonday()!=null) {
 					_new.setMonday(panel.getMonday());
@@ -82,15 +85,107 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 		return resultList;
 	}
 
+	
 
 
 	@Override
 	public List<PanelVo> queryTop10DownTime(Map<String, Object> params) {
 		// TODO Auto-generated method stub
 		PageParamVo vo = new PageParamVo(params);
-		List<PanelVo> list = baseMapper.queryTop10DownTime(vo);
 		
+		//5
+		List<PanelVo> resultList = new ArrayList<>();
+		/*
+		 * 1.查询开始日期内排名前十的故障按照停机时长排名
+		 * 2.查询开始日期内总的停机持续时间
+		 * 3.查询结束日期内排名前十的故障按照停机时长排名
+		 * 4.查询结束日期内总的停机持续时间
+		 * 5.组装数据返回前端(5.1：组装开始周的表格数据-旧，5.2：匹配排名变化、生成编号，5.3：组装结束周的表格数据-新)
+		 */
+		
+		//1
+		List<PanelVo> top10DownTimeOldList = baseMapper.queryTop10DownTimeOld(vo);
+		
+		//2
+		List<PanelVo> totalDownTimeForFrom = baseMapper.queryTotalDurationTimeOld(vo);
+		
+		//3
+		List<PanelVo> top10DownTimeNewList = baseMapper.queryTop10DownTimeNew(vo);
+		
+		//4
+		List<PanelVo> totalDownTimeForTo = baseMapper.queryTotalDurationTimeNew(vo);
+		
+		Map<String,PanelVo> groupMap = new HashMap<>();
+		
+		DecimalFormat df = new DecimalFormat("##0.00");
+		//5
+		if(!StringUtils.isEmpty(top10DownTimeOldList)&&!StringUtils.isEmpty(top10DownTimeNewList)) {
+			
+			//5.1
+			for(int i=0;i<top10DownTimeOldList.size();i++) {
+				PanelVo resultVo = new PanelVo();
+				PanelVo oldVo = top10DownTimeOldList.get(i);
+				if(i==0) {
+					float totalDur1 = totalDownTimeForFrom.get(0).getTotalDuration1();
+					resultVo.setTotalDuration1(Float.parseFloat(df.format(totalDur1)));
+				}
+				Integer oldOrder = i + 1;
+				resultVo.setOld(oldOrder);
+				resultVo.setOcc1(oldVo.getOcc1());
+				resultVo.setMins1(Float.parseFloat(df.format(oldVo.getMins1())));
+				resultVo.setStn1(oldVo.getStn1());
+				resultVo.setDescription1(oldVo.getDescription1());
+				String oldKey = oldVo.getStn1()+"-"+oldVo.getDescription1();
+				groupMap.put(oldKey, resultVo);
+				resultList.add(resultVo);
+			}
+		
+			//5.2
+			for(int i=0;i<top10DownTimeNewList.size();i++) {
+				PanelVo newVo = top10DownTimeNewList.get(i);
+				String newKey = newVo.getStn2()+"-"+newVo.getDescription2();
+				if(groupMap.containsKey(newKey)) {
+					PanelVo oldVo = groupMap.get(newKey);
+					Integer newOrder = newVo.get_new();
+					Integer oldOrder = oldVo.getOld();
+					oldVo.setOldThenNew(newOrder);
+					if(newOrder < oldOrder) {
+						oldVo.setStatus(0);//排名上升
+					}else if(newOrder > oldOrder) {
+						oldVo.setStatus(3);//排名降低
+					}else if(newOrder == oldOrder) {
+						oldVo.setStatus(2);//保持不变
+					}else if(newOrder>10) {
+						oldVo.setStatus(0);//退出前十
+					}
+				}
+			}
+		
+			//5.3
+			for(int i=0;i<=9&&i<=top10DownTimeNewList.size();i++) {
+				PanelVo newVo = top10DownTimeNewList.get(i);
+				PanelVo oldVo = resultList.get(i);
+				if(i==0) {
+					float totalDur2 = totalDownTimeForTo.get(0).getTotalDuration2();
+					oldVo.setTotalDuration2(Float.parseFloat(df.format(totalDur2)));
+				}
+				Integer newOrder = newVo.get_new();
+				oldVo.set_new(newOrder);
+				oldVo.setOcc2(newVo.getOcc2());
+				oldVo.setMins2(Float.parseFloat(df.format(newVo.getMins2())));
+				oldVo.setStn2(newVo.getStn2());
+				oldVo.setDescription2(newVo.getDescription2());
+				if(oldVo.getStatus()==null) {
+					oldVo.setStatus(1);//故障消失
+				}
+			}
+			
+			if(!StringUtils.isEmpty(resultList)) {
+				return resultList;
+			}
+		}
 		return null;
 	}
+
 	
 }

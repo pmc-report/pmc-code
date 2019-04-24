@@ -10,12 +10,21 @@ import lombok.Data;
 public class PanelVo {
 
 	private Integer old;
+	private Integer oldThenNew;
 	private Integer _new;
-	private Integer occ;
-	private Float mins;
-	private Integer stn;
-	private String description;
-	private Float pareto;
+	private Integer occ1;
+	private float mins1;
+	private Integer stn1;
+	private String description1;
+	private Integer occ2;
+	private Float mins2;
+	private Integer stn2;
+	private String description2;
+	private float totalDuration1;
+	private Integer totalOcc1;
+	private float totalDuration2;
+	private Integer totalOcc2;
+	
 	private Integer status;
 	private Integer weekRange;
 	

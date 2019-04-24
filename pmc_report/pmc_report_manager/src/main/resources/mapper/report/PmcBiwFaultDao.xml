@@ -7,7 +7,7 @@
     <resultMap type="gean.pmc_report_manager.modules.report.entity.PmcBiwFaultEntity" id="pmcBiwFaultMap">
         <result property="shop" column="shop"/>
         <result property="zone" column="zone"/>
-        <result property="area" column="line"/>
+        <result property="line" column="line"/>
         <result property="equipment" column="equipment"/>
         <result property="station" column="station"/>
         <result property="jobId" column="job_id"/>
@@ -31,7 +31,7 @@
 
 
 	<sql id="common_sql">
-		select * from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
+		select * from PMC_BIW_FAULT t where 1 = 1 
 	</sql>
 	
 	<sql id="common_sql_footer">
@@ -79,5 +79,34 @@
 			AND end_Time &lt; CONVERT(datetime2,#{endTime},121)
 		</if>
 	</select>
+	
+	<select id="queryTotalMins" resultMap="pmcBiwFaultMap" >    
+	select sum(t.duration) duration from PMC.dbo.PMC_BIW_FAULT t
+    WHERE 1 = 1
+    <if test="shop!=null and shop!=''">
+			AND t.shop =#{shop}
+		</if>
+		<if test="area!=null and area!=''">
+			AND t.line =#{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND t. zone =#{zone}
+		</if>
+		<if test="station!=null and station!=''">
+		AND t.station=#{station}
+		</if>
+		<if test="startTime!=null and startTime!=''">
+			AND t.start_time &gt;=CONVERT (VARCHAR,#{startTime},21)
+		</if>
+		<if test="endTime!=null and endTime!=''">
+			AND t.end_time &lt;=CONVERT (VARCHAR,#{endTime},21)
+		</if>
+		<if test="frequency!=null and frequency!=''">
+			AND t.frequency =#{frequency}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND t.shift =#{shift}
+		</if>
+    </select>
 
 </mapper>

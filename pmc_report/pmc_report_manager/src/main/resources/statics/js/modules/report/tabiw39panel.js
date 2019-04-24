@@ -8,10 +8,12 @@ $(function () {
 	initDate();
 });
 
-function initPreDownTime1(queryParams){ 
+function initPreDownTime(queryParams){ 
 	console.log(queryParams)
 	var occ = '';
 	var mins = '';
+	var totalDuration1 = '';
+	var totalDuration2 = '';
 	var operateFormatter = function (value, row, index) {//赋予的参数
 		if(value != undefined){
 			var color = 'style = "background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
@@ -30,21 +32,41 @@ function initPreDownTime1(queryParams){
 	     return '';
 	}
 	var  responseHandler = function(res) { // 格式化数据
-        if (res.list !=null && res.list.length > 0)
+        if (res.preDownTimeList !=null && res.preDownTimeList.length > 0){
             tmp = {
                 total : res.totalCount,
-                rows : res.list
+                rows : res.preDownTimeList
             };
-        if (res.totalCount == null)
-            tmp = {
-                total : '',
-                rows : ''
-            };
-        return tmp;
+            
+            var list = res.preDownTimeList;
+            for(var i=0;i<list.length;i++ ){
+         	   if(i==0
+         			   &&list[i].totalDuration1!=null
+         			   &&list[i].totalDuration2!=null){
+         		   totalDuration1 = list[i].totalDuration1;
+         		   totalDuration2 = list[i].totalDuration2;
+         	   }
+            }
+       
+         return tmp;
+        }
+        if(res.totalCount==null){
+        	 tmp = {
+                     total : '',
+                     rows : ''
+                 };
+        	 return tmp;
+        }
     }
 	
 	var fontFormatter = function(value,row,index) {
-        var dom = '<span style="font-size:12px">'+value+'</span>';  
+		var dom = '';
+		if(value!=null){
+			dom = '<span style="font-size:12px">'+value+'</span>';
+		}else{
+			dom = '<span style="font-size:12px"> </span>';
+		}
+          
      return dom;  
 	}
 	
@@ -81,7 +103,7 @@ function initPreDownTime1(queryParams){
 	}
 	
 	var totalDownTime = function(value,row,index){
-		return '<span style="font-size:12px">702.3</span></br><span style="font-size:12px">1101</span>';
+		return '<span style="font-size:12px">'+totalDuration1+'</span></br><span style="font-size:12px">'+totalDuration2+'</span>';
 	}
 	
 	var borderFormatter =  function(value,row,index){
@@ -94,13 +116,6 @@ function initPreDownTime1(queryParams){
 		method: "post",                     //使用get请求到服务器获取数据
 	    dataType: "json",
 	    contentType: "application/x-www-form-urlencoded",
-		//toolbar: '#toolbar',  //工具按钮用哪个容器
-		//striped: true,   //是否显示行间隔色
-		//singleSelect: false,
-		//pagination: true, //分页
-		//pageNumber:1,   //初始化加载第一页，默认第一页
-		//pageSize: 10,   //每页的记录行数（*）
-		//pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
 		queryParamsType: '', //参数格式,发送标准的RESTFul类型的参数请求 
 		search: false, //显示搜索框
 		showFooter: true,  //显示底部栏
@@ -131,17 +146,17 @@ function initPreDownTime1(queryParams){
 						 return '<span style="font-size:12px">Total Downtime for Top 10 Faults :</span></br><span style="font-size:12px">Total Occurrence for Top 10 Faults :</span>';
 				  }
 				 }, {
-				  field: '_new',
+				  field: 'oldThenNew',
 				  title: 'New',
 				  formatter: fontFormatter,
 				  footerFormatter: top10DownTime
 				 }, {
-				  field: 'occ',
+				  field: 'occ1',
 				  title: 'Occ',
 				  cellStyle: getOcc,
 				  formatter: fontFormatter
 				 }, {
-				  field: 'mins',
+				  field: 'mins1',
 				  title: 'Mins',
 				  cellStyle: getMins,
 				  formatter: fontFormatter,
@@ -149,12 +164,12 @@ function initPreDownTime1(queryParams){
 						 return '<span style="font-size:12px">Total Downtime for All Faults :</span></br><span style="font-size:12px">Total Occurrence for All Faults :</sapn>';
 				  }
 				 }, {
-				  field: 'stn',
+				  field: 'stn1',
 				  title: 'Stn',
 				  formatter: fontFormatter,
 				  footerFormatter: totalDownTime
 				 }, {
-				  field: 'description',
+				  field: 'description1',
 				  title: 'Description',
 				  formatter: fontFormatter,
 				 }, {
@@ -216,19 +231,19 @@ function initPreDownTime1(queryParams){
 				  title: 'New',
 				  formatter: fontFormatter
 				 }, {
-				  field: 'occ',
+				  field: 'occ2',
 				  title: 'Occ',
 				  formatter: fontFormatter
 				 }, {
-				  field: 'mins',
+				  field: 'mins2',
 				  title: 'Mins',
 				  formatter: fontFormatter
 				 }, {
-				  field: 'stn',
+				  field: 'stn2',
 				  title: 'Stn',
 				  formatter: fontFormatter
 				 }, {
-				  field: 'description',
+				  field: 'description2',
 				  title: 'Description',
 				  formatter: fontFormatter
 				 }]
@@ -247,15 +262,13 @@ function initPreDownTime1(queryParams){
 	            }
 	     },
 		 onLoadSuccess: function (data) { 		//加载成功时执行
-	          //console.log(data);
 	     },
 	     onLoadError: function (res) { 		//加载失败时执行
-	          //console.log(res);
 	     }
 	});
 }
 
-function initOccTab1(params){ 
+function initOccTab(params){ 
 	
 	var operateFormatter = function (value, row, index) {//赋予的参数
 		if(value != undefined){
@@ -324,7 +337,7 @@ function initOccTab1(params){
 	}
 	
 	var totalDownTime = function(value,row,index){
-		return '<span style="font-size:12px">702.3</span></br><span style="font-size:12px">1101</span>';
+		return '<span style="font-size:12px">'+totalDuration1+'</span></br><span style="font-size:12px">1101</span>';
 	}
 	
 	var borderFormatter =  function(value,row,index){
@@ -336,13 +349,8 @@ function initOccTab1(params){
 		url: 'panel/listPrePanel', 
 		method: "post",  
 		dataType: "json",
-		//toolbar: '#toolbar',  //工具按钮用哪个容器
 		striped: true,   //是否显示行间隔色
 		singleSelect: false,
-		//pagination: true, //分页
-		//pageNumber:1,   //初始化加载第一页，默认第一页
-		//pageSize: 10,   //每页的记录行数（*）
-		//pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
 		search: false, //显示搜索框
 		showFooter: true,
 		sidePagination: "server", //服务端处理分页
@@ -483,8 +491,6 @@ function initOccTab1(params){
 	            return param;
 	        },
 		 onLoadSuccess : function(data) { // 加载成功时执行
-			// var tab = '#preOcc';
-			// merge_footer(tab);
 		 }
 	});
 }
@@ -494,16 +500,14 @@ function queryReport(tag,params){
 	var url = baseURL + 'report/panel/list';
 	if(tag=='9Panel'){
 		
-		initPreDownTime1(params)
-		initOccTab1(params);
+		initPreDownTime(params)
+		//initOccTab1(params);
 		
 		echars(params);
 		echars1(params);
 		echars2(params);
 	}
 }
-
-var _data = '';
 
 function echars(params){
 	
@@ -559,7 +563,6 @@ function echars(params){
 			                x2:50,
 			                y2:30,
 			                borderWidth:1,
-//			                bottom:'20%'
 			            },
 						title: {  
 	                        //主标题文本，'\n'指定换行  
@@ -569,51 +572,12 @@ function echars(params){
 	                        //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
 	                       y: 'top'  ,
 	                       textStyle:{
-	                    	   //文字颜色
-	                          // color:'#ccc',
-	                           //字体风格,'normal','italic','oblique'
-	                          // fontStyle:'normal',
-	                           //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
-	                         //  fontWeight:'bold',
-	                           //字体系列
-	                           //fontFamily:'sans-serif',
-	                           //字体大小
 	                   　　　　			 fontSize:13
 	                       },
-      
 	                    }, 
 
-	                    
 				    color: ['#FFA500', '#2E9AFE'],
-				    tooltip: {
-				        trigger: 'axis',
-				        axisPointer: {
-				            type: 'shadow'
-				        }
-				    },
-				    legend: {
-				    	   data: ['MTBF', 'Target MTBF'],
-					       // orient: 'vertical',
-					    	x:'right',
-					    	y:'top',
-					    	textStyle: {
-					               fontSize: 8
-					           }
-				    
-				    },
-	/* 			    toolbox: {
-				        show: true,
-				        orient: 'vertical',
-				        left: 'right',
-				        top: 'center',
-				        feature: {
-				            mark: {show: true},
-				            dataView: {show: true, readOnly: false},
-				            magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-				            restore: {show: true},
-				            saveAsImage: {show: true}
-				        }
-				    }, */
+				   
 				    //calculable: true,
 				    xAxis: [
 				        {
@@ -627,50 +591,29 @@ function echars(params){
 				            data: date
 				        }
 				    ],
-				   /*dataZoom : [
-				    	{   //设置X轴拖动
-			                type: 'slider',
-			                show: true,
-			                start: 50,
-			                end: 0,
-			                top:'90%'
-			            },
-			            {  //设置图表里拖动
-			                type: 'inside',
-			                start: 0,
-			                end: 100
-			            },
-				    ],*/
-				    yAxis: [
-				        {
-				    /*    min:'0',
-				         max:'100'*/
-				        }
-				    ],
+				  
+				    yAxis: [  {}],
 				    series: [
-				    
 				        {
 				            name: 'MTBF',
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
-				            data: mtbf
+				            data: mtbf,
+				            hoverAnimation:false,//禁用鼠标悬停弹出效果
 				        },
 				        {
 				            name: 'Target MTBF',
 				            type: 'line',
 				            label: labelOption,
-				            data: tarMtbf
+				            data: tarMtbf,
+				            hoverAnimation:false,
 				        },
-				       
 				    ]
 				};
         	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
 	        window.onresize = echart.resize;
 	        echart.setOption(option);
-	        /*window.addEventListener("resize",function(){
-	        	echart.resize();
-	        });*/
         }
 	});
 }
@@ -728,7 +671,6 @@ function echars1(params){
 			                x2:50,
 			                y2:30,
 			                borderWidth:1,
-//			                bottom:'20%'
 			            },
 						title: {  
 	                        //主标题文本，'\n'指定换行  
@@ -738,50 +680,11 @@ function echars1(params){
 	                        //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
 	                       y: 'top'  ,
 	                       textStyle:{
-	                    	   //文字颜色
-	                          // color:'#ccc',
-	                           //字体风格,'normal','italic','oblique'
-	                          // fontStyle:'normal',
-	                           //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
-	                         //  fontWeight:'bold',
-	                           //字体系列
-	                           //fontFamily:'sans-serif',
-	                           //字体大小
 	                   　　　　			 fontSize:13
 	                       },
-      
 	                    }, 
 	                    
 				    color: ['#FFA500', '#2E9AFE'],
-				    tooltip: {
-				        trigger: 'axis',
-				        axisPointer: {
-				            type: 'shadow'
-				        }
-				    },
-				    legend: {
-				        data: ['TAV', 'Target TAV'],
-				       // orient: 'vertical',
-				    	x:'right',
-				    	y:'top',
-				    	textStyle: {
-				               fontSize: 8
-				           }
-				    
-				    },
-	/* 			    toolbox: {
-				        show: true,
-				        orient: 'vertical',
-				        left: 'right',
-				        top: 'center',
-				        feature: {
-				            mark: {show: true},
-				            dataView: {show: true, readOnly: false},
-				            magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-				            restore: {show: true},
-				            saveAsImage: {show: true}
-				        }
-				    }, */
 				    //calculable: true,
 				    xAxis: [
 				        {
@@ -811,42 +714,26 @@ function echars1(params){
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
-				            data: tav
+				            data: tav,
+				            hoverAnimation:false,
 				        },
 				        {
 				            name: 'Target TAV',
 				            type: 'line',
 				            label: labelOption,
-				            data: tarTav
+				            data: tarTav,
+				            hoverAnimation:false,
 				        },
 				       
 				    ],
-				    /*dataZoom : [
-				    	{   //设置X轴拖动
-			                type: 'slider',
-			                show: true,
-			                start: 50,
-			                end: 0,
-			                top:'90%'
-			            },
-			            {  //设置图表里拖动
-			                type: 'inside',
-			                start: 0,
-			                end: 100
-			            },
-				    ]*/
         	};
         	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
 	        window.onresize = echart1.resize;
 	        echart1.setOption(option);
-	        /*window.addEventListener("resize",function(){
-	        	echart1.resize();
-	        });*/
         }
+       
 	});
 }
-
-
 
 function echars2(params){
 	var posList = [
@@ -894,7 +781,6 @@ function echars2(params){
       	    	data.list[i].targetTav==0?tarTav.push(''):tarTav.push(data.list[i].targetTav);
       	    }
       	    
-        	
         	var	option = {
 					 grid:{
 						   x:50,
@@ -902,7 +788,6 @@ function echars2(params){
 			                x2:50,
 			                y2:30,
 			                borderWidth:1,
-//			                bottom:'15%'
 			            },
 						title: {  
 	                        //主标题文本，'\n'指定换行  
@@ -912,52 +797,10 @@ function echars2(params){
 	                        //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
 	                       y: 'top'  ,
 	                       textStyle:{
-	                    	   //文字颜色
-	                          // color:'#ccc',
-	                           //字体风格,'normal','italic','oblique'
-	                          // fontStyle:'normal',
-	                           //字体粗细 'normal','bold','bolder','lighter',100 | 200 | 300 | 400...
-	                         //  fontWeight:'bold',
-	                           //字体系列
-	                           //fontFamily:'sans-serif',
-	                           //字体大小
-	                   　　　　	fontSize:13
+	                   　　　　				fontSize:13
 	                       },
-      
 	                    }, 
-
-	                    
 				    color: ['#FFA500', '#6fa8dc'],
-				    tooltip: {
-				        trigger: 'axis',
-				        axisPointer: {
-				            type: 'shadow'
-				        }
-				    },
-				    legend: {
-				    	   data: ['TAV', 'Target TAV'],
-					       // orient: 'vertical',
-				    	   textStyle: {
-				               fontSize: 8
-				           },
-
-					    	x:'right',
-					    	y:'top',
-
-				    },
-	/* 			    toolbox: {
-				        show: true,
-				        orient: 'vertical',
-				        left: 'right',
-				        top: 'center',
-				        feature: {
-				            mark: {show: true},
-				            dataView: {show: true, readOnly: false},
-				            magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
-				            restore: {show: true},
-				            saveAsImage: {show: true}
-				        }
-				    }, */
 				    //calculable: true,
 				    xAxis: [
 				        {
@@ -981,35 +824,31 @@ function echars2(params){
 				    	}
 				    ],
 				    series: [
-				    
 				        {
 				            name: 'TAV',
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
-				            data: tav
+				            data: tav,
+				            hoverAnimation:false,
 				        },
 				        {
 				            name: 'Target TAV',
 				            type: 'bar',
 				            label: labelOption,
-				            data: tarTav
+				            data: tarTav,
+				            hoverAnimation:false,
 				        },
-				       
 				    ]
 				};
         	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
 	        window.onresize = echart2.resize;
 	        echart2.setOption(option);
-	        /*window.addEventListener("resize",function(){
-	        	echart2.resize();
-	        });*/
         }
 	});
 }
 
 function report() {
-	
 	var image = new Image();
 	var image1 = new Image();
 	var image2 = new Image();
@@ -1030,9 +869,6 @@ function report() {
         backgroundColor: '#fff'
 	});
 	
-	// console.log(image.src);
-	// console.log(image1.src);
-	// console.log(image2.src);
 	var echarepxport = image.src.replace("data:image/png;base64,", "");
 	var echarepxport1 = image1.src.replace("data:image/png;base64,", "");
 	var echarepxport2 = image2.src.replace("data:image/png;base64,", "");

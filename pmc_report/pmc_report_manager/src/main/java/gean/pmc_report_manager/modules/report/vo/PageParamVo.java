@@ -23,8 +23,20 @@ public class PageParamVo {
 	private String equipment;
 	private String limit;
 	private String page;
-	private String[] _fromDate;
-	private List<String> _toDate;
+	private String fromDate0;
+	private String fromDate1;
+	private String fromDate2;
+	private String fromDate3;
+	private String fromDate4;
+	private String fromDate5;
+	private String fromDate6;
+	private String toDate0;
+	private String toDate1;
+	private String toDate2;
+	private String toDate3;
+	private String toDate4;
+	private String toDate5;
+	private String toDate6;
 
 	public PageParamVo(Map<String, Object> params) {
 		
@@ -49,7 +61,21 @@ public class PageParamVo {
 		
 		area = (String)params.get("area");
 		jobId = (String)params.get("jobId");
-		_fromDate = (String[])params.get("_fromDateList")==null?null:(String[])params.get("_fromDateList");
-		_toDate = (List<String>)params.get("_toDate")==null?null:(List<String>)params.get("_toDate");;
+		fromDate0 = (String)params.get("fromDate[0]")==null?"0":(String)params.get("fromDate[0]");
+		fromDate1 = (String)params.get("fromDate[1]")==null?"0":(String)params.get("fromDate[1]");
+		fromDate2 = (String)params.get("fromDate[2]")==null?"0":(String)params.get("fromDate[2]");
+		fromDate3 = (String)params.get("fromDate[3]")==null?"0":(String)params.get("fromDate[3]");
+		fromDate4 = (String)params.get("fromDate[4]")==null?"0":(String)params.get("fromDate[4]");
+		fromDate5 = (String)params.get("fromDate[5]")==null?"0":(String)params.get("fromDate[5]");
+		fromDate6 = (String)params.get("fromDate[6]")==null?"0":(String)params.get("fromDate[6]");
+		
+		toDate0 = (String)params.get("toDate[0]")==null?"0":(String)params.get("toDate[0]");
+		toDate1 = (String)params.get("toDate[1]")==null?"0":(String)params.get("toDate[1]");
+		toDate2 = (String)params.get("toDate[2]")==null?"0":(String)params.get("toDate[2]");
+		toDate3 = (String)params.get("toDate[3]")==null?"0":(String)params.get("toDate[3]");
+		toDate4 = (String)params.get("toDate[4]")==null?"0":(String)params.get("toDate[4]");
+		toDate5 = (String)params.get("toDate[5]")==null?"0":(String)params.get("toDate[5]");
+		toDate6 = (String)params.get("toDate[6]")==null?"0":(String)params.get("toDate[6]");
+		
 	}
 }

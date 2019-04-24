@@ -46,38 +46,6 @@ public class TaBiw39panelController {
     
     @RequestMapping("/listPrePanel")
     public Object listPrePanel(@RequestParam Map<String,Object> params) {
-    	//假数据
-       /* int totalCount = 10;
-        if(totalCount > 0){
-            List<PanelVo> user = new ArrayList<>();
-            for(int i=1; i<11; i++) {
-            	PanelVo vo = new PanelVo();
-            	vo.set_new((int)(1+Math.random()*(10-1+1)));
-            	vo.setOld(i);
-            	vo.setDescription("* "+(int)(1+Math.random()*(10-1+1))+"S512 UNIT103 PART PRESENT");
-            	vo.setMins((float)(3+Math.random()*(45-1+1)));
-            	vo.setOcc((int)(1+Math.random()*(100-1+1)));
-            	vo.setStn((int)(100+Math.random()*(2000-1+1)));
-            	vo.setPareto((float)(1+Math.random()*(100-1+1)));
-            	vo.setStatus((int)(0+Math.random()*(5-1+1)));
-            	user.add(vo);
-            }
-            return new PageUtils(user, totalCount, totalCount, 0);
-        }
-            /////////////
-           return null;*/
-    
-    	String[] fromDateList= new String[7];
-    	List<String> toDateList = new ArrayList<>();
-    	for(int i=0;i<=6;i++ ) {
-    		String fromDate = (String)params.get("fromDate["+i+"]");
-    		String toDate = (String)params.get("toDate["+i+"]");
-    		fromDateList[i]=fromDate;
-    		toDateList.add(toDate);
-    	}
-    	if(fromDateList.length > 0 ) {
-        	params.put("_fromDateList", fromDateList);
-    	}
     	List<PanelVo> list = taBiw39panelService.queryTop10DownTime(params);
         return R.ok().put("preDownTimeList", list);
     }
@@ -85,7 +53,7 @@ public class TaBiw39panelController {
     @RequestMapping("/listCurrPanel")
     public Object listCurrPanel(Map<String,Object> form) {
     	//假数据 
-        int totalCount = 10;
+       /* int totalCount = 10;
         if(totalCount > 0){
             List<PanelVo> user = new ArrayList<>();
             for(int i=1; i<11; i++) {
@@ -99,7 +67,7 @@ public class TaBiw39panelController {
             }
             ///////////
             return new PageUtils(user, totalCount, totalCount, 0);
-        }
+        }*/
         return null;
     }
 

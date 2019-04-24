@@ -14,7 +14,7 @@ import java.util.Date;
  * @date 2019-04-23 16:10:19
  */
 @Data
-@TableName("PMC_BIW_FAULT")
+@TableName("PMC.dbo.PMC_BIW_FAULT")
 public class PmcBiwFaultEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -29,7 +29,7 @@ public class PmcBiwFaultEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private String area;
+	private String line;
 	/**
 	 * $column.comments
 	 */

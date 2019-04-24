@@ -270,7 +270,9 @@ function initStationSelected(workshopNo,areaNo,zoneNo){
             var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
             var list = data.stationList;
             $.each(list, function(i, station) { 
-           	 selectOption += '<option value="'+isNull(station['stationNo'])+'">'+isNull(station['stationNo']) + "</option>";
+            	if(station!=null){
+            		selectOption += '<option value="'+isNull(station['stationNo'])+'">'+isNull(station['stationNo']) + "</option>";
+            	}
             });  
             $('#station_search').html(selectOption);
             $('#stationNo').html(selectOption);

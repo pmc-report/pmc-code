@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity;
+import gean.pmc_report_manager.modules.report.vo.PageParamVo;
 import gean.pmc_report_manager.modules.report.vo.PanelVo;
 
 /**
@@ -24,5 +25,7 @@ public interface TaBiw39panelService extends IService<TaBiw39panelEntity> {
     List<PanelVo> queryEchart(Map<String, Object> params);
     
     List<PanelVo> queryTop10DownTime(Map<String, Object> params);
+    
+   
 }
 

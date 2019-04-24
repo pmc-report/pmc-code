@@ -1,7 +1,7 @@
 package gean.pmc_report_manager.modules.report.service.impl;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import gean.pmc_report_common.common.utils.PageUtils;
+import gean.pmc_report_common.common.utils.StringUtils;
 import gean.pmc_report_manager.common.utils.Query;
 import gean.pmc_report_manager.modules.report.dao.TaEquFaultDao;
 import gean.pmc_report_manager.modules.report.entity.PmcBiwFaultEntity;
@@ -24,11 +25,11 @@ public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, PmcBiwFaultE
 	@Override
 	 public PmcBiwFaultEntity queryTotalMins(Map<String, Object> params){
 
-			 Map<String, String> TaEquFaultEntity = new HashMap<String, String>();
+			 Map<String, String> faultMap = new HashMap<String, String>();
 				for(String str : params.keySet()) {
-					TaEquFaultEntity.put(str, params.get(str) != null ? params.get(str).toString() : null);
+					faultMap.put(str, params.get(str) != null ? params.get(str).toString() : null);
 				}
-			 return baseMapper.queryTotalMins(TaEquFaultEntity); 
+			 return baseMapper.queryTotalMins(faultMap); 
 	 }
 	
     @Override
@@ -50,8 +51,8 @@ public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, PmcBiwFaultE
 		String str = vo.getEquipment();
 		str = str.replaceAll("&amp;", "&");
 		vo.setEquipment(str);
-		List<PmcBiwFaultEntity> list = baseMapper.qureyFualtList(vo);
- 		/*Timestamp sTime=null;
+		//List<PmcBiwFaultEntity> list = baseMapper.qureyFualtList(vo);
+ 		Timestamp sTime=null;
 		Timestamp eTime=null;
 		if(vo.getStartTime()!=null) {
 			sTime = new Timestamp(vo.getStartTime().getTime());
@@ -68,8 +69,11 @@ public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, PmcBiwFaultE
 															.eq(StringUtils.isNotBlank(vo.getShift()), "shift", vo.getShift())
 															.eq(StringUtils.isNotBlank(vo.getJobId()), "job_id", vo.getJobId())
 															.ge(StringUtils.isNotNull(sTime), "start_Time", sTime)
-															.le(StringUtils.isNotNull(eTime), "end_Time", eTime));*/
-		return new PageUtils(list,list.size(),0,10);
+															.le(StringUtils.isNotNull(eTime), "end_Time", eTime));
+		if(page!=null) {
+			return new PageUtils(page);
+		}
+		return null;
 	}
 
 }
