@@ -585,7 +585,7 @@ function echars(params){
 
 	                    
 				    color: ['#FFA500', '#2E9AFE'],
-				    tooltip: {
+				    /*tooltip: {
 				        trigger: 'axis',
 				        axisPointer: {
 				            type: 'shadow'
@@ -600,7 +600,7 @@ function echars(params){
 					               fontSize: 8
 					           }
 				    
-				    },
+				    },*/
 	/* 			    toolbox: {
 				        show: true,
 				        orient: 'vertical',
@@ -654,13 +654,15 @@ function echars(params){
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
-				            data: mtbf
+				            data: mtbf,
+				            hoverAnimation:false,//禁用鼠标悬停弹出效果
 				        },
 				        {
 				            name: 'Target MTBF',
 				            type: 'line',
 				            label: labelOption,
-				            data: tarMtbf
+				            data: tarMtbf,
+				            hoverAnimation:false,
 				        },
 				       
 				    ]
@@ -753,7 +755,7 @@ function echars1(params){
 	                    }, 
 	                    
 				    color: ['#FFA500', '#2E9AFE'],
-				    tooltip: {
+				    /*tooltip: {
 				        trigger: 'axis',
 				        axisPointer: {
 				            type: 'shadow'
@@ -768,7 +770,7 @@ function echars1(params){
 				               fontSize: 8
 				           }
 				    
-				    },
+				    },*/
 	/* 			    toolbox: {
 				        show: true,
 				        orient: 'vertical',
@@ -811,13 +813,15 @@ function echars1(params){
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
-				            data: tav
+				            data: tav,
+				            hoverAnimation:false,
 				        },
 				        {
 				            name: 'Target TAV',
 				            type: 'line',
 				            label: labelOption,
-				            data: tarTav
+				            data: tarTav,
+				            hoverAnimation:false,
 				        },
 				       
 				    ],
@@ -928,7 +932,7 @@ function echars2(params){
 
 	                    
 				    color: ['#FFA500', '#6fa8dc'],
-				    tooltip: {
+				    /*tooltip: {
 				        trigger: 'axis',
 				        axisPointer: {
 				            type: 'shadow'
@@ -944,7 +948,7 @@ function echars2(params){
 					    	x:'right',
 					    	y:'top',
 
-				    },
+				    },*/
 	/* 			    toolbox: {
 				        show: true,
 				        orient: 'vertical',
@@ -987,13 +991,15 @@ function echars2(params){
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
-				            data: tav
+				            data: tav,
+				            hoverAnimation:false,
 				        },
 				        {
 				            name: 'Target TAV',
 				            type: 'bar',
 				            label: labelOption,
-				            data: tarTav
+				            data: tarTav,
+				            hoverAnimation:false,
 				        },
 				       
 				    ]
