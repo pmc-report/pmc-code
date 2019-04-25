@@ -60,7 +60,7 @@ public class PageParamVo {
 		}
 		
 		area = (String)params.get("area");
-		jobId = (String)params.get("jobId");
+		jobId = (String)params.get("jobId")==null?"":(String)params.get("jobId");;
 		fromDate0 = (String)params.get("fromDate[0]")==null?"0":(String)params.get("fromDate[0]");
 		fromDate1 = (String)params.get("fromDate[1]")==null?"0":(String)params.get("fromDate[1]");
 		fromDate2 = (String)params.get("fromDate[2]")==null?"0":(String)params.get("fromDate[2]");

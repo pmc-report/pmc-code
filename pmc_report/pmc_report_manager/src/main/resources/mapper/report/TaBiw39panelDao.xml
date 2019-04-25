@@ -31,24 +31,6 @@
         <result property="processedFlag" column="processed_flag"/>
     </resultMap>
 	
-	<!--private Integer old;
-	private Integer _new;
-	private Integer occ;
-	private Float mins;
-	private Integer stn;
-	private String description;
-	private Float pareto;
-	private Integer status;
-	private Integer weekRange;
-	private Date monday;
-	private Integer weekNo;
-	private Float tav;
-	private Float targetTav;
-	private Date startTime;
-	private Float mtbf;
-	private Float targetMtbf;
-	private Float week;  -->
-	
 	<resultMap type="gean.pmc_report_manager.modules.report.vo.PanelVo" id="panelVoMap">
 		<result property="weekRange" column="WeekRange"/>
 		<result property="monday" column="MondayOfCurrentWeek"/>
@@ -126,7 +108,18 @@
 											mtbf/60 "MTBF",tar_mtbf/60 "Target_MTBF",start_time
 									from BIW3.dbo.Final_BIW3_TA t
 									where 1 = 1 
-									<include refid="common_sql_footer"/> 
+									<if test="shop!=null and shop!=''">
+							    		AND shop  = #{shop}
+							    	</if>
+							    	<if test="area!=null and area!=''">
+										AND area = #{area}
+									</if>
+									<if test="zone!=null and zone!=''">
+										AND ZONE = #{zone}
+									</if>
+									<if test="shift!=null and shift!=''">
+										AND shift = #{shift}
+									</if>
 									order by  t.start_time desc )P
 		on DATEPART(WK,Week)=WeekNumber;
 	</select>

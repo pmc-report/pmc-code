@@ -170,6 +170,31 @@ function queryTotal(queryParams) {
 	return num;
 }
 
+/**
+ * 时间秒数格式化
+ * @param s 时间戳（单位：秒）
+ * @returns {*} 格式化后的时分秒
+ */
+var sec_to_time = function(s) {
+    var t;
+    if(s > -1){
+        var hour = Math.floor(s/3600);
+        var min = Math.floor(s/60) % 60;
+        var sec = s % 60;
+        if(hour < 10) {
+            t = '0'+ hour + ":";
+        } else {
+            t = hour + ":";
+        }
+
+        if(min < 10){t += "0";}
+        t += min + ":";
+        if(sec < 10){t += "0";}
+        t += sec.toFixed(0);
+    }
+    return t;
+}
+
 function initTable(url,queryParams,duration){
 	//console.log(queryParams);
 	
@@ -186,12 +211,17 @@ function initTable(url,queryParams,duration){
 	      var html = "<a href='#'>"+ res + "</a>";
 	      return html;
 	 }
+	 
+	 var dateFormatter = function(value, row, index){
+ 	    return sec_to_time(value);
+     } 
+	 
      var columns = [
           
     	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1;},
     		  footerFormatter : function(rows){
-    				if(duration >=0){
-    					return "总持续时间: "+duration;
+    				if(duration!=null){
+    					return "总持续时间: "+sec_to_time(duration);
     				}else{
     					return "总持续时间: 0";
     				}
@@ -212,7 +242,7 @@ function initTable(url,queryParams,duration){
           { field: 'reasonDescription', title: '原因描述', align: 'center' },
           { field: 'startTime', title: '开始时间', align: 'center', width: 90 },
           { field: 'endTime', title: '结束时间', align: 'center', width: 90 }, 
-          { field: 'duration', title: '持续时间', align: 'center' }
+          { field: 'duration', title: '持续时间', align: 'center',formatter: dateFormatter}
       ];
      
 	  $('#equFaultTable').empty();
@@ -302,5 +332,5 @@ function initTable(url,queryParams,duration){
 	      }
 	  });
 	  
-	  $('#equFaultTableStyle .columns').css("margin-top","-190px");
+	  $('#equFaultTableStyle .columns').css("margin-top","-130px");
 }

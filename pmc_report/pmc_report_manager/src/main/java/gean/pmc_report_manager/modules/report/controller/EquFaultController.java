@@ -31,10 +31,7 @@ public class EquFaultController {
     @RequestMapping("/duration")
     public R queryTotalMins(@RequestParam Map<String, Object> params) {
     	PmcBiwFaultEntity totalDur = equFaultService.queryTotalMins(params);
-    	int duration = 0;
-    	if(totalDur.getDuration()!=null&&totalDur.getDuration()>-1) {
-    		duration = totalDur.getDuration();
-    	}
+    	Integer duration = totalDur.getDuration();
     	return R.ok().put("duration", duration);
     }
     
