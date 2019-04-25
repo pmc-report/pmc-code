@@ -5,9 +5,121 @@ $(function () {
 	//初始化时间频率
 //	frequencySelected();
 	shiftSelected();
+	//初始化表格上的查询条件
+	inittableTitle();
 	//初始化表格
 	initTable();
 });
+
+function inittableTitle(params) {
+	$('#equFaultTableHeader').empty();   //每次变化时清空所有子节点
+	var table = '';
+	var tabletdf = '<tbody>';
+	var tablebody = '<tr>'
+			+ '<td>车间</td>'
+			+ '<td></td>'
+			+ '<td>区</td>'
+			+ '<td></td>'
+			+ '<td>设备</td>'
+			+ '<td></td>'
+			+ '<td>时间范围从</td>'
+			+ '<td></td>'
+			+ '<td>班次</td>'
+			+ '<td></td>'
+			+ '</tr>'
+			
+			+ '<tr>'
+			+ '<td>区域</td>'
+			+ '<td></td>'
+			+ '<td>工位</td>'
+			+ '<td></td>'
+			+ '<td>车型</td>'
+			+ '<td></td>'
+			+ '<td>到</td>'
+			+ '<td></td>'
+			+ '<td>报表生成时间</td>'
+			+ '<td></td>'
+			+ '</tr>'
+	var tabletde = '</tbody>';
+	table += (tabletdf + tablebody + tabletde);
+	$('#equFaultTableHeader').html(table);
+//	console.log($('#equFaultTableHeader tr:eq(0)').children('td').length);   获取首个tr下td 的个数
+	var lengths = $('#equFaultTableHeader tr:eq(0)').children('td').length;
+	for(var i = 1 ; i <=lengths;i++){
+		$('#equFaultTableHeader td:nth-child(1)').css("border-left","1px solid #000");
+		if(i%2 != 0){
+			$('#equFaultTableHeader td:nth-child('+i+')').css({"font-weight":"bold","width":"8%"});
+		}else{
+			$('#equFaultTableHeader td:nth-child('+i+')').css({"width":"12%"});
+			$('#equFaultTableHeader td:nth-child('+i+')').html("All");
+		}
+	}
+	
+	$('#equFaultTableHeader tr:last-child td:last-child').html('');
+	
+	if(params != null && params != ''){
+		
+		if(params.shop != null && params.shop.trim() != ''){
+			$('#equFaultTableHeader tr:eq(0) td:eq(1)').html(params.shop);
+		}else{
+			$('#equFaultTableHeader tr:eq(0) td:eq(1)').html("All");
+		}
+		
+		if(params.zone != null && params.zone.trim() != ''){
+			$('#equFaultTableHeader tr:eq(0) td:eq(3)').html(params.zone);
+		}else{
+			$('#equFaultTableHeader tr:eq(0) td:eq(3)').html("All");
+		}
+		
+		if(params.equipment != null && params.equipment.trim() != ''){
+			$('#equFaultTableHeader tr:eq(0) td:eq(5)').html(params.equipment);
+		}else{
+			$('#equFaultTableHeader tr:eq(0) td:eq(5)').html("All");
+		}
+		
+		if(params.sTime != null && params.sTime.trim() != ''){
+			$('#equFaultTableHeader tr:eq(0) td:eq(7)').html(params.sTime);
+		}else{
+			$('#equFaultTableHeader tr:eq(0) td:eq(7)').html("All");
+		}
+		
+		if(params.shift != null && params.shift.trim() != ''){
+			$('#equFaultTableHeader tr:eq(0) td:eq(9)').html(params.shift);
+		}else{
+			$('#equFaultTableHeader tr:eq(0) td:eq(9)').html("All");
+		}
+		
+		if(params.area != null && params.area.trim() != ''){
+			$('#equFaultTableHeader tr:eq(1) td:eq(1)').html(params.area);
+		}else{
+			$('#equFaultTableHeader tr:eq(1) td:eq(1)').html("All");
+		}
+		
+		if(params.station != null && params.station.trim() != ''){
+			$('#equFaultTableHeader tr:eq(1) td:eq(3)').html(params.station);
+		}else{
+			$('#equFaultTableHeader tr:eq(1) td:eq(3)').html("All");
+		}
+		
+		if(params.jobId != null && params.jobId.trim() != ''){
+			$('#equFaultTableHeader tr:eq(1) td:eq(5)').html(params.jobId);
+		}else{
+			$('#equFaultTableHeader tr:eq(1) td:eq(5)').html("All");
+		}
+		
+		if(params.eTime != null && params.eTime.trim() != ''){
+			$('#equFaultTableHeader tr:eq(1) td:eq(7)').html(params.eTime);
+		}else{
+			$('#equFaultTableHeader tr:eq(1) td:eq(7)').html("All");
+		}
+		
+		var mydate = new Date();
+		var createTime = mydate.getDate() + '-'+(mydate.getMonth()+1) + '-' + mydate.getFullYear() +'  '+mydate.getHours() + ':' + mydate.getMinutes();
+		$('#equFaultTableHeader tr:eq(1) td:eq(9)').html(createTime);
+	}
+}
+
+
 
 //合并页脚
 function merge_footer() {
@@ -32,6 +144,7 @@ function queryReport(tag,params){
 	var url = baseURL + 'report/fault/list';
 	if(tag=='EQUFA'){
 		var duration = (JSON.parse((queryTotal(params)).responseText)).duration;
+		inittableTitle(params);
 		initTable(url,params,duration);
 	}
 }
@@ -115,15 +228,15 @@ function initTable(url,queryParams,duration){
 	      pagination: true,                   //是否显示分页（*）
 	      search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 	      strictSearch: true,
-	      showColumns: true,                  //是否显示所有的列
-	      showRefresh: true,                  //是否显示刷新按钮
-	      showToggle:true,                    //是否显示详细视图和列表视图
+	      //showColumns: true,                  //是否显示所有的列
+	     // showRefresh: true,                  //是否显示刷新按钮
+	     // showToggle:true,                    //是否显示详细视图和列表视图
 	      clickToSelect: true,                //是否启用点击选中行
 	      minimumCountColumns: 2,             //最少允许的列数 clickToSelect: true, //是否启用点击选中行
 	      pageNumber: 1,                      //初始化加载第一页，默认第一页
 	      pageSize: 10,                    	  //每页的记录行数（*）
 	      pageList: [10, 25, 50, 100],     	  //可供选择的每页的行数（*）
-	      showExport: true,  				  //是否显示导出按钮  
+	      //showExport: true,  				  //是否显示导出按钮  
 		  exportDataType:'all', 			  //导出所有数据
 	      buttonsAlign:"right",  			  //按钮位置  
 	      exportTypes:['excel','csv','txt','xml','word'],  //导出文件类型  
@@ -156,7 +269,6 @@ function initTable(url,queryParams,duration){
 					sTime: queryParams.sTime,
 					shift: queryParams.shift,
 					shop: queryParams.shop,
-					zone: queryParams.zone,
 					jobId : queryParams.jobId,
 					station : queryParams.station,
 					equipment : queryParams.equipment

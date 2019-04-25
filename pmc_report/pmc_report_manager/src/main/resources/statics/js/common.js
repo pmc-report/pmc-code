@@ -628,6 +628,7 @@ function resetParam(){
 	$("#shift_search").val('');
 	$("#frequency_search").val('');
 	$("#jobId_search").val('');
+	resetTableTitle();
 	setPorpById('area_search','disabled',true);
 	setCssById('area_search','background-color','#EEEEEE');
 	setPorpById('zone_search','disabled',true);
@@ -638,4 +639,26 @@ function resetParam(){
 	setCssById('equ_search','background-color','#EEEEEE');
 	setPorpById('jobId_search','disabled',true);
 	setCssById('jobId_search','background-color','#EEEEEE');
+}
+
+//重置表格上查询条件列表
+function resetTableTitle(){
+	resetTableHeader("equFaultTableHeader");
+}
+
+function resetTableHeader(tableid){
+	if(tableid != null || tableid != ''){
+		var trnums = $('#'+tableid+'>tbody').children('tr').length;
+		//console.log(trnums);
+		var tdnums = $('#'+tableid +' tr:eq(0)').children('td').length;
+		//console.log(tdnums);
+		for(var i = 0;i<trnums;i++){
+			for(var j = 1 ;j<=tdnums ; j++){
+				if(j%2 == 0){
+					$('#'+tableid +' tr:eq('+i+') td:nth-child('+j+')').html("All");
+				}
+			}
+		}
+		$('#equFaultTableHeader tr:last-child td:last-child').html('');
+	}
 }
