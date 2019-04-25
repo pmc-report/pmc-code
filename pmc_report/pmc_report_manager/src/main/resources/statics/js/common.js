@@ -413,7 +413,7 @@ function selectDate(){
 			  trigger: 'click',
 			  format: 'yyyy-MM-dd',
 			  theme: 'molv',
-			  value: new Date(),
+			  //value: new Date(),
 			  done: function(value, date, endDate){//控件选择完毕后的回调---点击日期、清空、现在、确定均会触发。
 				    intitFromDateArr(value);
 			 }
@@ -424,16 +424,12 @@ function selectDate(){
 			  trigger: 'click',
 			  format: 'yyyy-MM-dd',
 			  theme: 'molv',
-			  value: new Date(),
+			  //value: new Date(),
 			  done: function(value, date, endDate){//控件选择完毕后的回调---点击日期、清空、现在、确定均会触发。
 				    intitToDateArr(value);
 			 }
 		 });
 	});
-	
-	
-	
-	
 }
 
 //初始化时间选择
