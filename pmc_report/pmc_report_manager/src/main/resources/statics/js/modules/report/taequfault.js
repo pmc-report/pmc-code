@@ -18,7 +18,7 @@ function inittableTitle(params) {
 	var tablebody = '<tr>'
 			+ '<td>车间</td>'
 			+ '<td></td>'
-			+ '<td>区</td>'
+			+ '<td>Zone</td>'
 			+ '<td></td>'
 			+ '<td>设备</td>'
 			+ '<td></td>'
@@ -114,12 +114,19 @@ function inittableTitle(params) {
 		}
 		
 		var mydate = new Date();
-		var createTime = mydate.getDate() + '-'+(mydate.getMonth()+1) + '-' + mydate.getFullYear() +'  '+mydate.getHours() + ':' + mydate.getMinutes();
+		var createTime = mydate.getFullYear() + '-'+ Appendzero(mydate.getMonth()+1) + '-' + Appendzero(mydate.getDate()) +'  '+mydate.getHours() + ':' + Appendzero(mydate.getMinutes())+':'+Appendzero(mydate.getSeconds());
 		$('#equFaultTableHeader tr:eq(1) td:eq(9)').html(createTime);
 	}
 }
 
-
+function Appendzero(obj)
+ {
+	if (obj < 10) {
+		return "0" + "" + obj;
+	} else {
+		return obj;
+	}
+}
 
 //合并页脚
 function merge_footer() {
@@ -223,20 +230,20 @@ function initTable(url,queryParams,duration){
 	                                          //设置为"limit",符合 RESTFul 格式的参数,可以获取limit, offset, search, sort, order 
 	      sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
 	      sortable: true,                     //是否启用排序;意味着整个表格都会排序
-	    //sortName: 'taEquFaultId',           // 设置默认排序为 name
+	      sortName: 'taEquFaultId',           // 设置默认排序为 name
 	      sortOrder: "asc",                   //排序方式
 	      pagination: true,                   //是否显示分页（*）
 	      search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 	      strictSearch: true,
-	      //showColumns: true,                  //是否显示所有的列
-	     // showRefresh: true,                  //是否显示刷新按钮
-	     // showToggle:true,                    //是否显示详细视图和列表视图
+	      showColumns: true,                  //是否显示所有的列
+	      showRefresh: true,                  //是否显示刷新按钮
+	      showToggle:true,                    //是否显示详细视图和列表视图
 	      clickToSelect: true,                //是否启用点击选中行
 	      minimumCountColumns: 2,             //最少允许的列数 clickToSelect: true, //是否启用点击选中行
 	      pageNumber: 1,                      //初始化加载第一页，默认第一页
 	      pageSize: 10,                    	  //每页的记录行数（*）
 	      pageList: [10, 25, 50, 100],     	  //可供选择的每页的行数（*）
-	      //showExport: true,  				  //是否显示导出按钮  
+	      showExport: true,  				  //是否显示导出按钮  
 		  exportDataType:'all', 			  //导出所有数据
 	      buttonsAlign:"right",  			  //按钮位置  
 	      exportTypes:['excel','csv','txt','xml','word'],  //导出文件类型  
@@ -294,4 +301,6 @@ function initTable(url,queryParams,duration){
 	          //console.log(res);
 	      }
 	  });
+	  
+	  $('#equFaultTableStyle .columns').css("margin-top","-190px");
 }
