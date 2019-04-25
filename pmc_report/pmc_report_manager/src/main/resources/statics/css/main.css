@@ -73,6 +73,18 @@ tbody > tr > th {font-weight: normal; }
 	color:#fff;
 }
 
+#equFaultTableHeader{
+	width:100%;
+	float:left;
+	border :1px solid #000;
+	margin-bottom:10px;
+}
+
+#equFaultTableHeader tr td {
+	padding: 15px;
+	border-top:1px solid #000;
+	border-left : 1px solid #fff;
+}
 
 /** 表单查询条件 */
 ul {
