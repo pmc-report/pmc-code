@@ -80,7 +80,7 @@
 		</if>
 	</select>
 	
-	<select id="queryTotalMins" resultMap="pmcBiwFaultMap" >    
+	<select id="queryTotalMins" resultType="gean.pmc_report_manager.modules.report.entity.PmcBiwFaultEntity">    
 	select sum(t.duration) duration from PMC.dbo.PMC_BIW_FAULT t
     WHERE 1 = 1
     <if test="shop!=null and shop!=''">
@@ -93,19 +93,19 @@
 			AND t. zone =#{zone}
 		</if>
 		<if test="station!=null and station!=''">
-		AND t.station=#{station}
+		   AND t.station=#{station}
+		</if>
+		<if test="jobId!=null and jobId!=''">
+			AND job_id = #{jobId}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND t.shift =#{shift}
 		</if>
 		<if test="startTime!=null and startTime!=''">
 			AND t.start_time &gt;=CONVERT (VARCHAR,#{startTime},21)
 		</if>
 		<if test="endTime!=null and endTime!=''">
 			AND t.end_time &lt;=CONVERT (VARCHAR,#{endTime},21)
-		</if>
-		<if test="frequency!=null and frequency!=''">
-			AND t.frequency =#{frequency}
-		</if>
-		<if test="shift!=null and shift!=''">
-			AND t.shift =#{shift}
 		</if>
     </select>
 
