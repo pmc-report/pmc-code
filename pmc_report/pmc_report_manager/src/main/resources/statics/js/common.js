@@ -640,6 +640,7 @@ function resetParam(){
 //重置表格上查询条件列表
 function resetTableTitle(){
 	resetTableHeader("equFaultTableHeader");
+	resetTableHeader("panelTableHeader");
 }
 
 function resetTableHeader(tableid){
@@ -655,6 +656,6 @@ function resetTableHeader(tableid){
 				}
 			}
 		}
-		$('#equFaultTableHeader tr:last-child td:last-child').html('');
+		$('#'+tableid+' tr:last-child td:last-child').html('');
 	}
 }

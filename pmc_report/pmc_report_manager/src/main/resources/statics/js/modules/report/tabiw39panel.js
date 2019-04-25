@@ -4,12 +4,169 @@ $(function () {
 	//初始化时间频率
 	frequencySelected();
 	//初始化班次
+	initpanelTableTitle();
 	shiftSelected();
 	initDate();
 });
 
+function initpanelTableTitle(params){
+
+	$('#panelTableHeader').empty();   //每次变化时清空所有子节点
+	var table = '';
+	var tabletdf = '<tbody>';
+	var tablebody = '<tr>'
+			+ '<td>车间</td>'
+			+ '<td></td>'
+			+ '<td>区域</td>'
+			+ '<td></td>'
+			+ '</tr>'
+			
+			+ '<tr>'
+			+ '<td>Zone</td>'
+			+ '<td></td>'
+			+ '<td>班次</td>'
+			+ '<td></td>'
+			+ '</tr>'
+			
+			+ '<tr>'
+			+ '<td>From Week</td>'
+			+ '<td></td>'
+			+ '<td>From Dates</td>'
+			+ '<td></td>'
+			+ '</tr>'
+			
+			+ '<tr>'
+			+ '<td>To Week</td>'
+			+ '<td></td>'
+			+ '<td>To Dates</td>'
+			+ '<td></td>'
+			+ '</tr>'
+			
+			+ '<tr>'
+			+ '<td>车型</td>'
+			+ '<td></td>'
+			+ '<td>报表生成时间</td>'
+			+ '<td></td>'
+			+ '</tr>'
+			
+			+ '<tr>'
+			+ '<td>Target TA</td>'
+			+ '<td></td>'
+			+ '<td></td>'
+			+ '<td></td>'
+			+ '</tr>'
+	var tabletde = '</tbody>';
+	table += (tabletdf + tablebody + tabletde);
+	$('#panelTableHeader').html(table);
+//	console.log($('#equFaultTableHeader tr:eq(0)').children('td').length);   获取首个tr下td 的个数
+	var lengths = $('#panelTableHeader tr:eq(0)').children('td').length;
+	for(var i = 1 ; i <=lengths;i++){
+		if(i%2 != 0){
+			$('#panelTableHeader td:nth-child('+i+')').css({"font-weight":"bold","width":"10%","background":"#c0c0c0"});
+		}
+	}
+	$('#panelTableHeader td:nth-child(2)').css({"width":"20%"});
+	$('#panelTableHeader td:nth-child(4)').css({"width":"60%"});
+	$('#panelTableHeader td:nth-child(2)').html("All");
+	$('#panelTableHeader td:nth-child(4)').html("All");
+	$('#panelTableHeader tr:last-child td:last-child').html('');
+	
+	
+//	 area : queryParams.area,
+//		zone : queryParams.zone,
+//		eTime: queryParams.eTime,
+//		sTime: queryParams.sTime,
+//		shift: queryParams.shift,
+//		shop: queryParams.shop,
+//		jobId : queryParams.jobId,
+//		fromDate : queryParams.fromDates,
+//		toDate : queryParams.toDates
+		
+	if(params != null && params != ''){
+		
+		if(params.shop != null && params.shop.trim() != ''){
+			$('#panelTableHeader tr:eq(0) td:eq(1)').html(params.shop);
+		}else{
+			$('#panelTableHeader tr:eq(0) td:eq(1)').html("All");
+		}
+		
+		if(params.area != null && params.area.trim() != ''){
+			$('#panelTableHeader tr:eq(0) td:eq(3)').html(params.area);
+		}else{
+			$('#panelTableHeader tr:eq(0) td:eq(3)').html("All");
+		}
+		
+		if(params.zone != null && params.zone.trim() != ''){
+			$('#panelTableHeader tr:eq(1) td:eq(1)').html(params.zone);
+		}else{
+			$('#panelTableHeader tr:eq(1) td:eq(1)').html("All");
+		}
+		
+		if(params.shift != null && params.shift.trim() != ''){
+			$('#panelTableHeader tr:eq(1) td:eq(3)').html(params.shift);
+		}else{
+			$('#panelTableHeader tr:eq(1) td:eq(3)').html("All");
+		}
+		
+		if(params.sTime != null && params.sTime.trim() != ''){
+			$('#panelTableHeader tr:eq(2) td:eq(1)').html(params.sTime);
+		}else{
+			$('#panelTableHeader tr:eq(2) td:eq(1)').html("All");
+		}
+		
+		if(params.fromDates != null){
+			var fromDate = '';
+			for(var index in params.fromDates){
+				fromDate += params.fromDates[index]+", ";
+			}
+			$('#panelTableHeader tr:eq(2) td:eq(3)').html(fromDate);
+		}else{
+			$('#panelTableHeader tr:eq(2) td:eq(3)').html("All");
+		}
+		
+		if(params.eTime != null && params.eTime.trim() != ''){
+			$('#panelTableHeader tr:eq(3) td:eq(1)').html(params.eTime);
+		}else{
+			$('#panelTableHeader tr:eq(3) td:eq(1)').html("All");
+		}
+		if(params.toDates != null){
+			var toDate = '';
+			for(var index in params.toDates){
+				toDate += params.toDates[index]+", ";
+			}
+			$('#panelTableHeader tr:eq(3) td:eq(3)').html(toDate);
+		}else{
+			$('#panelTableHeader tr:eq(3) td:eq(3)').html("All");
+		}
+		
+		if(params.jobId != null && params.jobId.trim() != ''){
+			$('#panelTableHeader tr:eq(4) td:eq(1)').html(params.jobId);
+		}else{
+			$('#panelTableHeader tr:eq(4) td:eq(1)').html("All");
+		}
+		/*if(params.eTime != null && params.eTime.trim() != ''){
+			$('#panelTableHeader tr:eq(5) td:eq(1)').html(params.eTime);
+		}else{
+			$('#panelTableHeader tr:eq(5) td:eq(1)').html("All");
+		}
+		*/
+		var mydate = new Date();
+		var createTime = mydate.getDate() + '-'+(mydate.getMonth()+1) + '-' + mydate.getFullYear() +'  '+mydate.getHours() + ':' + mydate.getMinutes();
+		$('#panelTableHeader tr:eq(4) td:eq(3)').html(createTime);
+	}
+
+}
+
+function Appendzero(obj)
+{
+	if (obj < 10) {
+		return "0" + "" + obj;
+	} else {
+		return obj;
+	}
+}
+
 function initPreDownTime(queryParams){ 
-	console.log(queryParams)
 	var occ = '';
 	var mins = '';
 	var totalDuration1 = '';
@@ -500,6 +657,7 @@ function queryReport(tag,params){
 	var url = baseURL + 'report/panel/list';
 	if(tag=='9Panel'){
 		
+		initpanelTableTitle(params)
 		initPreDownTime(params)
 		//initOccTab1(params);
 		
