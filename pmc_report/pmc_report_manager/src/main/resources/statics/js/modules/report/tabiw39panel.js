@@ -63,25 +63,15 @@ function initpanelTableTitle(params){
 	for(var i = 1 ; i <=lengths;i++){
 		if(i%2 != 0){
 			$('#panelTableHeader td:nth-child('+i+')').css({"font-weight":"bold","width":"10%","background":"#c0c0c0"});
+		}else{
+			$('#panelTableHeader td:nth-child('+i+')').html("All");
 		}
 	}
 	$('#panelTableHeader td:nth-child(2)').css({"width":"20%"});
 	$('#panelTableHeader td:nth-child(4)').css({"width":"60%"});
-	$('#panelTableHeader td:nth-child(2)').html("All");
-	$('#panelTableHeader td:nth-child(4)').html("All");
 	$('#panelTableHeader tr:last-child td:last-child').html('');
+	$('#panelTableHeader tr:eq(4) td:eq(3)').html('');
 	
-	
-//	 area : queryParams.area,
-//		zone : queryParams.zone,
-//		eTime: queryParams.eTime,
-//		sTime: queryParams.sTime,
-//		shift: queryParams.shift,
-//		shop: queryParams.shop,
-//		jobId : queryParams.jobId,
-//		fromDate : queryParams.fromDates,
-//		toDate : queryParams.toDates
-		
 	if(params != null && params != ''){
 		
 		if(params.shop != null && params.shop.trim() != ''){
@@ -151,14 +141,13 @@ function initpanelTableTitle(params){
 		}
 		*/
 		var mydate = new Date();
-		var createTime = mydate.getDate() + '-'+(mydate.getMonth()+1) + '-' + mydate.getFullYear() +'  '+mydate.getHours() + ':' + mydate.getMinutes();
+		var createTime = mydate.getFullYear() + '-'+ Appendzero(mydate.getMonth()+1) + '-' + Appendzero(mydate.getDate()) +'  '+mydate.getHours() + ':' + Appendzero(mydate.getMinutes())+':'+Appendzero(mydate.getSeconds());
 		$('#panelTableHeader tr:eq(4) td:eq(3)').html(createTime);
 	}
 
 }
 
-function Appendzero(obj)
-{
+function Appendzero(obj){
 	if (obj < 10) {
 		return "0" + "" + obj;
 	} else {
@@ -240,9 +229,10 @@ function initPreDownTime(queryParams){
 	}
 	
 	var paretoFormatter = function(value,row,index){
+			var width = mins>100?100:mins;
 			var dom =  '<input type="text" disabled="disabled" style="background-color: yellow;border: none;height: 12px;width: '+
 			occ +'px"><span style="font-size:12px">'+ occ +'</span></input></br><input type="text" disabled="disabled" style="background-color: green;border: none;height: 12px;width: '+ 
-			mins.toFixed(1) +'px"><span style="font-size:12px">'+ mins.toFixed(2) +'</span></input>'
+			width.toFixed(1) +'%"><span style="font-size:12px">'+ mins.toFixed(2) +'</span></input>'
 		 
 		return dom;
 	}
@@ -311,24 +301,40 @@ function initPreDownTime(queryParams){
 				  field: 'occ1',
 				  title: 'Occ',
 				  cellStyle: getOcc,
-				  formatter: fontFormatter
+				  formatter: fontFormatter,
+				 
 				 }, {
 				  field: 'mins1',
 				  title: 'Mins',
 				  cellStyle: getMins,
 				  formatter: fontFormatter,
-				  footerFormatter : function(value){
-						 return '<span style="font-size:12px">Total Downtime for All Faults :</span></br><span style="font-size:12px">Total Occurrence for All Faults :</sapn>';
+				  footerFormatter: function(value){
+					  return '<button type="button" '+
+					  			'class="btn btn-circle btn-lg" '+
+					  			'style="background:red;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
+					  		 '</button><span style="font-size:12px">&nbspConcern Worse</span>';
 				  }
 				 }, {
 				  field: 'stn1',
 				  title: 'Stn',
 				  formatter: fontFormatter,
-				  footerFormatter: totalDownTime
+				  footerFormatter: function(value){
+		        	  return '<button type="button" '+
+			  				   'class="btn btn-circle btn-lg" '+
+			  			       'style="background:yellow;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
+			  		         '</button><span style="font-size:12px">&nbspConcern improved</span>';
+				  }
+				  
 				 }, {
 				  field: 'description1',
 				  title: 'Description',
 				  formatter: fontFormatter,
+				  footerFormatter: function(value){
+					  return '<button type="button" '+
+					  			'class="btn btn-circle btn-lg" '+
+					  			'style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
+					  		 '</button><span style="font-size:12px">&nbspConcern improved</span>';
+				  }
 				 }, {
 				  field: 'pareto',
 				  title: 'Pareto',
@@ -336,8 +342,8 @@ function initPreDownTime(queryParams){
 				  footerFormatter: function(value){
 					  return '<button type="button" '+
 					  			'class="btn btn-circle btn-lg" '+
-					  			'style="background:red;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
-					  		 '</button><span style="font-size:12px">&nbspConcern Worse</span>';
+					  			'style="background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
+					  		 '</button><span style="font-size:12px">&nbspConcern Out of 10</span>';
 				  }
 				 }, {
 				  field: 'status',
@@ -347,38 +353,24 @@ function initPreDownTime(queryParams){
 		          cellStyle: borderFormatter,
 		          formatter: operateFormatter, //自定义方法，添加操作按钮
 		          footerFormatter: function(value){
-		        	  return '<button type="button" '+
-			  				   'class="btn btn-circle btn-lg" '+
-			  			       'style="background:yellow;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
-			  		         '</button><span style="font-size:12px">&nbspConcern improved</span>';
-				  }
-				 },{
-				  field: 'casualDescription',
-				  title: 'Casual Description',
-				  footerFormatter: function(value){
-					  return '<button type="button" '+
-					  			'class="btn btn-circle btn-lg" '+
-					  			'style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
-					  		 '</button><span style="font-size:12px">&nbspConcern improved</span>';
-				  }
-				 }, {
-				  field: 'rootCauseAnalysis',
-				  title: 'Root Cause Analysis',
-				  footerFormatter: function(value){
-					  return '<button type="button" '+
-					  			'class="btn btn-circle btn-lg" '+
-					  			'style="background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
-					  		 '</button><span style="font-size:12px">&nbspConcern Out of 10</span>';
-				  }
-				 }, {
-				  field: 'who',
-				  title: 'Who',
-				  footerFormatter: function(value){
 					  return '<button type="button" '+
 					  			'class="btn btn-circle btn-lg" '+
 					  			'style="background:#000000;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
 					  		 '</button><span style="font-size:12px">&nbspConcern Resolved</span>';
 				  }
+		        
+				 },{
+				  field: 'casualDescription',
+				  title: 'Casual Description',
+				 
+				 }, {
+				  field: 'rootCauseAnalysis',
+				  title: 'Root Cause Analysis',
+				  
+				 }, {
+				  field: 'who',
+				  title: 'Who',
+				 
 				 }, {
 				  field: 'timing',
 				  title: 'Timing',
@@ -386,11 +378,15 @@ function initPreDownTime(queryParams){
 				 },{
 				  field: '_new',
 				  title: 'New',
-				  formatter: fontFormatter
+				  formatter: fontFormatter,
+				  footerFormatter : function(value){
+						 return '<span style="font-size:12px">Total Downtime for All Faults :</span></br><span style="font-size:12px">Total Occurrence for All Faults :</sapn>';
+				  }
 				 }, {
 				  field: 'occ2',
 				  title: 'Occ',
-				  formatter: fontFormatter
+				  formatter: fontFormatter,
+				  footerFormatter: totalDownTime
 				 }, {
 				  field: 'mins2',
 				  title: 'Mins',

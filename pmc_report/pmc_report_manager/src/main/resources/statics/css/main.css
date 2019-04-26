@@ -68,6 +68,7 @@ tbody > tr > th {font-weight: normal; }
 	background-color: #04B45F;
 }
 
+
 #equFaultTableStyle table thead .th-inner{
 	background-color : #2E8B57;
 	color:#fff;
@@ -75,15 +76,45 @@ tbody > tr > th {font-weight: normal; }
 
 #equFaultTableHeader{
 	width:100%;
-	float:left;
 	border :1px solid #000;
 	margin-bottom:10px;
 }
 
 #equFaultTableHeader tr td {
-	padding: 15px;
+	padding: 10px 5px;
 	border-top:1px solid #000;
 	border-left : 1px solid #fff;
+}
+
+.panelTableTitleH1{
+	width : 100%;
+	padding : 10px;
+	text-align : center;
+	border : 1px solid #000;
+	background-color:#c0c0c0;
+}
+
+#panelTableHeader{
+	width:100%;
+	border :1px solid #000;
+	margin-bottom:10px;
+}
+
+#panelTableHeader tr td{
+	padding: 5px;
+	border:1px solid #000;
+}
+
+#biw3oprTableHeader {
+	width:100%;
+	border : 1px solid #000;
+	margin-bottom : 10px;
+}
+
+#biw3oprTableHeader tr td{
+	padding: 10px 5px;
+	border-bottom : 1px solid #000;
+	border-left:1px solid #fff;
 }
 
 /** 表单查询条件 */
@@ -213,3 +244,43 @@ label {
 	vertical-align: middle;
 	cursor: pointer;
 }
+
+.multiselect-container{ /*下拉框的样式*/
+           width:195px;
+       }
+       .multiselect-container>li>a>label{
+           line-height: 28px;
+           font-size: 12px;
+       }
+       .multiselect-container>li>a>label>input[type='checkbox'] {
+            margin-top: 7px;
+       }
+       .multiselect-item.multiselect-all.active{
+           border-bottom:1px solid #ccc !important;
+       }
+       /* .multiselect-container.dropdown-menu li{
+           width:49%;
+           display: inline-block;
+       }
+       .multiselect-container.dropdown-menu li:first-child{
+           width:100%;
+       } */
+       .multiselect.dropdown-toggle.btn.btn-default:link,.multiselect.dropdown-toggle.btn.btn-default:visited,.multiselect.dropdown-toggle.btn.btn-default:focus,.multiselect.dropdown-toggle.btn.btn-default:hover,.multiselect.dropdown-toggle.btn.btn-default:active, .btn-default.active, .btn-default:active, .open>.dropdown-toggle.btn-default{
+         background: #fff;
+         outline: none;
+         border:1px solid #ccc;
+         box-shadow: none;
+       }
+       .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover{
+           background: #474752;
+       }
+       .multiselect-selected-text{
+           font-size:13px;
+           font-family: '微软雅黑','宋体';
+           width:100%;
+           float: left;
+           text-align: left;
+       }
+       .btn.btn-default{
+           padding-right:15px;
+       }
