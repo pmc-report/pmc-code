@@ -101,7 +101,7 @@
 		<h2 class="panelTableTitleH1">9Panel Report</h2>
 		<table id="panelTableHeader"></table>
 	</div>
-	<div class="panel panel-primary" style = "width:100%;overflow : auto;">
+	<!-- <div class="panel panel-primary" style = "width:100%;overflow : auto;">
 		<div class="panel-heading" style = "width:3000px;">
 			<h4 class="panel-title">
 				<a data-toggle="collapse" data-parent="#accordion" 
@@ -129,17 +129,34 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="panel panel-primary">
-		<div class="panel-heading">
+	</div> -->
+	<div class="panel panel-primary" style = "width:100%;overflow : auto;">
+		<div class="panel-heading" style = "width:1800px;">
 			<h3 class="panel-title">
 			    <a data-toggle="collapse" data-parent="#accordion" href="#result">
-					 <span class='glyphicon glyphicon-th'>&nbsp查询结果-表</span>
+					 <span class='glyphicon glyphicon-th'>&nbsp查询结果</span>
 				</a>
 			</h3>
 		</div>
-		<div id="result" class="panel-collapse collapse in">
+		<div id="result" class="panel-collapse collapse in" style = "width:1800px;">
 			<div class="panel-body">
+				<div>
+					<div id="main2" style="width:690px;height:340px;display: inline-block;">
+					<script type="text/javascript">
+						var echart1=echarts.init(document.getElementById('main2'));
+					</script>
+					</div>
+					<div id="main1" style="width:690px;height:340px;display: inline-block; ">
+						<script type="text/javascript">
+							var echart=echarts.init(document.getElementById('main1'));
+						</script>
+					</div>
+					<div id="main3" style="width:390px;height:340px;display: inline-block;">
+						<script type="text/javascript">
+							var echart2=echarts.init(document.getElementById('main3'));
+						</script>
+					</div>
+				</div>
 				<div>
 					<div>
 						<table id="preDownTime" style="border: 1px solid"></table>
