@@ -75,15 +75,45 @@ tbody > tr > th {font-weight: normal; }
 
 #equFaultTableHeader{
 	width:100%;
-	float:left;
 	border :1px solid #000;
 	margin-bottom:10px;
 }
 
 #equFaultTableHeader tr td {
-	padding: 15px;
+	padding: 10px 5px;
 	border-top:1px solid #000;
 	border-left : 1px solid #fff;
+}
+
+.panelTableTitleH1{
+	width : 100%;
+	padding : 10px;
+	text-align : center;
+	border : 1px solid #000;
+	background-color:#c0c0c0;
+}
+
+#panelTableHeader{
+	width:100%;
+	border :1px solid #000;
+	margin-bottom:10px;
+}
+
+#panelTableHeader tr td{
+	padding: 5px;
+	border:1px solid #000;
+}
+
+#biw3oprTableHeader {
+	width:100%;
+	border : 1px solid #000;
+	margin-bottom : 10px;
+}
+
+#biw3oprTableHeader tr td{
+	padding: 10px 5px;
+	border-bottom : 1px solid #000;
+	border-left:1px solid #fff;
 }
 
 /** 表单查询条件 */

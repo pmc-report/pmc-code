@@ -63,25 +63,15 @@ function initpanelTableTitle(params){
 	for(var i = 1 ; i <=lengths;i++){
 		if(i%2 != 0){
 			$('#panelTableHeader td:nth-child('+i+')').css({"font-weight":"bold","width":"10%","background":"#c0c0c0"});
+		}else{
+			$('#panelTableHeader td:nth-child('+i+')').html("All");
 		}
 	}
 	$('#panelTableHeader td:nth-child(2)').css({"width":"20%"});
 	$('#panelTableHeader td:nth-child(4)').css({"width":"60%"});
-	$('#panelTableHeader td:nth-child(2)').html("All");
-	$('#panelTableHeader td:nth-child(4)').html("All");
 	$('#panelTableHeader tr:last-child td:last-child').html('');
+	$('#panelTableHeader tr:eq(4) td:eq(3)').html('');
 	
-	
-//	 area : queryParams.area,
-//		zone : queryParams.zone,
-//		eTime: queryParams.eTime,
-//		sTime: queryParams.sTime,
-//		shift: queryParams.shift,
-//		shop: queryParams.shop,
-//		jobId : queryParams.jobId,
-//		fromDate : queryParams.fromDates,
-//		toDate : queryParams.toDates
-		
 	if(params != null && params != ''){
 		
 		if(params.shop != null && params.shop.trim() != ''){
@@ -151,14 +141,13 @@ function initpanelTableTitle(params){
 		}
 		*/
 		var mydate = new Date();
-		var createTime = mydate.getDate() + '-'+(mydate.getMonth()+1) + '-' + mydate.getFullYear() +'  '+mydate.getHours() + ':' + mydate.getMinutes();
+		var createTime = mydate.getFullYear() + '-'+ Appendzero(mydate.getMonth()+1) + '-' + Appendzero(mydate.getDate()) +'  '+mydate.getHours() + ':' + Appendzero(mydate.getMinutes())+':'+Appendzero(mydate.getSeconds());
 		$('#panelTableHeader tr:eq(4) td:eq(3)').html(createTime);
 	}
 
 }
 
-function Appendzero(obj)
-{
+function Appendzero(obj){
 	if (obj < 10) {
 		return "0" + "" + obj;
 	} else {

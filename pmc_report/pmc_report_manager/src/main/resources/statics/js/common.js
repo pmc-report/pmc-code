@@ -641,6 +641,7 @@ function resetParam(){
 function resetTableTitle(){
 	resetTableHeader("equFaultTableHeader");
 	resetTableHeader("panelTableHeader");
+	resetTableHeader("biw3oprTableHeader");
 }
 
 function resetTableHeader(tableid){
@@ -656,6 +657,16 @@ function resetTableHeader(tableid){
 				}
 			}
 		}
+		
 		$('#'+tableid+' tr:last-child td:last-child').html('');
+		
+		if(tableid == "panelTableHeader"){
+			$('#'+tableid+' tr:eq(4) td:eq(3)').html('');
+		}
+		
+		if(tableid == "biw3oprTableHeader"){
+			$('#'+tableid + ' tr:eq(1) td:eq(3)').html('');
+		}
+		
 	}
 }

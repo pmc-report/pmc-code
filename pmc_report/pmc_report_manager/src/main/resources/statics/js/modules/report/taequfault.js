@@ -46,15 +46,14 @@ function inittableTitle(params) {
 //	console.log($('#equFaultTableHeader tr:eq(0)').children('td').length);   获取首个tr下td 的个数
 	var lengths = $('#equFaultTableHeader tr:eq(0)').children('td').length;
 	for(var i = 1 ; i <=lengths;i++){
-		$('#equFaultTableHeader td:nth-child(1)').css("border-left","1px solid #000");
 		if(i%2 != 0){
-			$('#equFaultTableHeader td:nth-child('+i+')').css({"font-weight":"bold","width":"8%"});
+			$('#equFaultTableHeader td:nth-child('+i+')').css({"font-weight":"bold","width":"6%","text-align":"center"});
 		}else{
-			$('#equFaultTableHeader td:nth-child('+i+')').css({"width":"12%"});
+			$('#equFaultTableHeader td:nth-child('+i+')').css({"width":"14%","text-align":"center"});
 			$('#equFaultTableHeader td:nth-child('+i+')').html("All");
 		}
 	}
-	
+	$('#equFaultTableHeader td:nth-child(1)').css("border-left","1px solid #000");
 	$('#equFaultTableHeader tr:last-child td:last-child').html('');
 	
 	if(params != null && params != ''){
@@ -119,8 +118,7 @@ function inittableTitle(params) {
 	}
 }
 
-function Appendzero(obj)
- {
+function Appendzero(obj){
 	if (obj < 10) {
 		return "0" + "" + obj;
 	} else {
@@ -332,5 +330,5 @@ function initTable(url,queryParams,duration){
 	      }
 	  });
 	  
-	  $('#equFaultTableStyle .columns').css("margin-top","-130px");
+	  $('#equFaultTableStyle .columns').css("margin-top","-174px");
 }

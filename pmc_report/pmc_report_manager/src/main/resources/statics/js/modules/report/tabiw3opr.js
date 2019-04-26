@@ -3,17 +3,105 @@ $(function () {
 	initShopSelected();	
 	
 	shiftSelected();
+	
+	//初始化查询条件展示栏
+	initbiw3oprTableTitle();
+	
 	//初始化AreaOpr表格
 	initAreaTable();
 	//初始化ZoneOpr表格
 	initZoneTable();
 });
 
+
+function initbiw3oprTableTitle(params){
+
+	$('#biw3oprTableHeader').empty();   //每次变化时清空所有子节点
+	var table = '';
+	var tabletdf = '<tbody>';
+	var tablebody = '<tr>'
+			+ '<td>车间</td>'
+			+ '<td></td>'
+			+ '<td>区域</td>'
+			+ '<td></td>'
+			+ '<td>班次</td>'
+			+ '<td></td>'
+			+ '</tr>'
+			
+			+ '<tr>'
+			+ '<td>日期</td>'
+			+ '<td></td>'
+			+ '<td></td>'
+			+ '<td></td>'
+			+ '<td>报表生成时间</td>'
+			+ '<td></td>'
+			+ '</tr>'
+	var tabletde = '</tbody>';
+	table += (tabletdf + tablebody + tabletde);
+	$('#biw3oprTableHeader').html(table);
+//	console.log($('#equFaultTableHeader tr:eq(0)').children('td').length);   获取首个tr下td 的个数
+	var lengths = $('#biw3oprTableHeader tr:eq(0)').children('td').length;
+	for(var i = 1 ; i <=lengths;i++){
+		if(i%2 != 0){
+			$('#biw3oprTableHeader td:nth-child('+i+')').css({"font-weight":"bold","width":"10%","text-align":"center"});
+		}else{
+			$('#biw3oprTableHeader td:nth-child('+i+')').html("All");
+			$('#biw3oprTableHeader td:nth-child('+i+')').css("width","23%");
+		}
+	}
+	$('#biw3oprTableHeader td:nth-child(1)').css("border-left","1px solid #000");
+	$('#biw3oprTableHeader tr:eq(1) td:eq(3)').html('');
+	$('#biw3oprTableHeader tr:last-child td:last-child').html('');
+	
+	if(params != null && params != ''){
+		console.log(params)
+		if(params.shop != null && params.shop.trim() != ''){
+			$('#biw3oprTableHeader tr:eq(0) td:eq(1)').html(params.shop);
+		}else{
+			$('#biw3oprTableHeader tr:eq(0) td:eq(1)').html("All");
+		}
+		
+		if(params.area != null && params.area.trim() != ''){
+			$('#biw3oprTableHeader tr:eq(0) td:eq(3)').html(params.area);
+		}else{
+			$('#biw3oprTableHeader tr:eq(0) td:eq(3)').html("All");
+		}
+		
+		if(params.shift != null && params.shift.trim() != ''){
+			$('#biw3oprTableHeader tr:eq(0) td:eq(5)').html(params.shift);
+		}else{
+			$('#biw3oprTableHeader tr:eq(0) td:eq(5)').html("All");
+		}
+		
+		if(params.sTime != null && params.sTime.trim() != ''){
+			$('#biw3oprTableHeader tr:eq(1) td:eq(1)').html(params.sTime);
+		}else{
+			$('#biw3oprTableHeader tr:eq(1) td:eq(1)').html("All");
+		}
+		
+		$('#biw3oprTableHeader tr:eq(1) td:eq(3)').html("");
+		
+		var mydate = new Date();
+		var createTime = mydate.getFullYear() + '-'+ Appendzero(mydate.getMonth()+1) + '-' + Appendzero(mydate.getDate()) +'  '+mydate.getHours() + ':' + Appendzero(mydate.getMinutes())+':'+Appendzero(mydate.getSeconds());
+		$('#biw3oprTableHeader tr:last-child td:last-child').html(createTime);
+	}
+
+}
+
+function Appendzero(obj){
+	if (obj < 10) {
+		return "0" + "" + obj;
+	} else {
+		return obj;
+	}
+}
+
 function queryReport(tag,params){
 	
 	var url = baseURL + 'report/opr/list';
 	if(tag=='Biw3OPR'){
 		
+		initbiw3oprTableTitle(params);
 		initAreaTable(url,params);
 		initZoneTable(url,params);
 	}
