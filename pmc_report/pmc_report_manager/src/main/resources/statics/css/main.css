@@ -68,6 +68,19 @@ tbody > tr > th {font-weight: normal; }
 	background-color: #04B45F;
 }
 
+.desc {
+	text-align:center; 
+	width:13%;
+}
+
+.countValue {
+	width:5%
+}
+
+.colorDesc {
+	text-align:center; 
+	width:7%;
+}
 
 #equFaultTableStyle table thead .th-inner{
 	background-color : #2E8B57;

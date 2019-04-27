@@ -330,5 +330,5 @@ function initTable(url,queryParams,duration){
 	      }
 	  });
 	  
-	  $('#equFaultTableStyle .columns').css("margin-top","-174px");
+	  $('#equFaultTableStyle .columns').css("margin-top","-164px");
 }
