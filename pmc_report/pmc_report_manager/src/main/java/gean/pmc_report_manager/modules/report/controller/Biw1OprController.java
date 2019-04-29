@@ -36,21 +36,14 @@ public class Biw1OprController {
 		return R.ok();
 	}
 	
-	@RequestMapping("/biw1opr")
-    public R queryBiw1Opr(@RequestParam Map<String, Object> params) {
-    	List<PmcOprEntity> pmcbiw1oprList = pmcOprService.queryBiw1Opr(params);
-    	return R.ok().put("oprlist", pmcbiw1oprList);
-    }
-    
     /**
      * 列表
      */
-    @RequestMapping("/list")
-    @RequiresPermissions("report:pmcopr:list")
-    public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = pmcOprService.queryPage(params);
-
-        return R.ok().put("page", page);
+	@RequestMapping("/list")
+    //@RequiresPermissions("report:pmcopr:list")
+    public R oprReport(@RequestParam Map<String,Object> params) {
+    	PageUtils page = pmcOprService.queryOprReport(params);
+		return R.ok().put("page", page);
     }
 
 

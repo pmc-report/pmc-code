@@ -9,7 +9,7 @@ $(function () {
 
 function queryReport(tag,params){
 	
-	var url = baseURL + 'report/pmcopr/biw1opr';
+	var url = baseURL + 'report/pmcopr/list';
 	if(tag=='Biw1OPR'){
 		echars(params);
 		initTable(url,params);
@@ -46,85 +46,79 @@ function echars(params){
 	        	}
 	    	}
 	};
-	
-	var date = [];
-	    var mtbf = [];
-	    var tarMtbf = [];
-	
-	var	option = {
-			 grid:{
-				    x:50,
-	                y:30,
-	                x2:50,
-	                y2:30,
-	                borderWidth:1,
-	            },
-				title: {  
-                    //主标题文本，'\n'指定换行  
-                    text: 'Mean Time Between Failure(MTBF)',  
-                    //水平安放位置，默认为左侧，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）  
-                    x: 'left',  
-                    //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
-                   y: 'top'  ,
-                   textStyle:{
-               　　　　			 fontSize:13
-                   },
-                }, 
-
-		    color: ['#FFA500', '#2E9AFE'],
-		    //calculable: true,
-		    xAxis: [
-		        {
-		            type: 'category',
-		            axisTick: {show: true},
-		            axisLabel :{
-		                interval:0,
-		                //rotate:45,   //倾斜度
-		                fontSize:10
-		            },
-		            data: date
-		        }
-		    ],
-		  
-		    yAxis: [  {}],
-		    series: [
-		        {
-		            name: 'MTBF',
-		            type: 'line',
-		            barGap: 0,
-		            label: labelOption,
-		            data: mtbf,
-		            hoverAnimation:false,//禁用鼠标悬停弹出效果
-		        },
-		        {
-		            name: 'Target MTBF',
-		            type: 'line',
-		            label: labelOption,
-		            data: mtbf,
-		            hoverAnimation:false,
-		        },
-		    ]
-		};
-	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
-    window.onresize = echart.resize;
-    echart.setOption(option);
-    
-	/*$.ajax({
+	 
+	$.ajax({
         type: "post",
-        url: '',
+        url: '/gean/report/pmcopr/biw1OprImg',
         data: '',
         dataType: "json",
         success: function(data){
+        	var	option = {
+       			 grid:{
+       				    x:50,
+       	                y:30,
+       	                x2:50,
+       	                y2:30,
+       	                borderWidth:1,
+       	            },
+       				title: {  
+                           //主标题文本，'\n'指定换行  
+                           text: 'Mean Time Between Failure(MTBF)',  
+                           //水平安放位置，默认为左侧，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）  
+                           x: 'left',  
+                           //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
+                          y: 'top'  ,
+                          textStyle:{
+                      　　　　			 fontSize:13
+                          },
+                       }, 
+
+       		    color: ['#FFA500', '#2E9AFE'],
+       		    //calculable: true,
+       		    xAxis: [
+       		        {
+       		            type: 'category',
+       		            axisTick: {show: true},
+       		            axisLabel :{
+       		                interval:0,
+       		                //rotate:45,   //倾斜度
+       		                fontSize:10
+       		            },
+       		            data: ''
+       		        }
+       		    ],
+       		  
+       		    yAxis: [  {}],
+       		    series: [
+       		        {
+       		            name: 'MTBF',
+       		            type: 'line',
+       		            barGap: 0,
+       		            label: labelOption,
+       		            data: '',
+       		            hoverAnimation:false,//禁用鼠标悬停弹出效果
+       		        },
+       		        {
+       		            name: 'Target MTBF',
+       		            type: 'line',
+       		            label: labelOption,
+       		            data: '',
+       		            hoverAnimation:false,
+       		        },
+       		    ]
+       		};
+       	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
+           window.onresize = echart.resize;
+           echart.setOption(option);
         }
-	});*/
+	});
 }
 
 function initTable(url,queryParams){
 	
 	var responseHandler = function (e) {
-	      console.log(e);
-	      if (e.oprlist !=null && e.oprlist.length > 0) {
-	          return { "rows": e.oprlist, "total": 0 };
+	      if (e.page.list !=null && e.page.list.length > 0) {
+	          return { "rows": e.page.list, "total": e.page.totalCount };
 	      } else {
 	          return { "rows": [], "total": 0 };
 	      }
@@ -135,16 +129,16 @@ function initTable(url,queryParams){
 	      return html;
 	 }
 	 
-	 var dateFormatter = function(value, row, index){
+/*	 var dateFormatter = function(value, row, index){
  	    return sec_to_time(value);
-     } 
+     } */
 	 
      var columns = [
           
           { field: 'shop', title: '区域', align: 'center', sortable:false },
           { field: 'productionVolume', title: 'Zone', align: 'center', sortable:false }, 
           { field: 'frequency', title: 'frequency', align: 'center', sortable:false }, 
-          { field: 'tarOpr', title: 'tarOpr', align: 'center', sortable: true, clickToSelect: false, sortName: "facilityId", order:"asc" },
+          { field: 'tarOpr', title: 'tarOpr', align: 'center', sortable: false,},
           { field: 'productionOpr', title: 'productionOpr', halign:'center' }, 
       ];
      

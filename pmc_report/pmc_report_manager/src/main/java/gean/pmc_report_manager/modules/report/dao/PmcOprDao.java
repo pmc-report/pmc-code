@@ -13,4 +13,7 @@ import gean.pmc_report_manager.modules.report.entity.PmcOprEntity;
 public interface PmcOprDao extends BaseMapper<PmcOprEntity>{
 
 	List<PmcOprEntity> queryBiw1Opr(Map<String, Object> params);
+	
+	List<PmcOprEntity> queryOprByParam(Map<String,String> params);
+
 }

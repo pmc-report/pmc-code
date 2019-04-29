@@ -12,7 +12,7 @@ public interface PmcOprService extends IService<PmcOprEntity>{
 	
 	PageUtils queryPage(Map<String, Object> params);
 	
-	List<PmcOprEntity> queryBiw1Opr(Map<String, Object> params);
+    PageUtils queryOprReport(Map<String, Object> params);
 	
 	List<String> findBiw1Oprimg(Map<String, Object> params);
 }
