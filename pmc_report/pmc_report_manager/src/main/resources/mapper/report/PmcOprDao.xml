@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="gean.pmc_report_manager.modules.report.dao.PmcOprDao">
+<mapper
+	namespace="gean.pmc_report_manager.modules.report.dao.PmcOprDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="gean.pmc_report_manager.modules.report.entity.PmcOprEntity" id="pmcOprMap">
-        <result property="shop" column="shop"/>
-        <result property="line" column="line"/>
-        <result property="zone" column="zone"/>
-        <result property="station" column="station"/>
-        <result property="equipment" column="equipment"/>
-        <result property="facilityId" column="facility_id"/>
-        <result property="startTime" column="start_time"/>
-        <result property="endTime" column="end_time"/>
-        <result property="availableTime" column="available_time"/>
-        <result property="productionVolume" column="production_volume"/>
-        <result property="frequency" column="frequency"/>
-        <result property="workingday" column="workingDay"/>
-        <result property="levels" column="levels"/>
-        <result property="shift" column="shift"/>
-        <result property="tarOpr" column="tar_opr"/>
-        <result property="designCycleTime" column="design_cycle_time"/>
-        <result property="productionOpr" column="production_opr"/>
-    </resultMap>
+	<resultMap
+		type="gean.pmc_report_manager.modules.report.entity.PmcOprEntity"
+		id="pmcOprMap">
+		<result property="shop" column="shop" />
+		<result property="line" column="line" />
+		<result property="zone" column="zone" />
+		<result property="station" column="station" />
+		<result property="equipment" column="equipment" />
+		<result property="facilityId" column="facility_id" />
+		<result property="startTime" column="start_time" />
+		<result property="endTime" column="end_time" />
+		<result property="availableTime" column="available_time" />
+		<result property="productionVolume" column="production_volume" />
+		<result property="frequency" column="frequency" />
+		<result property="workingday" column="workingDay" />
+		<result property="levels" column="levels" />
+		<result property="shift" column="shift" />
+		<result property="tarOpr" column="tar_opr" />
+		<result property="designCycleTime" column="design_cycle_time" />
+		<result property="productionOpr" column="production_opr" />
+	</resultMap>
 	<sql id="queryAll">
-	select * from PMC_OPR
-</sql>
+		select * from PMC_OPR where 1 = 1 
+	</sql>
 
 	<select id="queryBiw1Opr" resultMap="pmcOprMap">
-		<include refid="queryAll">
+		<include refid="queryAll"></include>
 			<if test="shop!=null and shop!=''">
 				AND shop = #{shop}
 			</if>

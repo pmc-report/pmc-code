@@ -122,9 +122,9 @@ function echars(params){
 function initTable(url,queryParams){
 	
 	var responseHandler = function (e) {
-	      //console.log(e);
-	      if (e.page.list !=null && e.page.list.length > 0) {
-	          return { "rows": e.page.list, "total": e.page.totalCount };
+	      console.log(e);
+	      if (e.oprlist !=null && e.oprlist.length > 0) {
+	          return { "rows": e.oprlist, "total": 0 };
 	      } else {
 	          return { "rows": [], "total": 0 };
 	      }
