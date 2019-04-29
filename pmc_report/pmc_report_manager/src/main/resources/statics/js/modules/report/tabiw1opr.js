@@ -50,7 +50,16 @@ function echars(params){
 	$.ajax({
         type: "post",
         url: '/gean/report/pmcopr/biw1OprImg',
-        data: '',
+        data: {
+        	'shop' : params.shop,
+//	    	'area' : params.area,
+	    	'zone' : params.zone,
+	    	'line' : params.line, 
+//	    	'shift' : params.shift,
+	    	'startTime' : params.sTime,
+	    	'endTime' : params.eTime,
+	    	'frequency' : params.frequency,
+        },
         dataType: "json",
         success: function(data){
         	var	option = {
@@ -63,17 +72,17 @@ function echars(params){
        	            },
        				title: {  
                            //主标题文本，'\n'指定换行  
-                           text: 'Mean Time Between Failure(MTBF)',  
+                           text: 'OPR Report',  
                            //水平安放位置，默认为左侧，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）  
                            x: 'left',  
                            //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
                           y: 'top'  ,
                           textStyle:{
-                      　　　　			 fontSize:13
+                      　　　　			 fontSize:16
                           },
                        }, 
 
-       		    color: ['#FFA500', '#2E9AFE'],
+       		    color: ['#FFA500', '#2E9AFE','#36648B'],
        		    //calculable: true,
        		    xAxis: [
        		        {
@@ -84,25 +93,39 @@ function echars(params){
        		                //rotate:45,   //倾斜度
        		                fontSize:10
        		            },
-       		            data: ''
+       		            data: data.resule.weekDay
        		        }
        		    ],
        		  
        		    yAxis: [  {}],
+       		    legend: {
+			        data: ['E-OPR-value', 'P-OPR-value', 'OPR Target-value'],
+			        //orient: 'vertical',
+			    	x:'right',
+			    	y:'top',
+			    
+			    },
        		    series: [
        		        {
-       		            name: 'MTBF',
-       		            type: 'line',
+       		            name: 'P-OPR-value',
+       		            type: 'bar',
        		            barGap: 0,
        		            label: labelOption,
-       		            data: '',
+       		            data: data.resule.pOpr,
        		            hoverAnimation:false,//禁用鼠标悬停弹出效果
        		        },
        		        {
-       		            name: 'Target MTBF',
+       		            name: 'E-OPR-value',
+       		            type: 'bar',
+       		            label: labelOption,
+       		            data: data.resule.tarOpr,
+       		            hoverAnimation:false,
+       		        },
+       		        {
+       		            name: 'OPR Target-value',
        		            type: 'line',
        		            label: labelOption,
-       		            data: '',
+       		            data: data.resule.productionVolume,
        		            hoverAnimation:false,
        		        },
        		    ]
@@ -117,11 +140,15 @@ function echars(params){
 function initTable(url,queryParams){
 	
 	var responseHandler = function (e) {
+		if(e.page != null){
 	      if (e.page.list !=null && e.page.list.length > 0) {
 	          return { "rows": e.page.list, "total": e.page.totalCount };
 	      } else {
 	          return { "rows": [], "total": 0 };
 	      }
+		}else{
+			return { "rows": [], "total": 0 };
+		}
 	 }
 	
 	 var uidHandle = function (res) {
@@ -135,11 +162,11 @@ function initTable(url,queryParams){
 	 
      var columns = [
           
-          { field: 'shop', title: '区域', align: 'center', sortable:false },
-          { field: 'productionVolume', title: 'Zone', align: 'center', sortable:false }, 
-          { field: 'frequency', title: 'frequency', align: 'center', sortable:false }, 
-          { field: 'tarOpr', title: 'tarOpr', align: 'center', sortable: false,},
-          { field: 'productionOpr', title: 'productionOpr', halign:'center' }, 
+          { field: 'workingDay', title: 'workingDay', align: 'center', sortable:false },
+          { field: 'popr', title: 'popr', align: 'center', sortable:false }, 
+          { field: 'eopr', title: 'eopr', align: 'center', sortable:false }, 
+          { field: 'productionVolume', title: 'productionVolume', align: 'center', sortable: false,},
+          { field: 'oprTarget', title: 'oprTarget', halign:'center' }, 
       ];
      
 	  $('#biw10prtab').empty();

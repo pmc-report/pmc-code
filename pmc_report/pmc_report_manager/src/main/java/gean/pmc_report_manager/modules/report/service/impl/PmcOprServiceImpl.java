@@ -20,8 +20,12 @@ import gean.pmc_report_manager.modules.report.vo.OprReportVo;
 public class PmcOprServiceImpl extends ServiceImpl<PmcOprDao, PmcOprEntity> implements PmcOprService{
 
 	@Override
-	public List<String> findBiw1Oprimg(Map<String, Object> params) {
-		return null;
+	public List<PmcOprEntity> queryEcharts(Map<String ,Object>params){ 
+		Map<String, String> pmcOprEntity = new HashMap<String, String>();
+		for(String str : params.keySet()) {
+			pmcOprEntity.put(str, params.get(str) != null ? params.get(str).toString() : null);
+		}
+		return baseMapper.queryEcharts(pmcOprEntity);
 	}
 	
 	@Override
@@ -85,7 +89,6 @@ public class PmcOprServiceImpl extends ServiceImpl<PmcOprDao, PmcOprEntity> impl
 					continue;
 				}
 			}
-			
 			return new PageUtils(dayList, dayList.size(), pageSize, currPage);
 		}
 		

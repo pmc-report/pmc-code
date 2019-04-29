@@ -42,7 +42,7 @@
     </resultMap>
     
     
-    <select id="queryEcharts" resultMap="oprReportMap" >
+    <select id="queryEcharts" resultMap="pmcOprMap" >
     select p.workingDay ,ISNULL(avg(p.production_opr),0) production_opr,ISNULL(avg(p.tar_opr),0) tar_opr,ISNULL(avg(p.production_volume),0) production_volume
     from PMC_OPR p 
     WHERE 1 = 1

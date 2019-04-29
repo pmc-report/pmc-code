@@ -14,5 +14,5 @@ public interface PmcOprService extends IService<PmcOprEntity>{
 	
     PageUtils queryOprReport(Map<String, Object> params);
 	
-	List<String> findBiw1Oprimg(Map<String, Object> params);
+    List<PmcOprEntity> queryEcharts(Map<String, Object> params);
 }

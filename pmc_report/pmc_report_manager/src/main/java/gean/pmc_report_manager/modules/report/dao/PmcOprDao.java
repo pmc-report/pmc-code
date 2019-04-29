@@ -15,5 +15,7 @@ public interface PmcOprDao extends BaseMapper<PmcOprEntity>{
 	List<PmcOprEntity> queryBiw1Opr(Map<String, Object> params);
 	
 	List<PmcOprEntity> queryOprByParam(Map<String,String> params);
+	
+	List<PmcOprEntity> queryEcharts(Map<String, String> pmcOprEntity);
 
 }
