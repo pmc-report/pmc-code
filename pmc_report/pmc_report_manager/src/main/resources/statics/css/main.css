@@ -130,6 +130,10 @@ tbody > tr > th {font-weight: normal; }
 	border-left:1px solid #fff;
 }
 
+.fixed-table-footer, .fixed-table-header {
+	height: 2px;
+}
+
 /** 表单查询条件 */
 ul {
 	margin: 0;

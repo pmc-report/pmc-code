@@ -26,6 +26,6 @@ public interface TaBiw39panelService extends IService<TaBiw39panelEntity> {
     
     List<PanelVo> queryTop10DownTime(Map<String, Object> params);
     
-   
+    List<PanelVo> queryTop10Occurrence(Map<String, Object> params);
 }
 

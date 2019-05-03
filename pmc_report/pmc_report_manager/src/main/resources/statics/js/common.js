@@ -569,7 +569,10 @@ function intitToDateArr(param){
 function getParams(){
 	var fromDate = $('#fDate').val();
 	var toDate = $('#tDate').val();
-	
+	var f_date = fromDate==null?'':JSON.stringify(fromDate);
+	var t_date = toDate==null?'':JSON.stringify(toDate);
+	fDates = f_date.replace(new RegExp('"',"gm"),'');
+	tDates = t_date.replace(new RegExp('"',"gm"),'');
 	var params = {
 		shop : $("#shop_search").val(),
 		area : $("#area_search").val(),
@@ -582,6 +585,8 @@ function getParams(){
 		equipment : $('#equ_search').val(),
 		station : $('#station_search').val(),
 		fromDates : this.toObj(fromDate),
+		fDate : fDates,
+		tDate : tDates,
 		toDates : this.toObj(toDate)
 	}
 	return params;
@@ -667,6 +672,5 @@ function resetTableHeader(tableid){
 		if(tableid == "biw3oprTableHeader"){
 			$('#'+tableid + ' tr:eq(1) td:eq(3)').html('');
 		}
-		
 	}
 }

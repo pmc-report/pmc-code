@@ -101,35 +101,6 @@
 		<h2 class="panelTableTitleH1">9Panel Report</h2>
 		<table id="panelTableHeader"></table>
 	</div>
-	<!-- <div class="panel panel-primary" style = "width:100%;overflow : auto;">
-		<div class="panel-heading" style = "width:3000px;">
-			<h4 class="panel-title">
-				<a data-toggle="collapse" data-parent="#accordion" 
-				   href="#collapseTwo">
-					<span class='glyphicon glyphicon-stats'>&nbsp查询结果-图</span>
-				</a>
-			</h4>
-		</div>
-		<div id="collapseTwo" class="panel-collapse collapse in" style = "width:3000px;">
-			<div class="panel-body" style="display: inline;padding: 2px">
-				<div id="main2" style="width:990px;height:340px;display: inline-block;">
-					<script type="text/javascript">
-						var echart1=echarts.init(document.getElementById('main2'));
-					</script>
-				</div>
-				<div id="main1" style="width:990px;height:340px;display: inline-block; ">
-					<script type="text/javascript">
-						var echart=echarts.init(document.getElementById('main1'));
-					</script>
-				</div>
-				<div id="main3" style="width:790px;height:340px;display: inline-block;">
-					<script type="text/javascript">
-						var echart2=echarts.init(document.getElementById('main3'));
-					</script>
-				</div>
-			</div>
-		</div>
-	</div> -->
 	<div class="panel panel-primary" style = "width:100%;overflow : auto;">
 		<div class="panel-heading" style = "width:1800px;">
 			<h3 class="panel-title">
@@ -160,10 +131,10 @@
 				<div>
 					<div>
 						<table id="preDownTime" style="border: 1px solid"></table>
-						<table style="width:100%;height: 30px" border="1px siold">
+						<table id="preDownTimeFoot" style="width:100%;height: 30px" border="1px siold">
 							<tr>
-								<td class="desc">Total Downtime for Top 10 Faults :1</td>
-								<td class="countValue" id="top10DownTimeOld">前十1</td>
+								<td class="desc">Total Downtime for Top 10 Faults :</td>
+								<td class="countValue" id="top10DownTimeOld"></td>
 								<td class="colorDesc" rowspan="2">
 									<button type="button" class="btn btn-circle btn-lg" 
 						  						style="background:red;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">
@@ -172,60 +143,80 @@
 								<td class="colorDesc" rowspan="2">
 									<button type="button" class="btn btn-circle btn-lg" 
 						  						style="background:yellow;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">
-						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern Worse</span>
+						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern Unchanged</span>
 					  		 	</td>
 								<td class="colorDesc" rowspan="2">
 									<button type="button" class="btn btn-circle btn-lg" 
 						  						style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">
-						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern Worse</span>
+						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern improved</span>
 					  		 	</td>
 								<td class="colorDesc" rowspan="2">
 									<button type="button" class="btn btn-circle btn-lg" 
 						  						style="background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">
-						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern Worse</span>
+						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern Out of 10</span>
 					  		 	</td>
 								<td class="colorDesc" rowspan="2">
 									<button type="button" class="btn btn-circle btn-lg" 
 						  						style="background:#000000;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">
-						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern Worse</span>
+						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern Resolved</span>
 					  		 	</td>
-								<td class="desc">Total Downtime for Top 10 Faults :2</td>
-								<td class="countValue" id="top10DownTimeNew">前十2</td>
+								<td class="desc">Total Downtime for Top 10 Faults :</td>
+								<td class="countValue" id="top10DownTimeNew"></td>
 							</tr>
 							<tr>
-								<td class="desc">Total Downtime for All Faults :1</td>
-								<td class="countValue" id="totalDownTimeOld">所有1</td>
-								<td class="desc">Total Downtime for All Faults :2</td>
-								<td class="countValue" id="totalDownTimeNew">所有2</td>
+								<td class="desc">Total Downtime for All Faults :</td>
+								<td class="countValue" id="totalDownTimeOld"></td>
+								<td class="desc">Total Downtime for All Faults :</td>
+								<td class="countValue" id="totalDownTimeNew"></td>
 							</tr>
 						</table>
 					</div>
 					<div style="padding-top: 3px">
 						<table id="preOcc" style="border: 1px solid"></table>
+						<table id="preOccFoot" style="display: none;width:100%;height: 30px" border="1px siold">
+							<tr>
+								<td class="desc">Total Occurrence for Top 10 Faults :</td>
+								<td class="countValue" id="top10OccurrenceOld"></td>
+								<td class="colorDesc" rowspan="2">
+									<button type="button" class="btn btn-circle btn-lg" 
+						  						style="background:red;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">
+						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern Worse</span>
+					  		 	</td>
+								<td class="colorDesc" rowspan="2">
+									<button type="button" class="btn btn-circle btn-lg" 
+						  						style="background:yellow;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">
+						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern Unchanged</span>
+					  		 	</td>
+								<td class="colorDesc" rowspan="2">
+									<button type="button" class="btn btn-circle btn-lg" 
+						  						style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">
+						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern improved</span>
+					  		 	</td>
+								<td class="colorDesc" rowspan="2">
+									<button type="button" class="btn btn-circle btn-lg" 
+						  						style="background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">
+						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern Out of 10</span>
+					  		 	</td>
+								<td class="colorDesc" rowspan="2">
+									<button type="button" class="btn btn-circle btn-lg" 
+						  						style="background:#000000;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">
+						  		 	</button><span style="font-size:12px;width:100%">&nbspConcern Resolved</span>
+					  		 	</td>
+								<td class="desc">Total Occurrence for Top 10 Faults :</td>
+								<td class="countValue" id="top10OccurrenceNew"></td>
+							</tr>
+							<tr>
+								<td class="desc">Total Occurrence for All Faults :</td>
+								<td class="countValue" id="totalOccurrenceOld"></td>
+								<td class="desc">Total Occurrence for All Faults :</td>
+								<td class="countValue" id="totalOccurrenceNew"></td>
+							</tr>
+						</table>
 					</div>
 				</div>
-				<!-- <div>
-					<div>
-						<table id="preOcc" style="border: 1px solid"></table>
-					</div>
-					<div style="display: inline-block;padding: 1px;">
-						<table id="rootCauseOcc"></table>
-					</div>
-					<div style="display: inline-block;padding: 1px;">
-						<table id="currOcc"></table>
-					</div>
-				</div> -->
 			</div>
 		</div>
 	</div>
-	<!--  <div style = "display : block">
-		<form id="fromexport"  method="post" onsubmit="return report()">
-			<input type = "hidden" name = "echarepxport" id = "echarepxport" value =""/>
-			<input type = "hidden" name = "echarepxport1" id = "echarepxport1" value =""/>
-			<input type = "hidden" name = "echarepxport2" id = "echarepxport2" value =""/>
-			<input type = "submit" value = "导出"/>		
-		</form>	
-	</div>  -->
 <script src="${request.contextPath}/statics/js/modules/report/tabiw39panel.js?_${.now?long}"></script>
 </body>
 </html>

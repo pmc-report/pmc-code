@@ -1,7 +1,6 @@
 package gean.pmc_report_manager.modules.report.controller;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +23,6 @@ import freemarker.template.Template;
 import gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity;
 import gean.pmc_report_manager.modules.report.service.TaBiw39panelService;
 import gean.pmc_report_manager.modules.report.vo.PanelVo;
-import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_common.common.utils.R;
 
 
@@ -51,24 +49,9 @@ public class TaBiw39panelController {
     }
     
     @RequestMapping("/listCurrPanel")
-    public Object listCurrPanel(Map<String,Object> form) {
-    	//假数据 
-       /* int totalCount = 10;
-        if(totalCount > 0){
-            List<PanelVo> user = new ArrayList<>();
-            for(int i=1; i<11; i++) {
-            	PanelVo vo = new PanelVo();
-            	vo.set_new(i);
-            	vo.setDescription("* "+(int)(1+Math.random()*(10-1+1))+"S512 UNIT103 PART PRESENT");
-            	vo.setMins((float)(3+Math.random()*(45-1+1)));
-            	vo.setOcc((int)(1+Math.random()*(100-1+1)));
-            	vo.setStn((int)(100+Math.random()*(2000-1+1)));
-            	user.add(vo);
-            }
-            ///////////
-            return new PageUtils(user, totalCount, totalCount, 0);
-        }*/
-        return null;
+    public Object listCurrPanel(@RequestParam Map<String,Object> params) {
+    	List<PanelVo> list = taBiw39panelService.queryTop10Occurrence(params);
+        return R.ok().put("preOccurrenceList", list);
     }
 
     /**

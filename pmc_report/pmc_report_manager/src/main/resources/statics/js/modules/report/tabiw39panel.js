@@ -7,6 +7,8 @@ $(function () {
 	initpanelTableTitle();
 	shiftSelected();
 	initDate();
+	$('#preDownTimeFoot').hide();
+	$('#preOccFoot').hide();
 });
 
 function initpanelTableTitle(params){
@@ -111,7 +113,7 @@ function initpanelTableTitle(params){
 			}
 			$('#panelTableHeader tr:eq(2) td:eq(3)').html(fromDate);
 		}else{
-			$('#panelTableHeader tr:eq(2) td:eq(3)').html("All");
+			$('#panelTableHeader tr:eq(2) td:eq(3)').html("");
 		}
 		
 		if(params.eTime != null && params.eTime.trim() != ''){
@@ -126,7 +128,7 @@ function initpanelTableTitle(params){
 			}
 			$('#panelTableHeader tr:eq(3) td:eq(3)').html(toDate);
 		}else{
-			$('#panelTableHeader tr:eq(3) td:eq(3)').html("All");
+			$('#panelTableHeader tr:eq(3) td:eq(3)').html("");
 		}
 		
 		if(params.jobId != null && params.jobId.trim() != ''){
@@ -156,11 +158,13 @@ function Appendzero(obj){
 }
 
 function initPreDownTime(queryParams){ 
-	var occ = '';
-	var mins = '';
-	var totalDuration1 = '';
-	var totalDuration2 = '';
-	var operateFormatter = function (value, row, index) {//赋予的参数
+	var fdates = queryParams.fDate; //显示在title内的开始时间段
+	var tdates = queryParams.tDate; //显示在title内的结束时间段
+	var occ = ''; //用于显示Perato中的次数
+	var mins = ''; //用于显示Perato中的时间
+	var totalDuration1 = ''; //总持续时间，来源于数据库查询For开始时间段
+	var totalDuration2 = ''; //总持续时间，来源于数据库查询For结束时间段
+	var operateFormatter = function (value, row, index) {//动态修改故障变化灯
 		if(value != undefined){
 			var color = 'style = "background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
 			switch(value){
@@ -177,7 +181,7 @@ function initPreDownTime(queryParams){
 		}
 	     return '';
 	}
-	var  responseHandler = function(res) { // 格式化数据
+	var  responseHandler = function(res) { // 格式化数据--赋值汇总
         if (res.preDownTimeList !=null && res.preDownTimeList.length > 0){
             tmp = {
                 total : res.totalCount,
@@ -203,10 +207,13 @@ function initPreDownTime(queryParams){
                      total : '',
                      rows : ''
                  };
+	        $('#totalDownTimeOld').html('0.00');
+	   		$('#totalDownTimeNew').html('0.00');
         	 return tmp;
         }
     }
 	
+	//字体格式化
 	var fontFormatter = function(value,row,index) {
 		var dom = '';
 		if(value!=null){
@@ -218,6 +225,7 @@ function initPreDownTime(queryParams){
      return dom;  
 	}
 	
+	//获取故障次数
 	var getOcc = function(value,row,index){
 		if(value!=null){
 			occ = value;
@@ -225,43 +233,54 @@ function initPreDownTime(queryParams){
 		return occ;
 	}
 	
-	var getMinsOld = function(value,row,index){
+	//获取故障时间
+	var getMins = function(value,row,index){
 		if(value!=null){
-		  mins = value;
+			mins = value;
 		}
 		return mins;
 	}
 	
+	//获取故障时间
+	var getMinsOld = function(value,row,index){
+		if(value!=null){
+		  mins1 = value;
+		  var count1 = 0;
+	      for (var i in value) {
+	          count1 += value[i].mins1;
+	      }
+	      //开始时间表前十故障时间显示在页脚
+	      $('#top10DownTimeOld').html(count1.toFixed(2));
+		}
+		return mins1;
+	}
+	
+	//获取累加故障持续时间
 	var getMinsNew = function(value,row,index){
 		if(value!=null){
 			mins2 = value;
+			 var count2 = 0;
+		      for (var i in value) {
+		          count2 += value[i].mins2;
+		      }
 		}
+		//结束时间表前十故障时间显示在页脚
 	    $('#top10DownTimeNew').html(count2.toFixed(2));
 		return mins2;
 	}
 	
+	//根据次数和持续时间动态展示Pareto
 	var paretoFormatter = function(value,row,index){
 		if(mins!=null){
-			var width = mins>100?100:mins;
+			var width1 = occ>100?100:occ;
+			var width2 = mins>100?100:mins;
 			var dom =  '<input type="text" disabled="disabled" style="background-color: yellow;border: none;height: 12px;width: '+
-			occ +'px"><span style="font-size:12px">'+ occ +'</span></input></br><input type="text" disabled="disabled" style="background-color: green;border: none;height: 12px;width: '+ 
-			width.toFixed(1) +'%"><span style="font-size:12px">'+ mins.toFixed(2) +'</span></input>'
-		 
+			width1 +'px"><span style="font-size:12px">'+ occ +'</span></input></br><input type="text" disabled="disabled" style="background-color: green;border: none;height: 12px;width: '+ 
+			width2.toFixed(1) +'%"><span style="font-size:12px">'+ mins.toFixed(2) +'</span></input>'
+			
 			return dom;
 		}
 	}
-	
-	var getTop10DownTime = function(value,row,index){
-		 var count1 = 0;
-	      for (var i in value) {
-	          count1 += value[i].mins1;
-	      }
-	      $('#top10DownTimeOld').html(count1.toFixed(2));
-	}
-	
-	/*var totalDownTime = function(value,row,index){
-		return '<span style="font-size:12px">'+totalDuration1+'</span></br><span style="font-size:12px">'+totalDuration2+'</span>';
-	}*/
 	
 	var borderFormatter =  function(value,row,index){
 		return {css:{"border-right-style":"double"}}
@@ -273,24 +292,24 @@ function initPreDownTime(queryParams){
 		method: "post",                     //使用get请求到服务器获取数据
 	    dataType: "json",
 	    contentType: "application/x-www-form-urlencoded",
-		queryParamsType: '', //参数格式,发送标准的RESTFul类型的参数请求 
-		search: false, //显示搜索框
-		showFooter: true,  //显示底部栏
-		sidePagination: "server", //服务端处理分页
+		queryParamsType: '', 				//参数格式,发送标准的RESTFul类型的参数请求 
+		search: false, 						//显示搜索框
+		showFooter: true,  					//显示底部栏
+		sidePagination: "server", 			//服务端处理分页
 		responseHandler: responseHandler,
 		columns: [
 				[{
-	                 title : "Previous Faults Ranked by Downtime",
+	                 title : "<span>Previous Faults Ranked by Downtime</span></br><span>Days:"+fdates+"</span>",
 	                 halign : "center",
 	                 align : "center",
 	                 colspan : 8
 		        },{
-	                 title : "Root Cause Analysis(Ranked by Downtime)",
+	                 title : "<span>Root Cause Analysis</span></br><span>[Ranked by Downtime]</span>",
 	                 halign : "center",
 	                 align : "center",
 	                 colspan : 4
 		        },{
-	                 title : "Current Faults Ranked by Downtime",
+	                 title : "<span>Current Faults Ranked by Downtime</span></br><span>Days:"+tdates+"</span>",
 	                 halign : "center",
 	                 align : "center",
 	                 colspan : 5
@@ -299,50 +318,34 @@ function initPreDownTime(queryParams){
 				  field: 'old',
 				  title: 'Old',
 				  formatter: fontFormatter,
-				 /* footerFormatter : function(value){
-						 return '<span style="font-size:12px">Total Downtime for Top 10 Faults :</span></br><span style="font-size:12px">Total Occurrence for Top 10 Faults :</span>';
-				  }*/
 				 }, {
 				  field: 'oldThenNew',
 				  title: 'New',
+				  cellStyle: getMins,
 				  formatter: fontFormatter,
-				 // formatter: top10DownTime
 				 }, {
 				  field: 'occ1',
 				  title: 'Occ',
 				  cellStyle: getOcc,
 				  formatter: fontFormatter,
-				 
 				 }, {
 				  field: 'mins1',
 				  title: 'Mins',
-				  cellStyle: getMinsOld,
+				  footerFormatter: getMinsOld,
 				  formatter: fontFormatter,
 				 }, {
 				  field: 'stn1',
 				  title: 'Stn',
 				  formatter: fontFormatter,
-				  footerFormatter: getTop10DownTime
+				  //footerFormatter: getTop10DownTime
 				 }, {
 				  field: 'description1',
 				  title: 'Description',
 				  formatter: fontFormatter,
-				  /*footerFormatter: function(value){
-					  return '<button type="button" '+
-					  			'class="btn btn-circle btn-lg" '+
-					  			'style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
-					  		 '</button><span style="font-size:12px">&nbspConcern improved</span>';
-				  }*/
 				 }, {
 				  field: 'pareto',
 				  title: 'Pareto',
 				  formatter: paretoFormatter,
-				  /*footerFormatter: function(value){
-					  return '<button type="button" '+
-					  			'class="btn btn-circle btn-lg" '+
-					  			'style="background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
-					  		 '</button><span style="font-size:12px">&nbspConcern Out of 10</span>';
-				  }*/
 				 }, {
 				  field: 'status',
 				  title: 'Status',
@@ -350,25 +353,15 @@ function initPreDownTime(queryParams){
 		          valign: 'middle',
 		          cellStyle: borderFormatter,
 		          formatter: operateFormatter, //自定义方法，添加操作按钮
-		         /* footerFormatter: function(value){
-					  return '<button type="button" '+
-					  			'class="btn btn-circle btn-lg" '+
-					  			'style="background:#000000;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
-					  		 '</button><span style="font-size:12px">&nbspConcern Resolved</span>';
-				  }*/
-		        
 				 },{
 				  field: 'casualDescription',
 				  title: 'Casual Description',
-				 
 				 }, {
 				  field: 'rootCauseAnalysis',
 				  title: 'Root Cause Analysis',
-				  
 				 }, {
 				  field: 'who',
 				  title: 'Who',
-				 
 				 }, {
 				  field: 'timing',
 				  title: 'Timing',
@@ -377,18 +370,14 @@ function initPreDownTime(queryParams){
 				  field: '_new',
 				  title: 'New',
 				  formatter: fontFormatter,
-				  /*footerFormatter : function(value){
-						 return '<span style="font-size:12px">Total Downtime for All Faults :</span></br><span style="font-size:12px">Total Occurrence for All Faults :</sapn>';
-				  }*/
 				 }, {
 				  field: 'occ2',
 				  title: 'Occ',
 				  formatter: fontFormatter,
-				  //footerFormatter: totalDownTime
 				 }, {
 				  field: 'mins2',
 				  title: 'Mins',
-				  formatter: getMinsNew,
+				  footerFormatter: getMinsNew,
 				  formatter: fontFormatter
 				 }, {
 				  field: 'stn2',
@@ -414,17 +403,23 @@ function initPreDownTime(queryParams){
 	            }
 	     },
 		 onLoadSuccess: function (data) { 		//加载成功时执行
-	     },
-	     onLoadError: function (res) { 		//加载失败时执行
+			 $('#preDownTimeFoot').show();
+		 },
+	     onLoadError: function (res) { 			//加载失败时执行
 	     }
 	});
 }
 
-function initOccTab(params){ 
-	
+function initOccTab(queryParams){ 
+	var fdates = queryParams.fDate;
+	var tdates = queryParams.tDate;
+	var occ = '';
+	var mins = '';
+	var totalOcc1 = '';
+	var totalOcc2 = '';
 	var operateFormatter = function (value, row, index) {//赋予的参数
 		if(value != undefined){
-			var color = 'style = "border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
+			var color = 'style = "background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
 			switch(value){
 				case 0 : color = 'style="background:red;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;"';
 				 break;
@@ -440,56 +435,105 @@ function initOccTab(params){
 	     return '';
 	}
 	var  responseHandler = function(res) { // 格式化数据
-        if (res.list !=null && res.list.length > 0)
+		debugger
+		if (res.preOccurrenceList !=null && res.preOccurrenceList.length > 0){
             tmp = {
                 total : res.totalCount,
-                rows : res.list
+                rows : res.preOccurrenceList
             };
-        if (res.totalCount == null)
-            tmp = {
-                total : '',
-                rows : ''
-            };
-        return tmp;
+            
+            var list = res.preOccurrenceList;
+            for(var i=0;i<list.length;i++ ){
+         	   if(i==0
+         			   &&list[i].totalOcc1!=null
+         			   &&list[i].totalOcc2!=null){
+	         	   totalOcc1 = list[i].totalOcc1;
+	         	   totalOcc2 = list[i].totalOcc2;
+         		   $('#totalOccurrenceOld').html(totalOcc1);
+         		   $('#totalOccurrenceNew').html(totalOcc2);
+         	   }
+            }
+       
+         return tmp;
+        }
+        if(res.totalCount==null){
+        	 tmp = {
+                     total : '',
+                     rows : ''
+                 };
+	        $('#totalOccurrenceOld').html('0');
+	   		$('#totalOccurrenceNew').html('0');
+        	 return tmp;
+        }
+    
     }
 	
-	var fontSize = function(value,row,index) {
-        var a = '<span style="font-size:12px">'+value+'</span>';  
-        return a;  
+	var fontFormatter = function(value,row,index) {
+		var dom = '';
+		if(value!=null){
+			dom = '<span style="font-size:12px">'+value+'</span>';
+		}else{
+			dom = '<span style="font-size:12px"> </span>';
+		}
+          
+     return dom;  
 	}
 	
+	//获取故障次数
 	var getOcc = function(value,row,index){
-		occ = value;
+		if(value!=null){
+			occ = value;
+		}
 		return occ;
 	}
 	
+	//获取故障时间
 	var getMins = function(value,row,index){
-		mins = value;
+		if(value!=null){
+			mins = value;
+		}
 		return mins;
 	}
 	
-	var paretoFormatter = function(value,row,index){
-		var dom =  '<input type="text" disabled="disabled" style="background-color: yellow;border: none;height: 12px;width: '+
-		occ +'px"><span style="font-size:12px">'+ occ +'</span></input></br><input type="text" disabled="disabled" style="background-color: green;border: none;height: 12px;width: '+ 
-		mins.toFixed(1) +'px"><span style="font-size:12px">'+ mins.toFixed(2) +'</span></input>'
-	 
-		return dom;
-	}
-	
-	var top10DownTime =  function (value) {
-	      var count1 = 0;
-	      var count2 = 0;
+	//获取故障次数
+	var getOccOld = function(value,row,index){
+		if(value!=null){
+		  occ1 = value;
+		  var count1 = 0;
 	      for (var i in value) {
-	    	  value[i].mins = mins;
-	    	  value[i].occ = occ;
-	          count1 += value[i].mins;
-	          count2 += value[i].occ;
+	          count1 += value[i].occ1;
 	      }
-	      return '<span style="font-size:12px">'+count1.toFixed(2)+'</span></br><span style="font-size:12px">'+count2+'</span>';
+	      //开始时间表前十故障次数显示在页脚
+	      $('#top10OccurrenceOld').html(count1);
+		}
+		return occ1;
 	}
 	
-	var totalDownTime = function(value,row,index){
-		return '<span style="font-size:12px">'+totalDuration1+'</span></br><span style="font-size:12px">1101</span>';
+	//获取累加故次数续时间
+	var getOccNew = function(value,row,index){
+		if(value!=null){
+			occ2 = value;
+			 var count2 = 0;
+		      for (var i in value) {
+		          count2 += value[i].occ2;
+		      }
+		}
+		//结束时间表前十故障次数显示在页脚
+	    $('#top10OccurrenceNew').html(count2);
+		return occ2;
+	}
+	
+	//根据次数和持续时间动态展示Pareto
+	var paretoFormatter = function(value,row,index){
+		if(mins!=null){
+			var width1 = occ>100?100:occ;
+			var width2 = mins>100?100:mins;
+			var dom =  '<input type="text" disabled="disabled" style="background-color: yellow;border: none;height: 12px;width: '+
+			width1 +'px"><span style="font-size:12px">'+ occ +'</span></input></br><input type="text" disabled="disabled" style="background-color: green;border: none;height: 12px;width: '+ 
+			width2.toFixed(1) +'%"><span style="font-size:12px">'+ mins.toFixed(2) +'</span></input>'
+			
+			return dom;
+		}
 	}
 	
 	var borderFormatter =  function(value,row,index){
@@ -498,152 +542,125 @@ function initOccTab(params){
 	
 	$('#preOcc').empty();
 	$('#preOcc').bootstrapTable('destroy').bootstrapTable({
-		url: 'panel/listPrePanel', 
-		method: "post",  
-		dataType: "json",
-		striped: true,   //是否显示行间隔色
-		singleSelect: false,
-		search: false, //显示搜索框
-		showFooter: true,
-		sidePagination: "server", //服务端处理分页
+		url: 'panel/listCurrPanel', 
+		method: "post",                     //使用get请求到服务器获取数据
+	    dataType: "json",
+	    contentType: "application/x-www-form-urlencoded",
+		queryParamsType: '', 				//参数格式,发送标准的RESTFul类型的参数请求 
+		search: false, 						//显示搜索框
+		showFooter: true,  					//显示底部栏
+		sidePagination: "server", 			//服务端处理分页
 		responseHandler: responseHandler,
 		columns: [
 				[{
-	                 title : "Previous Faults Ranked by Occurrence",
+	                 title : "<span>Previous Faults Ranked by Occurrence</span></br><span>Days:"+fdates+"</span>",
 	                 halign : "center",
 	                 align : "center",
-	                 colspan : 8,
-		         },{
-	                 title : "Root Cause Analysis(Ranked by Occurence)",
+	                 colspan : 8
+		        },{
+	                 title : "<span>Root Cause Analysis</span></br><span>[Ranked by Occurence]</span>",
 	                 halign : "center",
 	                 align : "center",
 	                 colspan : 4
-	                
-		         },{
-	                 title : "Current Faults Ranked by Occurrence",
+		        },{
+	                 title : "<span>Current Faults Ranked by Occurrence</span></br><span>Days:"+tdates+"</span>",
 	                 halign : "center",
 	                 align : "center",
-	                 colspan : 5,
-		         }],
+	                 colspan : 5
+		        }],
 				[{
 				  field: 'old',
 				  title: 'Old',
-				  formatter: fontSize,
-				  footerFormatter : function(value){
-						 return '<span style="font-size:12px">Total Downtime for Top 10 Faults :</span></br><span style="font-size:12px">Total Occurrence for Top 10 Faults :</span>';
-				  }
+				  formatter: fontFormatter,
 				 }, {
-				  field: '_new',
+				  field: 'oldThenNew',
 				  title: 'New',
-				  formatter: fontSize,
-				  footerFormatter: top10DownTime
+				  cellStyle: getMins,
+				  formatter: fontFormatter,
 				 }, {
-				  field: 'occ',
+				  field: 'occ1',
 				  title: 'Occ',
 				  cellStyle: getOcc,
-				  formatter: fontSize,
+				  footerFormatter: getOccOld,
+				  formatter: fontFormatter,
 				 }, {
-				  field: 'mins',
+				  field: 'mins1',
 				  title: 'Mins',
-				  cellStyle: getMins,
-				  formatter: fontSize,
-				  footerFormatter : function(value){
-						 return '<span style="font-size:12px">Total Downtime for All Faults :</span></br><span style="font-size:12px">Total Occurrence for All Faults :</sapn>';
-				  }
+				  formatter: fontFormatter,
 				 }, {
-				  field: 'stn',
+				  field: 'stn1',
 				  title: 'Stn',
-				  footerFormatter: totalDownTime,
-				  formatter: fontSize,
+				  formatter: fontFormatter,
+				  //footerFormatter: getTop10DownTime
 				 }, {
-				  field: 'description',
+				  field: 'description1',
 				  title: 'Description',
-				  formatter: fontSize
+				  formatter: fontFormatter,
 				 }, {
 				  field: 'pareto',
 				  title: 'Pareto',
 				  formatter: paretoFormatter,
-				  footerFormatter: function(value){
-					  return '<button type="button" '+
-					  			'class="btn btn-circle btn-lg" '+
-					  			'style="background:red;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
-					  		 '</button><span style="font-size:12px;width:100%">&nbspConcern Worse</span>';
-				  }
 				 }, {
 				  field: 'status',
 				  title: 'Status',
 				  align: 'center',
 		          valign: 'middle',
-		          footerFormatter: function(value){
-					  return '<button type="button" '+
-					  			'class="btn btn-circle btn-lg" '+
-					  			'style="background:yellow;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
-					  		 '</button><span style="font-size:12px">&nbspConcern Worse</span>';
-				  },
-		          cellStyle:borderFormatter,
-		          formatter: operateFormatter //自定义方法，添加操作按钮
-				 }, {
+		          cellStyle: borderFormatter,
+		          formatter: operateFormatter, //自定义方法，添加操作按钮
+				 },{
 				  field: 'casualDescription',
 				  title: 'Casual Description',
-				  footerFormatter: function(value){
-					  return '<button type="button" '+
-					  			'class="btn btn-circle btn-lg" '+
-					  			'style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
-					  		 '</button><span style="font-size:12px;width:100%">&nbspConcern Worse</span>';
-				  }
 				 }, {
 				  field: 'rootCauseAnalysis',
 				  title: 'Root Cause Analysis',
-				  footerFormatter: function(value){
-					  return '<button type="button" '+
-					  			'class="btn btn-circle btn-lg" '+
-					  			'style="background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
-					  		 '</button><span style="font-size:12px">&nbspConcern Worse</span>';
-				  }
 				 }, {
 				  field: 'who',
 				  title: 'Who',
-				  footerFormatter: function(value){
-					  return '<button type="button" '+
-					  			'class="btn btn-circle btn-lg" '+
-					  			'style="background:#000000;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;">'+
-					  		 '</button><span style="font-size:12px">&nbspConcern Worse</span>';
-				  }
 				 }, {
 				  field: 'timing',
 				  title: 'Timing',
 				  cellStyle: borderFormatter
-				 }, {
+				 },{
 				  field: '_new',
 				  title: 'New',
-				  formatter: fontSize
+				  formatter: fontFormatter,
 				 }, {
-				  field: 'occ',
+				  field: 'occ2',
 				  title: 'Occ',
-				  formatter: fontSize
+				  footerFormatter: getOccNew,
+				  formatter: fontFormatter,
 				 }, {
-				  field: 'mins',
+				  field: 'mins2',
 				  title: 'Mins',
-				  formatter: fontSize
+				  formatter: fontFormatter
 				 }, {
-				  field: 'stn',
+				  field: 'stn2',
 				  title: 'Stn',
-				  formatter: fontSize
+				  formatter: fontFormatter
 				 }, {
-				  field: 'description',
+				  field: 'description2',
 				  title: 'Description',
-				  formatter: fontSize
+				  formatter: fontFormatter
 				 }]
 		],
-		 queryParams : function queryParams(params) {
-	            var param = {
-	                pageNumber : params.pageNumber,
-	                pageSize : params.pageSize
-	            };
-	            return param;
-	        },
-		 onLoadSuccess : function(data) { // 加载成功时执行
-		 }
+		queryParams : function(params) {
+		      return {
+	                area : queryParams.area,
+					zone : queryParams.zone,
+					eTime: queryParams.eTime,
+					sTime: queryParams.sTime,
+					shift: queryParams.shift,
+					shop: queryParams.shop,
+					jobId : queryParams.jobId,
+					fromDate : queryParams.fromDates,
+					toDate : queryParams.toDates
+	            }
+	     },
+		 onLoadSuccess: function (data) { 		//加载成功时执行
+			 $('#preOccFoot').show();
+		 },
+	     onLoadError: function (res) { 			//加载失败时执行
+	     }
 	});
 }
 
@@ -654,7 +671,7 @@ function queryReport(tag,params){
 		
 		initpanelTableTitle(params)
 		initPreDownTime(params)
-		//initOccTab1(params);
+		initOccTab(params);
 		
 		echars(params);
 		echars1(params);
