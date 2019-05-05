@@ -15,4 +15,5 @@ public class ZoneOprVo {
 	private Integer equipAvail;
 	private Integer cycleTime;
 	private String blocked;
+	private Integer facilityId;
 }

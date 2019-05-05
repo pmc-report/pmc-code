@@ -39,6 +39,18 @@
     	<result property="role" column="frequency"/>
     </resultMap>
     
+     <resultMap type="gean.pmc_report_manager.modules.report.vo.ZoneOprVo" id="zoneOprVoMap">
+    	<result property="starved" column="starved"/>
+    	<result property="zone" column="zone"/>
+    	<result property="goodPartCount" column="goodPartCount"/>
+    	<result property="downTime" column="downTime"/>
+    	<result property="productionOpr" column="productionOpr"/>
+    	<result property="equipmentOpr" column="equipmentOpr"/>
+    	<result property="equipAvail" column="equipAvail"/>
+		<result property="cycleTime" column="cycleTime"/>
+		<result property="blocked" column="blocked"/>
+		<result property="facilityId" column="facilityId"/>    	    	
+    </resultMap>
     
     <select id="queryEcharts" resultMap="taBiw3OprMap" >
     select p.workingDay ,ISNULL(avg(p.production_opr),0) production_opr,ISNULL(avg(p.tar_opr),0) tar_opr,ISNULL(avg(p.production_volume),0) production_volume
@@ -68,7 +80,7 @@
     group by p.workingDay
     </select>
 	
-	<select id="queryOprByParam" resultMap="taBiw3OprMap">
+	<select id="" resultMap="taBiw3OprMap">
 		SELECT
 			<include refid="Base_column_Opr"/>
 		FROM
@@ -96,5 +108,117 @@
 		<if test="endTime!=null and endTime!=''">
 			AND p.end_time &lt;=CONVERT (VARCHAR,#{endTime},21)
 		</if>
+	</select>
+	
+	 <select id="" resultMap="zoneOprVoMap">
+		WITH mainquery AS(
+		select 
+			zone, facility_id, state "States", duration
+				from PMC.dbo.PMC_BIW_STATE with (nolock)
+			where 1 = 1 
+				<if test="area!=null and area!=''">
+					AND line = #{area}
+				</if>
+				<if test="zone!=null and zone!=''">
+					and zone = #{zone}
+				</if>
+				<if test="facilityId!=null and facilityId!=''">
+					and facility_id = #{facilityId}
+				</if>
+				<choose>
+					<when test="shift!=null and shift!=''">
+						AND shift = #{shift}
+					</when>
+					<otherwise>
+						AND shift = 'D'
+					</otherwise>
+				</choose>
+		)
+
+		select  x.zone, x.facility_id as "facilityId",
+				ISNULL((select sum(y.duration) from mainquery y where x.facility_id = y.facility_id and y.States ='Starved'),0) "starved",
+				ISNULL((select sum(y.duration) from mainquery y where x.facility_id = y.facility_id and y.States ='Blocked'),0) "blocked",
+				from( SELECT y.facility_id,y.zone FROM mainquery y group by y.facility_id,y.zone )x
+	</select>
+	
+	<select id = "" resultMap="zoneOprVoMap">
+		select zone,facility_id as "facilityId", SUM(duration)  as "downTime"
+				from 
+					PMC.dbo.PMC_BIW_FAULT WITH(NOLOCK)
+						<where>
+						 	<trim suffix=" 1 = 1 ">
+						 		<if test="zone!=null and zone!=''">
+						 			and zone = #{zone}
+						 		</if>
+					    		<if test="facilityId!=null and facilityId!=''">
+									and facility_id = #{facilityId}
+								</if>
+								<if test="endTime!=null and endTime!=''">
+									and CONVERT(DATE,end_time,112) = CONVERT(DATE,#{endTime},112)
+								</if>
+								<!-- and end_time is not null; -->
+							</trim>
+						</where> 
+	</select>
+	
+	<select id="" resultMap="zoneOprVoMap">
+		select zone,tech_avail as "equipAvail"
+			from PMC.dbo.PMC_9PANEL_TA with (nolock)
+			<where>
+				<trim suffix=" 1 = 1 ">
+    				<if test="area!=null and area!=''">
+						AND line = #{area}
+					</if>
+					<if test="zone!=null and zone!=''">
+						 and zone = #{zone}
+					</if>
+					<choose>
+						<when test="shift!=null and shift!=''">
+							AND shift = #{shift}
+						</when>
+						<otherwise>
+							AND shift = 'D'
+						</otherwise>
+					</choose>
+					<choose>
+						<when test="startTime!=null">
+							AND workingDay = CONVERT(datetime,#{startTime},112) 
+						</when>	
+						<otherwise>
+							AND workingDay = CONVERT(datetime,GETDATE(),112)
+						</otherwise>
+					</choose>
+						AND levels = 'zone'
+						AND frequency = '1'
+				</trim>
+			</where>
+	</select>
+	
+	<select id="" resultMap="zoneOprVoMap">
+		select 
+			max(good_cycle_count) "goodPartCount",zone,facility_id  as "facilityId"
+		from PMC.dbo.PMC_BIW_CYCLE
+			<where>
+				<trim suffix=" 1 = 1 ">
+					<if test="area!=null and area!=''">
+						area=#{area}
+					</if>
+					<!-- <if test="zone!=null and zone!=''">
+						 and zone = #{zone}
+					</if> -->
+					  <if test="facilityId!=null and facilityId!=''">
+						and facility_id = #{facilityId}
+					</if>
+					<choose>
+						<when test="shift!=null and shift!=''">
+							AND shift = #{shift}
+						</when>
+						<otherwise>
+							AND shift = 'D'
+						</otherwise>
+					</choose>
+				</trim>
+			</where> 
+			group by zone,facility_id
 	</select>
 </mapper>
