@@ -2,6 +2,7 @@ package gean.pmc_report_manager.modules.report.service.impl;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -14,16 +15,16 @@ import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_common.common.utils.StringUtils;
 import gean.pmc_report_manager.common.utils.Query;
 import gean.pmc_report_manager.modules.report.dao.TaEquFaultDao;
-import gean.pmc_report_manager.modules.report.entity.PmcBiwFaultEntity;
-import gean.pmc_report_manager.modules.report.service.EquFaultService;
+import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
+import gean.pmc_report_manager.modules.report.service.TaEquFaultService;
 import gean.pmc_report_manager.modules.report.vo.PageParamVo;
 
 
 @Service("taEquFaultService")
-public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, PmcBiwFaultEntity> implements EquFaultService {
+public class TaEquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFaultEntity> implements TaEquFaultService {
 
 	@Override
-	 public PmcBiwFaultEntity queryTotalMins(Map<String, Object> params){
+	 public TaEquFaultEntity queryTotalMins(Map<String, Object> params){
 
 			 Map<String, String> faultMap = new HashMap<String, String>();
 				for(String str : params.keySet()) {
@@ -34,9 +35,9 @@ public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, PmcBiwFaultE
 	
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        IPage<PmcBiwFaultEntity> page = this.page(
-                new Query<PmcBiwFaultEntity>().getPage(params),
-                new QueryWrapper<PmcBiwFaultEntity>()
+        IPage<TaEquFaultEntity> page = this.page(
+                new Query<TaEquFaultEntity>().getPage(params),
+                new QueryWrapper<TaEquFaultEntity>()
         );
 
         return new PageUtils(page);
@@ -58,9 +59,9 @@ public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, PmcBiwFaultE
 			sTime = new Timestamp(vo.getStartTime().getTime());
 			eTime = new Timestamp(vo.getEndTime().getTime());
 		}
-		IPage<PmcBiwFaultEntity> page = 
-				this.page( new Query<PmcBiwFaultEntity>().getPage(params),
-						new QueryWrapper<PmcBiwFaultEntity>().eq(StringUtils.isNotBlank(vo.getShop()), "shop", vo.getShop())
+		IPage<TaEquFaultEntity> page = 
+				this.page( new Query<TaEquFaultEntity>().getPage(params),
+						new QueryWrapper<TaEquFaultEntity>().eq(StringUtils.isNotBlank(vo.getShop()), "shop", vo.getShop())
 															//.eq(StringUtils.isNotBlank(vo.getArea()), "area", vo.getArea())
 															.eq(StringUtils.isNotBlank(vo.getArea()), "line", vo.getArea())
 															.eq(StringUtils.isNotBlank(vo.getZone()), "zone", vo.getZone())
@@ -70,7 +71,16 @@ public class EquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, PmcBiwFaultE
 															.eq(StringUtils.isNotBlank(vo.getJobId()), "job_id", vo.getJobId())
 															.ge(StringUtils.isNotNull(sTime), "start_Time", sTime)
 															.le(StringUtils.isNotNull(eTime), "end_Time", eTime));
+		
 		if(page!=null) {
+			//加入设备描述
+			List<TaEquFaultEntity> faultList = page.getRecords();
+			if(faultList.size()>0) {
+				for(TaEquFaultEntity entity : faultList) {
+					String facilityDesc = baseMapper.queryFacilityDesc(entity.getFacilityId());
+					entity.setFacilityDesc(facilityDesc);
+				}
+			}
 			return new PageUtils(page);
 		}
 		return null;

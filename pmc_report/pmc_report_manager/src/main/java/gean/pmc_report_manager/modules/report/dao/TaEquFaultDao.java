@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import gean.pmc_report_datasource.annotation.DataSource;
-import gean.pmc_report_manager.modules.report.entity.PmcBiwFaultEntity;
+import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
 import gean.pmc_report_manager.modules.report.vo.PageParamVo;
 
 /**
@@ -20,14 +20,18 @@ import gean.pmc_report_manager.modules.report.vo.PageParamVo;
  * @date 2019-03-30 09:27:53
  */
 @Mapper
-public interface TaEquFaultDao extends BaseMapper<PmcBiwFaultEntity> {
+public interface TaEquFaultDao extends BaseMapper<TaEquFaultEntity> {
 	
 	@DataSource("slave2")
 	@Transactional
-	List<PmcBiwFaultEntity> qureyFualtList(PageParamVo vo);
+	List<TaEquFaultEntity> qureyFualtList(PageParamVo vo);
 	
 	@DataSource("slave2")
 	@Transactional
-	PmcBiwFaultEntity queryTotalMins(Map<String, String> params);
+	TaEquFaultEntity queryTotalMins(Map<String, String> params);
+	
+	@DataSource("slave2")
+	@Transactional
+	String queryFacilityDesc(Integer facilityId);
 
 }

@@ -132,4 +132,6 @@
 		FROM            dual Connect BY level BETWEEN 1 AND 7)
 	</select>
 	
+	
+	
 </mapper>

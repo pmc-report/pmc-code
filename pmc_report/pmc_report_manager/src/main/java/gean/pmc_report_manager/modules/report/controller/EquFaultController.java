@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_common.common.utils.R;
-import gean.pmc_report_manager.modules.report.entity.PmcBiwFaultEntity;
-import gean.pmc_report_manager.modules.report.service.EquFaultService;
+import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
+import gean.pmc_report_manager.modules.report.service.TaEquFaultService;
 
 
 
@@ -26,11 +26,11 @@ import gean.pmc_report_manager.modules.report.service.EquFaultService;
 @RequestMapping("report/fault")
 public class EquFaultController {
     @Autowired
-    private EquFaultService equFaultService;
+    private TaEquFaultService equFaultService;
 
     @RequestMapping("/duration")
     public R queryTotalMins(@RequestParam Map<String, Object> params) {
-    	PmcBiwFaultEntity totalDur = equFaultService.queryTotalMins(params);
+    	TaEquFaultEntity totalDur = equFaultService.queryTotalMins(params);
     	Integer duration = totalDur.getDuration();
     	return R.ok().put("duration", duration);
     }

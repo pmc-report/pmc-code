@@ -14,7 +14,7 @@ import java.util.Date;
  * @date 2019-04-10 13:54:04
  */
 @Data
-@TableName("Final_BIW3_OPR")
+@TableName("PMC_OPR")
 public class TaBiw3OprEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,20 +22,11 @@ public class TaBiw3OprEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	@TableId
-	private Integer rowId;
-	/**
-	 * $column.comments
-	 */
-	private Date dbTimeStamp;
-	/**
-	 * $column.comments
-	 */
 	private String shop;
 	/**
 	 * $column.comments
 	 */
-	private String area;
+	private String line;
 	/**
 	 * $column.comments
 	 */
@@ -43,19 +34,15 @@ public class TaBiw3OprEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private String equipment;
-	/**
-	 * $column.comments
-	 */
-	private String facilityDesc;
-	/**
-	 * $column.comments
-	 */
 	private String station;
 	/**
 	 * $column.comments
 	 */
-	private String jobId;
+	private String equipment;
+	/**
+	 * $column.comments
+	 */
+	private Integer facilityId;
 	/**
 	 * $column.comments
 	 */
@@ -67,23 +54,7 @@ public class TaBiw3OprEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private Integer duration;
-	/**
-	 * $column.comments
-	 */
-	private Float actualEquipmentOpr;
-	/**
-	 * $column.comments
-	 */
-	private Float actualProductionOpr;
-	/**
-	 * $column.comments
-	 */
-	private Float targetEquipmentOpr;
-	/**
-	 * $column.comments
-	 */
-	private Float targetProductionOpr;
+	private Integer availableTime;
 	/**
 	 * $column.comments
 	 */
@@ -91,11 +62,15 @@ public class TaBiw3OprEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private String oprLevel;
+	private String frequency;
 	/**
 	 * $column.comments
 	 */
-	private String frequency;
+	private Integer workingday;
+	/**
+	 * $column.comments
+	 */
+	private String levels;
 	/**
 	 * $column.comments
 	 */
@@ -103,23 +78,13 @@ public class TaBiw3OprEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private Boolean tavFlag;
+	private Float tarOpr;
 	/**
 	 * $column.comments
 	 */
-	private Integer historical;
+	private Integer designCycleTime;
 	/**
 	 * $column.comments
 	 */
-	private Date workDay;
-	/**
-	 * $column.comments
-	 */
-	private Integer facilityId;
-	/**
-	 * $column.comments
-	 */
-	private Integer downtime;
-
-
+	private Float productionOpr;
 }

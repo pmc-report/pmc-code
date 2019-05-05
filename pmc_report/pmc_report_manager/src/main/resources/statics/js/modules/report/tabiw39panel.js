@@ -762,6 +762,13 @@ function echars(params){
 				    ],
 				  
 				    yAxis: [  {}],
+				    legend: {
+				        data: ['MTBF','Target MTBF'],
+				        //orient: 'vertical',
+				    	x:'right',
+				    	y:'top',
+				    
+				    },
 				    series: [
 				        {
 				            name: 'MTBF',
@@ -876,6 +883,13 @@ function echars1(params){
 				    	splitNumber:5
 				    	}
 				    ],
+				    legend: {
+				        data: ['TAV','Target TAV'],
+				        //orient: 'vertical',
+				    	x:'right',
+				    	y:'top',
+				    
+				    },
 				    series: [
 				    
 				        {
@@ -992,6 +1006,13 @@ function echars2(params){
 					    	splitNumber:5
 				    	}
 				    ],
+				    legend: {
+				        data: ['TAV','Target TAV'],
+				        //orient: 'vertical',
+				    	x:'right',
+				    	y:'top',
+				    
+				    },
 				    series: [
 				        {
 				            name: 'TAV',

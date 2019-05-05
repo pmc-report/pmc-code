@@ -4,7 +4,7 @@
 <mapper namespace="gean.pmc_report_manager.modules.report.dao.TaEquFaultDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="gean.pmc_report_manager.modules.report.entity.PmcBiwFaultEntity" id="pmcBiwFaultMap">
+    <resultMap type="gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity" id="pmcBiwFaultMap">
         <result property="shop" column="shop"/>
         <result property="zone" column="zone"/>
         <result property="line" column="line"/>
@@ -12,6 +12,7 @@
         <result property="station" column="station"/>
         <result property="jobId" column="job_id"/>
         <result property="facilityId" column="facility_id"/>
+        <result property="facilityDesc" column="facility_desc"/>
         <result property="startTime" column="start_time"/>
         <result property="endTime" column="end_time"/>
         <result property="duration" column="duration"/>
@@ -80,7 +81,7 @@
 		</if>
 	</select>
 	
-	<select id="queryTotalMins" resultType="gean.pmc_report_manager.modules.report.entity.PmcBiwFaultEntity">    
+	<select id="queryTotalMins" resultType="gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity">    
 	select sum(t.duration) duration from PMC.dbo.PMC_BIW_FAULT t
     WHERE 1 = 1
     <if test="shop!=null and shop!=''">
@@ -107,6 +108,12 @@
 		<if test="endTime!=null and endTime!=''">
 			AND t.end_time &lt;=CONVERT (VARCHAR,#{endTime},21)
 		</if>
+    </select>
+    
+    <select id="queryFacilityDesc" resultType="String">
+    	SELECT top 1 c.Facility_desc 
+    	FROM PMC.dbo.PMC_BIW_Facility c 
+    	WHERE c.Facility_Id = #{facilityId} and c.Facility_desc != ''
     </select>
 
 </mapper>

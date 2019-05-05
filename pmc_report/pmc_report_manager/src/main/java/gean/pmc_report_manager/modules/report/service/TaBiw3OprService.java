@@ -21,5 +21,9 @@ public interface TaBiw3OprService extends IService<TaBiw3OprEntity> {
     PageUtils queryPage(Map<String, Object> params);
     
     List<AreaOprVo> queryOprForArea(Map<String, Object> params);
+    
+    PageUtils queryOprReport(Map<String, Object> params);
+	
+    List<TaBiw3OprEntity> queryEcharts(Map<String, Object> params);
 }
 

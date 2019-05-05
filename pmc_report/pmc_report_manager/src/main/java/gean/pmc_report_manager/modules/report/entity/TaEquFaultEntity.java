@@ -1,6 +1,5 @@
 package gean.pmc_report_manager.modules.report.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -14,19 +13,10 @@ import java.util.Date;
  * @date 2019-03-30 09:27:53
  */
 @Data
-@TableName("Final_BIW3_FAULT")
+@TableName("PMC.dbo.PMC_BIW_FAULT")
 public class TaEquFaultEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * $column.comments
-	 */
-	@TableId
-	private Integer rowId;
-	/**
-	 * $column.comments
-	 */
-	private Date dbTimeStamp;
 	/**
 	 * $column.comments
 	 */
@@ -34,11 +24,11 @@ public class TaEquFaultEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private String area;
+	private String zone;
 	/**
 	 * $column.comments
 	 */
-	private String zone;
+	private String line;
 	/**
 	 * $column.comments
 	 */
@@ -46,19 +36,17 @@ public class TaEquFaultEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private String facilityDesc;
-	/**
-	 * $column.comments
-	 */
 	private String station;
 	/**
 	 * $column.comments
 	 */
-	private Integer facilityId;
+	private String jobId;
 	/**
 	 * $column.comments
 	 */
-	private String jobId;
+	private Integer facilityId;
+	
+	private String facilityDesc;
 	/**
 	 * $column.comments
 	 */
@@ -98,6 +86,10 @@ public class TaEquFaultEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
+	private Boolean breakFlag;
+	/**
+	 * $column.comments
+	 */
 	private String shift;
 	/**
 	 * $column.comments
@@ -106,17 +98,14 @@ public class TaEquFaultEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
+	private Boolean webFlag;
+	/**
+	 * $column.comments
+	 */
 	private Integer posWord31;
 	/**
 	 * $column.comments
 	 */
-	private Integer historical;
-	/**
-	 * $column.comments
-	 */
-	private Integer processedFlag;
-	/**
-	 * $column.comments
-	 */
-	private Long workDay;
+	private Date dbTimeStamp;
+
 }

@@ -36,7 +36,7 @@ import gean.pmc_report_common.common.utils.R;
  */
 @RestController
 @RequestMapping("modules/report/panel")
-public class TaBiw39panelController {
+public class Biw39panelController {
     @Autowired
     private TaBiw39panelService taBiw39panelService;
     
