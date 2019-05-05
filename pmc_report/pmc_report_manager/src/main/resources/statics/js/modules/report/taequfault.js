@@ -141,7 +141,7 @@ function merge_footer() {
     //设置跨列
     footer_td_1.attr('colspan', footer_td.length-1).show();
     //这里可以根据自己的表格来设置列的宽度 使对齐
-    footer_td_1.attr('width', "1500px").show();
+    footer_td_1.attr('width', "100%").show();
 }
 
 function queryReport(tag,params){
