@@ -37,5 +37,11 @@ public interface AtPmcMasterdataConfigService extends IService<AtPmcMasterdataCo
     
     /** 工位下的设备*/
     List<String> queryDates(String params);
+    
+    /** 查询OPR的基础参数*/
+    List<MasterDataVo> queryOPRData(Map<String, Object> params);
+    
+    /** OPR shift plan*/
+    Integer queryShiftPlan(Map<String, Object> params);
 }
 

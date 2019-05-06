@@ -75,4 +75,16 @@ public class AtPmcMasterdataConfigServiceImpl extends ServiceImpl<AtPmcMasterdat
 		return null;
 	}
 
+	@Override
+	public List<MasterDataVo> queryOPRData(Map<String, Object> params) {
+		List<MasterDataVo> OPRDataList = baseMapper.queryOPRData(params); 
+		return OPRDataList;
+	}
+
+	@Override
+	public Integer queryShiftPlan(Map<String, Object> params) {
+		Integer targetProd = baseMapper.queryOPRShitfPlan(params);
+		return targetProd;
+	}
+
 }

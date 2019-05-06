@@ -21,6 +21,7 @@ public class PageParamVo {
 	private String area;
 	private String jobId;
 	private String equipment;
+	private Integer facilityId;
 	private String limit;
 	private String page;
 	private String fromDate0;
@@ -37,6 +38,7 @@ public class PageParamVo {
 	private String toDate4;
 	private String toDate5;
 	private String toDate6;
+	private Date workDay;
 
 	public PageParamVo(Map<String, Object> params) {
 		
@@ -59,8 +61,14 @@ public class PageParamVo {
 					params.get("eTime").toString(), DateUtils.DATE_PATTERN);
 		}
 		
+		if(StringUtils.isNotNull(params.get("workDay"))) {
+			workDay = DateUtils.stringToDate(
+					params.get("workDay").toString(), "yyyyMMdd");
+		}
+		
 		area = (String)params.get("area");
-		jobId = (String)params.get("jobId")==null?"":(String)params.get("jobId");;
+		jobId = (String)params.get("jobId")==null?"":(String)params.get("jobId");
+		facilityId = (Integer)params.get("facilityId");
 		fromDate0 = (String)params.get("fromDate[0]")==null?"0":(String)params.get("fromDate[0]");
 		fromDate1 = (String)params.get("fromDate[1]")==null?"0":(String)params.get("fromDate[1]");
 		fromDate2 = (String)params.get("fromDate[2]")==null?"0":(String)params.get("fromDate[2]");

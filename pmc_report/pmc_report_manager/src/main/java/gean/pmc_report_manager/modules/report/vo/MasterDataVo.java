@@ -26,5 +26,8 @@ public class MasterDataVo {
     /*** 设备类型*/
     private String equipmentType;
     
+    /*** 设计节拍时间*/
+    private Integer designCycleTime;
+    
 
 }

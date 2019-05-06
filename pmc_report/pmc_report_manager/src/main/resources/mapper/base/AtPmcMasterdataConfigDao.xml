@@ -50,6 +50,7 @@
         <result property="stationNo" column="STATION_S"/>
         <result property="zoneNo" column="ZONE_S"/>
         <result property="equipmentType" column="EQUIPMENT_TYPE_S"/>
+        <result property="cycleTime" column="design_cycle_time_i"/>
 	</resultMap>
 
 	<sql id="conmmonSql_MasterData">
@@ -132,6 +133,22 @@
 		FROM            dual Connect BY level BETWEEN 1 AND 7)
 	</select>
 	
+	<select id="queryOPRData" resultMap="MasterDataVoMap">
+		select facility_id_i "facility_id",zone_s "zone",design_cycle_time_i from QMESAMS.at_PMC_MasterData_Config
+		where shop_s=#{shop}
+		and line_s=#{area}
+		and eol_flag_y=1
+	</select>
 	
-	
+	<select id="queryOPRShitfPlan" resultType="Integer">
+		select count(1) "Target Production"
+		  FROM QMESAMS.Work_Order
+		 INNER JOIN QMESAMS.Uda_Order
+		    on WORK_ORDER.ORDER_KEY = UDA_ORDER.OBJECT_KEY
+		 where PLAN_START_DATE_T =
+		       (select TO_CHAR(TO_DATE(#{workDay}, 'MM/DD/YYYY'), 'DD-MON-YYYY') from dual)
+		   AND MODEL_S in (select distinct MODEL_NAME_S
+		                     from QMESAMS.At_Pmc_Model_Mapping
+		                    where SHOP_S = #{shop})
+	</select>
 </mapper>

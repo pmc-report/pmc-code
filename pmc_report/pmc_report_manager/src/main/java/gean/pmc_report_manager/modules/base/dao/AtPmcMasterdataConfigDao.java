@@ -13,10 +13,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * ${comments}
  * 
  * @author ''
- * @email xxxxx@gmail.com
  * @date 2019-04-15 17:06:26
  */
 @Mapper
@@ -52,4 +50,15 @@ public interface AtPmcMasterdataConfigDao extends BaseMapper<AtPmcMasterdataConf
 	@Transactional
     @DataSource("slave1")
     List<String> queryDates(String params);
+	
+	/** OPR基础查询：设备ID、zone、设计节拍时间*/
+	@Transactional
+    @DataSource("slave1")
+    List<MasterDataVo> queryOPRData(Map<String, Object> params);
+	
+	/** OPR shift plan*/
+	@Transactional
+    @DataSource("slave1")
+    Integer queryOPRShitfPlan(Map<String, Object> params);
+	
 }
