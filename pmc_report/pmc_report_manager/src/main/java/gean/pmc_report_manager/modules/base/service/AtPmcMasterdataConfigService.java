@@ -43,5 +43,8 @@ public interface AtPmcMasterdataConfigService extends IService<AtPmcMasterdataCo
     
     /** OPR shift plan*/
     Integer queryShiftPlan(Map<String, Object> params);
+    
+    /** Area OPR Eol*/
+    MasterDataVo queryEolArea(Map<String, Object> params);
 }
 

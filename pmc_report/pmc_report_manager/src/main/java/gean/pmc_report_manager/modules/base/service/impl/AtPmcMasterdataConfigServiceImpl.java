@@ -87,4 +87,10 @@ public class AtPmcMasterdataConfigServiceImpl extends ServiceImpl<AtPmcMasterdat
 		return targetProd;
 	}
 
+	@Override
+	public MasterDataVo queryEolArea(Map<String, Object> params) {
+		MasterDataVo masterData = baseMapper.queryEolArea(params);
+		return masterData;
+	}
+	
 }

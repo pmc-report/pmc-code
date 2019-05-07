@@ -61,4 +61,9 @@ public interface AtPmcMasterdataConfigDao extends BaseMapper<AtPmcMasterdataConf
     @DataSource("slave1")
     Integer queryOPRShitfPlan(Map<String, Object> params);
 	
+	/** Area OPR EOL*/
+	@Transactional
+    @DataSource("slave1")
+	MasterDataVo queryEolArea(Map<String, Object> params);
+	
 }

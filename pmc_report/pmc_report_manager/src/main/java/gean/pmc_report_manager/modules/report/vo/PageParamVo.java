@@ -38,7 +38,7 @@ public class PageParamVo {
 	private String toDate4;
 	private String toDate5;
 	private String toDate6;
-	private Date workDay;
+	private String workDay;
 
 	public PageParamVo(Map<String, Object> params) {
 		
@@ -61,9 +61,9 @@ public class PageParamVo {
 					params.get("eTime").toString(), DateUtils.DATE_PATTERN);
 		}
 		
-		if(StringUtils.isNotNull(params.get("workDay"))) {
-			workDay = DateUtils.stringToDate(
-					params.get("workDay").toString(), "yyyyMMdd");
+		if(StringUtils.isNotNull(params.get("sTime"))) {
+			String str = (String)params.get("sTime");
+			workDay = str.replaceAll("-", "");
 		}
 		
 		area = (String)params.get("area");

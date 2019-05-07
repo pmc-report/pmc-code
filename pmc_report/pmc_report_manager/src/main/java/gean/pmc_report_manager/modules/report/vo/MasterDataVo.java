@@ -29,5 +29,8 @@ public class MasterDataVo {
     /*** 设计节拍时间*/
     private Integer designCycleTime;
     
+    /*** 设计节拍时间*/
+    private Integer standardCycleTime;
+    
 
 }

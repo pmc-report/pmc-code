@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_manager.modules.report.entity.TaBiw3OprEntity;
 import gean.pmc_report_manager.modules.report.vo.AreaOprVo;
 
@@ -17,13 +16,7 @@ import gean.pmc_report_manager.modules.report.vo.AreaOprVo;
  * @date 2019-04-10 13:54:04
  */
 public interface TaBiw3OprService extends IService<TaBiw3OprEntity> {
-
-    PageUtils queryPage(Map<String, Object> params);
     
     List<AreaOprVo> queryOprForArea(Map<String, Object> params);
-    
-    PageUtils queryOprReport(Map<String, Object> params);
-	
-    List<TaBiw3OprEntity> queryEcharts(Map<String, Object> params);
 }
 

@@ -1,24 +1,22 @@
 package gean.pmc_report_manager.modules.report.service.impl;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import gean.pmc_report_common.common.utils.PageUtils;
-import gean.pmc_report_common.common.utils.StringUtils;
-import gean.pmc_report_manager.common.utils.Query;
+import gean.pmc_report_manager.modules.base.service.AtPmcMasterdataConfigService;
 import gean.pmc_report_manager.modules.report.dao.TaBiw3OprDao;
 import gean.pmc_report_manager.modules.report.entity.TaBiw3OprEntity;
 import gean.pmc_report_manager.modules.report.service.TaBiw3OprService;
 import gean.pmc_report_manager.modules.report.vo.AreaOprVo;
-import gean.pmc_report_manager.modules.report.vo.OprReportVo;
+import gean.pmc_report_manager.modules.report.vo.MasterDataVo;
 import gean.pmc_report_manager.modules.report.vo.PageParamVo;
 import gean.pmc_report_manager.modules.report.vo.ZoneOprVo;
 
@@ -26,120 +24,133 @@ import gean.pmc_report_manager.modules.report.vo.ZoneOprVo;
 @Service("taBiw3OprService")
 public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEntity> implements TaBiw3OprService {
 	
-    @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        IPage<TaBiw3OprEntity> page = this.page(
-                new Query<TaBiw3OprEntity>().getPage(params),
-                new QueryWrapper<TaBiw3OprEntity>()
-        );
-
-        return new PageUtils(page);
-    }
+	@Autowired
+	private AtPmcMasterdataConfigService masterDataService;
+	
 
 	@Override
 	public List<AreaOprVo> queryOprForArea(Map<String, Object> params) {
 		// TODO Auto-generated method stub
+		/*
+		 * 1.根据查询条件将需要计算OPR的zone全部查出来作为基础数据
+		 * 2.遍历所有的zone查询zone的OPR数据生成zone OPR 返回
+		 * 3.根据返回的zone OPR数据组装 Area OPR 
+		 */
 		PageParamVo vo = new PageParamVo(params);
 		
-		List<TaBiw3OprEntity> areaOprList = baseMapper.qureyOPRList(vo);
+		List<AreaOprVo> areaList = new ArrayList<>();
+		List<ZoneOprVo> zoneOprList = new ArrayList<ZoneOprVo>();
 		
-		List<AreaOprVo> aOprList = new ArrayList<>();
-		List<ZoneOprVo> zOprList = new ArrayList<>();
-		if(!StringUtils.isEmpty(areaOprList)) {
-			for(TaBiw3OprEntity en : areaOprList) {
-				if("zone".equals(en.getLevels())) {
-					ZoneOprVo zvo = new ZoneOprVo();
-					zvo.setZone(en.getZone());
-					//zvo.setEquipmentOpr(en.getActualEquipmentOpr());
-					//zvo.setProductionOpr(en.getActualProductionOpr());
-					zOprList.add(zvo);
-				}
-				AreaOprVo avo = new AreaOprVo();
-				avo.setActual(196);
-				avo.setArea(en.getLine());
-				//avo.setEquipmentOpr(en.getActualEquipmentOpr());
-				//avo.setProductionOpr(en.getTargetProductionOpr()/en.getActualProductionOpr());
-				//avo.setShiftPlan(en.getTargetProductionOpr());
-				avo.setVariation(0);
-				avo.setZone(en.getZone());
-				avo.setZoneList(zOprList);
-				aOprList.add(avo);
-			}
-			return aOprList;
-		}
-		return null;
-	}
-
-	@Override
-	public PageUtils queryOprReport(Map<String, Object> params) {
-		/*// TODO Auto-generated method stub
-//		System.out.println(params.toString());
-		int pageSize = StringUtils.isNotNull(params.get("page")) ? Integer.parseInt(params.get("page").toString()) : null;
-		int offset = StringUtils.isNotNull(params.get("limit")) ? Integer.parseInt(params.get("limit").toString()) : null;
-//	    int offset = Integer.valueOf(params.get("rowoffset").toString());
-		Map<String, String> pmcOprEntity = new HashMap<String, String>();
-		for(String str : params.keySet()) {
-			pmcOprEntity.put(str, params.get(str) != null ? params.get(str).toString() : null);
-		}
-		int currPage = (offset/pageSize)+1;
-		List<TaBiw3OprEntity> oprList = baseMapper.queryOprByParam(pmcOprEntity);
-		if(StringUtils.isNotEmpty(oprList)) {
-			
-			 * 1.判断页面查询规则
-			 * 2.取出开始年月日作为map key，相同日期相加
-			 
-			Map<String,Object> groupMap = new HashMap<>();
-			List<OprReportVo> dayList = new ArrayList<>();
-			
-			for(TaBiw3OprEntity vo: oprList) {
-				try {
-					String dayKey = vo.getShop()+"_"+ vo.getWorkingday();
-					if(groupMap.containsKey(dayKey)) {
-						OprReportVo v1 = dayList.get(0);
-						v1.setProductionVolume(vo.getAvailableTime());
-						if(StringUtils.isNotNull(vo.getProductionOpr())) {
-							Float opr = vo.getProductionOpr();
-							Float count = opr+=opr;
-							v1.setPopr(count);
-						}
-						if(vo.getProductionVolume()>0) {
-							Integer eopr = vo.getAvailableTime()/vo.getProductionVolume();
-							v1.setEopr(Float.parseFloat(eopr.toString()));
-						}
-						//dayList.add(v1);
-					}else {
-						OprReportVo v2 = new OprReportVo();
-						v2.setOprTarget(vo.getTarOpr().toString());
-						v2.setProductionVolume(vo.getAvailableTime());
-						if(StringUtils.isNotNull(vo.getProductionOpr())) {
-							Float opr = vo.getProductionOpr();
-							Float count = opr+=opr;
-							v2.setPopr(count);
-						}
-						if(vo.getProductionVolume()>0) {
-							Integer eopr = vo.getAvailableTime()/vo.getProductionVolume();
-							v2.setEopr(Float.parseFloat(eopr.toString()));
-						}
-						v2.setAvailableTime(vo.getAvailableTime());
-						v2.setWorkingDay(vo.getWorkingday().toString());
-						dayList.add(v2);
-						groupMap.put(dayKey, dayList);
-					}
-				} catch (Exception e) {
-					// TODO: handle exception
-					e.printStackTrace();
-					continue;
-				}
-			}
-			return new PageUtils(dayList, dayList.size(), pageSize, currPage);
-		}*/
+		AreaOprVo areaVo = new AreaOprVo();
 		
-		return null;
+		DecimalFormat df = new DecimalFormat("##0.00");
+		
+		//1.1
+		MasterDataVo areaEol = masterDataService.queryEolArea(params);
+		
+		//1.2
+		List<MasterDataVo> OPRDataList = masterDataService.queryOPRData(params);
+		
+		//1.3
+		Integer shiftPlan = masterDataService.queryShiftPlan(params);
+		
+		//1.4
+		Map<String,Object> areaMap = new HashMap<>();
+		if(areaEol!=null) {
+			String areaKey = areaEol.getZoneNo()+"_"+areaEol.getFacilityId();
+			areaMap.put(areaKey, areaEol);
+		}
+		
+		//2
+		float equipmentOpr = 0f,productionOpr = 0f;
+		for(MasterDataVo masterVo : OPRDataList) {
+			vo.setZone(masterVo.getZoneNo());
+			vo.setFacilityId(masterVo.getFacilityId());
+			ZoneOprVo zoneOpr = this.generateZoneOpr(vo);
+			zoneOpr.setCycleTime(masterVo.getDesignCycleTime());
+			
+			//设备OPR = （zone产量 * 设计节拍时间）/设备有效生产时间
+			equipmentOpr = (zoneOpr.getGoodPartCount() * masterVo.getDesignCycleTime())/zoneOpr.getAvailableTime();
+			if(!Float.isNaN(equipmentOpr)&&!Float.isInfinite(equipmentOpr)) {
+				zoneOpr.setEquipmentOpr(Float.parseFloat(df.format(equipmentOpr)));
+			}else {
+				zoneOpr.setEquipmentOpr(0.00f);
+			}
+			//生产OPR = （zone产量 * 标准节拍时间）/设备有效生产时间
+			productionOpr = (zoneOpr.getGoodPartCount() * masterVo.getStandardCycleTime())/zoneOpr.getAvailableTime();
+			if(!Float.isNaN(productionOpr)&&!Float.isInfinite(productionOpr)) {
+				zoneOpr.setProductionOpr(Float.parseFloat(df.format(productionOpr)));
+			}else {
+				zoneOpr.setProductionOpr(0.00f);
+			}
+			zoneOprList.add(zoneOpr);
+			
+			String zoneKey = masterVo.getZoneNo()+"_"+masterVo.getFacilityId();
+			if(areaMap.containsKey(zoneKey)) {
+				areaVo.setArea(areaEol.getLineNo());
+				areaVo.setActual(zoneOpr.getGoodPartCount());
+				areaVo.setShiftPlan(shiftPlan);
+				Integer variation = shiftPlan - zoneOpr.getGoodPartCount();
+				areaVo.setVariation(variation);
+				areaVo.setEquipmentOpr(zoneOpr.getEquipmentOpr());
+				areaVo.setProductionOpr(zoneOpr.getProductionOpr());
+				areaVo.setZoneList(zoneOprList);
+				areaList.add(areaVo);
+			}
+		}
+		return areaList;
 	}
-
-	@Override
-	public List<TaBiw3OprEntity> queryEcharts(Map<String, Object> params) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	//3
+	public ZoneOprVo generateZoneOpr(PageParamVo vo){
+		
+		ZoneOprVo zoneVo = new ZoneOprVo();
+		zoneVo.setZone(vo.getZone());
+		
+		//获取堵料和缺料的持续时间
+		ZoneOprVo starvedAndblocked = baseMapper.queryStarvedAndblocked(vo);
+		if(starvedAndblocked!=null) {
+			zoneVo.setBlocked(starvedAndblocked.getBlocked());
+		}else {
+			zoneVo.setBlocked(0);
+		}
+		if(starvedAndblocked!=null) {
+			zoneVo.setStarved(starvedAndblocked.getStarved());
+		}else {
+			zoneVo.setStarved(0);
+		}
+		//获取总停机时间
+		Integer downTime = baseMapper.queryDownTime(vo);
+		if(downTime!=null) {
+			zoneVo.setDownTime(downTime);
+		}else {
+			zoneVo.setDownTime(0);
+		}
+		
+		//获取小时合格件产量
+		Integer partCount = baseMapper.queryGoodPartCount(vo);
+		if(partCount!=null) {
+			zoneVo.setGoodPartCount(partCount);
+		}else {
+			zoneVo.setGoodPartCount(0);
+		}
+		
+		//获取设备可用率
+		Float techAvali = baseMapper.queryTechAvali(vo);
+		if(techAvali!=null) {
+			zoneVo.setEquipAvail(techAvali);
+		}else {
+			zoneVo.setEquipAvail(0f);
+		}
+		
+		//获取设备正常生产时间
+		Float availableTime = baseMapper.queryAvailableTime(vo);
+		if(availableTime!=null) {
+			zoneVo.setAvailableTime(availableTime);
+		}else {
+			zoneVo.setAvailableTime(0f);
+		}
+		return zoneVo;
+		
 	}
 }

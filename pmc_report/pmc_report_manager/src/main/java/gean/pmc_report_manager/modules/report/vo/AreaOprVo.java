@@ -9,7 +9,7 @@ public class AreaOprVo {
 
 	private String area;
 	private Integer actual;
-	private Float shiftPlan;
+	private Integer shiftPlan;
 	private String zone;
 	private Integer variation;
 	private Float productionOpr;

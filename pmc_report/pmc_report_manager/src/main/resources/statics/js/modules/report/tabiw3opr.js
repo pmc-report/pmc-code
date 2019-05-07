@@ -110,8 +110,8 @@ function queryReport(tag,params){
 function initAreaTable(url,queryParams){
 	
 	var responseHandler = function (e) {
-	      if (e.areaList && e.areaList.length > 0) {
-	          return { "rows": e.areaList, "total": e.areaList.length };
+	      if (e.area && e.area.length>0) {
+	          return { "rows": e.area, "total": e.area.length };
 	      } else {
 	          return { "rows": [], "total": 0 };
 	      }
@@ -123,12 +123,10 @@ function initAreaTable(url,queryParams){
 	 }
 	 
    var columns = [
-        
-  	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1}},
-        { field: 'area', title: '区域', align: 'center', sortable:false },
-        { field: 'actual', title: '实际OPR', align: 'center', sortable:false }, 
+        { field: 'area', title: '区域', align: 'center'},
+        { field: 'actual', title: '实际OPR', align: 'center'}, 
         { field: 'shiftPlan', title: '班次计划OPR', align: 'center' },
-        { field: 'variation', title: '偏差', halign:'center' }, 
+        { field: 'variation', title: '偏差', align:'center' }, 
         { field: 'productionOpr', title: '生产OPR', align: 'center'}, 
         { field: 'equipmentOpr', title: '设备OPR', align: 'center' }
     ];
@@ -225,18 +223,22 @@ function initZoneTable(url,queryParams){
 	      return html;
 	 }
 	 
+	 var dateFormatter = function(value, row, index){
+		 return sec_to_time(value);
+	 }
+	 
    var columns = [
         
   	  	{title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1}},
   	  	{ field: 'zone', title: 'Zone', align: 'center', sortable:false }, 
         { field: 'goodPartCount', title: '合格件产量计数', align: 'center' },
-        { field: 'downTime', title: '停机时间', halign:'center' }, 
+        { field: 'downTime', title: '停机时间', halign:'center',formatter: dateFormatter }, 
         { field: 'productionOpr', title: '生产OPR', align: 'center'}, 
         { field: 'equipmentOpr', title: '设备OPR', align: 'center' },
         { field: 'equipAvail', title: '设备可用率', halign:'center' }, 
         { field: 'cycleTime', title: '节拍时间', halign:'center' },
-    	{ field: 'starved', title: '堵料时间', align: 'center', sortable:false },
-        { field: 'blocked', title: '缺料时间', halign:'center' }
+    	{ field: 'starved', title: '堵料时间', align: 'center', formatter: dateFormatter },
+        { field: 'blocked', title: '缺料时间', halign:'center',formatter: dateFormatter }
     ];
    
 	  $('#zoneTab').empty();

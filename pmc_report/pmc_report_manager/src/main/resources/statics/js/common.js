@@ -592,7 +592,11 @@ function getParams(){
 	return params;
 	
 }
-
+/**
+ * 数组转对象
+ * @param arr
+ * @returns
+ */
 function toObj(arr){
 	if(arr!=null&&arr.length>0){
 		var result = {};
@@ -602,6 +606,31 @@ function toObj(arr){
 	    return result;
 	}
 	return;
+}
+
+/**
+ * 时间秒数格式化
+ * @param s 时间戳（单位：秒）
+ * @returns {*} 格式化后的时分秒
+ */
+function sec_to_time(s) {
+    var t;
+    if(s > -1){
+        var hour = Math.floor(s/3600);
+        var min = Math.floor(s/60) % 60;
+        var sec = s % 60;
+        if(hour < 10) {
+            t = '0'+ hour + ":";
+        } else {
+            t = hour + ":";
+        }
+
+        if(min < 10){t += "0";}
+        t += min + ":";
+        if(sec < 10){t += "0";}
+        t += sec.toFixed(0);
+    }
+    return t;
 }
 
 /*

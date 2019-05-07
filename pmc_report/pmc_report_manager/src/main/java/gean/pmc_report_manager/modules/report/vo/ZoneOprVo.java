@@ -6,14 +6,15 @@ import lombok.Data;
 @Data
 public class ZoneOprVo {
 
-	private String starved;
+	private Integer starved;
 	private String zone;
 	private Integer goodPartCount;
 	private Integer downTime;
 	private Float productionOpr;
 	private Float equipmentOpr;
-	private Integer equipAvail;
+	private Float equipAvail;
 	private Integer cycleTime;
-	private String blocked;
+	private Integer blocked;
 	private Integer facilityId;
+	private Float availableTime;
 }
