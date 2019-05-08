@@ -1,17 +1,19 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-  <parent>
-    <groupId>com.gean</groupId>
-    <artifactId>pmc_report</artifactId>
-    <version>1.0.0</version>
-  </parent>
-  
-  <artifactId>pmc_report_manager</artifactId>
-  <packaging>jar</packaging>
-  <description>pmc_report_manager</description>
-  <modelVersion>4.0.0</modelVersion>
-  
-  <properties>
+	<parent>
+		<groupId>com.gean</groupId>
+		<artifactId>pmc_report</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>pmc_report_manager</artifactId>
+	<packaging>jar</packaging>
+	<description>pmc_report_manager</description>
+	<modelVersion>4.0.0</modelVersion>
+
+	<properties>
 		<quartz.version>2.3.0</quartz.version>
 		<shiro.version>1.4.0</shiro.version>
 		<kaptcha.version>0.0.9</kaptcha.version>
@@ -20,13 +22,13 @@
 		<qcloud.cos.version>4.4</qcloud.cos.version>
 		<swagger.version>2.7.0</swagger.version>
 	</properties>
-	
+
 	<dependencies>
 		<!-- 集群环境，需要打开注释 -->
-		<!--<dependency>-->
-			<!--<groupId>org.springframework.session</groupId>-->
-			<!--<artifactId>spring-session-data-redis</artifactId>-->
-		<!--</dependency>-->
+		<!--<dependency> -->
+		<!--<groupId>org.springframework.session</groupId> -->
+		<!--<artifactId>spring-session-data-redis</artifactId> -->
+		<!--</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
@@ -47,14 +49,14 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-		    <groupId>org.apache.shiro</groupId>
-		    <artifactId>shiro-core</artifactId>
-		    <version>${shiro.version}</version>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${shiro.version}</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.apache.shiro</groupId>
-		    <artifactId>shiro-spring</artifactId>
-		    <version>${shiro.version}</version>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.axet</groupId>
@@ -103,8 +105,40 @@
 			<artifactId>pmc_report_common</artifactId>
 			<version>1.0.0</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports</artifactId>
+		    <version>6.0.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports-fonts</artifactId>
+		    <version>6.0.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.itextpdf</groupId>
+		    <artifactId>itextpdf</artifactId>
+		    <version>5.5.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.itextpdf</groupId>
+		    <artifactId>itext-pdfa</artifactId>
+		    <version>5.5.0</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.itextpdf</groupId>
+		    <artifactId>itext-asian</artifactId>
+		    <version>5.2.0</version>
+		</dependency>
+		<dependency>  
+		    <groupId>org.codehaus.groovy</groupId>  
+		    <artifactId>groovy-all</artifactId> 
+		    <version>2.2.2</version> 
+		</dependency> 
+		
 	</dependencies>
-	
+
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>
@@ -139,5 +173,5 @@
 			</plugin>
 		</plugins>
 	</build>
-  
+
 </project>

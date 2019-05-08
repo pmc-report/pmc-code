@@ -1,5 +1,6 @@
 package gean.pmc_report_manager.modules.report.vo;
 
+import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -15,5 +16,7 @@ public class AreaOprVo {
 	private Float productionOpr;
 	private Float equipmentOpr;
 	private List<ZoneOprVo> zoneList;
-	
+	private String shift;
+	private String shop;
+	private String stime;
 }
