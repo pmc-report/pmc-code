@@ -316,4 +316,14 @@ function initZoneTable(url,queryParams){
 	          //console.log(res);
 	      }
 	  });
+	  
+}
+
+function oprsubmit(){
+	  $("#oprshop").val($("#shop_search").val());
+	  $("#oprarea").val($("#area_search").val());
+	  $("#oprshift").val($("#shift_search").val());
+	  $("#oprstime").val($("#startTime").val());
+	  $("#oprform").attr("action","/pmc/report/opr/exportOpr");
+	  $("#oprform").submit();
 }

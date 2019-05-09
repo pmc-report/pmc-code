@@ -100,8 +100,12 @@
 			</div>
 		</div>
 	</div>
-	<form action="/pmc/report/opr/exportOpr" method="post">
-		<input type= "submit" value = "提交"/>
+	<form id = "oprform" method="post">
+		<input type = "hidden" name = "shop" id = "oprshop" />
+		<input type = "hidden" name = "area" id = "oprarea"s/>
+		<input type = "hidden" name = "shift" id = "oprshift"/>
+		<input type = "hidden" name = "sTime" id = "oprstime"/>
+		<input type= "button" id = "oprsub" value = "导出" onclick="oprsubmit()"/>
 	</form>
 	<script src="${request.contextPath}/statics/js/modules/report/tabiw3opr.js?_${.now?long}"></script>
 </body>

@@ -1,13 +1,15 @@
 package gean.pmc_report_manager.modules.report.vo;
 
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data
 public class ZoneOprVo {
 
 	private Integer starved;
-	private String zone;
+	private String zone; 
 	private Integer goodPartCount;
 	private Integer downTime;
 	private Float productionOpr;
@@ -17,4 +19,5 @@ public class ZoneOprVo {
 	private Integer blocked;
 	private Integer facilityId;
 	private Float availableTime;
+
 }

@@ -182,8 +182,12 @@
 		<if test="zone!=null and zone!=''">
 			and zone = #{zone}
 		</if>
+		
 		<if test="shift!=null and shift!=''">
 			and shift = #{shift}
+		</if>
+		<if test="workDay!=null">
+			and CONVERT(VARCHAR,workingDay,112) = CONVERT(VARCHAR,#{workDay},112)
 		</if>
 		and levels='zone'
 		and frequency='Daily';
