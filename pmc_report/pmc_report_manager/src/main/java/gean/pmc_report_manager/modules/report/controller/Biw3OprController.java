@@ -107,9 +107,15 @@ public class Biw3OprController {
 			oprexport.setArea(params.get("area") == null ? null : (String)params.get("area"));
 			list.add(oprexport);
     	}
+    	String exoprt = params.get("exoprtType") == null ? "word" : (String)params.get("exoprtType");
     	InputStream is = this.getClass().getResourceAsStream("exportModel/OPR_Map.jasper");//获取同包下模版文件
+    	
+    	if(exoprt.equals("excel")) {
+    		is = this.getClass().getResourceAsStream("exportModel/OPR_Map_excel.jasper");//获取同包下模版文件
+    	}
+    	
     	try {
-    		JasperExportUtils.export(list, "word", is, request, response);
+    		JasperExportUtils.export(list, exoprt, is, request, response);
 		} catch (Exception e) {
 			e.getMessage();
 		}

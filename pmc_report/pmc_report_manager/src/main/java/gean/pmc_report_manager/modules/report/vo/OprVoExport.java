@@ -1,7 +1,5 @@
 package gean.pmc_report_manager.modules.report.vo;
 
-import java.util.List;
-
 import lombok.Data;
 
 @Data

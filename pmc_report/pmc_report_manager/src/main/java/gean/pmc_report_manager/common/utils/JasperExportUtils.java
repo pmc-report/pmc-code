@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.export.JRRtfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.util.JRLoader;
+import org.apache.poi.*;
 
 /**
  * 导出工具类
@@ -137,7 +138,7 @@ public class JasperExportUtils {
 	 public static void exportPdf(JasperPrint jasperPrint,
 	   HttpServletRequest request, HttpServletResponse response) throws IOException, JRException {
 	   response.setContentType("application/pdf");
-	   String fileName = new String((exoprtName.toString()+".pdf").getBytes("GBK"), "ISO8859_1");
+	   String fileName = new String((exoprtName.toString()+".pdf").getBytes("utf-8"), "ISO8859_1");
 	   response.setHeader("Content-disposition", "attachment; filename="
 	     + fileName);
 	   ServletOutputStream ouputStream = response.getOutputStream();

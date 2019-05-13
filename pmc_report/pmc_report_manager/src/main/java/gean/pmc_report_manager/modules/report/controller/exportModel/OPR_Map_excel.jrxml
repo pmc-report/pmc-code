@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="04f75be2-8c6d-4adf-b739-b4d5124f6a93">
+	<property name="ireport.callouts" value="##Mon May 13 09:49:40 CST 2019"/>
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="dataset1" uuid="1b79ed2d-78d0-459c-b0a1-568adb01abc4"/>
+	<field name="area" class="java.lang.String"/>
+	<field name="shop" class="java.lang.String"/>
+	<field name="shift" class="java.lang.String"/>
+	<field name="stime" class="java.lang.String"/>
+	<field name="actual" class="java.lang.Integer"/>
+	<field name="shiftPlan" class="java.lang.Integer"/>
+	<field name="variation" class="java.lang.Integer"/>
+	<field name="productionOpr" class="java.lang.Float"/>
+	<field name="equipmentOpr" class="java.lang.Float"/>
+	<field name="zone" class="java.lang.String"/>
+	<field name="zone2" class="java.lang.String"/>
+	<field name="goodPartCount" class="java.lang.Integer"/>
+	<field name="downTime" class="java.lang.Integer"/>
+	<field name="productionOpr2" class="java.lang.Float"/>
+	<field name="equipmentOpr2" class="java.lang.Float"/>
+	<field name="equipAvail" class="java.lang.Float"/>
+	<field name="cycleTime" class="java.lang.Float"/>
+	<field name="blocked" class="java.lang.Integer"/>
+	<field name="starved" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="57" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="57" uuid="f63ea114-c901-4175-a1e8-2abd2c00009b"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="90" height="37" uuid="39e99caf-04db-4412-bb54-4d04c6220ed7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ OPR Map - ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="0" width="465" height="37" uuid="b724d427-81fa-4670-b81f-d3f9a8c58894"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="37" width="67" height="20" uuid="ad0af3be-1046-4ae4-8220-fc1ef4b1db86"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shop}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="37" width="40" height="20" uuid="740826c2-8b91-42fa-9d01-6d6efae696d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[车间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="107" y="37" width="51" height="20" uuid="ea728d73-a27b-4581-8328-fc63296635d1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[班次]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="158" y="37" width="49" height="20" uuid="ac1e58c0-f225-40ed-9646-cbe77307d8c7"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shift}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="207" y="37" width="51" height="20" uuid="407bb062-21a5-4b4d-82a6-58a22cfae2e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[日期]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="258" y="37" width="103" height="20" uuid="1f7fc116-80a7-4b14-8e6b-a466108846f9"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="361" y="37" width="68" height="20" uuid="dff192ea-334c-43b8-9ca4-9a1f370aa9a8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[报表生成时间]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement x="429" y="37" width="126" height="20" uuid="30729b14-51a1-433b-bfaf-1f3b777960db"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[java.util.Calendar.getInstance().getTime()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="9" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="124" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="33" width="69" height="20" uuid="ff8155e5-bb7d-4694-835a-57844cd42ecc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[区域]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="69" y="33" width="89" height="20" uuid="572c1107-2f1d-426d-aa2a-ca58a3417521"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[实际OPR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="33" width="100" height="20" uuid="39c5225e-6e64-4eb9-89c4-981e02e075c1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[班次计划OPR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="258" y="33" width="103" height="20" uuid="b36f58b6-e904-42fc-93f4-46afd5ba7ba3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[偏差]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="361" y="33" width="100" height="20" uuid="7cd69f4a-cdb8-4842-b02a-5f5c9659cbf9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[生产OPR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="461" y="33" width="94" height="20" uuid="5f6e3b7f-fc6e-4038-8d6f-5e09a32b70af"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[设备OPR]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="53" width="69" height="20" uuid="3502f419-f5b3-4160-91b1-2331532ae87c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="53" width="89" height="20" uuid="17d8183f-930b-4b64-af32-ec9b2979af3a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{actual}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="53" width="100" height="20" uuid="345734e1-5bbf-4898-aca6-c0793f64e332"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shiftPlan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="258" y="53" width="103" height="20" uuid="866e4615-503b-4cb8-858e-c389c99f29ff"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{variation}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement x="361" y="53" width="100" height="20" uuid="841d782f-d871-4a0c-9e2f-e30fefa636dd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{productionOpr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="461" y="53" width="94" height="20" uuid="851b68ee-d9bc-4303-b2b8-bc306a19966e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipmentOpr}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="104" width="29" height="20" uuid="784e0b89-479f-4ae1-80d2-55ded23f0a48"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[序号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="29" y="104" width="40" height="20" uuid="da49258a-54c5-48d4-9845-4b4503f4b81d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[zone]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="69" y="104" width="89" height="20" uuid="8a69890d-9f23-4c4e-9658-94e968a17674"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[合格件产量计数]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="158" y="104" width="49" height="20" uuid="3f9acc69-d526-431e-895a-c1042631e9cb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[停机时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="207" y="104" width="51" height="20" uuid="ee0af09d-5793-418a-a15f-741d48e2ea7d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[生产OPR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="258" y="104" width="52" height="20" uuid="1d9bd8bb-3905-4113-8201-05e5ae00266a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[设备OPR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="104" width="51" height="20" uuid="854d5d70-cece-4fd9-8285-b7c6143d618c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[设备可用率]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="361" y="104" width="68" height="20" uuid="8093446b-eb61-4559-a616-3b9488792f05"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[节拍时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="104" width="59" height="20" uuid="df5193c6-20e0-45a0-89b8-d5651afa2006"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[堵料时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="488" y="104" width="67" height="20" uuid="52a5c68b-11f7-48c5-8d7a-a03a75310eec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[缺料时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="73" width="555" height="15" uuid="b8a0babd-5f8f-4b50-a8b0-4e3f60ddb631"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="16" uuid="ca53b479-9ec9-4291-94b0-33091ff5a78e"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="555" height="17" uuid="3aba0a44-743d-449d-8c64-14323a1bcfd3"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Area OPR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="88" width="555" height="16" uuid="f96db77c-fb73-47d0-8f01-66f9b4a4944f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[  Zone OPR]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="29" height="20" uuid="d414f95a-e3e2-4d5c-889c-edbdf20731bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="29" y="0" width="40" height="20" uuid="0e154fcb-c572-4034-be61-4f9a7ff3a011"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zone2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="0" width="89" height="20" uuid="f86e8fd7-a889-4d14-9196-947dfcf3b677"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{goodPartCount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="0" width="49" height="20" uuid="e8218b06-d5bc-4c79-8170-cf4708a948e9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{downTime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="207" y="0" width="51" height="20" uuid="56c02db9-e385-4daa-ade2-f3ff9359c2d8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{productionOpr2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="258" y="0" width="52" height="20" uuid="ce985463-f3cd-429e-81d5-315c0207690f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipmentOpr2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="0" width="51" height="20" uuid="2007b7f9-00ff-4759-a5dd-d5d66f4aed1f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipAvail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="361" y="0" width="68" height="20" uuid="8752cb6a-fc56-4ecc-9e31-0f1e2c95f1e4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cycleTime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="429" y="0" width="59" height="20" uuid="d1bdff4c-d67a-4086-a83d-7249dcf46180"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{blocked}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="488" y="0" width="67" height="20" uuid="12c880df-2a00-4cb4-9848-d3adf4f7617c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{starved}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

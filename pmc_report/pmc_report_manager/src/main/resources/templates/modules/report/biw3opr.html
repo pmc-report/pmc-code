@@ -105,6 +105,11 @@
 		<input type = "hidden" name = "area" id = "oprarea"s/>
 		<input type = "hidden" name = "shift" id = "oprshift"/>
 		<input type = "hidden" name = "sTime" id = "oprstime"/>
+		<select id="export_type" name="exoprtType" lay-verify="required">
+			<option value = "excel">excel</option>
+			<option value = "word">word</option> 
+			<option value = "pdf">pdf</option>
+		</select>
 		<input type= "button" id = "oprsub" value = "导出" onclick="oprsubmit()"/>
 	</form>
 	<script src="${request.contextPath}/statics/js/modules/report/tabiw3opr.js?_${.now?long}"></script>

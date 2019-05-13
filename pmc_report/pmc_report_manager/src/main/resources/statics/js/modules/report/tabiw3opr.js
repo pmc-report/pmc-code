@@ -324,6 +324,18 @@ function oprsubmit(){
 	  $("#oprarea").val($("#area_search").val());
 	  $("#oprshift").val($("#shift_search").val());
 	  $("#oprstime").val($("#startTime").val());
-	  $("#oprform").attr("action","/pmc/report/opr/exportOpr");
-	  $("#oprform").submit();
+	  if($("#oprshop").val() == null ||$.trim($("#oprshop").val()) == '' ){
+		  alert("车间不可为空！");
+	  }else if($("#oprarea").val() == null || $.trim($("#oprarea").val()) == ''){
+		  alert("区域不可为空！");
+	  }else if($("#oprshift").val() == null || $.trim($("#oprshift").val()) == ''){
+		  alert("班次不可为空！");
+	  }else if($("#oprstime").val()  == null || $.trim($("#oprstime").val()) == ''){
+		  console.log($("#oprstime").val());
+		  alert("日期不可为空！");
+	  }else{
+		  $("#oprform").attr("action","/pmc/report/opr/exportOpr");
+		  $("#oprform").submit();
+	  }
+	
 }
