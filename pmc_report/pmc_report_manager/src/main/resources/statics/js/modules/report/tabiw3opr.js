@@ -124,8 +124,8 @@ function initAreaTable(url,queryParams){
 	 
    var columns = [
         { field: 'area', title: '区域', align: 'center'},
-        { field: 'actual', title: '实际OPR', align: 'center'}, 
-        { field: 'shiftPlan', title: '班次计划OPR', align: 'center' },
+        { field: 'actual', title: '实际产量', align: 'center'}, 
+        { field: 'shiftPlan', title: '班次计划产量', align: 'center' },
         { field: 'variation', title: '偏差', align:'center' }, 
         { field: 'productionOpr', title: '生产OPR', align: 'center'}, 
         { field: 'equipmentOpr', title: '设备OPR', align: 'center' }

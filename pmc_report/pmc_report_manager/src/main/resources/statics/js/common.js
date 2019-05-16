@@ -342,9 +342,9 @@ function initJobIdSelected(shopNo){
         success: function (data) {
         
             var selectOption ='<option value="" selected="selected" style="display: none">No JobId</option>';
-            var list = data;
+            var list = data.modelList;
             $.each(list, function(i, jobId) { 
-           	 selectOption += '<option value="'+isNull(jobId['modelNo'])+'">'+isNull(jobId['modelNo'])+"</option>";
+           	 selectOption += '<option value="'+isNull(jobId)+'">'+isNull(jobId)+"</option>";
             });  
             $('#jobId_search').html(selectOption);
             $('#jobIdNo').html(selectOption);
@@ -391,9 +391,9 @@ function shiftSelected(){
         dataType:'json', //返回的数据类型
         success: function (data) {//data为后台返回的参数
             var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
-            var list = data.tmBasShift;//声明list接受后台返回的值  '.'后面是返回的controller中的list名
+            var list = data.shiftList;//声明list接受后台返回的值  '.'后面是返回的controller中的list名
             $.each(list, function(i, shift) { //遍历list
-           	 selectOption += '<option value="'+isNull(shift['shiftNo'])+'">'+isNull(shift['shiftNo']) + "</option>";
+           	 selectOption += '<option value="'+isNull(shift)+'">'+isNull(shift) + "</option>";
             });  
             $('#shift_search').html(selectOption);//将前台id为frequency_search的内容替换成声明selectOption(重写)
             $('#value').html(selectOption);

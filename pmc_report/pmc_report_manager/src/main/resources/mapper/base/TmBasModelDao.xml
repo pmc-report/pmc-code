@@ -17,10 +17,10 @@
 
 	
 
-	<select id="queryJobId" parameterType="String" resultMap="tmBasModelMap">
-  		select distinct model_no from TM_BAS_MODEL t
+	<select id="queryJobId" parameterType="String" resultType="java.lang.String">
+  		select t.model_name_s from at_PMC_Model_Mapping t
   		where 1=1
-   		and t.workshop_no=#{workshopNo}
+   		and t.shop_s=#{workshopNo}
 	</select>
 
 </mapper>

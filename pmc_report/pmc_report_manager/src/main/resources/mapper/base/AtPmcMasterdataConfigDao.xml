@@ -62,7 +62,7 @@
 				       C.FACILITY_ID_I,
 				       C.EQUIPMENT_TYPE_S,
 				       C.EQUIPMENT_S
-  				FROM QMESAMS.AT_PMC_MASTERDATA_CONFIG C
+  				FROM AT_PMC_MASTERDATA_CONFIG C
  				WHERE C.SHOP_S IN ('CS01_BS3','CS01_BS','CS01_BS2')) TB
  		WHERE 1 = 1
 	</sql>
@@ -136,14 +136,14 @@
 	
 	<select id="queryOPRData" resultMap="MasterDataVoMap">
 		select facility_id_i,zone_s,design_cycle_time_i,standard_cycle_time_i 
-		from QMESAMS.at_PMC_MasterData_Config
+		from at_PMC_MasterData_Config
 		where shop_s=#{shop}
 		and line_s=#{area}
 		and eol_flag_y=1
 	</select>
 	<select id="queryEolArea" resultMap="MasterDataVoMap">
 		select c.shop_s, c.line_s, c.zone_s, c.facility_id_i
-		from QMESAMS.at_PMC_MasterData_Config c
+		from at_PMC_MasterData_Config c
 		where c.shop_s = #{shop}
 		and c.line_s = #{area}
 		and c.production_flag_y = 1
@@ -151,13 +151,13 @@
 	
 	<select id="queryOPRShitfPlan" resultType="Integer">
 		select count(1) "target_production"
-		  FROM QMESAMS.Work_Order
-		 INNER JOIN QMESAMS.Uda_Order
+		  FROM Work_Order
+		 INNER JOIN Uda_Order
 		    on WORK_ORDER.ORDER_KEY = UDA_ORDER.OBJECT_KEY
 		 where PLAN_START_DATE_T =
 		       (select TO_CHAR(TO_DATE(#{workDay}, 'MM/DD/YYYY'), 'DD-MON-YYYY') from dual)
 		   AND MODEL_S in (select distinct MODEL_NAME_S
-		                     from QMESAMS.At_Pmc_Model_Mapping
+		                     from At_Pmc_Model_Mapping
 		                    where SHOP_S = #{shop})
 	</select>
 </mapper>

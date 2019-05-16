@@ -4,11 +4,13 @@ package gean.pmc_report_manager.modules.base.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import gean.pmc_report_datasource.annotation.DataSource;
 import gean.pmc_report_manager.modules.base.entity.TmBasShiftEntity;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * ${comments}
@@ -19,5 +21,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface TmBasShiftDao extends BaseMapper<TmBasShiftEntity> {
-	List<TmBasShiftEntity> queryShift();
+	
+	@Transactional
+    @DataSource("slave1")
+	List<String> queryShift();
 }

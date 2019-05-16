@@ -2,12 +2,14 @@ package gean.pmc_report_manager.modules.base.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import gean.pmc_report_datasource.annotation.DataSource;
 import gean.pmc_report_manager.modules.base.entity.TmBasModelEntity;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * ${comments}
@@ -18,5 +20,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface TmBasModelDao extends BaseMapper<TmBasModelEntity> {
-	List<TmBasModelEntity>queryJobId(Map<String, Object> params);
+	
+	@Transactional
+    @DataSource("slave1")
+	List<String>queryJobId(Map<String, Object> params);
 }

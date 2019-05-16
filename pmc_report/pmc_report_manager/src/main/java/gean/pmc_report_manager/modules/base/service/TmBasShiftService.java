@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface TmBasShiftService extends IService<TmBasShiftEntity> {
 
-	List<TmBasShiftEntity> queryShift();
+	List<String> queryShift();
 	
     PageUtils queryPage(Map<String, Object> params);
 }

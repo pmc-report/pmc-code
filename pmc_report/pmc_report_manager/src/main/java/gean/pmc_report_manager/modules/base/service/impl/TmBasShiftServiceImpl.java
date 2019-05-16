@@ -32,9 +32,9 @@ public class TmBasShiftServiceImpl extends ServiceImpl<TmBasShiftDao, TmBasShift
     /**
      * 查询所有班次信息
      */
-    public List<TmBasShiftEntity> queryShift() {
+    public List<String> queryShift() {
     	
-    	List<TmBasShiftEntity> shiftList=baseMapper.selectList(null);
+    	List<String> shiftList=baseMapper.queryShift();
     	
     	if(shiftList!=null) {
     		return shiftList;

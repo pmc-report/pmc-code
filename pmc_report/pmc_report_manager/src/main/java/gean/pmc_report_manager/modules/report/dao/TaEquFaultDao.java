@@ -22,16 +22,10 @@ import gean.pmc_report_manager.modules.report.vo.PageParamVo;
 @Mapper
 public interface TaEquFaultDao extends BaseMapper<TaEquFaultEntity> {
 	
-	@DataSource("slave2")
-	@Transactional
 	List<TaEquFaultEntity> qureyFualtList(PageParamVo vo);
 	
-	@DataSource("slave2")
-	@Transactional
 	TaEquFaultEntity queryTotalMins(Map<String, String> params);
 	
-	@DataSource("slave2")
-	@Transactional
 	String queryFacilityDesc(Integer facilityId);
 
 }

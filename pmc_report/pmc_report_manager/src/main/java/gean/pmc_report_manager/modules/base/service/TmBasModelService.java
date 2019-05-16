@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface TmBasModelService extends IService<TmBasModelEntity> {
 
-	List<TmBasModelEntity>queryJobId(Map<String, Object> params);
+	List<String>queryJobId(Map<String, Object> params);
     PageUtils queryPage(Map<String, Object> params);
 }
 

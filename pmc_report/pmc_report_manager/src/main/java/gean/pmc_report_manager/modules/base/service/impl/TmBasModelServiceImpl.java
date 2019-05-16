@@ -28,8 +28,8 @@ public class TmBasModelServiceImpl extends ServiceImpl<TmBasModelDao, TmBasModel
     }
 
 	@Override
-	public List<TmBasModelEntity> queryJobId(Map<String, Object> params) {
-		List<TmBasModelEntity>jobId=baseMapper.queryJobId(params);
+	public List<String> queryJobId(Map<String, Object> params) {
+		List<String>jobId=baseMapper.queryJobId(params);
 		return jobId;
 	}
 
