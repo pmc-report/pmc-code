@@ -36,32 +36,36 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 		 * 2.遍历所有的zone查询zone的OPR数据生成zone OPR 返回
 		 * 3.根据返回的zone OPR数据组装 Area OPR 
 		 */
+		//查询参数统一处理
 		PageParamVo vo = new PageParamVo(params);
 		
+		//返回结果集
 		List<AreaOprVo> areaList = new ArrayList<>();
 		List<ZoneOprVo> zoneOprList = new ArrayList<ZoneOprVo>();
 		
+		//返回结果
 		AreaOprVo areaVo = new AreaOprVo();
 		
+		//小数格式化
 		DecimalFormat df = new DecimalFormat("##0.00");
 		
-		//1.1
-		MasterDataVo areaEol = masterDataService.queryEolArea(params);
-		
-		//1.2
+		//1.1获取标志位的zone计算OPR
 		List<MasterDataVo> OPRDataList = masterDataService.queryOPRData(params);
 		
-		//1.3
+		//1.2获取标识位的zone代表整个area OPR
+		MasterDataVo areaEol = masterDataService.queryEolArea(params);
+		
+		//1.3获取area班次计划产量
 		Integer shiftPlan = masterDataService.queryShiftPlan(params);
 		
-		//1.4
+		//1.4匹配标志位的zone
 		Map<String,Object> areaMap = new HashMap<>();
 		if(areaEol!=null) {
 			String areaKey = areaEol.getZoneNo()+"_"+areaEol.getFacilityId();
 			areaMap.put(areaKey, areaEol);
 		}
 		
-		//2
+		//2遍历根据每个需要计算OPR的zone编号和设备ID去查对应的OPR数据
 		float equipmentOpr = 0f,productionOpr = 0f;
 		for(MasterDataVo masterVo : OPRDataList) {
 			vo.setZone(masterVo.getZoneNo());
@@ -86,6 +90,7 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 			zoneOprList.add(zoneOpr);
 			
 			String zoneKey = masterVo.getZoneNo()+"_"+masterVo.getFacilityId();
+			//根据标志位生成area OPR
 			if(areaMap.containsKey(zoneKey)) {
 				areaVo.setArea(areaEol.getLineNo());
 				areaVo.setActual(zoneOpr.getGoodPartCount());
