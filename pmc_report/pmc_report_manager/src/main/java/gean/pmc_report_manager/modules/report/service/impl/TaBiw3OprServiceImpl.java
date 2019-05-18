@@ -1,5 +1,6 @@
 package gean.pmc_report_manager.modules.report.service.impl;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,7 +68,59 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 		
 		//2遍历根据每个需要计算OPR的zone编号和设备ID去查对应的OPR数据
 		float equipmentOpr = 0f,productionOpr = 0f;
-		for(MasterDataVo masterVo : OPRDataList) {
+		if (OPRDataList != null && !OPRDataList.isEmpty()) {
+			List<String> zoneList = new ArrayList<String>();
+			List<Integer> facilityIdList = new ArrayList<Integer>();
+
+			for (MasterDataVo masterVos : OPRDataList) {
+				zoneList.add(masterVos.getZoneNo());
+				facilityIdList.add(masterVos.getFacilityId());
+			}
+
+			params.put("zoneList", zoneList);
+			params.put("facilityIdList", facilityIdList);
+			PageParamVo paramsVo = new PageParamVo(params);
+
+			List<ZoneOprVo> zoneOprVoList = generateZoneOprNew(paramsVo, OPRDataList);
+
+			if (zoneOprVoList != null && !zoneOprVoList.isEmpty()) {
+				for (ZoneOprVo zoneOpr : zoneOprVoList) {
+
+					// 设备OPR = （zone产量 * 设计节拍时间）/设备有效生产时间
+					equipmentOpr = (zoneOpr.getGoodPartCount() * zoneOpr.getCycleTime())
+							/ zoneOpr.getAvailableTime();
+					if (!Float.isNaN(equipmentOpr) && !Float.isInfinite(equipmentOpr)) {
+						zoneOpr.setEquipmentOpr(Float.parseFloat(df.format(equipmentOpr)));
+					} else {
+						zoneOpr.setEquipmentOpr(0.00f);
+					}
+					// 生产OPR = （zone产量 * 标准节拍时间）/设备有效生产时间
+					productionOpr = (zoneOpr.getGoodPartCount() * zoneOpr.getCycleTime())
+							/ zoneOpr.getAvailableTime();
+					if (!Float.isNaN(productionOpr) && !Float.isInfinite(productionOpr)) {
+						zoneOpr.setProductionOpr(Float.parseFloat(df.format(productionOpr)));
+					} else {
+						zoneOpr.setProductionOpr(0.00f);
+					}
+					zoneOprList.add(zoneOpr);
+
+					String zoneKey = zoneOpr.getZone() + "_" + zoneOpr.getFacilityId();
+					if (areaMap.containsKey(zoneKey)) {
+						areaVo.setArea(areaEol.getLineNo());
+						areaVo.setActual(zoneOpr.getGoodPartCount());
+						areaVo.setShiftPlan(shiftPlan);
+						Integer variation = shiftPlan - zoneOpr.getGoodPartCount();
+						areaVo.setVariation(variation);
+						areaVo.setEquipmentOpr(zoneOpr.getEquipmentOpr());
+						areaVo.setProductionOpr(zoneOpr.getProductionOpr());
+						areaVo.setZoneList(zoneOprList);
+						areaList.add(areaVo);
+
+					}
+				}
+			}
+		}
+		/*for(MasterDataVo masterVo : OPRDataList) {
 			vo.setZone(masterVo.getZoneNo());
 			vo.setFacilityId(masterVo.getFacilityId());
 			ZoneOprVo zoneOpr = this.generateZoneOpr(vo);
@@ -102,19 +155,131 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 				areaVo.setZoneList(zoneOprList);
 				areaList.add(areaVo);
 			}
-		}
+		}*/
 		return areaList;
 	}
 	
+	private List<ZoneOprVo> generateZoneOprNew(PageParamVo paramsVo, List<MasterDataVo> oPRDataList) {
+		
+		List<ZoneOprVo> result = new ArrayList<ZoneOprVo>();
+		
+		List<ZoneOprVo> oprStates = baseMapper.queryStarvedAndblocked(paramsVo);
+		List<ZoneOprVo> oprDownTime = baseMapper.queryDownTime(paramsVo);
+		List<ZoneOprVo> oprEquipAvail = baseMapper.queryTechAvali(paramsVo);
+		List<ZoneOprVo> oprGoodPartCount = baseMapper.queryGoodPartCount(paramsVo);
+		List<ZoneOprVo> oprAvailableTime = baseMapper.queryAvailableTime(paramsVo);
+		
+		for(int i = 0 ; i< oPRDataList.size();i++) {
+			ZoneOprVo oprVo = new ZoneOprVo();
+			oprVo.setZone(oPRDataList.get(i).getZoneNo());
+			oprVo.setFacilityId(oPRDataList.get(i).getFacilityId());
+			oprVo.setCycleTime(oPRDataList.get(i).getDesignCycleTime());
+			
+			if(oprStates!=null && !oprStates.isEmpty()) {
+				for (ZoneOprVo oprVoStates : oprStates) {
+					if(oprVo.getZone().equals(oprVoStates.getZone()) && oprVo.getFacilityId().equals(oprVoStates.getFacilityId())) {
+						if(oprVoStates.getStarved() != null) {
+							oprVo.setStarved(oprVoStates.getStarved());
+						}else{
+							oprVo.setStarved(0);
+						}
+						if(oprVoStates.getBlocked() != null) {
+							oprVo.setBlocked(oprVoStates.getBlocked());
+						}else {
+							oprVo.setBlocked(0);
+						}
+						break;
+					}else {
+						oprVo.setStarved(0);
+						oprVo.setBlocked(0);
+					}
+				}
+			}else {
+				oprVo.setStarved(0);
+				oprVo.setBlocked(0);
+			}
+		
+			if(oprDownTime != null && !oprDownTime.isEmpty()) {
+				for (ZoneOprVo oprVoDownTime : oprDownTime) {
+					if(oprVo.getZone().equals(oprVoDownTime.getZone()) && oprVo.getFacilityId().equals(oprVoDownTime.getFacilityId())) {
+						if(oprVoDownTime.getDownTime() != null) {
+							oprVo.setDownTime(oprVoDownTime.getDownTime());
+						}else{
+							oprVo.setDownTime(0);
+						}
+						break;
+					}else {
+						oprVo.setDownTime(0);
+					}
+				}
+			}else {
+				oprVo.setDownTime(0);
+			}
+		
+			if(oprEquipAvail != null && !oprEquipAvail.isEmpty()) {
+				for (ZoneOprVo oprVoEquipAvail : oprEquipAvail) {
+					if(oprVo.getZone().equals(oprVoEquipAvail.getZone())) {
+						if(oprVoEquipAvail.getEquipAvail() != null) {
+							oprVo.setEquipAvail(new BigDecimal(oprVoEquipAvail.getEquipAvail()).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue());
+						}else{
+							oprVo.setEquipAvail(0f);
+						}
+						break;
+					}else {
+						oprVo.setEquipAvail(0f);
+					}
+				}
+			}else {
+				oprVo.setDownTime(0);
+			}
+		
+			if(oprGoodPartCount !=null && !oprGoodPartCount.isEmpty()) {
+				for (ZoneOprVo oprVoGoodPartCount : oprGoodPartCount) {
+					if(oprVo.getZone().equals(oprVoGoodPartCount.getZone()) && oprVo.getFacilityId().equals(oprVoGoodPartCount.getFacilityId())) {
+						if(oprVoGoodPartCount.getGoodPartCount() != null) {
+							oprVo.setGoodPartCount(oprVoGoodPartCount.getGoodPartCount());
+						}else {
+							oprVo.setGoodPartCount(0);
+						}
+						break;
+					}else {
+						oprVo.setGoodPartCount(0);
+					}
+				}
+			}else {
+				oprVo.setGoodPartCount(0);
+			}
+			if(oprAvailableTime != null && !oprAvailableTime.isEmpty()) {
+				for (ZoneOprVo oprAvaTime : oprAvailableTime) {
+					if(oprVo.getZone().equals(oprAvaTime.getZone())) {
+						if(oprAvaTime.getAvailableTime() != null) {
+							oprVo.setAvailableTime(oprAvaTime.getAvailableTime());
+						}else {
+							oprVo.setAvailableTime(0f);
+						}
+						break;
+					}else {
+						oprVo.setAvailableTime(0f);
+					}
+				}
+			}else {
+				oprVo.setAvailableTime(0f);
+			}
+			
+			result.add(oprVo);
+		}
+		return result;
+	}
+
 	//3
-	public ZoneOprVo generateZoneOpr(PageParamVo vo){
+	/*public ZoneOprVo generateZoneOpr(PageParamVo vo){
 		
 		ZoneOprVo zoneVo = new ZoneOprVo();
 		zoneVo.setZone(vo.getZone());
 		
 		//获取堵料和缺料的持续时间
 		ZoneOprVo starvedAndblocked = baseMapper.queryStarvedAndblocked(vo);
-		if(starvedAndblocked!=null) {
+		if(starvedAndblocked!= null) {
 			zoneVo.setBlocked(starvedAndblocked.getBlocked());
 		}else {
 			zoneVo.setBlocked(0);
@@ -157,5 +322,5 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 		}
 		return zoneVo;
 		
-	}
+	}*/
 }

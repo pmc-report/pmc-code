@@ -49,14 +49,54 @@
     	<result property="equipAvail" column="equipAvail"/>
 		<result property="cycleTime" column="cycleTime"/>
 		<result property="blocked" column="blocked"/>
-		<result property="facilityId" column="facilityId"/>    	    	
+		<result property="facilityId" column="facilityId"/>    	
+		<result property="availableTime" column="availableTime"/>    	
     </resultMap>
 	
-	 <select id="queryStarvedAndblocked" resultMap="zoneOprVoMap">
+	<select id="queryStarvedAndblocked" resultMap="zoneOprVoMap">
 		BEGIN WITH mainquery AS(
 		select 
 			zone, facility_id, state "States", duration
-				from PMC.dbo.PMC_BIW_STATE 
+				from PMC.dbo.PMC_BIW_STATE with (nolock)
+			where 1 = 1 
+				<if test="workDay!=null">
+					and CONVERT(VARCHAR,end_time,112) = CONVERT(VARCHAR,GETDATE(),112)
+				</if>
+				<if test="area!=null and area!=''">
+					AND line = #{area}
+				</if>
+				<if test="zoneList!=null">
+					AND zone in
+					<foreach item="zone" index="index" collection="zoneList" open="(" separator="," close=")" >
+      					  #{zone}
+   					</foreach>
+				</if>
+				<if test="facilityIdList!=null">
+					AND facility_id in
+					<foreach item="facilityId" index="index" collection="facilityIdList" open="(" separator="," close=")" >
+      					  #{facilityId}
+   					</foreach>
+				</if> 
+				<if test="workDay!=null">
+					and CONVERT(VARCHAR(100),end_time,112) = CONVERT(VARCHAR(100),#{workDay},112)
+				</if>
+				<if test="shift!=null and shift!=''">
+						AND shift = #{shift}
+				</if>
+		)
+
+		select  x.zone, x.facility_id as "facilityId",
+				ISNULL((select sum(y.duration) from mainquery y where x.facility_id = y.facility_id and y.States ='Starved'),0) "starved",
+				ISNULL((select sum(y.duration) from mainquery y where x.facility_id = y.facility_id and y.States ='Blocked'),0) "blocked"
+				from( SELECT y.facility_id,y.zone FROM mainquery y group by y.facility_id,y.zone )x
+		END
+	</select>
+	
+	<!--  <select id="queryStarvedAndblocked" resultMap="zoneOprVoMap">
+		BEGIN WITH mainquery AS(
+		select 
+			zone, facility_id, state "States", duration
+				from PMC.dbo.PMC_BIW_STATE with (nolock)
 			where 1 = 1 
 				<if test="area!=null and area!=''">
 					AND line = #{area}
@@ -89,9 +129,36 @@
 			group by y.facility_id,y.zone
 		)x
 		END  
+	</select> -->
+	
+	<select id = "queryDownTime" resultMap="zoneOprVoMap">
+		select zone,facility_id as "facilityId", SUM(duration)  as "downTime"
+				from 
+					PMC.dbo.PMC_BIW_FAULT WITH(NOLOCK)
+						<where>
+						 	<trim prefix=" 1 = 1 ">
+						 		<if test="zoneList!=null">
+									AND zone in
+									<foreach item="zone" index="index" collection="zoneList" open="(" separator="," close=")" >
+      					 				 #{zone}
+   									</foreach>
+								</if>
+								<if test="facilityIdList!=null">
+									AND facility_id in
+									<foreach item="facilityId" index="index" collection="facilityIdList" open="(" separator="," close=")" >
+      					  				#{facilityId}
+   									</foreach>
+								</if>
+								<if test="workDay!=null">
+									and CONVERT(VARCHAR,end_time,112) = CONVERT(VARCHAR,#{workDay},112)
+								</if>
+								and end_time is not null
+							</trim>
+						</where> 
+				group by zone , facility_id ;	
 	</select>
 	
-	<select id = "queryDownTime" resultType="Integer">
+	<!-- <select id = "queryDownTime" resultType="zoneOprVoMap">
 		select SUM(duration) as "downTime"
 		from PMC.dbo.PMC_BIW_FAULT where 1 = 1
  		<if test="zone!=null and zone!=''">
@@ -103,9 +170,37 @@
 		<if test="workDay!=null">
 			and CONVERT(DATE,end_time,112) = CONVERT(DATE,#{workDay},112)
 		</if>
+	</select> -->
+	
+	<select id="queryTechAvali" resultMap="zoneOprVoMap">
+		select zone,tech_avail as "equipAvail"
+			from PMC.dbo.PMC_9PANEL_TA with(nolock)
+			<where>
+				<trim prefix=" 1 = 1 ">
+    				<if test="area!=null and area!=''">
+						AND line = #{area}
+					</if>
+					<if test="zoneList!=null">
+						AND zone in
+						<foreach item="zone" index="index" collection="zoneList" open="(" separator="," close=")" >
+      					 	#{zone}
+   						</foreach>
+					</if>
+					<if test="shift!=null and shift!=''">
+							AND shift = #{shift}
+					</if>
+					<if test="workDay!=null">
+						AND CONVERT(VARCHAR,workingDay,112) = CONVERT(VARCHAR,#{workDay},112) 
+					</if>	
+						AND levels = 'zone'
+						AND frequency = '1'
+				</trim>
+			</where>
 	</select>
 	
-	<select id="queryTechAvali" resultType="Float">
+	
+	
+	<!-- <select id="queryTechAvali" resultType="zoneOprVoMap">
 		select tech_avail as "equipAvail"
 			from PMC.dbo.PMC_9PANEL_TA 
 			where 1 = 1
@@ -134,9 +229,41 @@
 		</choose>
 		AND levels = 'zone'
 		AND frequency = '1'
+	</select> -->
+	
+	<select id="queryGoodPartCount" resultMap="zoneOprVoMap">
+		select 
+			max(good_cycle_count) "goodPartCount",zone,facility_id  as "facilityId"
+		from PMC.dbo.PMC_BIW_CYCLE
+			<where>
+				<trim prefix=" 1 = 1 ">
+					<if test="area!=null and area!=''">
+						AND area=#{area}
+					</if>
+					<if test="zoneList!=null">
+						 and zone in
+						 <foreach item="zone" index="index" collection="zoneList" open="(" separator="," close=")" >
+      					 	#{zone}
+   						</foreach>
+					</if>
+					<if test="facilityIdList!=null">
+						AND facility_id in
+						<foreach item="facilityId" index="index" collection="facilityIdList" open="(" separator="," close=")" >
+      					  	#{facilityId}
+   						</foreach>
+					</if>
+					<if test="shift!=null and shift!=''">
+						AND shift = #{shift}
+					</if>
+					<if test="workDay != null">
+						and CONVERT(DATE,end_time,112) = CONVERT(DATE,#{workDay},112)
+					</if>
+				</trim>
+			</where> 
+			group by zone,facility_id
 	</select>
 	
-	<select id="queryGoodPartCount" resultType="Integer">
+	<!-- <select id="queryGoodPartCount" resultType="zoneOprVoMap">
 		select 
 			max(good_cycle_count) "goodPartCount"
 		from PMC.dbo.PMC_BIW_CYCLE
@@ -167,25 +294,27 @@
 				and shift = 'D'
 			</otherwise>
 		</choose>
-	</select>
+	</select> -->
 	
-	<select id="queryAvailableTime" resultType="Float">
-		select available_time
+	<select id="queryAvailableTime" resultMap="zoneOprVoMap">
+		select available_time as "availableTime" ,zone
 		from PMC.dbo.PMC_OPR 
 		where 1 = 1
-		<if test="workDay!=null">
-			and CONVERT (VARCHAR(100),workingDay,112) = CONVERT(VARCHAR(100),#{workDay},112)
-		</if>
 		<if test="area!=null and area!=''">
 			and line = #{area}
 		</if>
-		<if test="zone!=null and zone!=''">
-			and zone = #{zone}
+		<if test="zoneList!=null">
+		 	and zone in
+			<foreach item="zone" index="index" collection="zoneList" open="(" separator="," close=")" >
+      			#{zone}
+   			</foreach>
 		</if>
-		
-		<if test="shift!=null and shift!=''">
-			and shift = #{shift}
-		</if>
+		<!-- <if test="facilityIdList!=null">
+			AND facility_id in
+				<foreach item="facilityId" index="index" collection="facilityIdList" open="(" separator="," close=")" >
+      				#{facilityId}
+   			</foreach>
+		</if> -->
 		<if test="workDay!=null">
 			and CONVERT(VARCHAR,workingDay,112) = CONVERT(VARCHAR,#{workDay},112)
 		</if>

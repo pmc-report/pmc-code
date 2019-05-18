@@ -64,6 +64,6 @@ public interface AtPmcMasterdataConfigDao extends BaseMapper<AtPmcMasterdataConf
 	/** Area OPR EOL*/
 	@Transactional
     @DataSource("slave1")
-	MasterDataVo queryEolArea(Map<String, Object> params);
+	List<MasterDataVo> queryEolArea(Map<String, Object> params);
 	
 }
