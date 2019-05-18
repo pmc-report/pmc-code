@@ -23,13 +23,13 @@ public interface TaBiw3OprDao extends BaseMapper<TaBiw3OprEntity> {
 	
 	List<TaBiw3OprEntity> qureyOPRList(PageParamVo vo);
 	
-	ZoneOprVo queryStarvedAndblocked(PageParamVo vo);
+	List<ZoneOprVo> queryStarvedAndblocked(PageParamVo vo);
 	
-	Integer queryDownTime(PageParamVo vo);
+	List<ZoneOprVo> queryDownTime(PageParamVo vo);
 	
-	Integer queryGoodPartCount(PageParamVo vo);
+	List<ZoneOprVo> queryGoodPartCount(PageParamVo vo);
 	
-	Float queryTechAvali(PageParamVo vo);
+	List<ZoneOprVo> queryTechAvali(PageParamVo vo);
 	
-	Float queryAvailableTime(PageParamVo vo);
+	List<ZoneOprVo> queryAvailableTime(PageParamVo vo);
 }

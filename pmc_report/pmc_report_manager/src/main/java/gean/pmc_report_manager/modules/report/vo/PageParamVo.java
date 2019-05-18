@@ -1,5 +1,6 @@
 package gean.pmc_report_manager.modules.report.vo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,10 @@ public class PageParamVo {
 	private String toDate5;
 	private String toDate6;
 	private String workDay;
-
+	private List<String> zoneList;
+	private List<Integer> facilityIdList;
+	
+	
 	public PageParamVo(Map<String, Object> params) {
 		
 		limit = (String)params.get("limit")==null?"0":(String)params.get("limit");
@@ -84,6 +88,7 @@ public class PageParamVo {
 		toDate4 = (String)params.get("toDate[4]")==null?"0":(String)params.get("toDate[4]");
 		toDate5 = (String)params.get("toDate[5]")==null?"0":(String)params.get("toDate[5]");
 		toDate6 = (String)params.get("toDate[6]")==null?"0":(String)params.get("toDate[6]");
-		
+		zoneList = params.get("zoneList") == null ? new ArrayList<String>() : (ArrayList<String>) params.get("zoneList");
+		facilityIdList = params.get("facilityIdList") == null ? new ArrayList<Integer>() : (ArrayList<Integer>) params.get("facilityIdList");
 	}
 }

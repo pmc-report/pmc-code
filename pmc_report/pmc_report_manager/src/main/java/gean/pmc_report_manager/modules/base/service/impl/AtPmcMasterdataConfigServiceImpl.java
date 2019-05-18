@@ -89,8 +89,12 @@ public class AtPmcMasterdataConfigServiceImpl extends ServiceImpl<AtPmcMasterdat
 
 	@Override
 	public MasterDataVo queryEolArea(Map<String, Object> params) {
-		MasterDataVo masterData = baseMapper.queryEolArea(params);
-		return masterData;
+		List<MasterDataVo> masterData = baseMapper.queryEolArea(params);
+		if(masterData != null && !masterData.isEmpty()) {
+			return masterData.get(0);
+		}else {
+			return null;
+		}
 	}
 	
 }
