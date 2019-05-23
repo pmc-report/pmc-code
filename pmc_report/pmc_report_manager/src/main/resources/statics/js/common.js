@@ -341,7 +341,7 @@ function initJobIdSelected(shopNo){
         dataType:'json', 
         success: function (data) {
         
-            var selectOption ='<option value="" selected="selected" style="display: none">No JobId</option>';
+            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
             var list = data.modelList;
             $.each(list, function(i, jobId) { 
            	 selectOption += '<option value="'+isNull(jobId)+'">'+isNull(jobId)+"</option>";
