@@ -135,7 +135,7 @@ function initShopSelected(){
         async : false,  //同步
         dataType:'json', 
         success: function (data) {
-            var selectOption ='<option value="" selected="selected" style="display: none">请选择车间</option>';
+            var selectOption ='<option value="" selected="selected">请选择车间</option>';
             var list = data.shopList;
             $.each(list, function(i,shop) { 
             	selectOption += '<option value="'+isNull(shop['shopNo'])+'">'+isNull(shop['shopNo']) + "</option>";
@@ -184,7 +184,7 @@ function initAreaSelected(workshopNo){
         async : false,  //同步
         dataType:'json', 
         success: function (data) {
-            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
+            var selectOption ='<option value="" selected="selected">All</option>';
             var list = data.areaList;
             $.each(list, function(i, area) { 
            	 selectOption += '<option value="'+isNull(area['lineNo'])+'">'+isNull(area['lineNo'])+"</option>";
@@ -225,7 +225,7 @@ function initZoneSelected(workshopNo,areaNo){
         async : false,  //同步
         dataType:'json', 
         success: function (data) {
-            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
+            var selectOption ='<option value="" selected="selected">All</option>';
             var list = data.zoneList;
             $.each(list, function(i, zone) { 
            	 selectOption += '<option value="'+isNull(zone['zoneNo'])+'">'+isNull(zone['zoneNo']) + "</option>";
@@ -267,7 +267,7 @@ function initStationSelected(workshopNo,areaNo,zoneNo){
         async : false,  //同步
         dataType:'json', 
         success: function (data) {
-            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
+            var selectOption ='<option value="" selected="selected">All</option>';
             var list = data.stationList;
             $.each(list, function(i, station) { 
             	if(station!=null){
@@ -314,7 +314,7 @@ function initEquipmentSelected(workshopNo,areaNo,zoneNo,stationNo){
         async : false,  //同步
         dataType:'json', 
         success: function (data) {
-            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
+            var selectOption ='<option value="" selected="selected">All</option>';
             var list = data.equipmentList;
             $.each(list, function(i, equipment) { 
            	 selectOption += '<option value="'+isNull(equipment['equipmentNo'])+'">'+isNull(equipment['equipmentNo']) + "</option>";
@@ -341,7 +341,7 @@ function initJobIdSelected(shopNo){
         dataType:'json', 
         success: function (data) {
         
-            var selectOption ='<option value="" selected="selected" style="display: none">No JobId</option>';
+            var selectOption ='<option value="" selected="selected">No JobId</option>';
             var list = data.modelList;
             $.each(list, function(i, jobId) { 
            	 selectOption += '<option value="'+isNull(jobId)+'">'+isNull(jobId)+"</option>";
@@ -366,7 +366,7 @@ function frequencySelected(){
         async : false,  //同步
         dataType:'json', //返回的数据类型
         success: function (data) {//data为后台返回的参数
-            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
+            var selectOption ='<option value="" selected="selected">All</option>';
             var list = data.dict;//声明list接受后台返回的值
             $.each(list, function(i, frequency) { //遍历list
            	 selectOption += '<option value="'+isNull(frequency['value'])+'">'+isNull(frequency['value']) +"</option>";
@@ -390,7 +390,7 @@ function shiftSelected(){
         async : false,  //同步
         dataType:'json', //返回的数据类型
         success: function (data) {//data为后台返回的参数
-            var selectOption ='<option value="" selected="selected" style="display: none">All</option>';
+            var selectOption ='<option value="All" selected="selected">All</option>';
             var list = data.shiftList;//声明list接受后台返回的值  '.'后面是返回的controller中的list名
             $.each(list, function(i, shift) { //遍历list
            	 selectOption += '<option value="'+isNull(shift)+'">'+isNull(shift) + "</option>";
