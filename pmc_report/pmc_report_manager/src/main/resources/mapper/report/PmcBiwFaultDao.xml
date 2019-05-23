@@ -71,7 +71,7 @@
 			t.reason_description,
 			t.shift,
 			t.tav_flag,
-			t.pos_word31
+			ISNULL(t.pos_word31, 0) AS 'pos_word31'
 		FROM
 			PMC.dbo.PMC_BIW_FAULT t
 		LEFT JOIN PMC.dbo.PMC_BIW_Facility f ON t.facility_id = f.Facility_Id
@@ -104,6 +104,7 @@
 			AND end_Time &lt; CONVERT(datetime2,#{endTime},121)
 		</if>
 		 and fault_word3 !=0 
+		 ORDER BY t.facility_id asc,t.start_time DESC
 	</select>
 	
 	<select id="queryTotalMins" resultType="gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity">    

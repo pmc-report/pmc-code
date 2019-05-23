@@ -59,8 +59,8 @@
 			zone, facility_id, state "States", duration
 				from PMC.dbo.PMC_BIW_STATE with (nolock)
 			where 1 = 1 
-				<if test="workDay!=null">
-					and CONVERT(VARCHAR,end_time,112) = CONVERT(VARCHAR,GETDATE(),112)
+				<if test="workDay!=null and workDay!=''">
+					and CONVERT(VARCHAR,end_time,112) = CONVERT(VARCHAR,#{workDay},112)
 				</if>
 				<if test="area!=null and area!=''">
 					AND line = #{area}
@@ -77,9 +77,6 @@
       					  #{facilityId}
    					</foreach>
 				</if> 
-				<if test="workDay!=null">
-					and CONVERT(VARCHAR(100),end_time,112) = CONVERT(VARCHAR(100),#{workDay},112)
-				</if>
 				<if test="shift!=null and shift!=''">
 						AND shift = #{shift}
 				</if>
@@ -144,12 +141,12 @@
    									</foreach>
 								</if>
 								<if test="facilityIdList!=null">
-									AND facility_id in
+									AND facility_id in 
 									<foreach item="facilityId" index="index" collection="facilityIdList" open="(" separator="," close=")" >
       					  				#{facilityId}
    									</foreach>
 								</if>
-								<if test="workDay!=null">
+								<if test="workDay!=null and workDay!=''">
 									and CONVERT(VARCHAR,end_time,112) = CONVERT(VARCHAR,#{workDay},112)
 								</if>
 								and end_time is not null
@@ -189,7 +186,7 @@
 					<if test="shift!=null and shift!=''">
 							AND shift = #{shift}
 					</if>
-					<if test="workDay!=null">
+					<if test="workDay!=null and workDay!=''">
 						AND CONVERT(VARCHAR,workingDay,112) = CONVERT(VARCHAR,#{workDay},112) 
 					</if>	
 						AND levels = 'zone'
@@ -255,7 +252,7 @@
 					<if test="shift!=null and shift!=''">
 						AND shift = #{shift}
 					</if>
-					<if test="workDay != null">
+					<if test="workDay != null and workDay !=''">
 						and CONVERT(DATE,end_time,112) = CONVERT(DATE,#{workDay},112)
 					</if>
 				</trim>
@@ -315,7 +312,7 @@
       				#{facilityId}
    			</foreach>
 		</if> -->
-		<if test="workDay!=null">
+		<if test="workDay!=null and workDay!=''">
 			and CONVERT(VARCHAR,workingDay,112) = CONVERT(VARCHAR,#{workDay},112)
 		</if>
 		and levels='zone'
