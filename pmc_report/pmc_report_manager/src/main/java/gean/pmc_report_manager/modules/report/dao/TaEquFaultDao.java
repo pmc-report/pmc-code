@@ -24,7 +24,7 @@ public interface TaEquFaultDao extends BaseMapper<TaEquFaultEntity> {
 	
 	List<TaEquFaultEntity> qureyFualtList(PageParamVo vo);
 	
-	TaEquFaultEntity queryTotalMins(Map<String, String> params);
+	TaEquFaultEntity queryTotalMins(PageParamVo vo);
 	
 	String queryFacilityDesc(Integer facilityId);
 

@@ -16,43 +16,73 @@
 		</div>
 		<div id="collapseOne" class="panel-collapse collapse in">
 			<div class="panel-body">
-				<form id="gen-form">
-					<div class="select-list">
-						<ul>
-							<li>
-								<div class="layui-form-item">
-									<div class="layui-input-block">
-									         车间： <select id="shop_search" name="shop" lay-verify="required" onchange="selectShop()"></select>
-									</div>
-								 </div>
-							</li>
-							<li>
-								<div class="layui-form-item">
-									<div class="layui-input-block">
-									         区域： <select id="area_search" name="area" lay-verify="required" onchange="selectArea()"></select>
-									</div>
-								 </div>
-							</li>
-							<li>
-								<div class="layui-form-item">
-									<div class="layui-input-block">
-									   	 班次： <select id="shift_search" name="shift" lay-verify="required">
-									   	 </select>
-									</div>
-								 </div>
-							</li>
-							<li class="select-time" onclick="selectDate()">
-								<label>日期： </label>
-								<input type="text" class="time-input" id="startTime" placeholder="请选择日期" name="params[beginTime]"/>
-								<!-- <span>-</span>
-								<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/> -->
-							</li>
-						
-							<li>
-								<button type="button" class="btn btn-primary btn-sm" onclick="search('Biw3OPR')">&nbsp;查询</button>
-								<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>
-							</li>
-						</ul>
+				<form id="gen-form" class="form-vertical" role="form">
+					<!--<div class="select-list">-->
+						<!--<ul>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									         <!--车间： <select id="shop_search" name="shop" lay-verify="required" onchange="selectShop()"></select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									         <!--区域： <select id="area_search" name="area" lay-verify="required" onchange="selectArea()"></select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									   	 <!--班次： <select id="shift_search" name="shift" lay-verify="required">-->
+									   	 <!--</select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li class="select-time" onclick="selectDate()">-->
+								<!--<label>日期： </label>-->
+								<!--<input type="text" class="time-input" id="startTime" placeholder="请选择日期" name="params[beginTime]"/>-->
+								<!--&lt;!&ndash; <span>-</span>-->
+								<!--<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/> &ndash;&gt;-->
+							<!--</li>-->
+						<!---->
+							<!--<li>-->
+								<!--<button type="button" class="btn btn-primary btn-sm" onclick="search('Biw3OPR')">&nbsp;查询</button>-->
+								<!--<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</div>-->
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3 " data-field="Q_name_EQ">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3">车间</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="shop_search" name="shop" lay-verify="required" onchange="selectShop()"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3" data-field="Q_name_EQ">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">区域</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="area_search" name="area" lay-verify="required" onchange="selectArea()"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3" data-field="Q_name_EQ">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">班次</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="shift_search" name="shift" lay-verify="required"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3" data-field="Q_name_EQ">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">日期</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<input class="form-control" type="text" onclick="selectDate()" class="time-input" id="startTime" placeholder="请选择日期" name="params[beginTime]"/>
+						</div>
+					</div>
+					<div class="form-group form-group-sm find-action col-xs-12 col-sm-6 col-md-4 col-lg-3" data-field="Q_name_EQ">
+						<div class="col-xs-12">
+							<button type="button" class="btn btn-primary btn-sm" onclick="search('Biw3OPR')">&nbsp;查询</button>
+							<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>
+						</div>
 					</div>
 				</form>
 			</div>
@@ -107,8 +137,8 @@
 		<input type = "hidden" name = "sTime" id = "oprstime"/>
 		<select id="export_type" name="exoprtType" lay-verify="required">
 			<option value = "excel">excel</option>
-			<option value = "word">word</option> 
-			<option value = "pdf">pdf</option>
+			<!-- <option value = "word">word</option> 
+			<option value = "pdf">pdf</option> -->
 		</select>
 		<input type= "button" id = "oprsub" value = "导出" onclick="oprsubmit()"/>
 	</form>

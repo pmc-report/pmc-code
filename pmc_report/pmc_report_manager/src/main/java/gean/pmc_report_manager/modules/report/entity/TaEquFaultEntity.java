@@ -13,7 +13,7 @@ import java.util.Date;
  * @date 2019-03-30 09:27:53
  */
 @Data
-@TableName("PMC.dbo.PMC_BIW_FAULT")
+@TableName("PMC_BIW_FAULT")
 public class TaEquFaultEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

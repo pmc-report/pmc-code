@@ -148,24 +148,9 @@ function queryReport(tag,params){
 	
 	var url = baseURL + 'report/fault/list';
 	if(tag=='EQUFA'){
-		var duration = (JSON.parse((queryTotal(params)).responseText)).duration;
 		inittableTitle(params);
-		initTable(url,params,duration);
+		initTable(url,params);
 	}
-}
-
-function queryTotal(queryParams) {
-	var num = $.ajax({
-		type : "post",
-		url : baseURL + 'report/fault/duration',
-		data : queryParams,
-		dataType : "json",
-		async : false,
-		success : function(data) {
-			return;
-		}
-	});
-	return num;
 }
 
 /**
@@ -193,11 +178,12 @@ var sec_to_time = function(s) {
     return t;
 }
 
-function initTable(url,queryParams,duration){
+function initTable(url,queryParams){
 	//console.log(queryParams);
-	
+	var duration ='';
 	var responseHandler = function (e) {
 	      //console.log(e);
+		  duration = e.duration
 	      if (e.page.list !=null && e.page.list.length > 0) {
 	          return { "rows": e.page.list, "total": e.page.totalCount };
 	      } else {
@@ -213,7 +199,7 @@ function initTable(url,queryParams,duration){
 	 var dateFormatter = function(value, row, index){
  	    return sec_to_time(value);
      } 
-	 
+	 console.log(duration+"++++++++++++++++++++++++++++")
      var columns = [
           
     	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1;},
@@ -251,7 +237,7 @@ function initTable(url,queryParams,duration){
 	      contentType: "application/x-www-form-urlencoded",
 	      toolbar: "#toolbar",                //一个jQuery 选择器，指明自定义的toolbar 例如:#toolbar, .toolbar.
 	    //uniqueId: 'taEquFaultId',           //每一行的唯一标识，一般为主键列
-	      height: 522,						  //document.body.clientHeight-165  //动态获取高度值，可以使表格自适应页面
+	    //  height: 522,						  //document.body.clientHeight-165  //动态获取高度值，可以使表格自适应页面
 	      cache: false,                       // 不缓存
 	      striped: true,                      // 隔行加亮
 	      queryParamsType: '',           	  //设置为"undefined",可以获取pageNumber，pageSize，searchText，sortName，sortOrder 
@@ -269,26 +255,26 @@ function initTable(url,queryParams,duration){
 	      clickToSelect: true,                //是否启用点击选中行
 	      minimumCountColumns: 2,             //最少允许的列数 clickToSelect: true, //是否启用点击选中行
 	      pageNumber: 1,                      //初始化加载第一页，默认第一页
-	      pageSize: 10,                    	  //每页的记录行数（*）
-	      pageList: [10, 25, 50, 100],     	  //可供选择的每页的行数（*）
+	      pageSize: 1000,                    	  //每页的记录行数（*）
+	      //pageList: [10, 25, 50, 100],     	  //可供选择的每页的行数（*）
 	      showExport: true,  				  //是否显示导出按钮  
 		  exportDataType:'all', 			  //导出所有数据
 	      buttonsAlign:"right",  			  //按钮位置  
 	      exportTypes:['excel','csv','txt','xml','word'],  //导出文件类型  
 	      Icons:'glyphicon-export',  
-	      smartDisplay: true,					//智能显示分页按钮
-	      paginationPreText: "上一页",
-	      paginationNextText: "下一页",
+	      //smartDisplay: true,					//智能显示分页按钮
+	      //paginationPreText: "上一页",
+	      //paginationNextText: "下一页",
 	      responseHandler: responseHandler,
 	      showFooter: true,
 	      onPostBody:function () {
 	    	    //合并页脚(回调)
 	    	    merge_footer();
 	    	},
-	      hasPreviousPage: true,
-	      hasNextPage: true,
-	      lastPage: true,
-	      firstPage: true,
+	      //hasPreviousPage: true,
+	      //hasNextPage: true,
+	      //lastPage: true,
+	      //firstPage: true,
 	      columns: columns,
 	      queryParams : function(params) {
 		      return {

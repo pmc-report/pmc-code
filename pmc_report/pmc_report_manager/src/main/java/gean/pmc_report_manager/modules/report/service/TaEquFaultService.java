@@ -25,5 +25,6 @@ public interface TaEquFaultService extends IService<TaEquFaultEntity> {
      * @return
      */
     PageUtils queryEquFaultByParam(Map<String, Object> params);
+
 }
 

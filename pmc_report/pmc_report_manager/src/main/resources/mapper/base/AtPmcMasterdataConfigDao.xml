@@ -63,7 +63,7 @@
 				       C.EQUIPMENT_TYPE_S,
 				       C.EQUIPMENT_S
   				FROM AT_PMC_MASTERDATA_CONFIG C
- 				WHERE C.SHOP_S IN ('CS01_BS3','CS01_BS','CS01_BS2')) TB
+ 				WHERE C.SHOP_S IN ('CS01_BS3') AND C.LINE_S NOT IN ('Closure','Bodyside') ) TB
  		WHERE 1 = 1
 	</sql>
 	

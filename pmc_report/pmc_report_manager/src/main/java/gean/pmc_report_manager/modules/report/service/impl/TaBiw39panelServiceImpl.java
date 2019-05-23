@@ -163,8 +163,9 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 			}
 		
 			//5.3
-			for(int i=0;i<=9&&i<=top10DownTimeNewList.size();i++) {
-				if(top10DownTimeNewList.get(i)!=null) {
+			for(int i=0;i<=9;i++) {
+				int count = top10DownTimeNewList.size();
+				if(i<=count-1) {
 					PanelVo newVo = top10DownTimeNewList.get(i);
 					PanelVo oldVo = resultList.get(i);
 					if(i==0) {
@@ -269,8 +270,9 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 			}
 			
 			//5.3
-			for(int i=0;i<=9&&i<=top10OccurrenceNewList.size();i++) {
-				if(top10OccurrenceNewList.get(i)!=null) {
+			for(int i=0;i<=9;i++) {
+				int count = top10OccurrenceNewList.size();
+				if(i <= count -1) {
 					PanelVo newVo = top10OccurrenceNewList.get(i);
 					PanelVo oldVo = resultList.get(i);
 					if(i==0) {

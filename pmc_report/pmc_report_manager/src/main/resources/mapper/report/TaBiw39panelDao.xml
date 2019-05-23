@@ -152,6 +152,7 @@
 											from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
 											AND CONVERT (VARCHAR(10), start_time, 105) IN (#{fromDate0},#{fromDate1},#{fromDate2},#{fromDate3},#{fromDate4},#{fromDate5},#{fromDate6}) 
 										<include refid="common_sql_footer"/>
+										and fault_word3 !=0
 										and line!='BDC'
 										and tav_flag!=1
 								)T
@@ -174,6 +175,7 @@
 			from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
 			and convert(varchar(10),start_time,105) in (#{fromDate0},#{fromDate1},#{fromDate2},#{fromDate3},#{fromDate4},#{fromDate5},#{fromDate6})
 			<include refid="common_sql_footer"/>
+			and fault_word3 !=0
 			and t.line!='BDC'
 			and t.tav_flag!= 1
 		)T
@@ -213,6 +215,7 @@
 														from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
 														and convert(varchar(10),start_time,105) in (#{toDate0},#{toDate1},#{toDate2},#{toDate3},#{toDate4},#{toDate5},#{toDate6})
 														<include refid="common_sql_footer"/>
+														and fault_word3 !=0
 														and t.line!='BDC'
 														and t.tav_flag!= 1
 													)T
@@ -236,6 +239,7 @@
 			from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
 			and convert(varchar(10),start_time,105) in (#{toDate0},#{toDate1},#{toDate2},#{toDate3},#{toDate4},#{toDate5},#{toDate6})
 			<include refid="common_sql_footer"/>
+			and fault_word3 !=0
 			and t.line!='BDC'
 			and t.tav_flag!= 1
 		)T
@@ -263,6 +267,7 @@
 										from PMC.dbo.PMC_BIW_FAULT t WHERE	1 = 1
 										and convert(varchar(10),start_time,105) in (#{fromDate0},#{fromDate1},#{fromDate2},#{fromDate3},#{fromDate4},#{fromDate5},#{fromDate6})
 										<include refid="common_sql_footer"/>
+										and fault_word3 !=0
 										AND line != 'BDC'
 										AND tav_flag !=1
 							)T
@@ -303,6 +308,7 @@
 								from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
 								and convert(varchar(10),start_time,105) in (#{toDate0},#{toDate1},#{toDate2},#{toDate3},#{toDate4},#{toDate5},#{toDate6})
 								<include refid="common_sql_footer"/>
+								and fault_word3 !=0
 								and t.line!='BDC'
 								and t.tav_flag!= 1
 						)T

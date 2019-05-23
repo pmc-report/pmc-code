@@ -32,7 +32,7 @@
 
 
 	<sql id="common_sql">
-		select * from PMC_BIW_FAULT t where 1 = 1 
+		select * from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
 	</sql>
 	
 	<sql id="common_sql_footer">
@@ -51,7 +51,31 @@
 	</sql>
 	
 	<select id="qureyFualtList" resultMap="pmcBiwFaultMap">
-		<include refid="common_sql"/>
+		SELECT
+			t.shop,
+			t.line,
+			t. ZONE,
+			t.equipment,
+			ISNULL(f.Facility_desc,N'无描述') AS 'Facility_desc',
+			t.station,
+			t.facility_id,
+			t.job_id,
+			t.start_time,
+			t.end_time,
+			t.duration,
+			t.fault_word1,
+			t.fault_word2,
+			t.fault_word3,
+			t.fault_description,
+			t.reason_code,
+			t.reason_description,
+			t.shift,
+			t.tav_flag,
+			t.pos_word31
+		FROM
+			PMC.dbo.PMC_BIW_FAULT t
+		LEFT JOIN PMC.dbo.PMC_BIW_Facility f ON t.facility_id = f.Facility_Id
+		where 1 = 1
 		<if test="shop!=null and shop!=''">
 			AND	shop = #{shop}
 		</if>
@@ -79,6 +103,7 @@
 		<if test="endTime!=null">
 			AND end_Time &lt; CONVERT(datetime2,#{endTime},121)
 		</if>
+		 and fault_word3 !=0 
 	</select>
 	
 	<select id="queryTotalMins" resultType="gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity">    
@@ -88,7 +113,7 @@
 			AND t.shop =#{shop}
 		</if>
 		<if test="area!=null and area!=''">
-			AND t.line =#{area}
+			AND t.line like '%'+#{area}+'%'
 		</if>
 		<if test="zone!=null and zone!=''">
 			AND t. zone =#{zone}
@@ -102,12 +127,13 @@
 		<if test="shift!=null and shift!=''">
 			AND t.shift =#{shift}
 		</if>
-		<if test="startTime!=null and startTime!=''">
-			AND t.start_time &gt;=CONVERT (VARCHAR,#{startTime},21)
+		<if test="startTime!=null">
+			AND start_Time &gt; CONVERT(datetime2,#{startTime},121)
 		</if>
-		<if test="endTime!=null and endTime!=''">
-			AND t.end_time &lt;=CONVERT (VARCHAR,#{endTime},21)
+		<if test="endTime!=null">
+			AND end_Time &lt; CONVERT(datetime2,#{endTime},121)
 		</if>
+		 and fault_word3 !=0 
     </select>
     
     <select id="queryFacilityDesc" resultType="String">

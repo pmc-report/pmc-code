@@ -56,13 +56,15 @@ public class PageParamVo {
 		frequency = (String)params.get("frequency")==null?"":(String)params.get("frequency");
 		shift = (String)params.get("shift")==null?"":(String)params.get("shift");
 		if(StringUtils.isNotNull(params.get("sTime"))) {
-			startTime = DateUtils.stringToDate(
-					params.get("sTime").toString(), DateUtils.DATE_PATTERN);
+			String sTime = (String)params.get("sTime");
+			sTime = sTime+" 00:00:00";
+			startTime = DateUtils.stringToDate(sTime, DateUtils.DATE_TIME_PATTERN);
 		}
 		
 		if(StringUtils.isNotNull(params.get("eTime"))) {
-			endTime = DateUtils.stringToDate(
-					params.get("eTime").toString(), DateUtils.DATE_PATTERN);
+			String eTime = (String)params.get("eTime");
+			eTime = eTime+" 23:59:59";
+			endTime = DateUtils.stringToDate(eTime, DateUtils.DATE_TIME_PATTERN);
 		}
 		
 		if(StringUtils.isNotNull(params.get("sTime"))) {

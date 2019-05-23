@@ -15,83 +15,152 @@
 		</div>
 		<div id="collapseOne" class="panel-collapse collapse in">
 			<div class="panel-body">
-				<form id="gen-form">
-					<div class="select-list">
-						<ul>
-							<li>
-								<div class="layui-form-item">
-									<div class="layui-input-block">
-									         车间： <select id="shop_search" name="shop" lay-verify="required" onchange="selectShop()"></select>
-									</div>
-								 </div>
-							</li>
-							<li>
-								<div class="layui-form-item">
-									<div class="layui-input-block">
-									         区域： <select id="area_search" name="area" lay-verify="required" onchange="selectArea()"></select>
-									</div>
-								 </div>
-							</li>
-							<li>
-								<div class="layui-form-item">
-									<div class="layui-input-block">
-									    ZONE： <select id="zone_search" name="zone" lay-verify="required"></select>
-									</div>
-								 </div>
-							</li>
-							<li>
-								<div class="layui-form-item">
-									<div class="layui-input-block">
-									   	 车型： <select id="jobId_search" name="jobId" lay-verify="required">
-									   	 </select>
-									</div>
-								 </div>
-							</li>
-							<li>
-								<div class="layui-form-item">
-									<div class="layui-input-block">
-									<!-- 后续换成后台数据 -->
-									   	 班次： <select id="shift_search" name="shift" lay-verify="required">
-									   	 </select>
-									</div>
-								 </div>
-							</li>
-							<li class="select-time" onclick="selectDate()">
-								<label>开始周： </label>
-								<input type="text" class="time-input" id="startTime" placeholder="请选择日期" name="params[beginTime]"/>
-							</li>
-							<li>
-								<div class="layui-form-item">
-									<div class="layui-input-block">
-										<select id="fDate" name="select" 
-										 		class="selectpicker show-tick form-control" 
-										 			multiple data-actions-box="true" data-selected-text-format="count > 3"
-										 				title="请选择日期">
-											  </select>
-									</div>
-							 	</div>
-							</li>
-							<li class="select-time" onclick="selectDate()">
-								<label>结束周： </label>
-								<input type="text" class="time-input" id="endTime" placeholder="请选择日期" name="params[beginTime]"/>
-							</li>
-							<li >
-								
-								<div class="layui-form-item">
-									<div  class="layui-input-block">
-										 	<select id="tDate" name="select" 
-										 		class="selectpicker show-tick form-control" 
-										 			multiple data-actions-box="true" data-selected-text-format="count > 3"
-										 				title="请选择日期">
-											   </select>
-									</div>
-								</div>
-							</li>
-							<li>
-								<button type="button" class="btn btn-primary btn-sm" onclick="search('9Panel')">&nbsp;查询</button>
-								<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>
-							</li>
-						</ul>
+				<form id="gen-form" class="form-vertical" role="form">
+					<!--<div class="select-list">-->
+						<!--<ul>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									         <!--车间： <select id="shop_search" name="shop" lay-verify="required" onchange="selectShop()"></select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									         <!--区域： <select id="area_search" name="area" lay-verify="required" onchange="selectArea()"></select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									    <!--ZONE： <select id="zone_search" name="zone" lay-verify="required"></select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									   	 <!--车型： <select id="jobId_search" name="jobId" lay-verify="required">-->
+									   	 <!--</select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									<!--&lt;!&ndash; 后续换成后台数据 &ndash;&gt;-->
+									   	 <!--班次： <select id="shift_search" name="shift" lay-verify="required">-->
+									   	 <!--</select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li class="select-time" onclick="selectDate()">-->
+								<!--<label>开始周： </label>-->
+								<!--<input type="text" class="time-input" id="startTime" placeholder="请选择日期" name="params[beginTime]"/>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+										<!--<select id="fDate" name="select" -->
+										 		<!--class="selectpicker show-tick form-control" -->
+										 			<!--multiple data-actions-box="true" data-selected-text-format="count > 3"-->
+										 				<!--title="请选择日期">-->
+											  <!--</select>-->
+									<!--</div>-->
+							 	<!--</div>-->
+							<!--</li>-->
+							<!--<li class="select-time" onclick="selectDate()">-->
+								<!--<label>结束周： </label>-->
+								<!--<input type="text" class="time-input" id="endTime" placeholder="请选择日期" name="params[beginTime]"/>-->
+							<!--</li>-->
+							<!--<li >-->
+								<!---->
+								<!--<div class="layui-form-item">-->
+									<!--<div  class="layui-input-block">-->
+										 	<!--<select id="tDate" name="select" -->
+										 		<!--class="selectpicker show-tick form-control" -->
+										 			<!--multiple data-actions-box="true" data-selected-text-format="count > 3"-->
+										 				<!--title="请选择日期">-->
+											   <!--</select>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<button type="button" class="btn btn-primary btn-sm" onclick="search('9Panel')">&nbsp;查询</button>-->
+								<!--<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</div>-->
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">车间</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="shop_search" name="shop" lay-verify="required" onchange="selectShop()"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">区域</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="area_search" name="area" lay-verify="required" onchange="selectArea()"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">ZONE</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="zone_search" name="zone" lay-verify="required"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-xs col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">车型</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="jobId_search" name="jobId" lay-verify="required" style="height: 30px;"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">班次</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="shift_search" name="shift" lay-verify="required"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">开始时间</label>
+						<div class="col-xs-12 col-sm-9 col-md-8 col-lg-9 ">
+							<input class="form-control" type="text" onclick="selectDate()" class="time-input" id="startTime" placeholder="请选择日期" name="params[beginTime]"/>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">开始周</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select  id="fDate" name="select"
+									 class="selectpicker show-tick form-control"
+									 multiple data-actions-box="true" data-selected-text-format="count > 3"
+									 title="请选择日期">
+							</select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">结束时间</label>
+						<div class="col-xs-12 col-sm-9 col-md-8 col-lg-9 ">
+							<input type="text" class="form-control" onclick="selectDate()" id="endTime" placeholder="请选择日期" name="params[beginTime]"/>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">结束周</label>
+						<div class="col-xs-12 col-sm-9 col-md-8 col-lg-9 ">
+							<select id="tDate" name="select"
+									class="selectpicker show-tick form-control"
+									multiple data-actions-box="true" data-selected-text-format="count > 3"
+									title="请选择日期">
+							</select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm find-action col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<button type="button" class="btn btn-primary btn-sm" onclick="search('9Panel')">&nbsp;查询</button>
+							<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>
+							<!-- <button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;更新</button> -->
+						</div>
 					</div>
 				</form>
 			</div>

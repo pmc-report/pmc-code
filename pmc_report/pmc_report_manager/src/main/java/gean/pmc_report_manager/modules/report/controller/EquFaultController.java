@@ -14,7 +14,6 @@ import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
 import gean.pmc_report_manager.modules.report.service.TaEquFaultService;
 
 
-
 /**
  * ${comments}
  *
@@ -28,13 +27,6 @@ public class EquFaultController {
     @Autowired
     private TaEquFaultService equFaultService;
 
-    @RequestMapping("/duration")
-    public R queryTotalMins(@RequestParam Map<String, Object> params) {
-    	TaEquFaultEntity totalDur = equFaultService.queryTotalMins(params);
-    	Integer duration = totalDur.getDuration();
-    	return R.ok().put("duration", duration);
-    }
-    
     /**
      * 列表
      */
@@ -42,8 +34,8 @@ public class EquFaultController {
     @RequiresPermissions("report:fault:list")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = equFaultService.queryEquFaultByParam(params);
-
-        return R.ok().put("page", page);
+        TaEquFaultEntity totalDur = equFaultService.queryTotalMins(params);
+    	int duration = totalDur==null?0:totalDur.getDuration();
+        return R.ok().put("page", page).put("duration", duration);
     }
-
 }
