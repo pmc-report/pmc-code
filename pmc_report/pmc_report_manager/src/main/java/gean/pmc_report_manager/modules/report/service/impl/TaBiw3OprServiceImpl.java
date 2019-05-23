@@ -80,7 +80,8 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 			params.put("zoneList", zoneList);
 			params.put("facilityIdList", facilityIdList);
 			PageParamVo paramsVo = new PageParamVo(params);
-
+			String shift = params.get("shift") == null ? "All" : (String)params.get("sgift");
+			paramsVo.setShift(shift);
 			List<ZoneOprVo> zoneOprVoList = generateZoneOprNew(paramsVo, OPRDataList);
 
 			if (zoneOprVoList != null && !zoneOprVoList.isEmpty()) {

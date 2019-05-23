@@ -390,7 +390,7 @@ function shiftSelected(){
         async : false,  //同步
         dataType:'json', //返回的数据类型
         success: function (data) {//data为后台返回的参数
-            var selectOption ='<option value="All" selected="selected">All</option>';
+            var selectOption ='<option value="" selected="selected">All</option>';
             var list = data.shiftList;//声明list接受后台返回的值  '.'后面是返回的controller中的list名
             $.each(list, function(i, shift) { //遍历list
            	 selectOption += '<option value="'+isNull(shift)+'">'+isNull(shift) + "</option>";
