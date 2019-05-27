@@ -42,6 +42,8 @@ public class PageParamVo {
 	private String workDay;
 	private List<String> zoneList;
 	private List<Integer> facilityIdList;
+	private String level;
+	
 	
 	
 	public PageParamVo(Map<String, Object> params) {

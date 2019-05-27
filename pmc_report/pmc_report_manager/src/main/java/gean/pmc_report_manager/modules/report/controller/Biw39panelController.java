@@ -24,7 +24,6 @@ import freemarker.template.Template;
 import gean.pmc_report_manager.common.utils.JasperExportUtils;
 import gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity;
 import gean.pmc_report_manager.modules.report.service.TaBiw39panelService;
-import gean.pmc_report_manager.modules.report.vo.Biw39PanelExport;
 import gean.pmc_report_manager.modules.report.vo.PanelVo;
 import gean.pmc_report_common.common.utils.R;
 
@@ -189,31 +188,5 @@ public class Biw39panelController {
 			}
 		}
 	}
-    @RequestMapping("/reportTest")
-    public void biw39PanelExport(HttpServletRequest request,HttpServletResponse response,
-			@RequestParam Map<String, Object> params) {
-    	Biw39PanelExport biw39PanelExport = new Biw39PanelExport();
-    	List<Biw39PanelExport> list = new ArrayList<Biw39PanelExport>();
-    	biw39PanelExport.setCharTitle("测试标题1");
-    	biw39PanelExport.setCharX("测试X1");
-    	biw39PanelExport.setCharValue(1);
-    	list.add(biw39PanelExport);
-    	
-    	biw39PanelExport.setCharTitle("测试2");
-    	biw39PanelExport.setCharX("测试X2");
-    	biw39PanelExport.setCharValue(2);
-    	list.add(biw39PanelExport);
-    	
-    	biw39PanelExport.setCharTitle("测试3");
-    	biw39PanelExport.setCharX("测试X3");
-    	biw39PanelExport.setCharValue(3);
-    	list.add(biw39PanelExport);
-    	
-    	try {
-        	InputStream	is = this.getClass().getResourceAsStream("exportModel/9PanelTest.jasper");//获取同包下模版文件
-    		JasperExportUtils.export(list, "word", is, request, response);
-		} catch (Exception e) {
-			e.getMessage();
-		}
-    }
+   
 }

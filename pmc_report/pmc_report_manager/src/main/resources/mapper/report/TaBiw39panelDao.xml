@@ -120,6 +120,10 @@
 									<if test="shift!=null and shift!=''">
 										AND shift = #{shift}
 									</if>
+									<if test="level!=null and level!=''">
+										AND levels = #{level}
+									</if>
+									and frequency=2
 									order by  t.start_time desc )P
 		on DATEPART(WK,Week)=WeekNumber;
 	</select>
@@ -143,7 +147,7 @@
 											facility_id,
 											fault_description,
 											count(fault_description) Occurrences,
-											sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotalDuration
+											sum(convert(float,datediff(MI,start_time,Current_End_Time))/60) TotalDuration
 									from(
 											select 
 													fault_description,
@@ -166,7 +170,7 @@
 	<select id="queryTotalDurationTimeOld" resultMap="panelVoMap">
 		select 
 			count(fault_description) "TotOcc1" ,
-			sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotDuration1
+			sum(convert(float,datediff(MI,start_time,Current_End_Time))/60) TotDuration1
 		from(
 			select 
 				fault_description,
@@ -206,7 +210,7 @@
 												facility_id,
 												fault_description,
 												count(fault_description) Occurrences,
-												sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotalDuration
+												sum(convert(float,datediff(MI,start_time,Current_End_Time))/60) TotalDuration
 											from(
 														select 
 															fault_description,facility_id,
@@ -230,7 +234,7 @@
 	<select id="queryTotalDurationTimeNew" resultMap="panelVoMap">
 		select 
 			count(fault_description) "TotOcc2" ,
-			sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotDuration2
+			sum(convert(float,datediff(MI,start_time,Current_End_Time))/60) TotDuration2
 		from(
 			select 
 				fault_description,
@@ -261,7 +265,7 @@
 						TotalDuration "Duration1"
 					FROM
 						(
-							select facility_id,fault_description,count(fault_description) Occurrences,sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotalDuration
+							select facility_id,fault_description,count(fault_description) Occurrences,sum(convert(float,datediff(MI,start_time,Current_End_Time))/60) TotalDuration
 							from(
 										select fault_description,facility_id,start_time,ISNULL(end_time,GETDATE()) Current_End_Time
 										from PMC.dbo.PMC_BIW_FAULT t WHERE	1 = 1
@@ -302,7 +306,7 @@
 					TotalDuration "Duration2"
 				FROM
 					(
-						select facility_id,fault_description,count(fault_description) Occurrences,sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotalDuration
+						select facility_id,fault_description,count(fault_description) Occurrences,sum(convert(float,datediff(MI,start_time,Current_End_Time))/60) TotalDuration
 						from(
 								select fault_description,facility_id,start_time,ISNULL(end_time,GETDATE()) Current_End_Time
 								from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
