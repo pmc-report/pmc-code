@@ -5,9 +5,9 @@ spring:
       #driver-class-name: com.mysql.jdbc.Driver
       driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
       #url: jdbc:mysql://localhost:3306/report?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
-      url: jdbc:sqlserver://172.17.97.22:1433;DatabaseName=PMC
-      username: MesQAT
-      password: MesQAT01
+      url: jdbc:sqlserver://172.18.254.138:1433;DatabaseName=PMC
+      username: pmcadmin
+      password: Abcd20192
       initial-size: 10
       max-active: 100
       min-idle: 10

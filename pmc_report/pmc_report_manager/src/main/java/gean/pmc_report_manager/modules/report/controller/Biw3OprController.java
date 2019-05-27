@@ -45,7 +45,12 @@ public class Biw3OprController {
     @RequiresPermissions("report:biw3opr:list")
     public R queryList(@RequestParam Map<String, Object> params){
     	List<AreaOprVo> areaList = oprService.queryOprForArea(params);
-        return R.ok().put("area", areaList).put("zoneList", areaList.get(0).getZoneList());
+    	if(areaList.size()>0
+    			&&areaList.get(0).getZoneList()!=null
+    			&&areaList.get(0).getZoneList().size()>0) {
+    		return R.ok().put("area", areaList).put("zoneList", areaList.get(0).getZoneList());
+    	}
+        return null;
     }
 
     /**

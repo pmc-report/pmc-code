@@ -5,23 +5,31 @@
 
 	<!-- 可根据自己的需求，是否要使用 -->
     <resultMap type="gean.pmc_report_manager.modules.report.entity.TaBiw3OprEntity" id="taBiw3OprMap">
-       <result property="shop" column="shop" />
-		<result property="line" column="line" />
-		<result property="zone" column="zone" />
-		<result property="station" column="station" />
-		<result property="equipment" column="equipment" />
-		<result property="facilityId" column="facility_id" />
-		<result property="startTime" column="start_time" />
-		<result property="endTime" column="end_time" />
-		<result property="availableTime" column="available_time" />
-		<result property="productionVolume" column="production_volume" />
-		<result property="frequency" column="frequency" />
-		<result property="workingday" column="workingDay" />
-		<result property="levels" column="levels" />
-		<result property="shift" column="shift" />
-		<result property="tarOpr" column="tar_opr" />
-		<result property="designCycleTime" column="design_cycle_time" />
-		<result property="productionOpr" column="production_opr" />
+        <result property="rowId" column="row_id"/>
+        <result property="dbTimeStamp" column="db_time_stamp"/>
+        <result property="shop" column="shop"/>
+        <result property="area" column="area"/>
+        <result property="zone" column="zone"/>
+        <result property="equipment" column="equipment"/>
+        <result property="facilityDesc" column="facility_desc"/>
+        <result property="station" column="station"/>
+        <result property="jobId" column="job_id"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="duration" column="duration"/>
+        <result property="actualEquipmentOpr" column="actual_equipment_opr"/>
+        <result property="actualProductionOpr" column="actual_production_opr"/>
+        <result property="targetEquipmentOpr" column="target_equipment_opr"/>
+        <result property="targetProductionOpr" column="target_production_opr"/>
+        <result property="productionVolume" column="production_volume"/>
+        <result property="oprLevel" column="opr_level"/>
+        <result property="frequency" column="frequency"/>
+        <result property="shift" column="shift"/>
+        <result property="tavFlag" column="tav_flag"/>
+        <result property="historical" column="historical"/>
+        <result property="workDay" column="work_day"/>
+        <result property="facilityId" column="facility_id"/>
+        <result property="downtime" column="downtime"/>
     </resultMap>
     
     <sql id="Base_column_Opr">
@@ -44,13 +52,12 @@
     	<result property="zone" column="zone"/>
     	<result property="goodPartCount" column="goodPartCount"/>
     	<result property="downTime" column="downTime"/>
-    	<result property="productionOpr" column="productionOpr"/>
-    	<result property="equipmentOpr" column="equipmentOpr"/>
+    	<result property="productionOpr" column="actual_production_opr"/>
+    	<result property="equipmentOpr" column="actual_equipment_opr"/>
     	<result property="equipAvail" column="equipAvail"/>
 		<result property="cycleTime" column="cycleTime"/>
 		<result property="blocked" column="blocked"/>
-		<result property="facilityId" column="facilityId"/>    	
-		<result property="availableTime" column="availableTime"/>    	
+		<result property="facilityId" column="facilityId"/>    	  	
     </resultMap>
 	
 	<select id="queryStarvedAndblocked" resultMap="zoneOprVoMap">
@@ -89,45 +96,7 @@
 		END
 	</select>
 	
-	<!--  <select id="queryStarvedAndblocked" resultMap="zoneOprVoMap">
-		BEGIN WITH mainquery AS(
-		select 
-			zone, facility_id, state "States", duration
-				from PMC.dbo.PMC_BIW_STATE with (nolock)
-			where 1 = 1 
-				<if test="area!=null and area!=''">
-					AND line = #{area}
-				</if>
-				<if test="zone!=null and zone!=''">
-					and zone = #{zone}
-				</if>
-				<if test="facilityId!=null and facilityId!=''">
-					and facility_id = #{facilityId}
-				</if>
-				<if test="workDay!=null">
-					and CONVERT(VARCHAR(100),end_time,112) = CONVERT(VARCHAR(100),#{workDay},112)
-				</if>
-				<choose>
-					<when test="shift!=null and shift!=''">
-						AND shift = #{shift}
-					</when>
-					<otherwise>
-						AND shift = 'D'
-					</otherwise>
-				</choose>
-		)
-		select x.zone "Zone", x.facility_id "FacilityID",
-			ISNULL((select sum(y.duration) from mainquery y where x.facility_id = y.facility_id  and y.States ='Starved'),0)"starved",
 
-			ISNULL((select sum(y.duration) from mainquery y where x.facility_id = y.facility_id and y.States ='Blocked'),0)"blocked",
-			ISNULL((select sum(y.duration) from mainquery y where x.facility_id = y.facility_id and (y.States ='WaitingAttn' or y.States='RepairInProgress' or y.States='ShutDown' or y.States='Estop')),0)"Downtime"
-		from(
-			SELECT y.facility_id,y.zone FROM mainquery y
-			group by y.facility_id,y.zone
-		)x
-		END  
-	</select> -->
-	
 	<select id = "queryDownTime" resultMap="zoneOprVoMap">
 		select zone,facility_id as "facilityId", SUM(duration)  as "downTime"
 				from 
@@ -155,20 +124,6 @@
 				group by zone , facility_id ;	
 	</select>
 	
-	<!-- <select id = "queryDownTime" resultType="zoneOprVoMap">
-		select SUM(duration) as "downTime"
-		from PMC.dbo.PMC_BIW_FAULT where 1 = 1
- 		<if test="zone!=null and zone!=''">
- 			and zone = #{zone}
- 		</if>
-   		<if test="facilityId!=null and facilityId!=''">
-			and facility_id = #{facilityId}
-		</if>
-		<if test="workDay!=null">
-			and CONVERT(DATE,end_time,112) = CONVERT(DATE,#{workDay},112)
-		</if>
-	</select> -->
-	
 	<select id="queryTechAvali" resultMap="zoneOprVoMap">
 		select zone,tech_avail as "equipAvail"
 			from PMC.dbo.PMC_9PANEL_TA with(nolock)
@@ -195,38 +150,6 @@
 			</where>
 	</select>
 	
-	
-	
-	<!-- <select id="queryTechAvali" resultType="zoneOprVoMap">
-		select tech_avail as "equipAvail"
-			from PMC.dbo.PMC_9PANEL_TA 
-			where 1 = 1
-			
-	 		<if test="area!=null and area!=''">
-				and line = #{area}
-			</if>
-			<if test="zone!=null and zone!=''">
-				and zone = #{zone}
-			</if>
-		<choose>
-			<when test="shift!=null and shift!=''">
-				AND shift = #{shift}
-			</when>
-			<otherwise>
-				AND shift = 'D'
-			</otherwise>
-		</choose>
-		<choose>
-			<when test="workDay!=null">
-				AND CONVERT(VARCHAR(100),workingDay,112) = CONVERT(VARCHAR(100),#{workDay},112) 
-			</when>	
-			<otherwise>
-				AND CONVERT(VARCHAR(100),workingDay,112) = CONVERT(VARCHAR(100),GETDATE(),112)
-			</otherwise>
-		</choose>
-		AND levels = 'zone'
-		AND frequency = '1'
-	</select> -->
 	
 	<select id="queryGoodPartCount" resultMap="zoneOprVoMap">
 		select 
@@ -260,45 +183,13 @@
 			group by zone,facility_id
 	</select>
 	
-	<!-- <select id="queryGoodPartCount" resultType="zoneOprVoMap">
-		select 
-			max(good_cycle_count) "goodPartCount"
-		from PMC.dbo.PMC_BIW_CYCLE
-		where 1 = 1
-		
-		<if test="area!=null and area!=''">
-			and area=#{area}
-		</if>
-		<if test="zone!=null and zone!=''">
-			and zone = #{zone}
-		</if>
-		  <if test="facilityId!=null and facilityId!=''">
-			and facility_id = #{facilityId}
-		</if>
-		<choose>
-			<when test="workDay!=null">
-				and CONVERT(DATE,end_time,112) = CONVERT(DATE,#{workDay},112)
-			</when>
-			<otherwise>
-				and CONVERT(DATE,end_time,112) = CONVERT(DATE,GETDATE(),112)
-			</otherwise>
-		</choose>
-		<choose>
-			<when test="shift!=null and shift!=''">
-				and shift = #{shift}
-			</when>
-			<otherwise>
-				and shift = 'D'
-			</otherwise>
-		</choose>
-	</select> -->
 	
-	<select id="queryAvailableTime" resultMap="zoneOprVoMap">
-		select available_time as "availableTime" ,zone
-		from PMC.dbo.PMC_OPR 
+	<select id="queryZoneOpr" resultMap="zoneOprVoMap">
+		select zone,actual_production_opr,actual_equipment_opr
+		from PMC.dbo.Final_BIW3_OPR 
 		where 1 = 1
 		<if test="area!=null and area!=''">
-			and line = #{area}
+			and area = #{area}
 		</if>
 		<if test="zoneList!=null">
 		 	and zone in
@@ -306,16 +197,10 @@
       			#{zone}
    			</foreach>
 		</if>
-		<!-- <if test="facilityIdList!=null">
-			AND facility_id in
-				<foreach item="facilityId" index="index" collection="facilityIdList" open="(" separator="," close=")" >
-      				#{facilityId}
-   			</foreach>
-		</if> -->
 		<if test="workDay!=null and workDay!=''">
-			and CONVERT(VARCHAR,workingDay,112) = CONVERT(VARCHAR,#{workDay},112)
+			and  CONVERT (DATE, work_day) = CONVERT (DATE ,#{workDay})
 		</if>
-		and levels='zone'
-		and frequency='Daily';
+		and opr_level='zone'
+		and frequency='Shiftwise'
 	</select>
 </mapper>

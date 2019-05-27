@@ -31,5 +31,5 @@ public interface TaBiw3OprDao extends BaseMapper<TaBiw3OprEntity> {
 	
 	List<ZoneOprVo> queryTechAvali(PageParamVo vo);
 	
-	List<ZoneOprVo> queryAvailableTime(PageParamVo vo);
+	List<ZoneOprVo> queryZoneOpr(PageParamVo vo);
 }

@@ -155,7 +155,7 @@
 		 INNER JOIN Uda_Order
 		    on WORK_ORDER.ORDER_KEY = UDA_ORDER.OBJECT_KEY
 		 where PLAN_START_DATE_T =
-		       (select TO_CHAR(TO_DATE(#{workDay}, 'MM/DD/YYYY'), 'DD-MON-YYYY') from dual)
+		       (select TO_CHAR(TO_DATE(#{sTime}, 'yyyy-MM-dd'), 'DD-MON-YYYY') from dual)
 		   AND MODEL_S in (select distinct MODEL_NAME_S
 		                     from At_Pmc_Model_Mapping
 		                    where SHOP_S = #{shop})

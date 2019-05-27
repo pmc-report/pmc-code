@@ -47,9 +47,6 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 		//返回结果
 		AreaOprVo areaVo = new AreaOprVo();
 		
-		//小数格式化
-		DecimalFormat df = new DecimalFormat("##0.00");
-		
 		//1.1获取标志位的zone计算OPR
 		List<MasterDataVo> OPRDataList = masterDataService.queryOPRData(params);
 		
@@ -67,7 +64,6 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 		}
 		
 		//2遍历根据每个需要计算OPR的zone编号和设备ID去查对应的OPR数据
-		float equipmentOpr = 0f,productionOpr = 0f;
 		if (OPRDataList != null && !OPRDataList.isEmpty()) {
 			List<String> zoneList = new ArrayList<String>();
 			List<Integer> facilityIdList = new ArrayList<Integer>();
@@ -80,33 +76,15 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 			params.put("zoneList", zoneList);
 			params.put("facilityIdList", facilityIdList);
 			PageParamVo paramsVo = new PageParamVo(params);
-			String shift = params.get("shift") == null ? "All" : (String)params.get("sgift");
+			String shift = params.get("shift") == null ? "All" : (String)params.get("shift");
 			paramsVo.setShift(shift);
 			List<ZoneOprVo> zoneOprVoList = generateZoneOprNew(paramsVo, OPRDataList);
-
-			if (zoneOprVoList != null && !zoneOprVoList.isEmpty()) {
-				for (ZoneOprVo zoneOpr : zoneOprVoList) {
-
-					// 设备OPR = （zone产量 * 设计节拍时间）/设备有效生产时间
-					equipmentOpr = (zoneOpr.getGoodPartCount() * zoneOpr.getCycleTime())
-							/ zoneOpr.getAvailableTime();
-					if (!Float.isNaN(equipmentOpr) && !Float.isInfinite(equipmentOpr)) {
-						zoneOpr.setEquipmentOpr(Float.parseFloat(df.format(equipmentOpr)));
-					} else {
-						zoneOpr.setEquipmentOpr(0.00f);
-					}
-					// 生产OPR = （zone产量 * 标准节拍时间）/设备有效生产时间
-					productionOpr = (zoneOpr.getGoodPartCount() * zoneOpr.getCycleTime())
-							/ zoneOpr.getAvailableTime();
-					if (!Float.isNaN(productionOpr) && !Float.isInfinite(productionOpr)) {
-						zoneOpr.setProductionOpr(Float.parseFloat(df.format(productionOpr)));
-					} else {
-						zoneOpr.setProductionOpr(0.00f);
-					}
+			
+			if(!areaMap.isEmpty()) {
+				for(ZoneOprVo zoneOpr : zoneOprVoList) {
 					zoneOprList.add(zoneOpr);
-
 					String zoneKey = zoneOpr.getZone() + "_" + zoneOpr.getFacilityId();
-					if (areaMap.containsKey(zoneKey)) {
+					if(areaMap.containsKey(zoneKey)) {
 						areaVo.setArea(areaEol.getLineNo());
 						areaVo.setActual(zoneOpr.getGoodPartCount());
 						areaVo.setShiftPlan(shiftPlan);
@@ -116,9 +94,18 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 						areaVo.setProductionOpr(zoneOpr.getProductionOpr());
 						areaVo.setZoneList(zoneOprList);
 						areaList.add(areaVo);
-
 					}
 				}
+			} else {
+				areaVo.setArea(vo.getArea());
+				areaVo.setActual(0);
+				areaVo.setShiftPlan(shiftPlan);
+				Integer variation = shiftPlan - 0;
+				areaVo.setVariation(variation);
+				areaVo.setEquipmentOpr(0.0f);
+				areaVo.setProductionOpr(0.0f);
+				areaVo.setZoneList(zoneOprVoList);
+				areaList.add(areaVo);
 			}
 		}
 		/*for(MasterDataVo masterVo : OPRDataList) {
@@ -164,11 +151,14 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 		
 		List<ZoneOprVo> result = new ArrayList<ZoneOprVo>();
 		
+		//小数格式化
+		DecimalFormat df = new DecimalFormat("##0.00");
+		
 		List<ZoneOprVo> oprStates = baseMapper.queryStarvedAndblocked(paramsVo);
 		List<ZoneOprVo> oprDownTime = baseMapper.queryDownTime(paramsVo);
 		List<ZoneOprVo> oprEquipAvail = baseMapper.queryTechAvali(paramsVo);
 		List<ZoneOprVo> oprGoodPartCount = baseMapper.queryGoodPartCount(paramsVo);
-		List<ZoneOprVo> oprAvailableTime = baseMapper.queryAvailableTime(paramsVo);
+		List<ZoneOprVo> oprZone = baseMapper.queryZoneOpr(paramsVo);
 		
 		for(int i = 0 ; i< oPRDataList.size();i++) {
 			ZoneOprVo oprVo = new ZoneOprVo();
@@ -231,7 +221,7 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 					}
 				}
 			}else {
-				oprVo.setDownTime(0);
+				oprVo.setEquipAvail(0f);
 			}
 		
 			if(oprGoodPartCount !=null && !oprGoodPartCount.isEmpty()) {
@@ -250,21 +240,33 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 			}else {
 				oprVo.setGoodPartCount(0);
 			}
-			if(oprAvailableTime != null && !oprAvailableTime.isEmpty()) {
-				for (ZoneOprVo oprAvaTime : oprAvailableTime) {
+			if(oprZone != null && !oprZone.isEmpty()) {
+				for (ZoneOprVo oprAvaTime : oprZone) {
 					if(oprVo.getZone().equals(oprAvaTime.getZone())) {
-						if(oprAvaTime.getAvailableTime() != null) {
-							oprVo.setAvailableTime(oprAvaTime.getAvailableTime());
+
+						// 设备OPR = （zone产量 * 设计节拍时间）/设备有效生产时间
+						Float equipmentOpr = oprAvaTime.getEquipmentOpr();
+						if(equipmentOpr != null 
+								&& !Float.isNaN(equipmentOpr) 
+								&& !Float.isInfinite(equipmentOpr)) {
+							oprVo.setEquipmentOpr(Float.parseFloat(df.format(equipmentOpr)));
 						}else {
-							oprVo.setAvailableTime(0f);
+							oprVo.setEquipmentOpr(0.00f);
 						}
+						
+						// 生产OPR = （zone产量 * 标准节拍时间）/设备有效生产时间
+						Float productionOpr = oprAvaTime.getProductionOpr();
+						if (productionOpr != null 
+								&& !Float.isNaN(productionOpr) 
+								&& !Float.isInfinite(productionOpr)) {
+							oprVo.setProductionOpr(Float.parseFloat(df.format(productionOpr)));
+						} else {
+							oprVo.setProductionOpr(0.00f);
+						}
+						
 						break;
-					}else {
-						oprVo.setAvailableTime(0f);
 					}
 				}
-			}else {
-				oprVo.setAvailableTime(0f);
 			}
 			
 			result.add(oprVo);

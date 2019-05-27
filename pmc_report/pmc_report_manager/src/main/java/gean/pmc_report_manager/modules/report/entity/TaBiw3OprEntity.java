@@ -14,7 +14,7 @@ import java.util.Date;
  * @date 2019-04-10 13:54:04
  */
 @Data
-@TableName("PMC_OPR")
+@TableName("Final_BIW3_OPR")
 public class TaBiw3OprEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -22,11 +22,20 @@ public class TaBiw3OprEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
+	@TableId
+	private Integer rowId;
+	/**
+	 * $column.comments
+	 */
+	private Date dbTimeStamp;
+	/**
+	 * $column.comments
+	 */
 	private String shop;
 	/**
 	 * $column.comments
 	 */
-	private String line;
+	private String area;
 	/**
 	 * $column.comments
 	 */
@@ -34,15 +43,19 @@ public class TaBiw3OprEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private String station;
-	/**
-	 * $column.comments
-	 */
 	private String equipment;
 	/**
 	 * $column.comments
 	 */
-	private Integer facilityId;
+	private String facilityDesc;
+	/**
+	 * $column.comments
+	 */
+	private String station;
+	/**
+	 * $column.comments
+	 */
+	private String jobId;
 	/**
 	 * $column.comments
 	 */
@@ -54,7 +67,23 @@ public class TaBiw3OprEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private Integer availableTime;
+	private Integer duration;
+	/**
+	 * $column.comments
+	 */
+	private Float actualEquipmentOpr;
+	/**
+	 * $column.comments
+	 */
+	private Float actualProductionOpr;
+	/**
+	 * $column.comments
+	 */
+	private Float targetEquipmentOpr;
+	/**
+	 * $column.comments
+	 */
+	private Float targetProductionOpr;
 	/**
 	 * $column.comments
 	 */
@@ -62,15 +91,11 @@ public class TaBiw3OprEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
+	private String oprLevel;
+	/**
+	 * $column.comments
+	 */
 	private String frequency;
-	/**
-	 * $column.comments
-	 */
-	private Integer workingday;
-	/**
-	 * $column.comments
-	 */
-	private String levels;
 	/**
 	 * $column.comments
 	 */
@@ -78,13 +103,22 @@ public class TaBiw3OprEntity implements Serializable {
 	/**
 	 * $column.comments
 	 */
-	private Float tarOpr;
+	private Boolean tavFlag;
 	/**
 	 * $column.comments
 	 */
-	private Integer designCycleTime;
+	private Integer historical;
 	/**
 	 * $column.comments
 	 */
-	private Float productionOpr;
+	private Date workDay;
+	/**
+	 * $column.comments
+	 */
+	private Integer facilityId;
+	/**
+	 * $column.comments
+	 */
+	private Integer downtime;
+
 }
