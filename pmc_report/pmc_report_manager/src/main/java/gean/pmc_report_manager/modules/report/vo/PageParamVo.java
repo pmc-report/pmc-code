@@ -57,21 +57,19 @@ public class PageParamVo {
 		station = (String)params.get("station")==null?"":(String)params.get("station");
 		frequency = (String)params.get("frequency")==null?"":(String)params.get("frequency");
 		shift = (String)params.get("shift")==null?"":(String)params.get("shift");
-		if(StringUtils.isNotNull(params.get("sTime"))) {
-			String sTime = (String)params.get("sTime");
+		String sTime = (String)params.get("sTime");
+		if(sTime!=null&&!"".equals(sTime)) {
 			sTime = sTime+" 00:00:00";
 			startTime = DateUtils.stringToDate(sTime, DateUtils.DATE_TIME_PATTERN);
 		}
-		
-		if(StringUtils.isNotNull(params.get("eTime"))) {
-			String eTime = (String)params.get("eTime");
+		String eTime = (String)params.get("eTime");
+		if(eTime!=null&&!"".equals(eTime)) {
 			eTime = eTime+" 23:59:59";
 			endTime = DateUtils.stringToDate(eTime, DateUtils.DATE_TIME_PATTERN);
 		}
 		
-		if(StringUtils.isNotNull(params.get("sTime"))) {
-			String str = (String)params.get("sTime");
-			workDay = str.replaceAll("-", "");
+		if(sTime!=null&&!"".equals(sTime)) {
+			workDay = sTime.replaceAll("-", "");
 		}
 		
 		area = (String)params.get("area");
