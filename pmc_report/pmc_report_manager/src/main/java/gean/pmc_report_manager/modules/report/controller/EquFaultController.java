@@ -92,8 +92,12 @@ public class EquFaultController {
 				exportfault.setReasonDescription(taEquFaultEntity.getReasonDescription());
 				exportfault.setStartTime_2(taEquFaultEntity.getStartTime() == null ? "" : DateUtils.format(taEquFaultEntity.getStartTime(), DateUtils.DATE_TIME_PATTERN));
 				exportfault.setEndTime_2(taEquFaultEntity.getEndTime() == null ? "" : DateUtils.format(taEquFaultEntity.getEndTime(), DateUtils.DATE_TIME_PATTERN));
-				exportfault.setDuration(taEquFaultEntity.getDuration() == null ? "" : taEquFaultEntity.getDuration().toString());
-				exportfault.setDuration_2(totalDur.getDuration() == null ? "0" : totalDur.getDuration().toString());
+				//单条持续时间
+				Integer duration = taEquFaultEntity.getDuration();
+				exportfault.setDuration(DateUtils.longToDate(duration));
+				//总持续时间
+				Integer totalDuration = totalDur.getDuration();
+				exportfault.setDuration_2(DateUtils.longToDate(totalDuration));
 	        	exportList.add(exportfault);
         	}
         }else {

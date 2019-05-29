@@ -61,6 +61,24 @@ public class DateUtils {
         return null;
     }
     
+    /**
+     * 毫秒转时间
+     */
+    public static String longToDate(Integer dur ) {
+        if (dur == null){
+            return null;
+        }
+        long mss = Long.parseLong(dur.toString());
+        String DateTimes = null;
+        long hours = (mss % ( 60 * 60 * 24)) / (60 * 60);
+        long minutes = (mss % ( 60 * 60)) /60;
+        long seconds = mss % 60;
+
+        DateTimes=String.format("%02d:", hours)+ String.format("%02d:", minutes) + String.format("%02d", seconds);
+        String.format("%2d:", hours);
+        return DateTimes;
+    }
+    
 
     /**
      * 字符串转换成日期
