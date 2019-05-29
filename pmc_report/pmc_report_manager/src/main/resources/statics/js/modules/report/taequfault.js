@@ -330,8 +330,15 @@ function exportfault() {
 	$("#faultjobId").val($("#jobId_search").val());
 	$("#faultstime").val($("#startTime").val());
 	$("#faulteTime").val($("#endTime").val());
-	$("#faultshift").val($("#shift").val());
+	$("#faultshift").val($("#shift_search").val());
 	
-	$("#exportfalut").attr("action", "/pmc/report/fault/exportFault")
-	$("#exportfalut").submit();
+	if($("#faultshop").val() == null || $("#faultshop").val() == ''){
+		alert("请选择车间！");
+	}else if($("#faultarea").val() == null || $("#faultarea").val() == ''){
+		alert("请选择区域！");
+	}else{
+		$("#exportfalut").attr("action", "/pmc/report/fault/exportFault")
+		$("#exportfalut").submit();
+	}
+
 }
