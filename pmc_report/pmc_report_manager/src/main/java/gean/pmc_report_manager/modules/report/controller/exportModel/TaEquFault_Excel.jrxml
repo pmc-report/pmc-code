@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="1300" pageHeight="595" orientation="Landscape" columnWidth="1260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c380ecfa-0df5-43c4-b6b3-f6db35fb75c6">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="shop" class="java.lang.String"/>
+	<field name="zone" class="java.lang.String"/>
+	<field name="line" class="java.lang.String"/>
+	<field name="equipment" class="java.lang.String"/>
+	<field name="station" class="java.lang.String"/>
+	<field name="jobId" class="java.lang.String"/>
+	<field name="facilityDesc" class="java.lang.String"/>
+	<field name="startTime" class="java.lang.String"/>
+	<field name="endTime" class="java.lang.String"/>
+	<field name="duration" class="java.lang.String"/>
+	<field name="faultWord1" class="java.lang.String"/>
+	<field name="faultWord2" class="java.lang.String"/>
+	<field name="faultWord3" class="java.lang.String"/>
+	<field name="faultDescription" class="java.lang.String"/>
+	<field name="reasonCode" class="java.lang.String"/>
+	<field name="reasonDescription" class="java.lang.String"/>
+	<field name="shift" class="java.lang.String"/>
+	<field name="posWord31" class="java.lang.String"/>
+	<field name="line_2" class="java.lang.String"/>
+	<field name="zone_2" class="java.lang.String"/>
+	<field name="station_2" class="java.lang.String"/>
+	<field name="facilityId_2" class="java.lang.String"/>
+	<field name="jobId_2" class="java.lang.String"/>
+	<field name="startTime_2" class="java.lang.String"/>
+	<field name="endTime_2" class="java.lang.String"/>
+	<field name="duration_2" class="java.lang.String"/>
+	<variable name="index" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{index}.valueOf(1)]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="127" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="1160" height="58" uuid="8cae7e01-1dbd-4d61-b631-52103e547c4d"/>
+				<textElement>
+					<font size="20" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[  Equipment Fault Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="58" width="100" height="34" uuid="9213922e-4b98-4bcd-911a-0e56ff87145f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[车间]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="58" width="100" height="34" uuid="7f3ae071-8643-4d62-a321-5bf8b26efa49"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shop}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="58" width="100" height="34" uuid="7252d2e5-4152-40e4-ab1d-12a092fa7388"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Zone]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="58" width="100" height="34" uuid="c22dcb2a-a6bb-42c0-937a-6acc889d83d3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="400" y="58" width="100" height="34" uuid="b5b2c042-6b30-4b8a-92d2-06cc40b2f633"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[设备]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="500" y="58" width="100" height="34" uuid="983338c9-e7d2-433e-b57c-82782ea8338c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipment}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="600" y="58" width="100" height="34" uuid="a7f852fc-dbf6-431d-8fce-2093955326b9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[时间范围从]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="700" y="58" width="180" height="34" uuid="d1b4e37b-0313-49a5-a0a5-a7dda1258938"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{startTime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="880" y="58" width="100" height="34" uuid="b1d19cf8-61f7-4422-9bc9-030b4c7337fc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[班次]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="980" y="58" width="180" height="34" uuid="bf424c2f-6c3e-459e-a366-43f2a91a1952"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shift}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="92" width="100" height="35" uuid="6999c509-1f95-4503-b855-c782d7d6b162"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[区域]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="92" width="100" height="35" uuid="a348a463-b901-4b31-a44f-1846fb793ac5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{line}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="200" y="92" width="100" height="35" uuid="c4f63da5-7331-4515-883c-d19884956dc4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[工位]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="92" width="100" height="35" uuid="c7de3ebc-bdf4-42e4-9edc-bb5b8aa071e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{station}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="400" y="92" width="100" height="35" uuid="aed948f7-841f-4568-bad5-1c9f948c3fc3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[车型]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="500" y="92" width="100" height="35" uuid="91a6d078-cb65-4361-a0bb-d64ba72a6551"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jobId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="600" y="92" width="100" height="35" uuid="ce6d9e80-cb78-48cb-9085-eb1e6fcef40d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[到]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="700" y="92" width="180" height="35" uuid="9997e983-2941-464c-a284-9c26faf91be6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endTime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="880" y="92" width="100" height="35" uuid="d0c1998d-407c-4a6f-b97e-44cac561e609"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[报表生成时间]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="980" y="92" width="180" height="35" uuid="6672fd9e-277f-4a10-9a6c-008b48df915a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[java.util.Calendar.getInstance().getTime()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="4" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="319" y="12" width="49" height="34" uuid="6f7c01a8-ad8c-4842-9ddc-08f0773b6bee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[车型]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="524" y="12" width="80" height="34" uuid="acd05035-7392-463e-b52c-6e797ce4c71f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[fault_Word3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="897" y="12" width="85" height="34" uuid="670ecbc4-6eaa-4609-9991-e64cfa6de912"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[原因描述]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="814" y="12" width="83" height="34" uuid="ac686a22-3ab4-4c37-aff5-20c8cb4fd342"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[原因代码]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1070" y="12" width="90" height="34" uuid="3d4a2f12-33ba-47c8-af93-464402a3c2d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[结束时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="12" width="76" height="34" uuid="529c6c43-4843-4872-b834-3c2ee000e899"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[fault_Word1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="684" y="12" width="130" height="34" uuid="bd3e1edd-bfdc-46a6-9ba2-1ef2aee1784d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[故障描述]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="982" y="12" width="88" height="34" uuid="a146ae79-4e0b-46ef-bce7-ee3bd1676216"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[开始时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="12" width="32" height="34" uuid="043768c2-ddaf-4983-8fe0-f727597f5c89"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[序号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="12" width="80" height="34" uuid="0fe3b176-480a-4291-be96-34fef919496a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[fault_Word2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="604" y="12" width="80" height="34" uuid="b176e2e9-a2a8-4cac-84f4-29151fe0d893"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Word31]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="12" width="70" height="34" uuid="288ae6d5-e8bd-47ff-b50b-5e0148a8fd02"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[工位]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="12" width="65" height="34" uuid="7c047fa3-5688-41ee-87cf-4b8f1047619b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[设备名称]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="12" width="54" height="34" uuid="38170252-f104-4992-a64f-2c2534ff5432"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[设备号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1160" y="12" width="100" height="34" uuid="fb022613-bb6b-4319-bff6-d069f9b9c699"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[持续时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="32" y="12" width="58" height="34" uuid="345f2bd4-2121-4c91-85a3-6988b6af8332"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[区域]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="12" width="40" height="34" uuid="f53164c7-9229-4e27-bd55-a8f667829555"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Zone]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="34" splitType="Stretch">
+			<textField>
+				<reportElement x="200" y="0" width="54" height="34" uuid="d948b0ed-6b83-44c9-8135-d4c0b78c5904"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{facilityId_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="32" y="0" width="58" height="34" uuid="7da5c986-8a16-45da-b073-662b516acc34"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{line_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="897" y="0" width="85" height="34" uuid="6a09e557-c47d-409a-96cd-449c003c8090"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{reasonDescription}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="684" y="0" width="130" height="34" uuid="6a1fbed5-51a5-45e6-ae17-1aeffbb9eb91"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{faultDescription}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="982" y="0" width="88" height="34" uuid="278500ce-1ce8-4e55-a37a-0df4826a974e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{startTime_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="0" width="70" height="34" uuid="8a2a3a9b-e71a-4c91-adba-276aabdc0880"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{station_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="0" width="40" height="34" uuid="56072aff-4097-4e99-adc2-e51fa52cbaa9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{zone_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="32" height="34" uuid="dd637f58-892e-4035-9de1-858eb8a78737"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{index}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="814" y="0" width="83" height="34" uuid="67d06f54-8b61-429c-8082-17947ba38cc9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{reasonCode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1070" y="0" width="90" height="34" uuid="934742f3-6c6f-4602-be7a-f5da502134da"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{endTime_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="524" y="0" width="80" height="34" uuid="caec2203-9238-4288-8ea3-f8771256b5db"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{faultWord3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="80" height="34" uuid="da622cad-3af8-447c-901c-10b7d67916e2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{faultWord2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="254" y="0" width="65" height="34" uuid="f6016df0-a79c-44b4-8c68-6d689f6ce715"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{facilityDesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="76" height="34" uuid="a1f850ab-0ab2-4359-8e5c-01000c5af9c0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{faultWord1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="319" y="0" width="49" height="34" uuid="40204d7c-4566-47e2-ad9e-c99c65353c07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jobId_2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1160" y="0" width="100" height="34" uuid="549100a4-731a-4b79-9d00-5a2b0c98a8f7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{duration}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="604" y="0" width="80" height="34" uuid="29ad03bb-7f98-4bb9-8410-5ed1fd9d13e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{posWord31}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="3" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="4" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="630" height="34" uuid="33019a17-9594-49ee-86e5-9353b1adf1aa"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[总持续时间：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="630" y="0" width="630" height="34" uuid="7cbd3a11-f19f-4224-a080-177e1da423f4"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{duration_2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

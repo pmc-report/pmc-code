@@ -118,4 +118,16 @@ public class TaEquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFault
 		}*/
 		return page;
 	}
+
+	@Override
+	public List<TaEquFaultEntity> queryExportFault(Map<String, Object> params) {
+		PageParamVo vo = new PageParamVo(params);
+
+		String str = vo.getEquipment();
+		str = str.replaceAll("&amp;", "&");
+		vo.setEquipment(str);
+
+		List<TaEquFaultEntity> faultList = baseMapper.qureyFualtList(vo);
+		return faultList;
+	}
 }

@@ -318,3 +318,20 @@ function initTable(url,queryParams){
 	  
 	  $('#equFaultTableStyle .columns').css("margin-top","-164px");
 }
+
+
+function exportfault() {
+	
+	$("#faultshop").val($("#shop_search").val());
+	$("#faultarea").val($("#area_search").val());
+	$("#faultzone").val($("#zone_search").val());
+	$("#faultstation").val($("#station_search").val());
+	$("#faultequipment").val($('#equ_search').val());
+	$("#faultjobId").val($("#jobId_search").val());
+	$("#faultstime").val($("#startTime").val());
+	$("#faulteTime").val($("#endTime").val());
+	$("#faultshift").val($("#shift").val());
+	
+	$("#exportfalut").attr("action", "/pmc/report/fault/exportFault")
+	$("#exportfalut").submit();
+}

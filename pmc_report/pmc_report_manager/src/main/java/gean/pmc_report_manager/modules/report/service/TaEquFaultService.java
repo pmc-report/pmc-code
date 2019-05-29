@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +26,13 @@ public interface TaEquFaultService extends IService<TaEquFaultEntity> {
      * @return
      */
     PageUtils queryEquFaultByParam(Map<String, Object> params);
+    
+    /**
+     * 导出
+     * @param params
+     * @return
+     */
+    List<TaEquFaultEntity> queryExportFault(Map<String, Object> params);
 
 }
 

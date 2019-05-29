@@ -76,88 +76,7 @@
 			<band splitType="Stretch"/>
 		</groupHeader>
 		<groupFooter>
-			<band height="40" splitType="Stretch">
-				<staticText>
-					<reportElement key="staticText-86" x="52" y="25" width="42" height="15" uuid="690949dc-1067-41bd-8ef4-db00b305da5e"/>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
-					</textElement>
-					<text><![CDATA[车间:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement key="staticText-88" x="117" y="12" width="42" height="15" uuid="12f484b7-45fb-4cea-b635-cc3a6c14c315"/>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
-					</textElement>
-					<text><![CDATA[班次:]]></text>
-				</staticText>
-				<textField isBlankWhenNull="true">
-					<reportElement key="textField-4" x="322" y="12" width="91" height="15" uuid="f0e5bbe4-6fd6-4c7f-a202-7fcd9c76bbed"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="宋体" size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{stime}]]></textFieldExpression>
-				</textField>
-				<staticText>
-					<reportElement key="staticText-89" x="454" y="25" width="42" height="15" uuid="e3c6b539-e0e7-40e8-ad0b-76abfccd6402"/>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
-					</textElement>
-					<text><![CDATA[日期:]]></text>
-				</staticText>
-				<staticText>
-					<reportElement key="staticText-90" x="413" y="10" width="68" height="15" uuid="b4e8ee8d-3902-4921-ad53-f81f0e2eb3f4"/>
-					<box>
-						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					</box>
-					<textElement textAlignment="Center" verticalAlignment="Middle">
-						<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
-					</textElement>
-					<text><![CDATA[报表生成时间:]]></text>
-				</staticText>
-				<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="false">
-					<reportElement key="textField-5" x="0" y="10" width="116" height="15" uuid="c4b09bd9-ff0c-4b1b-a281-36ddf5882d35"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="宋体" size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[java.util.Calendar.getInstance().getTime()]]></textFieldExpression>
-				</textField>
-				<textField isBlankWhenNull="false">
-					<reportElement key="textField-2" x="192" y="10" width="56" height="15" uuid="bd8783f3-643a-46d9-ae8a-fd7a3b96e891"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="宋体" size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{shop}]]></textFieldExpression>
-				</textField>
-				<textField isBlankWhenNull="false">
-					<reportElement key="textField-3" x="248" y="25" width="56" height="15" uuid="757c482f-a660-44aa-9934-0cc2155e1f2b"/>
-					<textElement textAlignment="Left" verticalAlignment="Middle">
-						<font fontName="宋体" size="8"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{shift}]]></textFieldExpression>
-				</textField>
-			</band>
+			<band height="40" splitType="Stretch"/>
 		</groupFooter>
 	</group>
 	<background>
@@ -311,6 +230,110 @@
 				</textElement>
 				<text><![CDATA[设备OPR]]></text>
 			</staticText>
+			<rectangle>
+				<reportElement x="1" y="55" width="43" height="20" uuid="110501f5-6071-4ad2-9ca8-b6850be880da"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText-86" x="1" y="55" width="44" height="20" uuid="690949dc-1067-41bd-8ef4-db00b305da5e"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[车间:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="44" y="55" width="56" height="20" uuid="848984a9-1604-49ae-b7dc-ce3002e705cb"/>
+			</rectangle>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-2" x="45" y="55" width="55" height="20" uuid="bd8783f3-643a-46d9-ae8a-fd7a3b96e891"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="宋体" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shop}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="100" y="55" width="42" height="20" uuid="6499b98e-6ba5-45a6-a01b-fb513c151ef4"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText-88" x="100" y="55" width="42" height="20" uuid="12f484b7-45fb-4cea-b635-cc3a6c14c315"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[班次:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="142" y="55" width="56" height="20" uuid="f1fff4a4-aecc-41fa-a4d3-6a1a21389740"/>
+			</rectangle>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-3" x="142" y="55" width="56" height="20" uuid="757c482f-a660-44aa-9934-0cc2155e1f2b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="宋体" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shift}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="198" y="55" width="42" height="20" uuid="ed0b43f4-0aa2-49a1-8c1a-cad383a0060a"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText-89" x="198" y="55" width="42" height="20" uuid="e3c6b539-e0e7-40e8-ad0b-76abfccd6402"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[日期:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="240" y="55" width="91" height="20" uuid="1c328884-868f-4e1c-9e4b-9b0e00a38496"/>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-4" x="240" y="55" width="91" height="20" uuid="f0e5bbe4-6fd6-4c7f-a202-7fcd9c76bbed"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="宋体" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{stime}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="331" y="55" width="68" height="20" uuid="9eec2949-1db7-4213-82e0-b56542398652"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText-90" x="331" y="55" width="68" height="20" uuid="b4e8ee8d-3902-4921-ad53-f81f0e2eb3f4"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[报表生成时间:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="399" y="55" width="134" height="20" uuid="c7ca8d51-9aed-4b09-babf-d221e00e0572"/>
+			</rectangle>
+			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="false">
+				<reportElement key="textField-5" x="399" y="55" width="134" height="20" uuid="c4b09bd9-ff0c-4b1b-a281-36ddf5882d35"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="宋体" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[java.util.Calendar.getInstance().getTime()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>

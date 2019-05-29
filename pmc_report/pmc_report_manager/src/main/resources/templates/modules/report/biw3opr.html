@@ -132,13 +132,13 @@
 	</div>
 	<form id = "oprform" method="post">
 		<input type = "hidden" name = "shop" id = "oprshop" />
-		<input type = "hidden" name = "area" id = "oprarea"s/>
+		<input type = "hidden" name = "area" id = "oprarea"/>
 		<input type = "hidden" name = "shift" id = "oprshift"/>
 		<input type = "hidden" name = "sTime" id = "oprstime"/>
 		<select id="export_type" name="exoprtType" lay-verify="required">
 			<option value = "excel">excel</option>
-			<!-- <option value = "word">word</option> 
-			<option value = "pdf">pdf</option> -->
+			<option value = "word">word</option> 
+			<option value = "pdf">pdf</option>
 		</select>
 		<input type= "button" id = "oprsub" value = "导出" onclick="oprsubmit()"/>
 	</form>

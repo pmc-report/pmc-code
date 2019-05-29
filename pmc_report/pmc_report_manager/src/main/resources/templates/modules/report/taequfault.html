@@ -113,7 +113,7 @@
 					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
 						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">设备</label>
 						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
-							<select class="form-control" id="equ_search" name="jobId" lay-verify="required"></select>
+							<select class="form-control" id="equ_search" name="equipment" lay-verify="required"></select>
 						</div>
 					</div>
 					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -181,6 +181,23 @@
 			</div>
 		</div>
 	</div>
+	<form method="post" id = "exportfalut">
+		<input type = "hidden" name = "shop" id = "faultshop" />
+		<input type = "hidden" name = "area" id = "faultarea"/>
+		<input type = "hidden" name = "zone" id = "faultzone"/>
+		<input type = "hidden" name = "station" id = "faultstation"/>
+		<input type = "hidden" name = "equipment" id = "faultequipment"/>
+		<input type = "hidden" name = "jobId" id = "faultjobId"/>
+		<input type = "hidden" name = "sTime" id = "faultstime"/>
+		<input type = "hidden" name = "eTime" id = "faulteTime"/>
+		<input type = "hidden" name = "shift" id = "faultshift"/>
+		<select id="exportfault_type" lay-verify="required" name = "exoprtType">
+			<option value = "excel">excel</option>
+			<option value = "word">word</option> 
+			<option value = "pdf">pdf</option>
+		</select>
+		<input type = "button" value = "导出" onclick="exportfault()"/>
+	</form>
 	<script src="${request.contextPath}/statics/js/modules/report/taequfault.js?_${.now?long}"></script>
 </body>
 </html>
