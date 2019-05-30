@@ -63,7 +63,9 @@
 				       C.EQUIPMENT_TYPE_S,
 				       C.EQUIPMENT_S
   				FROM AT_PMC_MASTERDATA_CONFIG C
- 				WHERE C.SHOP_S IN ('CS01_BS3') AND C.LINE_S NOT IN ('Closure','Bodyside') ) TB
+ 				WHERE C.SHOP_S IN ('CS01_BS3')
+ 				AND C.LINE_S NOT IN ('Closure','Bodyside') 
+				AND C.ZONE_S NOT IN ('Z98.4') ) TB
  		WHERE 1 = 1
 	</sql>
 	
@@ -89,7 +91,7 @@
 			and tb.shop_s=#{shopNo}
 		</if>
 		<if test="lineNo!=null and lineNo!=''">
-			and tb.line_s=#{lineNo}
+			and upper(tb.line_s) like upper('%'||#{lineNo}||'%')
 		</if>
 		order by TB.ZONE_S desc
 	</select>
@@ -100,7 +102,7 @@
 			and tb.shop_s=#{shopNo}
 		</if>
 		<if test="lineNo!=null and lineNo!=''">
-			and tb.line_s=#{lineNo}
+			and upper(tb.line_s) like upper('%'||#{lineNo}||'%')
 		</if>
 		<if test="zoneNo!=null and zoneNo!=''">
 			and tb.zone_s=#{zoneNo}
@@ -140,6 +142,7 @@
 		where shop_s=#{shop}
 		and line_s=#{area}
 		and eol_flag_y=1
+		order by zone_s asc
 	</select>
 	<select id="queryEolArea" resultMap="MasterDataVoMap">
 		select c.shop_s, c.line_s, c.zone_s, c.facility_id_i
@@ -147,6 +150,7 @@
 		where c.shop_s = #{shop}
 		and c.line_s = #{area}
 		and c.production_flag_y = 1
+		order by c.zone_s asc
 	</select>
 	
 	<select id="queryOPRShitfPlan" resultType="Integer">

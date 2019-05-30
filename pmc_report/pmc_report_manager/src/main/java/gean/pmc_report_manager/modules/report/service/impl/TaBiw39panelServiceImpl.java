@@ -41,15 +41,20 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 	public List<PanelVo> queryEchart(Map<String, Object> params) {
 		// TODO Auto-generated method stub
 		PageParamVo vo = new PageParamVo(params);
-		if(vo.getZone()!=null) {
+		if(vo.getZone()!=null
+				&&!"".equals(vo.getZone())) {
 			vo.setLevel("zone");
 		}
-		if("ALL".equals(vo.getLine())) {
+		if("".equals(vo.getArea())) {
 			vo.setLevel("shop");
 		}
-		if(!"ALL".equals(vo.getLine())
-				&&"ALL".equals(vo.getZone())) {
+		if(!"".equals(vo.getArea())
+				&&"".equals(vo.getZone())) {
 			vo.setLevel("line");
+		}
+		if(vo.getShift()==null
+				||"".equals(vo.getShift())) {
+			vo.setShift("ALL");
 		}
 		
 		List<PanelVo> list = baseMapper.queryEchart(vo);
