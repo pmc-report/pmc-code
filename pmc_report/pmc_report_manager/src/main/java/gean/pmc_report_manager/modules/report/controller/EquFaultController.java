@@ -57,12 +57,13 @@ public class EquFaultController {
         	for (TaEquFaultEntity taEquFaultEntity : result) {
            		EquFaultExport exportfault = new EquFaultExport();
         	
-        		exportfault.setShop(params.get("shop") == null ? "" : (String)params.get("shop"));
-        		exportfault.setLine(params.get("area") == null ? "" : (String)params.get("area"));
-        		exportfault.setZone(params.get("zone") == null ? "" : (String)params.get("zone"));
-        		exportfault.setStation(params.get("station") == null ? "" : (String)params.get("station"));
-        		exportfault.setJobId(params.get("jobId") == null ? "" : (String)params.get("jobId"));
-        		exportfault.setEquipment(params.get("equipment") == null ? "" : (String)params.get("equipment"));
+           		exportfault.setShop((String)params.get("shop") == null ? "" : (String)params.get("shop"));
+            	exportfault.setLine((String)params.get("area") == null ? "" : (String)params.get("area"));
+            	exportfault.setZone((String)params.get("zone") == null ? "" : (String)params.get("zone"));
+            	exportfault.setStation((String)params.get("station") == null ? "" : (String)params.get("station"));
+            	exportfault.setJobId((String)params.get("jobId") == null ? "" : (String)params.get("jobId"));
+            	exportfault.setEquipment((String)params.get("equipment") == null ? "" : (String)params.get("equipment"));
+            	exportfault.setEquipment((String)params.get("shift") == null ? "" : (String)params.get("shift"));
         		Object objstart = params.get("sTime");
         		if(objstart != null && "".equals(objstart)) {
         			exportfault.setStartTime((String)params.get("sTime") + " 00:00:00");
@@ -102,12 +103,13 @@ public class EquFaultController {
         	}
         }else {
         	EquFaultExport exportfault = new EquFaultExport();
-        	exportfault.setShop(params.get("shop") == null ? "" : (String)params.get("shop"));
-        	exportfault.setLine(params.get("area") == null ? "" : (String)params.get("area"));
-        	exportfault.setZone(params.get("zone") == null ? "" : (String)params.get("zone"));
-        	exportfault.setStation(params.get("station") == null ? "" : (String)params.get("station"));
-        	exportfault.setJobId(params.get("jobId") == null ? "" : (String)params.get("jobId"));
-        	exportfault.setEquipment(params.get("equipment") == null ? "" : (String)params.get("equipment"));
+        	exportfault.setShop((String)params.get("shop") == null ? "" : (String)params.get("shop"));
+        	exportfault.setLine((String)params.get("area") == null ? "" : (String)params.get("area"));
+        	exportfault.setZone((String)params.get("zone") == null ? "" : (String)params.get("zone"));
+        	exportfault.setStation((String)params.get("station") == null ? "" : (String)params.get("station"));
+        	exportfault.setJobId((String)params.get("jobId") == null ? "" : (String)params.get("jobId"));
+        	exportfault.setEquipment((String)params.get("equipment") == null ? "" : (String)params.get("equipment"));
+        	exportfault.setEquipment((String)params.get("shift") == null ? "" : (String)params.get("shift"));
         	Object objstart = params.get("sTime");
         	if(objstart != null && "".equals(objstart)) {
         		exportfault.setStartTime((String)params.get("sTime") + " 00:00:00");
