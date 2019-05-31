@@ -42,8 +42,8 @@ public class EquFaultController {
     @RequestMapping("/list")
     @RequiresPermissions("report:fault:list")
     public R list(@RequestParam Map<String, Object> params){
+    	TaEquFaultEntity totalDur = equFaultService.queryTotalMins(params);
         PageUtils page = equFaultService.queryEquFaultByParam(params);
-        TaEquFaultEntity totalDur = equFaultService.queryTotalMins(params);
     	int duration = totalDur==null?0:totalDur.getDuration();
         return R.ok().put("page", page).put("duration", duration);
     }
