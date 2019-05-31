@@ -135,6 +135,7 @@
 			AND end_Time &lt; CONVERT(datetime2,#{endTime},121)
 		</if>
 		 and fault_word3 !=0 
+		 and duration is not NULL
     </select>
     
     <select id="queryFacilityDesc" resultType="String">
