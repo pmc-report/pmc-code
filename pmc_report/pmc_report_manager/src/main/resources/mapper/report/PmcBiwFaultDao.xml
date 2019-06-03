@@ -104,6 +104,7 @@
 			AND end_Time &lt; CONVERT(datetime2,#{endTime},121)
 		</if>
 		 and fault_word3 !=0 
+		 and duration is not NULL
 		 ORDER BY t.facility_id asc,t.start_time DESC
 	</select>
 	
