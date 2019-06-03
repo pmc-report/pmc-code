@@ -10,6 +10,17 @@ $(function () {
 	$('#preDownTimeFoot').hide();
 	$('#preOccFoot').hide();
 });
+//preDownTime
+//用于存放parato-->Img
+var tableDownTimeparetoImgArray = new Array();
+//用于存放status-->Img
+var tableDownTimestatusImgArray = new Array();
+
+//preOcc
+//用于存放parato-->Img
+var tableOccparetoImgArray = new Array();
+//用于存放status-->Img
+var tableOccstatusImgArray = new Array();
 
 function initpanelTableTitle(params){
 
@@ -177,7 +188,7 @@ function initPreDownTime(queryParams){
 				case 3 : color = 'style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
 				 break;
 			}
-			return [ '<button type="button" class="btn btn-circle btn-lg" '+color+'></button>' ].join('');
+			return [ '<div class = "statusDownTime_'+index+'"><button type="button" class="btn btn-circle btn-lg" '+color+'></button></div>' ].join('');
 		}
 	     return '';
 	}
@@ -274,9 +285,9 @@ function initPreDownTime(queryParams){
 		if(mins!=null){
 			var width1 = occ>100?100:occ;
 			var width2 = mins>100?100:mins;
-			var dom =  '<input type="text" disabled="disabled" style="background-color: yellow;border: none;height: 12px;width: '+
+			var dom =  '<div class = "paretoDownTime_'+index+'"><input type="text" disabled="disabled" style="background-color: yellow;border: none;height: 12px;width: '+
 			width1 +'px"><span style="font-size:12px">'+ occ +'</span></input></br><input type="text" disabled="disabled" style="background-color: green;border: none;height: 12px;width: '+ 
-			width2.toFixed(1) +'%"><span style="font-size:12px">'+ mins.toFixed(2) +'</span></input>'
+			width2.toFixed(1) +'%"><span style="font-size:12px">'+ mins.toFixed(2) +'</span></input></div>'
 			
 			return dom;
 		}
@@ -321,6 +332,7 @@ function initPreDownTime(queryParams){
 				 }, {
 				  field: 'oldThenNew',
 				  title: 'New',
+				  cellStyle: getMins,
 				  formatter: fontFormatter,
 				 }, {
 				  field: 'occ1',
@@ -330,7 +342,6 @@ function initPreDownTime(queryParams){
 				 }, {
 				  field: 'mins1',
 				  title: 'Mins',
-				  cellStyle: getMins,
 				  footerFormatter: getMinsOld,
 				  formatter: fontFormatter,
 				 }, {
@@ -402,14 +413,61 @@ function initPreDownTime(queryParams){
 					toDate : queryParams.toDates
 	            }
 	     },
-		 onLoadSuccess: function (data) { 		//加载成功时执行
+		 onLoadSuccess: function (data) { 		// 加载成功时执行
 			 $('#preDownTimeFoot').show();
+			 //预先处理表格转换图片(base64)作导出时使用
+			 createDownTimeExportImg();
 		 },
 	     onLoadError: function (res) { 			//加载失败时执行
 	     }
 	});
 }
 
+function createDownTimeExportImg(){
+	var tableDownTimetrleg = $('#preDownTime tbody').find('tr').length;
+	var tableDownTimetdleg = $('#preDownTime tbody').find('tr').eq(0).find('td').length;
+	for(var i = 0 ; i <tableDownTimetrleg;i++){
+		for(var j = 0;j<tableDownTimetdleg;j++){
+			if(j == 6 || j == 7){
+				debugger;
+				//div转换成图片(base64编码)
+				var canvas2 = document.createElement("canvas");
+				if(j == 6){
+					_canvas = document.querySelector('.paretoDownTime_'+i);
+				}else if( j == 7){
+					_canvas = document.querySelector('.statusDownTime_'+i);
+				}
+				var w = parseInt(window.getComputedStyle(_canvas).width);
+				var h = parseInt(window.getComputedStyle(_canvas).height);
+				//将canvas画布放大若干倍，然后盛放在较小的容器内，就显得不模糊了
+				canvas2.width = w * 2;
+				canvas2.height = h * 2;
+				canvas2.style.width = w + "px";
+				canvas2.style.height = h + "px";
+				var context = canvas2.getContext("2d");
+				context.scale(2, 2);
+				if( j == 6){
+					createDownTimeDivtoCanvas('.paretoDownTime_'+i,canvas2,i,j)
+				}else if(j == 7){
+					createDownTimeDivtoCanvas('.statusDownTime_'+i,canvas2,i,j);
+				}
+			}
+		}
+	}
+}
+
+function createDownTimeDivtoCanvas(divClass,canvas2,i,j){
+	//回调函数
+	html2canvas(document.querySelector(divClass), { canvas: canvas2 }).then(function(canvas){
+//		console.log(canvas.toDataURL());
+		if(j == 6){
+			tableDownTimeparetoImgArray[i] = canvas.toDataURL();
+		}
+		if(j == 7){
+			tableDownTimestatusImgArray[i] = canvas.toDataURL();
+		}
+	})
+}
 function initOccTab(queryParams){ 
 	var fdates = queryParams.fDate;
 	var tdates = queryParams.tDate;
@@ -430,12 +488,12 @@ function initOccTab(queryParams){
 				case 3 : color = 'style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
 				 break;
 			}
-			return [ '<button type="button" class="btn btn-circle btn-lg" '+color+'></button>' ].join('');
+			return [ '<div class = "statusOcc_'+index+'"><button type="button" class="btn btn-circle btn-lg" '+color+'></button></div>' ].join('');
 		}
 	     return '';
 	}
 	var  responseHandler = function(res) { // 格式化数据
-		debugger
+		
 		if (res.preOccurrenceList !=null && res.preOccurrenceList.length > 0){
             tmp = {
                 total : res.totalCount,
@@ -528,9 +586,9 @@ function initOccTab(queryParams){
 		if(mins!=null){
 			var width1 = occ>100?100:occ;
 			var width2 = mins>100?100:mins;
-			var dom =  '<input type="text" disabled="disabled" style="background-color: yellow;border: none;height: 12px;width: '+
+			var dom =  '<div class= "paretoOcc_'+index+'"><input type="text" disabled="disabled" style="background-color: yellow;border: none;height: 12px;width: '+
 			width1 +'px"><span style="font-size:12px">'+ occ +'</span></input></br><input type="text" disabled="disabled" style="background-color: green;border: none;height: 12px;width: '+ 
-			width2.toFixed(1) +'%"><span style="font-size:12px">'+ mins.toFixed(2) +'</span></input>'
+			width2.toFixed(1) +'%"><span style="font-size:12px">'+ mins.toFixed(2) +'</span></input></div>'
 			
 			return dom;
 		}
@@ -586,7 +644,6 @@ function initOccTab(queryParams){
 				 }, {
 				  field: 'mins1',
 				  title: 'Mins',
-				  cellStyle: getMins,
 				  formatter: fontFormatter,
 				 }, {
 				  field: 'stn1',
@@ -659,10 +716,58 @@ function initOccTab(queryParams){
 	     },
 		 onLoadSuccess: function (data) { 		//加载成功时执行
 			 $('#preOccFoot').show();
+			 createOccExportImg();
 		 },
 	     onLoadError: function (res) { 			//加载失败时执行
 	     }
 	});
+	
+}
+
+function createOccExportImg(){
+	var tableOccparamstrleg = $('#preOcc tbody').find('tr').length;
+	var tableOccparamstdleg = $('#preOcc tbody').find('tr').eq(0).find('td').length;
+	for(var i = 0 ; i <tableOccparamstrleg;i++){
+		for(var j = 0;j<tableOccparamstdleg;j++){
+			if(j == 6 || j == 7){
+				debugger;
+				//div转换成图片(base64编码)
+				var canvas2 = document.createElement("canvas");
+				if(j == 6){
+					_canvas = document.querySelector('.paretoOcc_'+i);
+				}else if( j == 7){
+					_canvas = document.querySelector('.statusOcc_'+i);
+				}
+				var w = parseInt(window.getComputedStyle(_canvas).width);
+				var h = parseInt(window.getComputedStyle(_canvas).height);
+				//将canvas画布放大若干倍，然后盛放在较小的容器内，就显得不模糊了
+				canvas2.width = w * 2;
+				canvas2.height = h * 2;
+				canvas2.style.width = w + "px";
+				canvas2.style.height = h + "px";
+				var context = canvas2.getContext("2d");
+				context.scale(2, 2);
+				if( j == 6){
+					createOccDivtoCanvas('.paretoOcc_'+i,canvas2,i,j)
+				}else if(j == 7){
+					createOccDivtoCanvas('.statusOcc_'+i,canvas2,i,j);
+				}
+			}
+		}
+	}
+}
+
+function createOccDivtoCanvas(divClass,canvas2,i,j){
+	//回调函数
+	html2canvas(document.querySelector(divClass), { canvas: canvas2 }).then(function(canvas){
+//		console.log(canvas.toDataURL());
+		if(j == 6){
+			tableOccparetoImgArray[i] = canvas.toDataURL();
+		}
+		if(j == 7){
+			tableOccstatusImgArray[i] = canvas.toDataURL();
+		}
+	})
 }
 
 function queryReport(tag,params){
@@ -747,7 +852,7 @@ function echars(params){
 	                       },
 	                    }, 
 
-				    color: ['#2E9AFE','#FFA500'],
+				    color: ['#FFA500', '#2E9AFE'],
 				    //calculable: true,
 				    xAxis: [
 				        {
@@ -782,9 +887,9 @@ function echars(params){
 				        {
 				            name: 'Target MTBF',
 				            type: 'line',
-				            //label: labelOption,
+				            label: labelOption,
 				            data: tarMtbf,
-				            //hoverAnimation:false,
+				            hoverAnimation:false,
 				        },
 				    ]
 				};
@@ -861,7 +966,7 @@ function echars1(params){
 	                       },
 	                    }, 
 	                    
-				    color: ['#2E9AFE','#FFA500'],
+				    color: ['#FFA500', '#2E9AFE'],
 				    //calculable: true,
 				    xAxis: [
 				        {
@@ -904,9 +1009,9 @@ function echars1(params){
 				        {
 				            name: 'Target TAV',
 				            type: 'line',
-				            //label: labelOption,
+				            label: labelOption,
 				            data: tarTav,
-				            //hoverAnimation:false,
+				            hoverAnimation:false,
 				        },
 				       
 				    ],
@@ -984,7 +1089,7 @@ function echars2(params){
 	                   　　　　				fontSize:13
 	                       },
 	                    }, 
-				    color: ['#FFA500','#6fa8dc'],
+				    color: ['#FFA500', '#6fa8dc'],
 				    //calculable: true,
 				    xAxis: [
 				        {
@@ -1016,19 +1121,18 @@ function echars2(params){
 				    },
 				    series: [
 				        {
-				        	 name: 'Target TAV',
-					         type: 'line',
-					           // label: labelOption,
-					            data: tarTav,
-					            //hoverAnimation:false,
-				        },
-				        {
-				           
 				            name: 'TAV',
-				            type: 'bar',
+				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
 				            data: tav,
+				            hoverAnimation:false,
+				        },
+				        {
+				            name: 'Target TAV',
+				            type: 'bar',
+				            label: labelOption,
+				            data: tarTav,
 				            hoverAnimation:false,
 				        },
 				    ]
@@ -1041,6 +1145,27 @@ function echars2(params){
 }
 
 function report() {
+	
+	var fromDate = $('#fDate').val();
+	var toDate = $('#tDate').val();
+	var f_date = fromDate==null?'':JSON.stringify(fromDate);
+	var t_date = toDate==null?'':JSON.stringify(toDate);
+	fDates = f_date.replace(new RegExp('"',"gm"),'');
+	tDates = t_date.replace(new RegExp('"',"gm"),'');
+	
+	var params = {
+			shop : $("#shop_search").val(),
+			area : $("#area_search").val(),
+			zone : $("#zone_search").val(),
+			shift : $("#shift_search").val(),
+			formWeek : $("#startTime").val(),
+			toWeek : $("#endTime").val(),
+			jobId : $("#jobId_search").val(),
+			fromDates : fDates,
+			toDates : tDates,
+	} ;
+	debugger;
+	//图片
 	var image = new Image();
 	var image1 = new Image();
 	var image2 = new Image();
@@ -1064,10 +1189,77 @@ function report() {
 	var echarepxport = image.src.replace("data:image/png;base64,", "");
 	var echarepxport1 = image1.src.replace("data:image/png;base64,", "");
 	var echarepxport2 = image2.src.replace("data:image/png;base64,", "");
-	document.getElementById("echarepxport").value = echarepxport;
-	document.getElementById("echarepxport1").value = echarepxport1;
-	document.getElementById("echarepxport2").value = echarepxport2;
+	
+	debugger
+	
+	params.echarepxport = echarepxport;
+	params.echarepxport1 = echarepxport1;
+	params.echarepxport2 = echarepxport2;
+
+	//table preDownTime
+	var tableDownTimetrleg = $('#preDownTime tbody').find('tr').length;
+	var tableDownTimetdleg = $('#preDownTime tbody').find('tr').eq(0).find('td').length;
+	var tableDownTimeArray = {};
+	var x = 0;
+	for(var i = 0 ;i<tableDownTimetrleg;i++){
+		for(var j = 0 ; j<tableDownTimetdleg ; j++){
+			if( j != 6 && j != 7){
+				debugger;
+				params['dTime_'+x] = $.trim($('#preDownTime tbody tr:eq(' + i + ') td:eq(' + j + ')').text());
+				x++;
+			}else if(j == 6){
+				params['dTime_'+x] = tableDownTimeparetoImgArray[i].replace("data:image/png;base64,", "");
+				x++;
+			}else if(j == 7){
+				params['dTime_'+x] = tableDownTimestatusImgArray[i].replace("data:image/png;base64,", "");
+				x++;
+			}
+		}
+	}
+	
+	//table preOcc
+	var tableOccparamstrleg = $('#preOcc tbody').find('tr').length;
+	var tableOccparamstdleg = $('#preOcc tbody').find('tr').eq(0).find('td').length;
+	var tableOccparamsArray = {};
+	var y = 0;
+	for(var a = 0 ; a<tableOccparamstrleg ; a ++){
+		for(var b = 0 ; b < tableOccparamstdleg ; b ++){
+			if(b != 6 && b != 7){
+				params['occ_'+y] = $.trim($('#preOcc tbody tr:eq(' + a + ') td:eq(' + b + ')').text());
+				y++;
+			}else if(b == 6){
+				params['occ_'+y] = tableOccparetoImgArray[a].replace("data:image/png;base64,", "");
+				y++;
+			}else if(b == 7){
+				params['occ_'+y] = tableOccstatusImgArray[a].replace("data:image/png;base64,", "");
+				y++;
+			}
+		}
+	}
+	
+	params.tableOccparamsArray = tableOccparamsArray;
+	params.t10DTimeOld = $("#top10DownTimeOld").text();
+	params.t10DTimeNew = $("#top10DownTimeNew").text();
+	params.dTimeOldTol = $("#totalDownTimeOld").text();
+	params.dTimeNewTol = $("#totalDownTimeNew").text();
+	
+	params.t10OccOld = $("#top10OccurrenceOld").text();
+	params.t10OccNew = $("#top10OccurrenceNew").text();
+	params.occOldTol = $("#totalOccurrenceOld").text();
+	params.occNewTol = $("#totalOccurrenceNew").text();
+	createReportInput(params);
 	document.getElementById("fromexport").action = baseURL +'modules/report/panel/report';
 	// console.log(document.getElementById("fromexport").action);
-	return true;
+	$("#fromexport").submit();
+}
+
+function createReportInput(params,tableDownTimeArray,tableOccparamsArray){
+	debugger
+	var inputParams = '';
+	var inputSearch = '';
+	for(var index in params){
+		inputSearch += '<input type = "hidden" name = "'+index+'" value = "'+params[index]+'"/>'
+	}
+	inputParams += inputSearch;
+	$("#fromexport").prepend(inputParams);
 }

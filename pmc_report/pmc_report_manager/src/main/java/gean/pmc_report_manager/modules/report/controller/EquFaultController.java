@@ -63,19 +63,19 @@ public class EquFaultController {
             	exportfault.setStation((String)params.get("station") == null ? "" : (String)params.get("station"));
             	exportfault.setJobId((String)params.get("jobId") == null ? "" : (String)params.get("jobId"));
             	exportfault.setEquipment((String)params.get("equipment") == null ? "" : (String)params.get("equipment"));
-            	exportfault.setEquipment((String)params.get("shift") == null ? "" : (String)params.get("shift"));
+            	exportfault.setShift((String)params.get("shift") == null ? "" : (String)params.get("shift"));
         		Object objstart = params.get("sTime");
         		if(objstart != null && "".equals(objstart)) {
         			exportfault.setStartTime((String)params.get("sTime") + " 00:00:00");
         		}else {
-        			exportfault.setStartTime(null);
+        			exportfault.setStartTime("");
         		}
         	
         		Object objend = params.get("eTime");
         		if(objend != null && "".equals(objend)) {
         			exportfault.setEndTime((String)params.get("eTime") + " 23:59:59");
         		}else {
-        			exportfault.setEndTime(null);
+        			exportfault.setEndTime("");
         		}
         	
 				exportfault.setLine_2(taEquFaultEntity.getLine());
@@ -109,7 +109,7 @@ public class EquFaultController {
         	exportfault.setStation((String)params.get("station") == null ? "" : (String)params.get("station"));
         	exportfault.setJobId((String)params.get("jobId") == null ? "" : (String)params.get("jobId"));
         	exportfault.setEquipment((String)params.get("equipment") == null ? "" : (String)params.get("equipment"));
-        	exportfault.setEquipment((String)params.get("shift") == null ? "" : (String)params.get("shift"));
+        	exportfault.setShift((String)params.get("shift") == null ? "" : (String)params.get("shift"));
         	Object objstart = params.get("sTime");
         	if(objstart != null && "".equals(objstart)) {
         		exportfault.setStartTime((String)params.get("sTime") + " 00:00:00");

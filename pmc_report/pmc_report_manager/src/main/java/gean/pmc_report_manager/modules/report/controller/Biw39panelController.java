@@ -3,6 +3,7 @@ package gean.pmc_report_manager.modules.report.controller;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import gean.pmc_report_manager.common.utils.JasperExportUtils;
 import gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity;
 import gean.pmc_report_manager.modules.report.service.TaBiw39panelService;
 import gean.pmc_report_manager.modules.report.vo.PanelVo;
+import gean.pmc_report_common.common.utils.DateUtils;
 import gean.pmc_report_common.common.utils.R;
 
 
@@ -145,18 +147,20 @@ public class Biw39panelController {
 		Writer writer = new OutputStreamWriter(new FileOutputStream(new File(tagertFile)), "utf-8");
 		Template template = configuration.getTemplate("word.xml");
 		Map<String, String> map = new HashMap<>();
+		//组装数据
 		for (String str : params.keySet()) {
-			map.put(str, params.get(str) == null ? null : params.get(str).toString());
+			map.put(str, params.get(str) == null ? " " : (String)params.get(str));
+//			System.out.println(str+" : "+map.get(str));
 		}
-		// map.put("data", data);
+		map.put("createDates", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
 		template.process(map, writer);
 		writer.close();
 
 		File file = new File(tagertFile);
 		if (file.exists()) {
 			response.setContentType("application/force-download");// 设置强制下载不打开            
-			response.addHeader("Content-Disposition", "attachment;fileName=" + "word.doc");
-			byte[] buffer = new byte[102400];
+			response.addHeader("Content-Disposition", "attachment;fileName=" + new Date().getTime() +".doc");
+			byte[] buffer = new byte[10240];
 			FileInputStream fis = null;
 			BufferedInputStream bis = null;
 			try {
@@ -188,5 +192,5 @@ public class Biw39panelController {
 			}
 		}
 	}
-   
+
 }

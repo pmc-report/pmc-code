@@ -153,7 +153,23 @@
 							</button> -->
 						</div>
 					</div>
-
+				</form>
+				<form method="post" id = "exportfalut" style ="float: right;">
+					<input type = "hidden" name = "shop" id = "faultshop" />
+					<input type = "hidden" name = "area" id = "faultarea"/>
+					<input type = "hidden" name = "zone" id = "faultzone"/>
+					<input type = "hidden" name = "station" id = "faultstation"/>
+					<input type = "hidden" name = "equipment" id = "faultequipment"/>
+					<input type = "hidden" name = "jobId" id = "faultjobId"/>
+					<input type = "hidden" name = "sTime" id = "faultstime"/>
+					<input type = "hidden" name = "eTime" id = "faulteTime"/>
+					<input type = "hidden" name = "shift" id = "faultshift"/>
+					<select id="exportfault_type" lay-verify="required" name = "exoprtType">
+						<option value = "excel">excel</option>
+						<option value = "word">word</option> 
+						<option value = "pdf">pdf</option>
+					</select>
+					<input type = "button" class="btn btn-warning btn-sm" value = "导出" onclick="exportfault()"/>
 				</form>
 			</div>
 		</div>    		
@@ -181,23 +197,6 @@
 			</div>
 		</div>
 	</div>
-	<form method="post" id = "exportfalut">
-		<input type = "hidden" name = "shop" id = "faultshop" />
-		<input type = "hidden" name = "area" id = "faultarea"/>
-		<input type = "hidden" name = "zone" id = "faultzone"/>
-		<input type = "hidden" name = "station" id = "faultstation"/>
-		<input type = "hidden" name = "equipment" id = "faultequipment"/>
-		<input type = "hidden" name = "jobId" id = "faultjobId"/>
-		<input type = "hidden" name = "sTime" id = "faultstime"/>
-		<input type = "hidden" name = "eTime" id = "faulteTime"/>
-		<input type = "hidden" name = "shift" id = "faultshift"/>
-		<select id="exportfault_type" lay-verify="required" name = "exoprtType">
-			<option value = "excel">excel</option>
-			<option value = "word">word</option> 
-			<option value = "pdf">pdf</option>
-		</select>
-		<input type = "button" value = "导出" onclick="exportfault()"/>
-	</form>
 	<script src="${request.contextPath}/statics/js/modules/report/taequfault.js?_${.now?long}"></script>
 </body>
 </html>
