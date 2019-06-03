@@ -65,14 +65,14 @@ public class EquFaultController {
             	exportfault.setEquipment((String)params.get("equipment") == null ? "" : (String)params.get("equipment"));
             	exportfault.setShift((String)params.get("shift") == null ? "" : (String)params.get("shift"));
         		Object objstart = params.get("sTime");
-        		if(objstart != null && "".equals(objstart)) {
+        		if(objstart != null && !"".equals(objstart)) {
         			exportfault.setStartTime((String)params.get("sTime") + " 00:00:00");
         		}else {
         			exportfault.setStartTime("");
         		}
         	
         		Object objend = params.get("eTime");
-        		if(objend != null && "".equals(objend)) {
+        		if(objend != null && !"".equals(objend)) {
         			exportfault.setEndTime((String)params.get("eTime") + " 23:59:59");
         		}else {
         			exportfault.setEndTime("");
@@ -111,14 +111,14 @@ public class EquFaultController {
         	exportfault.setEquipment((String)params.get("equipment") == null ? "" : (String)params.get("equipment"));
         	exportfault.setShift((String)params.get("shift") == null ? "" : (String)params.get("shift"));
         	Object objstart = params.get("sTime");
-        	if(objstart != null && "".equals(objstart)) {
+        	if(objstart != null && !"".equals(objstart)) {
         		exportfault.setStartTime((String)params.get("sTime") + " 00:00:00");
         	}else {
         		exportfault.setStartTime("");
         	}
         	
         	Object objend = params.get("eTime");
-        	if(objend != null && "".equals(objend)) {
+        	if(objend != null && !"".equals(objend)) {
         		exportfault.setEndTime((String)params.get("eTime") + " 23:59:59");
         	}else {
         		exportfault.setEndTime("");
@@ -132,7 +132,8 @@ public class EquFaultController {
     		if(exoprt.equals("excel")) {
         		is = this.getClass().getResourceAsStream("exportModel/TaEquFault_Excel.jasper");
         	}
-    		JasperExportUtils.export(exportList, exoprt, is, request, response);
+    		String exportName = "设备故障报表";
+    		JasperExportUtils.export(exportList, exoprt, is, request, response,exportName);
     	} catch (Exception e) {
 			e.getMessage();
 		}

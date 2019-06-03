@@ -706,7 +706,7 @@
 	w:hint="fareast" /><w:lang w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>  </w:t></w:r><w:r><w:pict><w:binData
 	w:name="wordml://1.png">${echarepxport1}</w:binData><v:shape id="_x0000_s1026"
 	o:spt="75" alt="" type="#_x0000_t75"
-	style="height:252pt;width:517.8pt;" filled="f" o:preferrelative="t"
+	style="height:252pt;width:581pt;" filled="f" o:preferrelative="t"
 	stroked="f" coordsize="21600,21600"><v:path /><v:fill on="f" focussize="0,0" /><v:stroke
 	on="f" /><v:imagedata src="wordml://1.png"
 	o:title="wordml://1.png" /><o:lock v:ext="edit" aspectratio="t" /><w10:wrap
@@ -714,7 +714,7 @@
 	w:hint="fareast" /><w:lang w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t> </w:t></w:r><w:r><w:pict><w:binData
 	w:name="wordml://2.png">${echarepxport}</w:binData><v:shape id="_x0000_s1027"
 	o:spt="75" alt="" type="#_x0000_t75"
-	style="height:251.4pt;width:516pt;" filled="f" o:preferrelative="t"
+	style="height:251.4pt;width:590pt;" filled="f" o:preferrelative="t"
 	stroked="f" coordsize="21600,21600"><v:path /><v:fill on="f" focussize="0,0" /><v:stroke
 	on="f" /><v:imagedata src="wordml://2.png"
 	o:title="wordml://2.png" /><o:lock v:ext="edit" aspectratio="t" /><w10:wrap

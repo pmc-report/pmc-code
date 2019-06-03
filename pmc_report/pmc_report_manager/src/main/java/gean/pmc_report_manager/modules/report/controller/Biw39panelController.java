@@ -159,7 +159,7 @@ public class Biw39panelController {
 		File file = new File(tagertFile);
 		if (file.exists()) {
 			response.setContentType("application/force-download");// 设置强制下载不打开            
-			response.addHeader("Content-Disposition", "attachment;fileName=" + new Date().getTime() +".doc");
+			response.addHeader("Content-Disposition", "attachment;fileName= 9Panel报表.doc");
 			byte[] buffer = new byte[10240];
 			FileInputStream fis = null;
 			BufferedInputStream bis = null;

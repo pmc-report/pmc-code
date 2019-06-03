@@ -69,10 +69,10 @@ public class Biw3OprController {
     		if(areaList.get(0).getZoneList() != null && !areaList.get(0).getZoneList().isEmpty()) {
     			for (ZoneOprVo zoneOprVo : areaList.get(0).getZoneList()) {
     				OprVoExport oprexport = new OprVoExport();
-    				oprexport.setShop(params.get("shop") == null ? null : (String)params.get("shop"));
-    				oprexport.setShift(params.get("shift") == null ? null : (String)params.get("shift"));
-    				oprexport.setStime(params.get("sTime") == null ? null : (String)params.get("sTime"));
-    				oprexport.setArea(params.get("area") == null ? null : (String)params.get("area"));
+    				oprexport.setShop((String)params.get("shop") == null ? "" : (String)params.get("shop"));
+    				oprexport.setShift((String)params.get("shift") == null ? "" : (String)params.get("shift"));
+    				oprexport.setStime((String)params.get("sTime") == null ? "" : (String)params.get("sTime")+" 00:00:00");
+    				oprexport.setArea((String)params.get("area") == null ? "" : (String)params.get("area"));
     				oprexport.setActual(areaList.get(0).getActual());
     				oprexport.setShiftPlan(areaList.get(0).getShiftPlan());
     				oprexport.setVariation(areaList.get(0).getVariation());
@@ -93,10 +93,10 @@ public class Biw3OprController {
 				}
     		}else {
     			OprVoExport oprexport = new OprVoExport();
-				oprexport.setShop(params.get("shop") == null ? null : (String)params.get("shop"));
-				oprexport.setShift(params.get("shift") == null ? null : (String)params.get("shift"));
-				oprexport.setStime(params.get("sTime") == null ? null : (String)params.get("sTime"));
-				oprexport.setArea(params.get("area") == null ? null : (String)params.get("area"));
+    			oprexport.setShop((String)params.get("shop") == null ? "" : (String)params.get("shop"));
+				oprexport.setShift((String)params.get("shift") == null ? "" : (String)params.get("shift"));
+				oprexport.setStime((String)params.get("sTime") == null ? "" : (String)params.get("sTime")+" 00:00:00");
+				oprexport.setArea((String)params.get("area") == null ? "" : (String)params.get("area"));
 				oprexport.setActual(areaList.get(0).getActual());
 				oprexport.setShiftPlan(areaList.get(0).getShiftPlan());
 				oprexport.setVariation(areaList.get(0).getVariation());
@@ -106,10 +106,10 @@ public class Biw3OprController {
     		}
     	}else {
     		OprVoExport oprexport = new OprVoExport();
-			oprexport.setShop(params.get("shop") == null ? null : (String)params.get("shop"));
-			oprexport.setShift(params.get("shift") == null ? null : (String)params.get("shift"));
-			oprexport.setStime(params.get("sTime") == null ? null : (String)params.get("sTime"));
-			oprexport.setArea(params.get("area") == null ? null : (String)params.get("area"));
+    		oprexport.setShop((String)params.get("shop") == null ? "" : (String)params.get("shop"));
+			oprexport.setShift((String)params.get("shift") == null ? "" : (String)params.get("shift"));
+			oprexport.setStime((String)params.get("sTime") == null ? "" : (String)params.get("sTime")+" 00:00:00");
+			oprexport.setArea((String)params.get("area") == null ? "" : (String)params.get("area"));
 			list.add(oprexport);
     	}
     	String exoprt = params.get("exoprtType") == null ? "word" : (String)params.get("exoprtType");
@@ -119,7 +119,8 @@ public class Biw3OprController {
         	if(exoprt.equals("excel")) {
         		is = this.getClass().getResourceAsStream("exportModel/OPR_Map_excel.jasper");//获取同包下模版文件
         	}
-    		JasperExportUtils.export(list, exoprt, is, request, response);
+        	String exportName = "OPR报表";
+    		JasperExportUtils.export(list, exoprt, is, request, response,exportName);
 		} catch (Exception e) {
 			e.getMessage();
 		}

@@ -334,8 +334,6 @@ function exportfault() {
 	
 	if($("#faultshop").val() == null || $("#faultshop").val() == ''){
 		alert("请选择车间！");
-	}else if($("#faultarea").val() == null || $("#faultarea").val() == ''){
-		alert("请选择区域！");
 	}else{
 		$("#exportfalut").attr("action", "/pmc/report/fault/exportFault")
 		$("#exportfalut").submit();

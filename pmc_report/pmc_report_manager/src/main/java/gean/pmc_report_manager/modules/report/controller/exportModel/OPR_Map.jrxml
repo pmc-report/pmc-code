@@ -327,7 +327,7 @@
 			<rectangle>
 				<reportElement x="399" y="55" width="134" height="20" uuid="c7ca8d51-9aed-4b09-babf-d221e00e0572"/>
 			</rectangle>
-			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="false">
+			<textField pattern="yyyy/MM/dd HH:mm:ss" isBlankWhenNull="false">
 				<reportElement key="textField-5" x="399" y="55" width="134" height="20" uuid="c4b09bd9-ff0c-4b1b-a281-36ddf5882d35"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="宋体" size="8"/>
@@ -447,7 +447,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="31" splitType="Stretch">
+		<band height="28" splitType="Stretch">
 			<rectangle>
 				<reportElement x="1" y="0" width="24" height="28" uuid="7360706b-6dc6-4a46-a091-f3f22dbf6769"/>
 			</rectangle>
