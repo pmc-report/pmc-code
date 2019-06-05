@@ -319,11 +319,12 @@ function initZoneTable(url,queryParams){
 	  
 }
 
-function oprsubmit(){
+function oprsubmit(export_type){
 	  $("#oprshop").val($("#shop_search").val());
 	  $("#oprarea").val($("#area_search").val());
 	  $("#oprshift").val($("#shift_search").val());
 	  $("#oprstime").val($("#startTime").val());
+	  $("#exporttypeopr").val(export_type);
 	  if($("#oprshop").val() == null ||$.trim($("#oprshop").val()) == '' ){
 		  alert("车间不可为空！");
 	  }else if($("#oprarea").val() == null || $.trim($("#oprarea").val()) == ''){

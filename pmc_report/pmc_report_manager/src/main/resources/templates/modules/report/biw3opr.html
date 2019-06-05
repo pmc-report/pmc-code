@@ -82,6 +82,19 @@
 						<div class="col-xs-12">
 							<button type="button" class="btn btn-primary btn-sm" onclick="search('Biw3OPR')">&nbsp;查询</button>
 							<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>
+							<div class="btn-group">
+    							<button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">导出
+       								<span class="caret"></span>
+    							</button>
+    							<ul class="dropdown-menu" role="menu">
+       								<li>
+            							<a href="#" onclick="oprsubmit('word')">word</a>
+        							</li>
+        							<li>
+            							<a href="#" onclick="oprsubmit('excel')">excel</a>
+        							</li>
+    							</ul>
+							</div>
 						</div>
 					</div>
 				</form>
@@ -135,11 +148,7 @@
 		<input type = "hidden" name = "area" id = "oprarea"/>
 		<input type = "hidden" name = "shift" id = "oprshift"/>
 		<input type = "hidden" name = "sTime" id = "oprstime"/>
-		<select id="export_type" name="exoprtType" lay-verify="required">
-			<option value = "excel">excel</option>
-			<option value = "word">word</option> 
-			<option value = "pdf">pdf</option>
-		</select>
+		<input type = "hidden" name = "exoprtType" id = "exporttypeopr"/>
 		<input type= "button" id = "oprsub" value = "导出" onclick="oprsubmit()"/>
 	</form>
 	<script src="${request.contextPath}/statics/js/modules/report/tabiw3opr.js?_${.now?long}"></script>
