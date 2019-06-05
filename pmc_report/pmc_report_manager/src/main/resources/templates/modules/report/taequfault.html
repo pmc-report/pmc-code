@@ -148,6 +148,19 @@
 							<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">
 								<span class="glyphicon glyphicon-refresh"></span>&nbsp;重置
 							</button>
+							<div class="btn-group">
+    							<button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">导出
+       								<span class="caret"></span>
+    							</button>
+    							<ul class="dropdown-menu" role="menu">
+       								<li>
+            							<a href="#" onclick="exportfault('word')">word</a>
+        							</li>
+        							<li>
+            							<a href="#" onclick="exportfault('excel')">excel</a>
+        							</li>
+    							</ul>
+							</div>
 							<!-- <button type="button" class="btn btn-warning btn-sm" onclick="more()">
 								<i class="fa fa-angle-double-down" aria-hidden="false"></i>更多
 							</button> -->
@@ -164,12 +177,7 @@
 					<input type = "hidden" name = "sTime" id = "faultstime"/>
 					<input type = "hidden" name = "eTime" id = "faulteTime"/>
 					<input type = "hidden" name = "shift" id = "faultshift"/>
-					<select id="exportfault_type" lay-verify="required" name = "exoprtType">
-						<option value = "excel">excel</option>
-						<option value = "word">word</option> 
-						<option value = "pdf">pdf</option>
-					</select>
-					<input type = "button" class="btn btn-warning btn-sm" value = "导出" onclick="exportfault()"/>
+					<input type = "hidden" name = "exoprtType" id = "selectExportType"/>
 				</form>
 			</div>
 		</div>    		

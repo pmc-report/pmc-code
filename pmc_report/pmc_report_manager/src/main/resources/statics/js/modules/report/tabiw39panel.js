@@ -421,6 +421,7 @@ function initPreDownTime(queryParams){
 	     onLoadError: function (res) { 			//加载失败时执行
 	     }
 	});
+	
 }
 
 function createDownTimeExportImg(){
@@ -782,6 +783,7 @@ function queryReport(tag,params){
 		echars(params);
 		echars1(params);
 		echars2(params);
+		
 	}
 }
 
@@ -1173,12 +1175,14 @@ function report() {
 	image.src = echart.getDataURL({
 		type:"png",
         pixelRatio: 2,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        width:'890px'
 	});
 	image1.src = echart1.getDataURL({
 		type:"png",
         pixelRatio: 2,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        width:'890px'
 	});
 	image2.src = echart2.getDataURL({
 		type:"png",

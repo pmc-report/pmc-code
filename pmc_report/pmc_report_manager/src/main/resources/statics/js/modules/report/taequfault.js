@@ -320,7 +320,7 @@ function initTable(url,queryParams){
 }
 
 
-function exportfault() {
+function exportfault(export_type) {
 	
 	$("#faultshop").val($("#shop_search").val());
 	$("#faultarea").val($("#area_search").val());
@@ -331,7 +331,8 @@ function exportfault() {
 	$("#faultstime").val($("#startTime").val());
 	$("#faulteTime").val($("#endTime").val());
 	$("#faultshift").val($("#shift_search").val());
-	
+	$("#selectExportType").val(export_type);
+	debugger;
 	if($("#faultshop").val() == null || $("#faultshop").val() == ''){
 		alert("请选择车间！");
 	}else{
