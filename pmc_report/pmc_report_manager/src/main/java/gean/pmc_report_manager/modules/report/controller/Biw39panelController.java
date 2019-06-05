@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import gean.pmc_report_common.common.validator.ValidatorUtils;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -143,8 +146,10 @@ public class Biw39panelController {
 		// configuration.setDirectoryForTemplateLoading(new File(sourceFile));   //根据绝对路径加载文件
 		//System.out.println(this.getClass());
 		configuration.setClassForTemplateLoading(this.getClass(), "exportModel"); // 获取需要加载文件的相对路径 只到上级包
-
-		Writer writer = new OutputStreamWriter(new FileOutputStream(new File(tagertFile)), "utf-8");
+		InputStream is = this.getClass().getClassLoader().getResourceAsStream("export/word.doc");
+		File f = new File(tagertFile);
+		FileUtils.copyInputStreamToFile(is, f);
+		Writer writer = new OutputStreamWriter(new FileOutputStream(f), "utf-8");
 		Template template = configuration.getTemplate("word.xml");
 		Map<String, String> map = new HashMap<>();
 		//组装数据

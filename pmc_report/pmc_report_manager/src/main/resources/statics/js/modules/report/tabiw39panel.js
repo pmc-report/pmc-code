@@ -332,7 +332,6 @@ function initPreDownTime(queryParams){
 				 }, {
 				  field: 'oldThenNew',
 				  title: 'New',
-				  cellStyle: getMins,
 				  formatter: fontFormatter,
 				 }, {
 				  field: 'occ1',
@@ -342,6 +341,7 @@ function initPreDownTime(queryParams){
 				 }, {
 				  field: 'mins1',
 				  title: 'Mins',
+				  cellStyle: getMins,
 				  footerFormatter: getMinsOld,
 				  formatter: fontFormatter,
 				 }, {
@@ -633,7 +633,6 @@ function initOccTab(queryParams){
 				 }, {
 				  field: 'oldThenNew',
 				  title: 'New',
-				  cellStyle: getMins,
 				  formatter: fontFormatter,
 				 }, {
 				  field: 'occ1',
@@ -644,6 +643,7 @@ function initOccTab(queryParams){
 				 }, {
 				  field: 'mins1',
 				  title: 'Mins',
+				  cellStyle: getMins,
 				  formatter: fontFormatter,
 				 }, {
 				  field: 'stn1',
@@ -852,7 +852,7 @@ function echars(params){
 	                       },
 	                    }, 
 
-				    color: ['#FFA500', '#2E9AFE'],
+				    color: ['#2E9AFE', '#FFA500'],
 				    //calculable: true,
 				    xAxis: [
 				        {
@@ -887,9 +887,9 @@ function echars(params){
 				        {
 				            name: 'Target MTBF',
 				            type: 'line',
-				            label: labelOption,
+				            //label: labelOption,
 				            data: tarMtbf,
-				            hoverAnimation:false,
+				            //hoverAnimation:false,
 				        },
 				    ]
 				};
@@ -966,7 +966,7 @@ function echars1(params){
 	                       },
 	                    }, 
 	                    
-				    color: ['#FFA500', '#2E9AFE'],
+				    color: ['#2E9AFE', '#FFA500'],
 				    //calculable: true,
 				    xAxis: [
 				        {
@@ -1009,9 +1009,9 @@ function echars1(params){
 				        {
 				            name: 'Target TAV',
 				            type: 'line',
-				            label: labelOption,
+				            //label: labelOption,
 				            data: tarTav,
-				            hoverAnimation:false,
+				            //hoverAnimation:false,
 				        },
 				       
 				    ],
@@ -1121,7 +1121,7 @@ function echars2(params){
 				    },
 				    series: [
 				        {
-				            name: 'TAV',
+				            name: 'Target TAV',
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
@@ -1129,11 +1129,11 @@ function echars2(params){
 				            hoverAnimation:false,
 				        },
 				        {
-				            name: 'Target TAV',
+				            name: 'TAV',
 				            type: 'bar',
-				            label: labelOption,
+				            //label: labelOption,
 				            data: tarTav,
-				            hoverAnimation:false,
+				           // hoverAnimation:false,
 				        },
 				    ]
 				};
