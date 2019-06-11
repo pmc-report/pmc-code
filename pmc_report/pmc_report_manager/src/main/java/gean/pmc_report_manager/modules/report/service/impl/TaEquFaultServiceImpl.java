@@ -74,14 +74,14 @@ public class TaEquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFault
 		str = str.replaceAll("&amp;", "&");
 		vo.setEquipment(str);
 		
-		List<TaEquFaultEntity> faultList = baseMapper.qureyFualtList(vo);
+		/*List<TaEquFaultEntity> faultList = baseMapper.qureyFualtList(vo);
 		
 		int pageSize = Integer.parseInt(vo.getLimit()==null?"0":vo.getLimit());
 		int currPage = Integer.parseInt(vo.getPage()==null?"0":vo.getPage());
 		
-		PageUtils page = new PageUtils(faultList, faultList.size(), pageSize, currPage);
+		PageUtils page = new PageUtils(faultList, faultList.size(), pageSize, currPage);*/
 		
- 		/*Timestamp sTime=null;
+ 		Timestamp sTime=null;
 		Timestamp eTime=null;
 		if(vo.getStartTime()!=null) {
 			sTime = new Timestamp(vo.getStartTime().getTime());
@@ -102,10 +102,11 @@ public class TaEquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFault
 															.ge(StringUtils.isNotNull(sTime), "start_Time", sTime)
 															.le(StringUtils.isNotNull(eTime), "end_Time", eTime)
 															.ne("fault_word3", 0)
-															.ne("fault_word3", 0)
+															.isNotNull("duration")
+															.isNotNull("end_Time")
 															.orderByAsc("facility_id ").orderByDesc("start_Time"));
 		
-		if(page!=null) {
+		/*if(page!=null) {
 			//加入设备描述
 			List<TaEquFaultEntity> faultList = page.getRecords();
 			if(faultList.size()>0) {
@@ -116,11 +117,12 @@ public class TaEquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFault
 			}
 			return new PageUtils(page);
 		}*/
-		return page;
+		return new PageUtils(page);
 	}
 
 	@Override
 	public List<TaEquFaultEntity> queryExportFault(Map<String, Object> params) {
+		
 		PageParamVo vo = new PageParamVo(params);
 
 		String str = vo.getEquipment();

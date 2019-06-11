@@ -2,6 +2,7 @@ package gean.pmc_report_manager.modules.report.controller;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import gean.pmc_report_common.common.utils.DateUtils;
 import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_common.common.utils.R;
+import gean.pmc_report_common.common.utils.StringUtils;
 import gean.pmc_report_manager.common.utils.JasperExportUtils;
 import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
 import gean.pmc_report_manager.modules.report.service.TaEquFaultService;
@@ -35,6 +37,8 @@ import gean.pmc_report_manager.modules.report.vo.EquFaultExport;
 public class EquFaultController {
     @Autowired
     private TaEquFaultService equFaultService;
+    
+    Map<String,Object> resultMap = new HashMap<>();
 
     /**
      * 列表
@@ -45,25 +49,32 @@ public class EquFaultController {
     	TaEquFaultEntity totalDur = equFaultService.queryTotalMins(params);
         PageUtils page = equFaultService.queryEquFaultByParam(params);
     	int duration = totalDur==null?0:totalDur.getDuration();
+    	resultMap.put("duration", duration);
         return R.ok().put("page", page).put("duration", duration);
+    }
+    
+    @RequestMapping("/exportAll")
+    public void exportAll(@RequestParam Map<String,Object> params) {
+    	List<TaEquFaultEntity> result = equFaultService.queryExportFault(params);
+        resultMap.put("result", result);
     }
     
     @RequestMapping("/exportFault")
     public void exportEquFault(HttpServletRequest request,HttpServletResponse response,@RequestParam Map<String,Object> params) {
-        List<TaEquFaultEntity> result = equFaultService.queryExportFault(params);
-        TaEquFaultEntity totalDur = equFaultService.queryTotalMins(params);
+    	List<TaEquFaultEntity> result = (List)resultMap.get("result");
+    	Integer totalDur = (int)resultMap.get("duration");
         List<EquFaultExport> exportList = new ArrayList<EquFaultExport>();
         if(result!= null && !result.isEmpty()) {
         	for (TaEquFaultEntity taEquFaultEntity : result) {
            		EquFaultExport exportfault = new EquFaultExport();
-        	
-           		exportfault.setShop((String)params.get("shop") == null ? "" : (String)params.get("shop"));
-            	exportfault.setLine((String)params.get("area") == null ? "" : (String)params.get("area"));
-            	exportfault.setZone((String)params.get("zone") == null ? "" : (String)params.get("zone"));
-            	exportfault.setStation((String)params.get("station") == null ? "" : (String)params.get("station"));
-            	exportfault.setJobId((String)params.get("jobId") == null ? "" : (String)params.get("jobId"));
-            	exportfault.setEquipment((String)params.get("equipment") == null ? "" : (String)params.get("equipment"));
-            	exportfault.setShift((String)params.get("shift") == null ? "" : (String)params.get("shift"));
+           		
+           		exportfault.setShop(!StringUtils.isNotBlank((String)params.get("shop")) ? "" : (String)params.get("shop"));
+            	exportfault.setLine(!StringUtils.isNotBlank((String)params.get("area")) ? "ALL" : (String)params.get("area"));
+            	exportfault.setZone(!StringUtils.isNotBlank((String)params.get("zone")) ? "ALL" : (String)params.get("zone"));
+            	exportfault.setStation(!StringUtils.isNotBlank((String)params.get("station")) ? "ALL" : (String)params.get("station"));
+            	exportfault.setJobId(!StringUtils.isNotBlank((String)params.get("jobId")) ? "ALL" : (String)params.get("jobId"));
+            	exportfault.setEquipment(!StringUtils.isNotBlank((String)params.get("equipment")) ? "ALL" : (String)params.get("equipment"));
+            	exportfault.setShift(!StringUtils.isNotBlank((String)params.get("shift")) ? "ALL" : (String)params.get("shift"));
         		Object objstart = params.get("sTime");
         		if(objstart != null && !"".equals(objstart)) {
         			exportfault.setStartTime((String)params.get("sTime") + " 00:00:00");
@@ -87,7 +98,7 @@ public class EquFaultController {
 				exportfault.setFaultWord1(taEquFaultEntity.getFaultWord1() == null ? "" : taEquFaultEntity.getFaultWord1().toString());
 				exportfault.setFaultWord2(taEquFaultEntity.getFaultWord2() == null ? "" : taEquFaultEntity.getFaultWord2().toString());
 				exportfault.setFaultWord3(taEquFaultEntity.getFaultWord3() == null ? "" : taEquFaultEntity.getFaultWord3().toString());
-				exportfault.setPosWord31(taEquFaultEntity.getPosWord31());
+				exportfault.setPosWord31(taEquFaultEntity.getPosWord31()==null ? 0 : taEquFaultEntity.getPosWord31());
 				exportfault.setFaultDescription(taEquFaultEntity.getFaultDescription());
 				exportfault.setReasonCode(taEquFaultEntity.getReasonCode() == null ? "" : taEquFaultEntity.getReasonCode().toString());
 				exportfault.setReasonDescription(taEquFaultEntity.getReasonDescription());
@@ -97,19 +108,19 @@ public class EquFaultController {
 				Integer duration = taEquFaultEntity.getDuration();
 				exportfault.setDuration(DateUtils.longToDate(duration));
 				//总持续时间
-				Integer totalDuration = totalDur.getDuration();
-				exportfault.setDuration_2(DateUtils.longToDate(totalDuration));
+				//Integer totalDuration = totalDur.getDuration();
+				exportfault.setDuration_2(DateUtils.longToDate(totalDur));
 	        	exportList.add(exportfault);
         	}
         }else {
         	EquFaultExport exportfault = new EquFaultExport();
-        	exportfault.setShop((String)params.get("shop") == null ? "" : (String)params.get("shop"));
-        	exportfault.setLine((String)params.get("area") == null ? "" : (String)params.get("area"));
-        	exportfault.setZone((String)params.get("zone") == null ? "" : (String)params.get("zone"));
-        	exportfault.setStation((String)params.get("station") == null ? "" : (String)params.get("station"));
-        	exportfault.setJobId((String)params.get("jobId") == null ? "" : (String)params.get("jobId"));
-        	exportfault.setEquipment((String)params.get("equipment") == null ? "" : (String)params.get("equipment"));
-        	exportfault.setShift((String)params.get("shift") == null ? "" : (String)params.get("shift"));
+        	exportfault.setShop(!StringUtils.isNotBlank((String)params.get("shop")) ? "" : (String)params.get("shop"));
+        	exportfault.setLine(!StringUtils.isNotBlank((String)params.get("area")) ? "ALL" : (String)params.get("area"));
+        	exportfault.setZone(!StringUtils.isNotBlank((String)params.get("zone")) ? "ALL" : (String)params.get("zone"));
+        	exportfault.setStation(!StringUtils.isNotBlank((String)params.get("station")) ? "ALL" : (String)params.get("station"));
+        	exportfault.setJobId(!StringUtils.isNotBlank((String)params.get("jobId")) ? "ALL" : (String)params.get("jobId"));
+        	exportfault.setEquipment(!StringUtils.isNotBlank((String)params.get("equipment")) ? "ALL" : (String)params.get("equipment"));
+        	exportfault.setShift(!StringUtils.isNotBlank((String)params.get("shift")) ? "ALL" : (String)params.get("shift"));
         	Object objstart = params.get("sTime");
         	if(objstart != null && !"".equals(objstart)) {
         		exportfault.setStartTime((String)params.get("sTime") + " 00:00:00");

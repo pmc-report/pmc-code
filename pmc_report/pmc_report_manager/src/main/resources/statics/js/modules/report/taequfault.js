@@ -153,6 +153,27 @@ function queryReport(tag,params){
 	}
 }
 
+function exportAll(queryParams){
+	$.ajax({ 
+        type: 'post', 
+        data:{ 
+        	area : queryParams.area,
+			zone : queryParams.zone,
+			eTime: queryParams.eTime,
+			sTime: queryParams.sTime,
+			shift: queryParams.shift,
+			shop: queryParams.shop,
+			jobId : queryParams.jobId,
+			station : queryParams.station,
+			equipment : queryParams.equipment
+        },
+        url: baseURL + 'report/fault/exportAll',
+        cache: false,  
+        async : false,  //同步
+        dataType:'json'
+      });
+}
+
 /**
  * 时间秒数格式化
  * @param s 时间戳（单位：秒）
@@ -179,7 +200,6 @@ var sec_to_time = function(s) {
 }
 
 function initTable(url,queryParams){
-	//console.log(queryParams);
 	var duration ='';
 	var responseHandler = function (e) {
 	      //console.log(e);
@@ -316,7 +336,7 @@ function initTable(url,queryParams){
 	           		}    
 	      }, 
 	      onLoadSuccess: function (data) { 		//加载成功时执行
-	          //console.log(data);
+	    	  exportAll(queryParams);
 	      },
 	      onLoadError: function (res) { 		//加载失败时执行
 	          //console.log(res);
