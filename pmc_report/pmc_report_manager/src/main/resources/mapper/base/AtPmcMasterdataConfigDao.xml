@@ -64,7 +64,7 @@
 				       C.EQUIPMENT_S
   				FROM AT_PMC_MASTERDATA_CONFIG C
  				WHERE C.SHOP_S IN ('CS01_BS3')
- 				AND C.LINE_S NOT IN ('Closure','Bodyside') 
+ 				AND C.LINE_S NOT IN ('Closure') 
 				AND C.ZONE_S NOT IN ('Z98.4') ) TB
  		WHERE 1 = 1
 	</sql>
@@ -76,11 +76,12 @@
 	</select>
 	
 	<select id="queryAllLineForShop" parameterType="String" resultMap="MasterDataVoMap">
-		SELECT DISTINCT TB.LINE_S 
+		SELECT DISTINCT TB.LINE_S
 		<include refid="conmmonSql_MasterData"/>
 		<if test="_parameter!=null and _parameter!=''">
 			and tb.shop_s=#{_parameter}
 		</if>
+		and tb.line_s != 'Bodyside'
 		order by TB.LINE_S desc
 	</select>
 	
