@@ -418,6 +418,10 @@ function initPreDownTime(queryParams){
 			 //预先处理表格转换图片(base64)作导出时使用
 			 createDownTimeExportImg();
 		 },
+		 /*onPostBody : function (data){
+			
+			 setPorpById('panelBtn','disabled',false)
+		 },*/
 	     onLoadError: function (res) { 			//加载失败时执行
 	     }
 	});
@@ -430,7 +434,6 @@ function createDownTimeExportImg(){
 	for(var i = 0 ; i <tableDownTimetrleg;i++){
 		for(var j = 0;j<tableDownTimetdleg;j++){
 			if(j == 6 || j == 7){
-				debugger;
 				//div转换成图片(base64编码)
 				var canvas2 = document.createElement("canvas");
 				if(j == 6){
@@ -478,7 +481,7 @@ function initOccTab(queryParams){
 	var totalOcc2 = '';
 	var operateFormatter = function (value, row, index) {//赋予的参数
 		if(value != undefined){
-			var color = 'style = "background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
+			var color = '';
 			switch(value){
 				case 0 : color = 'style="background:red;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;"';
 				 break;
@@ -487,6 +490,8 @@ function initOccTab(queryParams){
 				case 2 : color = 'style="background:yellow;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
 				 break;
 				case 3 : color = 'style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
+				 break;
+				case 4 : color = 'style = "background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
 				 break;
 			}
 			return [ '<div class = "statusOcc_'+index+'"><button type="button" class="btn btn-circle btn-lg" '+color+'></button></div>' ].join('');
@@ -718,6 +723,7 @@ function initOccTab(queryParams){
 		 onLoadSuccess: function (data) { 		//加载成功时执行
 			 $('#preOccFoot').show();
 			 createOccExportImg();
+			 setPorpById('panelBtn','disabled',false)
 		 },
 	     onLoadError: function (res) { 			//加载失败时执行
 	     }
@@ -731,7 +737,6 @@ function createOccExportImg(){
 	for(var i = 0 ; i <tableOccparamstrleg;i++){
 		for(var j = 0;j<tableOccparamstdleg;j++){
 			if(j == 6 || j == 7){
-				debugger;
 				//div转换成图片(base64编码)
 				var canvas2 = document.createElement("canvas");
 				if(j == 6){
@@ -772,6 +777,27 @@ function createOccDivtoCanvas(divClass,canvas2,i,j){
 }
 
 function queryReport(tag,params){
+	var sTime = params.sTime;
+	var eTime = params.eTime;
+	var fromDates = params.fromDates;
+	var toDates = params.toDates;
+	if(isNullOrBlank(sTime)){
+		alert("请选择开始时间");
+    	return ;
+	}
+	if(isNullOrBlank(eTime)){
+		alert("请选择结束时间");
+    	return ;
+	}
+	if(isNullOrBlank(fromDates)){
+		alert("请选择对比开始周");
+    	return ;
+	}
+	if(isNullOrBlank(toDates)){
+		alert("请选择对比结束周");
+    	return ;
+	}
+	
 	
 	var url = baseURL + 'report/panel/list';
 	if(tag=='9Panel'){
@@ -1126,16 +1152,16 @@ function echars2(params){
 				            name: 'Target TAV',
 				            type: 'line',
 				            barGap: 0,
-				            label: labelOption,
-				            data: tav,
-				            hoverAnimation:false,
+				           // label: labelOption,
+				            data: tarTav,
+				            //hoverAnimation:false,
 				        },
 				        {
 				            name: 'TAV',
 				            type: 'bar',
-				            //label: labelOption,
-				            data: tarTav,
-				           // hoverAnimation:false,
+				            label: labelOption,
+				            data: tav,
+				            hoverAnimation:false,
 				        },
 				    ]
 				};
@@ -1148,6 +1174,12 @@ function echars2(params){
 
 function report() {
 	
+	var area = $("#area_search").val();
+	var zone = $("#zone_search").val();
+	var shift = $("#shift_search").val();
+	var jobId = $("#jobId_search").val();
+	var formWeek = $("#startTime").val();
+	var toWeek = $("#endTime").val();
 	var fromDate = $('#fDate').val();
 	var toDate = $('#tDate').val();
 	var f_date = fromDate==null?'':JSON.stringify(fromDate);
@@ -1155,18 +1187,20 @@ function report() {
 	fDates = f_date.replace(new RegExp('"',"gm"),'');
 	tDates = t_date.replace(new RegExp('"',"gm"),'');
 	
+	
 	var params = {
 			shop : $("#shop_search").val(),
-			area : $("#area_search").val(),
-			zone : $("#zone_search").val(),
-			shift : $("#shift_search").val(),
-			formWeek : $("#startTime").val(),
-			toWeek : $("#endTime").val(),
-			jobId : $("#jobId_search").val(),
+			area : isNullOrBlank(area)?'ALL':area,
+			zone : isNullOrBlank(zone)?'ALL':zone,
+			shift : isNullOrBlank(shift)?'ALL':shift,
+			formWeek : formWeek,
+			toWeek : toWeek,
+			jobId : isNullOrBlank(jobId)?'ALL':jobId,
 			fromDates : fDates,
 			toDates : tDates,
 	} ;
-	debugger;
+	debugger
+	console.log(params+'_____________________')
 	//图片
 	var image = new Image();
 	var image1 = new Image();
@@ -1194,8 +1228,6 @@ function report() {
 	var echarepxport1 = image1.src.replace("data:image/png;base64,", "");
 	var echarepxport2 = image2.src.replace("data:image/png;base64,", "");
 	
-	debugger
-	
 	params.echarepxport = echarepxport;
 	params.echarepxport1 = echarepxport1;
 	params.echarepxport2 = echarepxport2;
@@ -1208,7 +1240,6 @@ function report() {
 	for(var i = 0 ;i<tableDownTimetrleg;i++){
 		for(var j = 0 ; j<tableDownTimetdleg ; j++){
 			if( j != 6 && j != 7){
-				debugger;
 				params['dTime_'+x] = $.trim($('#preDownTime tbody tr:eq(' + i + ') td:eq(' + j + ')').text());
 				x++;
 			}else if(j == 6){
@@ -1258,12 +1289,12 @@ function report() {
 }
 
 function createReportInput(params,tableDownTimeArray,tableOccparamsArray){
-	debugger
 	var inputParams = '';
 	var inputSearch = '';
 	for(var index in params){
 		inputSearch += '<input type = "hidden" name = "'+index+'" value = "'+params[index]+'"/>'
 	}
 	inputParams += inputSearch;
+	console.log("输入参数："+inputParams)
 	$("#fromexport").prepend(inputParams);
 }

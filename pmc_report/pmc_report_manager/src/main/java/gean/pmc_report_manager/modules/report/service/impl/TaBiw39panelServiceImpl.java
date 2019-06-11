@@ -165,14 +165,14 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 						Integer newOrder = newVo.get_new();
 						Integer oldOrder = oldVo.getOld();
 						oldVo.setOldThenNew(newOrder);
-						if(newOrder < oldOrder) {
+						if(newOrder>10) {
+							oldVo.setStatus(4);//退出前十
+						}else if(newOrder < oldOrder) {
 							oldVo.setStatus(0);//排名上升
 						}else if(newOrder > oldOrder) {
 							oldVo.setStatus(3);//排名降低
 						}else if(newOrder == oldOrder) {
 							oldVo.setStatus(2);//保持不变
-						}else if(newOrder>10) {
-							oldVo.setStatus(0);//退出前十
 						}
 					}
 				}
@@ -272,14 +272,14 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 						Integer newOrder = newVo.get_new();
 						Integer oldOrder = oldVo.getOld();
 						oldVo.setOldThenNew(newOrder);
-						if(newOrder < oldOrder) {
+						if(newOrder>10) {
+							oldVo.setStatus(4);//退出前十
+						}else if(newOrder < oldOrder) {
 							oldVo.setStatus(0);//排名上升
 						}else if(newOrder > oldOrder) {
 							oldVo.setStatus(3);//排名降低
 						}else if(newOrder == oldOrder) {
 							oldVo.setStatus(2);//保持不变
-						}else if(newOrder>10) {
-							oldVo.setStatus(0);//退出前十
 						}
 					}
 				}
