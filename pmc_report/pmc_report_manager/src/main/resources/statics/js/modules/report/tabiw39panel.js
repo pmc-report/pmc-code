@@ -10,6 +10,7 @@ $(function () {
 	$('#preDownTimeFoot').hide();
 	$('#preOccFoot').hide();
 });
+
 //preDownTime
 //用于存放parato-->Img
 var tableDownTimeparetoImgArray = new Array();
@@ -413,19 +414,20 @@ function initPreDownTime(queryParams){
 					toDate : queryParams.toDates
 	            }
 	     },
-		 onLoadSuccess: function (data) { 		// 加载成功时执行
+		 /*onLoadSuccess: function (data) { 		// 加载成功时执行
 			 $('#preDownTimeFoot').show();
 			 //预先处理表格转换图片(base64)作导出时使用
 			 createDownTimeExportImg();
-		 },
-		 /*onPostBody : function (data){
-			
-			 setPorpById('panelBtn','disabled',false)
 		 },*/
+		 onPostBody : function (data){
+			 $('#preDownTimeFoot').show();
+			//预先处理表格转换图片(base64)作导出时使用
+			 createDownTimeExportImg();
+			 setPorpById('panelBtn','disabled',false);
+		 },
 	     onLoadError: function (res) { 			//加载失败时执行
 	     }
 	});
-	
 }
 
 function createDownTimeExportImg(){
@@ -720,15 +722,21 @@ function initOccTab(queryParams){
 					toDate : queryParams.toDates
 	            }
 	     },
-		 onLoadSuccess: function (data) { 		//加载成功时执行
+		/* onLoadSuccess: function (data) { 		//加载成功时执行
 			 $('#preOccFoot').show();
 			 createOccExportImg();
-			 setPorpById('panelBtn','disabled',false)
+			 setPorpById('panelBtn','disabled',false);
+		 },*/
+		 onPostBody : function (data){
+			 $('#preOccFoot').show();
+			createOccExportImg();
+			/*setTimeout(function () { 
+				window.onmousewheel = document.onmousewheel=function() {return true}
+			}, 5000);*/
 		 },
 	     onLoadError: function (res) { 			//加载失败时执行
 	     }
 	});
-	
 }
 
 function createOccExportImg(){
@@ -802,14 +810,13 @@ function queryReport(tag,params){
 	var url = baseURL + 'report/panel/list';
 	if(tag=='9Panel'){
 		
-		initpanelTableTitle(params)
-		initPreDownTime(params)
-		initOccTab(params);
-		
 		echars(params);
 		echars1(params);
 		echars2(params);
 		
+		initpanelTableTitle(params)
+		initPreDownTime(params)
+		initOccTab(params);
 	}
 }
 
@@ -927,7 +934,6 @@ function echars(params){
         }
 	});
 }
-
 
 function echars1(params){
 	var posList = [
@@ -1173,7 +1179,11 @@ function echars2(params){
 }
 
 function report() {
-	
+	/*$("#preDownTime").bootstrapTable('refresh');
+	$("#preOcc").bootstrapTable('refresh');
+	setTimeout(function () {
+		console.log("kaishiyanshi");
+	}, 10000);*/
 	var area = $("#area_search").val();
 	var zone = $("#zone_search").val();
 	var shift = $("#shift_search").val();
@@ -1199,7 +1209,6 @@ function report() {
 			fromDates : fDates,
 			toDates : tDates,
 	} ;
-	debugger
 	console.log(params+'_____________________')
 	//图片
 	var image = new Image();

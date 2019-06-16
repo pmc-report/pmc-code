@@ -3,6 +3,7 @@ package gean.pmc_report_manager.modules.report.service.impl;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import gean.pmc_report_common.common.utils.DateUtils;
 import gean.pmc_report_manager.modules.base.service.AtPmcMasterdataConfigService;
 import gean.pmc_report_manager.modules.report.dao.TaBiw3OprDao;
 import gean.pmc_report_manager.modules.report.entity.TaBiw3OprEntity;
@@ -31,7 +33,6 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 
 	@Override
 	public List<AreaOprVo> queryOprForArea(Map<String, Object> params) {
-		// TODO Auto-generated method stub
 		/*
 		 * 1.根据查询条件将需要计算OPR的zone全部查出来作为基础数据
 		 * 2.遍历所有的zone查询zone的OPR数据生成zone OPR 返回
@@ -39,6 +40,7 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 		 */
 		//查询参数统一处理
 		PageParamVo vo = new PageParamVo(params);
+		String current = DateUtils.format(new Date(), DateUtils.DATE_PATTERN);
 		
 		//返回结果集
 		List<AreaOprVo> areaList = new ArrayList<>();
@@ -76,8 +78,10 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 			params.put("zoneList", zoneList);
 			params.put("facilityIdList", facilityIdList);
 			PageParamVo paramsVo = new PageParamVo(params);
-			String shift = params.get("shift") == null ? "All" : (String)params.get("shift");
+			String shift = params.get("shift") == null ? "ALL" : (String)params.get("shift");
 			paramsVo.setShift(shift);
+			String workDay = (String)params.get("sTime")==null? current : (String)params.get("sTime");
+			paramsVo.setWorkDay(workDay);
 			List<ZoneOprVo> zoneOprVoList = generateZoneOprNew(paramsVo, OPRDataList);
 			
 			if(!areaMap.isEmpty()) {
@@ -155,10 +159,12 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 		DecimalFormat df = new DecimalFormat("##0.00");
 		
 		List<ZoneOprVo> oprStates = baseMapper.queryStarvedAndblocked(paramsVo);
-		List<ZoneOprVo> oprDownTime = baseMapper.queryDownTime(paramsVo);
-		List<ZoneOprVo> oprEquipAvail = baseMapper.queryTechAvali(paramsVo);
-		List<ZoneOprVo> oprGoodPartCount = baseMapper.queryGoodPartCount(paramsVo);
+		//List<ZoneOprVo> oprDownTime = baseMapper.queryDownTime(paramsVo);
+		//List<ZoneOprVo> oprGoodPartCount = baseMapper.queryGoodPartCount(paramsVo);
 		List<ZoneOprVo> oprZone = baseMapper.queryZoneOpr(paramsVo);
+		String workingDay = paramsVo.getWorkDay().replace("-", "");
+		paramsVo.setWorkDay(workingDay==null?"":workingDay);
+		List<ZoneOprVo> oprEquipAvail = baseMapper.queryTechAvali(paramsVo);
 		
 		for(int i = 0 ; i< oPRDataList.size();i++) {
 			ZoneOprVo oprVo = new ZoneOprVo();
@@ -190,8 +196,8 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 				oprVo.setBlocked(0);
 			}
 		
-			if(oprDownTime != null && !oprDownTime.isEmpty()) {
-				for (ZoneOprVo oprVoDownTime : oprDownTime) {
+			if(oprZone != null && !oprZone.isEmpty()) {
+				for (ZoneOprVo oprVoDownTime : oprZone) {
 					if(oprVo.getZone().equals(oprVoDownTime.getZone()) && oprVo.getFacilityId().equals(oprVoDownTime.getFacilityId())) {
 						if(oprVoDownTime.getDownTime() != null) {
 							oprVo.setDownTime(oprVoDownTime.getDownTime());
@@ -210,8 +216,9 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 			if(oprEquipAvail != null && !oprEquipAvail.isEmpty()) {
 				for (ZoneOprVo oprVoEquipAvail : oprEquipAvail) {
 					if(oprVo.getZone().equals(oprVoEquipAvail.getZone())) {
-						if(oprVoEquipAvail.getEquipAvail() != null) {
-							oprVo.setEquipAvail(new BigDecimal(oprVoEquipAvail.getEquipAvail()).setScale(2, BigDecimal.ROUND_HALF_UP).floatValue());
+						String equipAvail = df.format(oprVoEquipAvail.getEquipAvail());
+						if(equipAvail != null) {
+							oprVo.setEquipAvail(Float.parseFloat(equipAvail)*100);
 						}else{
 							oprVo.setEquipAvail(0f);
 						}
@@ -224,11 +231,11 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 				oprVo.setEquipAvail(0f);
 			}
 		
-			if(oprGoodPartCount !=null && !oprGoodPartCount.isEmpty()) {
-				for (ZoneOprVo oprVoGoodPartCount : oprGoodPartCount) {
+			if(oprZone !=null && !oprZone.isEmpty()) {
+				for (ZoneOprVo oprVoGoodPartCount : oprZone) {
 					if(oprVo.getZone().equals(oprVoGoodPartCount.getZone()) && oprVo.getFacilityId().equals(oprVoGoodPartCount.getFacilityId())) {
-						if(oprVoGoodPartCount.getGoodPartCount() != null) {
-							oprVo.setGoodPartCount(oprVoGoodPartCount.getGoodPartCount());
+						if(oprVoGoodPartCount.getProductionVolume() != null) {
+							oprVo.setGoodPartCount(oprVoGoodPartCount.getProductionVolume());
 						}else {
 							oprVo.setGoodPartCount(0);
 						}
@@ -249,7 +256,7 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 						if(equipmentOpr != null 
 								&& !Float.isNaN(equipmentOpr) 
 								&& !Float.isInfinite(equipmentOpr)) {
-							oprVo.setEquipmentOpr(Float.parseFloat(df.format(equipmentOpr)));
+							oprVo.setEquipmentOpr(Float.parseFloat(df.format(equipmentOpr))*100);
 						}else {
 							oprVo.setEquipmentOpr(0.00f);
 						}
@@ -259,7 +266,7 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 						if (productionOpr != null 
 								&& !Float.isNaN(productionOpr) 
 								&& !Float.isInfinite(productionOpr)) {
-							oprVo.setProductionOpr(Float.parseFloat(df.format(productionOpr)));
+							oprVo.setProductionOpr(Float.parseFloat(df.format(productionOpr))*100);
 						} else {
 							oprVo.setProductionOpr(0.00f);
 						}

@@ -63,9 +63,7 @@
 				       C.EQUIPMENT_TYPE_S,
 				       C.EQUIPMENT_S
   				FROM AT_PMC_MASTERDATA_CONFIG C
- 				WHERE C.SHOP_S IN ('CS01_BS3')
- 				AND C.LINE_S NOT IN ('Closure') 
-				AND C.ZONE_S NOT IN ('Z98.4') ) TB
+ 				WHERE C.SHOP_S IN ('CS01_BS3')) TB
  		WHERE 1 = 1
 	</sql>
 	
@@ -82,6 +80,7 @@
 			and tb.shop_s=#{_parameter}
 		</if>
 		and tb.line_s != 'Bodyside'
+		and tb.line_s != 'Closure'
 		order by TB.LINE_S desc
 	</select>
 	
@@ -91,7 +90,10 @@
 		<if test="shopNo!=null and shopNo!=''">
 			and tb.shop_s=#{shopNo}
 		</if>
-		<if test="lineNo!=null and lineNo!=''">
+		<if test="lineNo!=null and lineNo!='' and lineNo=='Closure area'">
+			and tb.line_s = 'Closure area' or tb.line_s = 'Closure'
+		</if>
+		<if test="lineNo!=null and lineNo!='' and lineNo!='Closure area'">
 			and upper(tb.line_s) like upper('%'||#{lineNo}||'%')
 		</if>
 		order by TB.ZONE_S desc
@@ -102,7 +104,10 @@
 		<if test="shopNo!=null and shopNo!=''">
 			and tb.shop_s=#{shopNo}
 		</if>
-		<if test="lineNo!=null and lineNo!=''">
+		<if test="lineNo!=null and lineNo!='' and lineNo=='Closure area'">
+			and tb.line_s = 'Closure area' or tb.line_s = 'Closure'
+		</if>
+		<if test="lineNo!=null and lineNo!='' and lineNo!='Closure area'">
 			and upper(tb.line_s) like upper('%'||#{lineNo}||'%')
 		</if>
 		<if test="zoneNo!=null and zoneNo!=''">
@@ -117,7 +122,10 @@
 		<if test="shopNo!=null and shopNo!=''">
 			and tb.shop_s=#{shopNo}
 		</if>
-		<if test="lineNo!=null and lineNo!=''">
+		<if test="lineNo!=null and lineNo!='' and lineNo=='Closure area'">
+			and tb.line_s = 'Closure area' or tb.line_s = 'Closure'
+		</if>
+		<if test="lineNo!=null and lineNo!='' and lineNo!='Closure area'">
 			and tb.line_s=#{lineNo}
 		</if>
 		<if test="zoneNo!=null and zoneNo!=''">
@@ -130,7 +138,7 @@
 	</select>
 	
 	<select id="queryDates" parameterType="String" resultType="java.lang.String">
-		SELECT to_char(FromWeekDateVal,'dd-mm-yyyy') FromWeekDateVal from (
+		SELECT to_char(FromWeekDateVal,'yyyy-MM-dd') FromWeekDateVal from (
 		<if test="_parameter!=null and _parameter!=''">
 			SELECT        to_date(#{_parameter,jdbcType=VARCHAR},'yyyy/MM/dd') - LEVEL + 1 FromWeekDateVal
 		</if>

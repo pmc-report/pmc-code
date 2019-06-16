@@ -160,7 +160,7 @@
 							<button type="button" class="btn btn-primary btn-sm" onclick="search('9Panel')">&nbsp;查询</button>
 							<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>
 							<div class="btn-group">
-    							<button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">导出
+    							<button id="panelBtn" type="button" class="btn btn-primary dropdown-toggle btn-sm" disabled="disabled" data-toggle="dropdown">导出
        								<span class="caret"></span>
     							</button>
     							<ul class="dropdown-menu" role="menu">
@@ -191,17 +191,17 @@
 		<div id="result" class="panel-collapse collapse in" style = "width:1845px;">
 			<div class="panel-body">
 				<div>
-					<div id="main2" style="width:680px;height:340px;display: inline-block;">
+					<div id="main2" style="width:680px;height:300px;display: inline-block;">
 					<script type="text/javascript">
 						var echart1=echarts.init(document.getElementById('main2'));
 					</script>
 					</div>
-					<div id="main1" style="width:680px;height:340px;display: inline-block; ">
+					<div id="main1" style="width:680px;height:300px;display: inline-block; ">
 						<script type="text/javascript">
 							var echart=echarts.init(document.getElementById('main1'));
 						</script>
 					</div>
-					<div id="main3" style="width:420px;height:340px;display: inline-block;">
+					<div id="main3" style="width:420px;height:300px;display: inline-block;">
 						<script type="text/javascript">
 							var echart2=echarts.init(document.getElementById('main3'));
 						</script>

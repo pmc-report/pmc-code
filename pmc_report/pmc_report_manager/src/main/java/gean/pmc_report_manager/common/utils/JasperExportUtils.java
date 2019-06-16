@@ -1,5 +1,8 @@
 package gean.pmc_report_manager.common.utils;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
@@ -28,7 +31,6 @@ import net.sf.jasperreports.engine.export.JRRtfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.util.JRLoader;
-import org.apache.poi.*;
 
 /**
  * 导出工具类
@@ -117,16 +119,31 @@ public class JasperExportUtils {
 		String fileName = new String((exportName+".xls").getBytes("GBK"),"ISO8859_1");
 		response.setHeader("Content-disposition" , "attachment; filename="+ fileName);
 		ServletOutputStream outputStream = response.getOutputStream();
-		JRXlsExporter exporter = new JRXlsExporter();
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,outputStream);
-		exporter.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS,Boolean.TRUE);
-		exporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET,Boolean.FALSE);
-		exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND,Boolean.FALSE);
-		exporter.exportReport();
-		outputStream.flush();
-		outputStream.close();
-		
+		BufferedOutputStream bos = new BufferedOutputStream(outputStream);
+		try {
+			JRXlsExporter exporter = new JRXlsExporter();
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM,bos);
+			exporter.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS,Boolean.TRUE);
+			exporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET,Boolean.FALSE);
+			exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND,Boolean.FALSE);
+			System.out.println("开始写文件....");
+			long startTime = System.currentTimeMillis();
+			exporter.exportReport();
+			long endTime = System.currentTimeMillis();
+	    	long usedTime = (endTime - startTime)/1000;
+			System.out.println("写文件结束，耗时："+usedTime+" 秒");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				bos.flush();
+				bos.close();
+				outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+		}
 	}
 	
 	 /**

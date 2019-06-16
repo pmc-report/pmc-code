@@ -18,5 +18,6 @@ public class ZoneOprVo {
 	private Integer blocked;
 	private Integer facilityId;
 	private Float availableTime;
+	private Integer productionVolume;
 
 }

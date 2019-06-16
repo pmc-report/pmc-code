@@ -10,12 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import gean.pmc_report_common.common.utils.DateUtils;
+import gean.pmc_report_common.common.utils.IPUtils;
 import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_common.common.utils.R;
 import gean.pmc_report_common.common.utils.StringUtils;
@@ -38,6 +41,8 @@ public class EquFaultController {
     @Autowired
     private TaEquFaultService equFaultService;
     
+    private static Logger logger = LoggerFactory.getLogger(EquFaultController.class);
+    
     Map<String,Object> resultMap = new HashMap<>();
 
     /**
@@ -55,13 +60,21 @@ public class EquFaultController {
     
     @RequestMapping("/exportAll")
     public void exportAll(@RequestParam Map<String,Object> params) {
+    	long startTime = System.currentTimeMillis();
+    	logger.debug("页面表格加载完成后执行导出查询开始....");
     	List<TaEquFaultEntity> result = equFaultService.queryExportFault(params);
+    	long endTime = System.currentTimeMillis();
+    	long usedTime = (endTime - startTime)/1000;
+    	logger.debug("执行查询结束，耗时："+usedTime+" 秒");
         resultMap.put("result", result);
     }
     
     @RequestMapping("/exportFault")
     public void exportEquFault(HttpServletRequest request,HttpServletResponse response,@RequestParam Map<String,Object> params) {
+    	logger.debug("执行导出开始....");
+    	long startTime = System.currentTimeMillis();
     	List<TaEquFaultEntity> result = (List)resultMap.get("result");
+    	logger.debug("需要处理的数据有："+result.size()+" 条");
     	Integer totalDur = (int)resultMap.get("duration");
         List<EquFaultExport> exportList = new ArrayList<EquFaultExport>();
         if(result!= null && !result.isEmpty()) {
@@ -112,6 +125,9 @@ public class EquFaultController {
 				exportfault.setDuration_2(DateUtils.longToDate(totalDur));
 	        	exportList.add(exportfault);
         	}
+        	long endTime = System.currentTimeMillis();
+        	long usedTime = (endTime - startTime)/1000;
+        	logger.debug("循环处理的数据结束,耗时："+usedTime+" 秒");
         }else {
         	EquFaultExport exportfault = new EquFaultExport();
         	exportfault.setShop(!StringUtils.isNotBlank((String)params.get("shop")) ? "" : (String)params.get("shop"));
@@ -139,12 +155,15 @@ public class EquFaultController {
         
     	String exoprt = params.get("exoprtType") == null ? "word" : (String)params.get("exoprtType");
     	try {
-    		InputStream is = this.getClass().getResourceAsStream("exportModel/TaEquFault_Word.jasper");//获取同包下模版文件
+    		InputStream is = EquFaultController.class.getResourceAsStream("exportModel/TaEquFault_Word.jasper");//获取同包下模版文件
     		if(exoprt.equals("excel")) {
         		is = this.getClass().getResourceAsStream("exportModel/TaEquFault_Excel.jasper");
         	}
     		String exportName = "设备故障报表";
     		JasperExportUtils.export(exportList, exoprt, is, request, response,exportName);
+    		long endTime = System.currentTimeMillis();
+        	long usedTime = (endTime - startTime)/1000;
+        	logger.debug("导出数据结束,耗时："+usedTime+" 秒");
     	} catch (Exception e) {
 			e.getMessage();
 		}

@@ -83,7 +83,7 @@
 							<button type="button" class="btn btn-primary btn-sm" onclick="search('Biw3OPR')">&nbsp;查询</button>
 							<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>
 							<div class="btn-group">
-    							<button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">导出
+    							<button id="oprBtn" type="button" class="btn btn-primary dropdown-toggle btn-sm" disabled="disabled" data-toggle="dropdown">导出
        								<span class="caret"></span>
     							</button>
     							<ul class="dropdown-menu" role="menu">
@@ -143,14 +143,14 @@
 			</div>
 		</div>
 	</div>
-	<form id = "oprform" method="post">
+	<!-- <form id = "oprform" method="post">
 		<input type = "hidden" name = "shop" id = "oprshop" />
 		<input type = "hidden" name = "area" id = "oprarea"/>
 		<input type = "hidden" name = "shift" id = "oprshift"/>
 		<input type = "hidden" name = "sTime" id = "oprstime"/>
 		<input type = "hidden" name = "exoprtType" id = "exporttypeopr"/>
 		<input type= "button" id = "oprsub" value = "导出" onclick="oprsubmit()"/>
-	</form>
+	</form> -->
 	<script src="${request.contextPath}/statics/js/modules/report/tabiw3opr.js?_${.now?long}"></script>
 </body>
 </html>
