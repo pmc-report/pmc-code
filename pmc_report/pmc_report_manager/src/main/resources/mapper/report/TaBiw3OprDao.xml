@@ -198,8 +198,11 @@
       			#{zone}
    			</foreach>
 		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift = #{shift}
+		</if>
 		<if test="workDay!=null and workDay!=''">
-			and  CONVERT (DATE, work_day) = CONVERT (DATE ,#{workDay})
+			and  CONVERT (VARCHAR, work_day, 23) = CONVERT (VARCHAR ,#{workDay},23)
 		</if>
 		and opr_level='zone'
 		and frequency='Shiftwise'

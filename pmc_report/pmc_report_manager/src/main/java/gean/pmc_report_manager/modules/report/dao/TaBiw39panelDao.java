@@ -24,6 +24,10 @@ import gean.pmc_report_manager.modules.report.vo.PanelVo;
 public interface TaBiw39panelDao extends BaseMapper<TaBiw39panelEntity> {
 	
     List<PanelVo> queryEchart(PageParamVo vo);
+    
+    @Transactional
+    @DataSource("slave1")
+    PanelVo queryTarTavMtbf(PageParamVo vo);
 
     List<PanelVo> queryTop10DownTimeOld(PageParamVo vo);
     

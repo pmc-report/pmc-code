@@ -79,8 +79,6 @@
 		<if test="_parameter!=null and _parameter!=''">
 			and tb.shop_s=#{_parameter}
 		</if>
-		and tb.line_s != 'Bodyside'
-		and tb.line_s != 'Closure'
 		order by TB.LINE_S desc
 	</select>
 	
@@ -90,11 +88,8 @@
 		<if test="shopNo!=null and shopNo!=''">
 			and tb.shop_s=#{shopNo}
 		</if>
-		<if test="lineNo!=null and lineNo!='' and lineNo=='Closure area'">
-			and tb.line_s = 'Closure area' or tb.line_s = 'Closure'
-		</if>
-		<if test="lineNo!=null and lineNo!='' and lineNo!='Closure area'">
-			and upper(tb.line_s) like upper('%'||#{lineNo}||'%')
+		<if test="lineNo!=null and lineNo!=''">
+			and tb.line_s=#{lineNo}
 		</if>
 		order by TB.ZONE_S desc
 	</select>
@@ -104,11 +99,8 @@
 		<if test="shopNo!=null and shopNo!=''">
 			and tb.shop_s=#{shopNo}
 		</if>
-		<if test="lineNo!=null and lineNo!='' and lineNo=='Closure area'">
-			and tb.line_s = 'Closure area' or tb.line_s = 'Closure'
-		</if>
-		<if test="lineNo!=null and lineNo!='' and lineNo!='Closure area'">
-			and upper(tb.line_s) like upper('%'||#{lineNo}||'%')
+		<if test="lineNo!=null and lineNo!=''">
+			and tb.line_s=#{lineNo}
 		</if>
 		<if test="zoneNo!=null and zoneNo!=''">
 			and tb.zone_s=#{zoneNo}
@@ -122,10 +114,7 @@
 		<if test="shopNo!=null and shopNo!=''">
 			and tb.shop_s=#{shopNo}
 		</if>
-		<if test="lineNo!=null and lineNo!='' and lineNo=='Closure area'">
-			and tb.line_s = 'Closure area' or tb.line_s = 'Closure'
-		</if>
-		<if test="lineNo!=null and lineNo!='' and lineNo!='Closure area'">
+		<if test="lineNo!=null and lineNo!=''">
 			and tb.line_s=#{lineNo}
 		</if>
 		<if test="zoneNo!=null and zoneNo!=''">
@@ -173,4 +162,5 @@
 		                     from At_Pmc_Model_Mapping
 		                    where SHOP_S = #{shop})
 	</select>
+	
 </mapper>

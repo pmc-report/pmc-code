@@ -337,6 +337,7 @@ function initTable(url,queryParams){
 	      }, 
 	      onLoadSuccess: function (data) { 		//加载成功时执行
 	    	  exportAll(queryParams);
+	    	  setPorpById('faultBtn','disabled',false);
 	      },
 	      onLoadError: function (res) { 		//加载失败时执行
 	          //console.log(res);

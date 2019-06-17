@@ -43,6 +43,7 @@ public class PageParamVo {
 	private List<String> zoneList;
 	private List<Integer> facilityIdList;
 	private String level;
+	private Integer flag;
 	
 	
 	
@@ -76,20 +77,34 @@ public class PageParamVo {
 		jobId = (String)params.get("jobId")==null?"":(String)params.get("jobId");
 		facilityId = (Integer)params.get("facilityId");
 		fromDate0 = (String)params.get("fromDate[0]")==null?"0":(String)params.get("fromDate[0]");
+		//fromDate0 = fromDate0 + " 00:00:00";
 		fromDate1 = (String)params.get("fromDate[1]")==null?"0":(String)params.get("fromDate[1]");
+		//fromDate1 = fromDate1 + " 00:00:00";
 		fromDate2 = (String)params.get("fromDate[2]")==null?"0":(String)params.get("fromDate[2]");
+		//fromDate2 = fromDate2 + " 00:00:00";
 		fromDate3 = (String)params.get("fromDate[3]")==null?"0":(String)params.get("fromDate[3]");
+		//fromDate3 = fromDate3 + " 00:00:00";
 		fromDate4 = (String)params.get("fromDate[4]")==null?"0":(String)params.get("fromDate[4]");
+		//fromDate4 = fromDate4 + " 00:00:00";
 		fromDate5 = (String)params.get("fromDate[5]")==null?"0":(String)params.get("fromDate[5]");
+		//fromDate5 = fromDate5 + " 00:00:00";
 		fromDate6 = (String)params.get("fromDate[6]")==null?"0":(String)params.get("fromDate[6]");
+		//fromDate6 = fromDate6 + " 00:00:00";
 		
 		toDate0 = (String)params.get("toDate[0]")==null?"0":(String)params.get("toDate[0]");
+		//toDate0 = toDate0 + " 23:59:59";
 		toDate1 = (String)params.get("toDate[1]")==null?"0":(String)params.get("toDate[1]");
+		//toDate1 = toDate1 + " 23:59:59";
 		toDate2 = (String)params.get("toDate[2]")==null?"0":(String)params.get("toDate[2]");
+		//toDate2 = toDate2 + " 23:59:59";
 		toDate3 = (String)params.get("toDate[3]")==null?"0":(String)params.get("toDate[3]");
+		//toDate3 = toDate3 + " 23:59:59";
 		toDate4 = (String)params.get("toDate[4]")==null?"0":(String)params.get("toDate[4]");
+		//toDate4 = toDate4 + " 23:59:59";
 		toDate5 = (String)params.get("toDate[5]")==null?"0":(String)params.get("toDate[5]");
+		//toDate5 = toDate5 + " 23:59:59";
 		toDate6 = (String)params.get("toDate[6]")==null?"0":(String)params.get("toDate[6]");
+		//toDate6 = toDate6 + " 23:59:59";
 		zoneList = params.get("zoneList") == null ? new ArrayList<String>() : (ArrayList<String>) params.get("zoneList");
 		facilityIdList = params.get("facilityIdList") == null ? new ArrayList<Integer>() : (ArrayList<Integer>) params.get("facilityIdList");
 	}

@@ -232,13 +232,13 @@ function initZoneTable(url,queryParams){
   	  	{title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1}},
   	  	{ field: 'zone', title: 'Zone', align: 'center', sortable:false }, 
         { field: 'goodPartCount', title: '合格件产量计数', align: 'center' },
-        { field: 'downTime', title: '停机时间', halign:'center',formatter: dateFormatter }, 
+        { field: 'downTime', title: '停机时间', align:'center',formatter: dateFormatter }, 
         { field: 'productionOpr', title: '生产OPR', align: 'center'}, 
         { field: 'equipmentOpr', title: '设备OPR', align: 'center' },
-        { field: 'equipAvail', title: '设备可用率', halign:'center' }, 
-        { field: 'cycleTime', title: '节拍时间', halign:'center' },
+        { field: 'equipAvail', title: '设备可用率', align:'center' }, 
+        { field: 'cycleTime', title: '节拍时间', align:'center' },
     	{ field: 'starved', title: '堵料时间', align: 'center', formatter: dateFormatter },
-        { field: 'blocked', title: '缺料时间', halign:'center',formatter: dateFormatter }
+        { field: 'blocked', title: '缺料时间', align:'center',formatter: dateFormatter }
     ];
    
 	  $('#zoneTab').empty();
@@ -311,6 +311,7 @@ function initZoneTable(url,queryParams){
 	      }, 
 	      onLoadSuccess: function (data) { 		//加载成功时执行
 	          //console.log(data);
+	    	  setPorpById('oprBtn','disabled',false);
 	      },
 	      onLoadError: function (res) { 		//加载失败时执行
 	          //console.log(res);

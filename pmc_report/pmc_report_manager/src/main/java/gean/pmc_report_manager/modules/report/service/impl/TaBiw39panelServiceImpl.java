@@ -44,6 +44,7 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 		if(vo.getZone()!=null
 				&&!"".equals(vo.getZone())) {
 			vo.setLevel("zone");
+			vo.setFlag(1);
 		}
 		if("".equals(vo.getArea())) {
 			vo.setLevel("shop");
@@ -51,13 +52,25 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 		if(!"".equals(vo.getArea())
 				&&"".equals(vo.getZone())) {
 			vo.setLevel("line");
+			vo.setFlag(0);
 		}
 		if(vo.getShift()==null
 				||"".equals(vo.getShift())) {
 			vo.setShift("ALL");
 		}
 		
+		
 		List<PanelVo> list = baseMapper.queryEchart(vo);
+		
+		if("Closure".equals(vo.getArea())||"Closure area".equals(vo.getArea())) {
+			vo.setArea("Closure area");
+			vo.setFlag(1);
+		}
+		if("Frame Line".equals(vo.getArea())) {
+			vo.setFlag(1);
+		}
+		
+		PanelVo panelVo = baseMapper.queryTarTavMtbf(vo);
 		
 		DecimalFormat df = new DecimalFormat("##0.00");
 		
@@ -72,12 +85,12 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 					_new.setMonday(panel.getMonday());
 				}
 				if(panel.getTav()!=0) {
-					_new.setTargetTav(panel.getTargetTav());
+					_new.setTargetTav(Float.parseFloat(df.format(panelVo.getTargetTav())));
 					_new.setTav(Float.parseFloat(df.format(panel.getTav())));
 				}
 				
 				if(panel.getMtbf()!=0) {
-					_new.setTargetMtbf(Float.parseFloat(df.format(panel.getTargetMtbf())));
+					_new.setTargetMtbf(Float.parseFloat(df.format(panelVo.getTargetMtbf())));
 					_new.setMtbf(panel.getMtbf());
 				}
 				_new.setStartTime(panel.getStartTime());
@@ -127,6 +140,7 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 		
 		//4
 		List<PanelVo> totalDownTimeForTo = baseMapper.queryTotalDurationTimeNew(vo);
+		
 		
 		Map<String,PanelVo> groupMap = new HashMap<>();
 		
@@ -290,6 +304,7 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 				int count = top10OccurrenceNewList.size();
 				if(i <= count -1) {
 					PanelVo newVo = top10OccurrenceNewList.get(i);
+					//取值需验证
 					PanelVo oldVo = resultList.get(i);
 					if(i==0) {
 						int totalOcc2 = totalOccurrenceForTo.get(0).getTotalOcc2();
@@ -301,7 +316,7 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 					oldVo.setMins2(Float.parseFloat(df.format(newVo.getMins2())));
 					oldVo.setStn2(newVo.getStn2());
 					oldVo.setDescription2(newVo.getDescription2());
-					if(oldVo.getStatus()==null) {
+					if(oldVo.getStatus()== null) {
 						oldVo.setStatus(1);//故障消失
 					}
 				}

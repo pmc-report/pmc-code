@@ -78,6 +78,25 @@
 			AND job_id = #{jobId}
 		</if>
 	</sql>
+	
+	<select id="queryTarTavMtbf" resultMap="panelVoMap">
+		select  avg(c.target_mtbf_f) As Target_MTBF ,avg(c.target_tav_f) as Target_TAV
+		  from at_pmc_masterdata_config c
+		 where c.shop_s = 'CS01_BS3'
+		<if test="area!=null and area!=''">
+			and c.line_s = #{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			and c.zone_s = #{zone}
+		</if>
+		<if test="flag==0">
+			and c.production_flag_y = 1
+		</if>
+	  	<if test="flag==1">
+	  		and c.eol_flag_y = 1
+	  	</if>
+	   
+	</select>
 
 	<select id="queryEchart" resultMap="panelVoMap">
 		<include refid="common_sql_header"/>
@@ -155,6 +174,7 @@
 													ISNULL(end_time,GETDATE()) Current_End_Time
 											from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
 											AND CONVERT (VARCHAR(10), start_time, 23) IN (#{fromDate0},#{fromDate1},#{fromDate2},#{fromDate3},#{fromDate4},#{fromDate5},#{fromDate6}) 
+											AND CONVERT (VARCHAR(10), end_time, 23) IN (#{fromDate0},#{fromDate1},#{fromDate2},#{fromDate3},#{fromDate4},#{fromDate5},#{fromDate6}) 
 										<include refid="common_sql_footer"/>
 										and fault_word3 !=0
 										and duration is not NULL
@@ -179,6 +199,7 @@
 				ISNULL(end_time,GETDATE()) Current_End_Time
 			from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
 			and convert(varchar(10),start_time,23) in (#{fromDate0},#{fromDate1},#{fromDate2},#{fromDate3},#{fromDate4},#{fromDate5},#{fromDate6})
+			AND CONVERT (VARCHAR(10), end_time, 23) IN (#{fromDate0},#{fromDate1},#{fromDate2},#{fromDate3},#{fromDate4},#{fromDate5},#{fromDate6}) 
 			<include refid="common_sql_footer"/>
 			and fault_word3 !=0
 			and duration is not NULL
@@ -220,6 +241,7 @@
 															ISNULL(end_time,GETDATE()) Current_End_Time
 														from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
 														and convert(varchar(10),start_time,23) in (#{toDate0},#{toDate1},#{toDate2},#{toDate3},#{toDate4},#{toDate5},#{toDate6})
+														and convert(varchar(10),end_time,23) in (#{toDate0},#{toDate1},#{toDate2},#{toDate3},#{toDate4},#{toDate5},#{toDate6})
 														<include refid="common_sql_footer"/>
 														and fault_word3 !=0
 														and duration is not NULL
@@ -245,6 +267,7 @@
 				ISNULL(end_time,GETDATE()) Current_End_Time
 			from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
 			and convert(varchar(10),start_time,23) in (#{toDate0},#{toDate1},#{toDate2},#{toDate3},#{toDate4},#{toDate5},#{toDate6})
+			and convert(varchar(10),end_time,23) in (#{toDate0},#{toDate1},#{toDate2},#{toDate3},#{toDate4},#{toDate5},#{toDate6})
 			<include refid="common_sql_footer"/>
 			and fault_word3 !=0
 			and duration is not NULL
@@ -274,6 +297,7 @@
 										select fault_description,facility_id,start_time,ISNULL(end_time,GETDATE()) Current_End_Time
 										from PMC.dbo.PMC_BIW_FAULT t WHERE	1 = 1
 										and convert(varchar(10),start_time,23) in (#{fromDate0},#{fromDate1},#{fromDate2},#{fromDate3},#{fromDate4},#{fromDate5},#{fromDate6})
+										and convert(varchar(10),end_time,23) in (#{fromDate0},#{fromDate1},#{fromDate2},#{fromDate3},#{fromDate4},#{fromDate5},#{fromDate6})
 										<include refid="common_sql_footer"/>
 										and fault_word3 !=0
 										and duration is not NULL
@@ -316,6 +340,7 @@
 								select fault_description,facility_id,start_time,ISNULL(end_time,GETDATE()) Current_End_Time
 								from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
 								and convert(varchar(10),start_time,23) in (#{toDate0},#{toDate1},#{toDate2},#{toDate3},#{toDate4},#{toDate5},#{toDate6})
+								and convert(varchar(10),end_time,23) in (#{toDate0},#{toDate1},#{toDate2},#{toDate3},#{toDate4},#{toDate5},#{toDate6})
 								<include refid="common_sql_footer"/>
 								and fault_word3 !=0
 								and duration is not NULL

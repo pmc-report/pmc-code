@@ -198,7 +198,7 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 		
 			if(oprZone != null && !oprZone.isEmpty()) {
 				for (ZoneOprVo oprVoDownTime : oprZone) {
-					if(oprVo.getZone().equals(oprVoDownTime.getZone()) && oprVo.getFacilityId().equals(oprVoDownTime.getFacilityId())) {
+					if(oprVo.getZone().equals(oprVoDownTime.getZone())) {
 						if(oprVoDownTime.getDownTime() != null) {
 							oprVo.setDownTime(oprVoDownTime.getDownTime());
 						}else{
@@ -233,7 +233,7 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 		
 			if(oprZone !=null && !oprZone.isEmpty()) {
 				for (ZoneOprVo oprVoGoodPartCount : oprZone) {
-					if(oprVo.getZone().equals(oprVoGoodPartCount.getZone()) && oprVo.getFacilityId().equals(oprVoGoodPartCount.getFacilityId())) {
+					if(oprVo.getZone().equals(oprVoGoodPartCount.getZone())) {
 						if(oprVoGoodPartCount.getProductionVolume() != null) {
 							oprVo.setGoodPartCount(oprVoGoodPartCount.getProductionVolume());
 						}else {
