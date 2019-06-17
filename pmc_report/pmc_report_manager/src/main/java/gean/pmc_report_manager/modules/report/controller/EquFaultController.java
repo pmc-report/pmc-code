@@ -119,10 +119,10 @@ public class EquFaultController {
 				exportfault.setEndTime_2(taEquFaultEntity.getEndTime() == null ? "" : DateUtils.format(taEquFaultEntity.getEndTime(), DateUtils.DATE_TIME_PATTERN));
 				//单条持续时间
 				Integer duration = taEquFaultEntity.getDuration();
-				exportfault.setDuration(DateUtils.longToDate(duration));
+				exportfault.setDuration(DateUtils.secToTime(duration));
 				//总持续时间
 				//Integer totalDuration = totalDur.getDuration();
-				exportfault.setDuration_2(DateUtils.longToDate(totalDur));
+				exportfault.setDuration_2(DateUtils.secToTime(totalDur));
 	        	exportList.add(exportfault);
         	}
         	long endTime = System.currentTimeMillis();

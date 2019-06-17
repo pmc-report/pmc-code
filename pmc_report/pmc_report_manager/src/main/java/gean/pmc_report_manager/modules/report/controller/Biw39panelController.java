@@ -1,6 +1,7 @@
 package gean.pmc_report_manager.modules.report.controller;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -47,6 +48,7 @@ public class Biw39panelController {
     @Autowired
     private TaBiw39panelService taBiw39panelService;
     
+    Map<String,Object> resultMap = new HashMap<>();
     
     
     @RequestMapping("/listPrePanel")
@@ -67,54 +69,15 @@ public class Biw39panelController {
     @RequestMapping("/echarts")
     public R list(@RequestParam Map<String, Object> params){
        List<PanelVo> list = taBiw39panelService.queryEchart(params);
+       for(PanelVo vo : list) {
+    	   if(vo.getTargetTav()>0) {
+    		   resultMap.put("Target TA", vo.getTargetTav());
+    		   break;
+    	   }
+       }
         return R.ok().put("list", list);
     }
 
-
-    /**
-     * 信息
-     */
-    @RequestMapping("/info/{taBiw39panelId}")
-    @RequiresPermissions("report:tabiw39panel:info")
-    public R info(@PathVariable("taBiw39panelId") Integer taBiw39panelId){
-        TaBiw39panelEntity taBiw39panel = taBiw39panelService.getById(taBiw39panelId);
-
-        return R.ok().put("taBiw39panel", taBiw39panel);
-    }
-
-    /**
-     * 保存
-     */
-    @RequestMapping("/save")
-    @RequiresPermissions("report:tabiw39panel:save")
-    public R save(@RequestBody TaBiw39panelEntity taBiw39panel){
-        taBiw39panelService.save(taBiw39panel);
-
-        return R.ok();
-    }
-
-    /**
-     * 修改
-     */
-    @RequestMapping("/update")
-    @RequiresPermissions("report:tabiw39panel:update")
-    public R update(@RequestBody TaBiw39panelEntity taBiw39panel){
-        ValidatorUtils.validateEntity(taBiw39panel);
-        taBiw39panelService.updateById(taBiw39panel);
-        
-        return R.ok();
-    }
-
-    /**
-     * 删除
-     */
-    @RequestMapping("/delete")
-    @RequiresPermissions("report:tabiw39panel:delete")
-    public R delete(@RequestBody Integer[] taBiw39panelIds){
-        taBiw39panelService.removeByIds(Arrays.asList(taBiw39panelIds));
-
-        return R.ok();
-    }
     
     /**
      * 测试用
@@ -152,11 +115,13 @@ public class Biw39panelController {
 		Writer writer = new OutputStreamWriter(new FileOutputStream(f), "utf-8");
 		Template template = configuration.getTemplate("word.xml");
 		Map<String, String> map = new HashMap<>();
+		DecimalFormat df = new DecimalFormat("##0.00");
 		//组装数据
 		for (String str : params.keySet()) {
 			map.put(str, params.get(str) == null ? " " : (String)params.get(str));
 //			System.out.println(str+" : "+map.get(str));
 		}
+		map.put("targetTA", df.format(resultMap.get("Target TA")));
 		map.put("createDates", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
 		template.process(map, writer);
 		writer.close();
