@@ -156,7 +156,7 @@
 				Duration1
 		  FROM (
 						Select 
-							ROW_NUMBER() OVER (PARTITION BY fault_description ORDER BY TotalDuration desc) ROWNUMS,
+							ROW_NUMBER() OVER (PARTITION BY CONVERT(VARCHAR,facility_id)+fault_description ORDER BY TotalDuration desc) ROWNUMS,
 							facility_id "facility_id1",
 							fault_description "fault_description1",
 							Occurrences "Occurrences1",
@@ -223,7 +223,7 @@
 						Duration2
 					FROM(
 								Select 
-									ROW_NUMBER() OVER (PARTITION BY fault_description ORDER BY TotalDuration desc) ROWNUMS,
+									ROW_NUMBER() OVER (PARTITION BY CONVERT(VARCHAR,facility_id)+fault_description ORDER BY TotalDuration desc) ROWNUMS,
 									facility_id "facility_id2",
 									fault_description "fault_description2",
 									Occurrences "Occurrences2",
@@ -285,7 +285,7 @@
 		FROM
 					(
 					Select 
-						ROW_NUMBER() OVER (PARTITION BY fault_description ORDER BY Occurrences desc) ROWNUMS,
+						ROW_NUMBER() OVER (PARTITION BY CONVERT(VARCHAR,facility_id)+fault_description ORDER BY Occurrences desc) ROWNUMS,
 						facility_id "facility_id1",
 						fault_description "fault_description1",
 						Occurrences "Occurrences1",
@@ -328,7 +328,7 @@
 		   FROM
 			(
 				Select 
-					ROW_NUMBER() OVER (PARTITION BY fault_description ORDER BY Occurrences desc) ROWNUMS,
+					ROW_NUMBER() OVER (PARTITION BY CONVERT(VARCHAR,facility_id)+fault_description ORDER BY Occurrences desc) ROWNUMS,
 					facility_id "facility_id2",
 					fault_description "fault_description2",
 					Occurrences "Occurrences2",
