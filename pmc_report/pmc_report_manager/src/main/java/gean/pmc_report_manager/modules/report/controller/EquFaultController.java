@@ -43,7 +43,7 @@ public class EquFaultController {
     
     private static Logger logger = LoggerFactory.getLogger(EquFaultController.class);
     
-    Map<String,Object> resultMap = new HashMap<>();
+    Map<String,Object> resultMap;
 
     /**
      * 列表
@@ -51,6 +51,7 @@ public class EquFaultController {
     @RequestMapping("/list")
     @RequiresPermissions("report:fault:list")
     public R list(@RequestParam Map<String, Object> params){
+    	resultMap = new HashMap<>();
     	TaEquFaultEntity totalDur = equFaultService.queryTotalMins(params);
         PageUtils page = equFaultService.queryEquFaultByParam(params);
     	int duration = totalDur==null?0:totalDur.getDuration();
@@ -164,7 +165,9 @@ public class EquFaultController {
     		long endTime = System.currentTimeMillis();
         	long usedTime = (endTime - startTime)/1000;
         	logger.debug("导出数据结束,耗时："+usedTime+" 秒");
+        	resultMap.clear();
     	} catch (Exception e) {
+    		resultMap.clear();
 			e.getMessage();
 		}
     }

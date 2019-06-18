@@ -122,8 +122,11 @@
 		<if test="station!=null and station!=''">
 		   AND t.station=#{station}
 		</if>
+		<if test="equipment!=null and equipment!=''">
+			AND t.equipment = #{equipment}
+		</if>
 		<if test="jobId!=null and jobId!=''">
-			AND job_id = #{jobId}
+			AND t.job_id = #{jobId}
 		</if>
 		<if test="shift!=null and shift!=''">
 			AND t.shift =#{shift}
