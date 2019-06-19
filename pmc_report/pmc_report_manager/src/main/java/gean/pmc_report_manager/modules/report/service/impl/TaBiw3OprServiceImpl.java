@@ -216,9 +216,9 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 			if(oprEquipAvail != null && !oprEquipAvail.isEmpty()) {
 				for (ZoneOprVo oprVoEquipAvail : oprEquipAvail) {
 					if(oprVo.getZone().equals(oprVoEquipAvail.getZone())) {
-						String equipAvail = df.format(oprVoEquipAvail.getEquipAvail());
+						String equipAvail = df.format(oprVoEquipAvail.getEquipAvail()*100);
 						if(equipAvail != null) {
-							oprVo.setEquipAvail(Float.parseFloat(equipAvail)*100);
+							oprVo.setEquipAvail(Float.parseFloat(equipAvail));
 						}else{
 							oprVo.setEquipAvail(0f);
 						}
@@ -256,7 +256,7 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 						if(equipmentOpr != null 
 								&& !Float.isNaN(equipmentOpr) 
 								&& !Float.isInfinite(equipmentOpr)) {
-							oprVo.setEquipmentOpr(Float.parseFloat(df.format(equipmentOpr))*100);
+							oprVo.setEquipmentOpr(Float.parseFloat(df.format(equipmentOpr*100)));
 						}else {
 							oprVo.setEquipmentOpr(0.00f);
 						}
@@ -266,7 +266,7 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 						if (productionOpr != null 
 								&& !Float.isNaN(productionOpr) 
 								&& !Float.isInfinite(productionOpr)) {
-							oprVo.setProductionOpr(Float.parseFloat(df.format(productionOpr))*100);
+							oprVo.setProductionOpr(Float.parseFloat(df.format(productionOpr*100)));
 						} else {
 							oprVo.setProductionOpr(0.00f);
 						}

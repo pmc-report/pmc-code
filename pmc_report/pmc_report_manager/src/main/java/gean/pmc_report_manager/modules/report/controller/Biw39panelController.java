@@ -48,7 +48,7 @@ public class Biw39panelController {
     @Autowired
     private TaBiw39panelService taBiw39panelService;
     
-    Map<String,Object> resultMap = new HashMap<>();
+    Map<String,Object> resultMap;
     
     
     @RequestMapping("/listPrePanel")
@@ -68,6 +68,7 @@ public class Biw39panelController {
      */
     @RequestMapping("/echarts")
     public R list(@RequestParam Map<String, Object> params){
+       resultMap = new HashMap<>();
        List<PanelVo> list = taBiw39panelService.queryEchart(params);
        for(PanelVo vo : list) {
     	   if(vo.getTargetTav()>0) {
