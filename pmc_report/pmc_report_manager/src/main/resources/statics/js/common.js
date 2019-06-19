@@ -448,7 +448,7 @@ function selectTime() {
 	        istime: false, //是否开启时间选择
 	        done: function(value, date) {
 	            // 结束时间大于开始时间
-	            if (value !== '') {
+	           if (value !== '') {
 	                endDate.config.min.year = date.year;
 	                endDate.config.min.month = date.month - 1;
 	                endDate.config.min.date = date.date;
@@ -473,7 +473,7 @@ function selectTime() {
 	        istime: false, //是否开启时间选择
 	        done: function(value, date) {
 	            // 开始时间小于结束时间
-	            if (value !== '') {
+	        	if (value !== '') {
 	                startDate.config.max.year = date.year;
 	                startDate.config.max.month = date.month - 1;
 	                startDate.config.max.date = date.date;
@@ -648,6 +648,24 @@ function search(tag){
 
 //重置查询条件，禁用下级下拉框
 function resetParam(){
+	layui.use('laydate', function() {
+	    var laydate = layui.laydate;
+	    var startDate = laydate.render({
+	        elem: '#startTime',
+	        theme: 'molv',
+	        type: 'date',
+	        isInitValue: true,
+	        format: 'yyyy-MM-dd'
+	    });
+	    var endDate = laydate.render({
+	        elem: '#endTime',
+	        theme: 'molv',
+	        type: 'date',
+	        isInitValue: true,
+	        format: 'yyyy-MM-dd'
+	      
+	    });
+	});
 	$("#shop_search").val('');
 	$("#area_search").val('');
 	$("#zone_search").val('');
