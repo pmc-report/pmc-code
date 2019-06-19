@@ -1,8 +1,6 @@
 package gean.pmc_report_manager.modules.report.service.impl;
 
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,13 +10,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import gean.pmc_report_common.common.utils.DateUtils;
 import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_common.common.utils.StringUtils;
 import gean.pmc_report_manager.common.utils.Query;
 import gean.pmc_report_manager.modules.report.dao.TaEquFaultDao;
 import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
 import gean.pmc_report_manager.modules.report.service.TaEquFaultService;
+import gean.pmc_report_manager.modules.report.vo.FaultVo;
 import gean.pmc_report_manager.modules.report.vo.PageParamVo;
 
 
@@ -103,25 +101,14 @@ public class TaEquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFault
 															.le(StringUtils.isNotNull(eTime), "end_Time", eTime)
 															.ne("fault_word3", 0)
 															.isNotNull("duration")
-															.isNotNull("end_Time")
+															//.isNotNull("end_Time")
 															.orderByAsc("facility_id ").orderByDesc("start_Time"));
 		
-		/*if(page!=null) {
-			//加入设备描述
-			List<TaEquFaultEntity> faultList = page.getRecords();
-			if(faultList.size()>0) {
-				for(TaEquFaultEntity entity : faultList) {
-					String facilityDesc = baseMapper.queryFacilityDesc(entity.getFacilityId());
-					entity.setFacilityDesc(facilityDesc);
-				}
-			}
-			return new PageUtils(page);
-		}*/
 		return new PageUtils(page);
 	}
 
 	@Override
-	public List<TaEquFaultEntity> queryExportFault(Map<String, Object> params) {
+	public List<FaultVo> queryExportFault(Map<String, Object> params) {
 		
 		PageParamVo vo = new PageParamVo(params);
 
@@ -129,7 +116,7 @@ public class TaEquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFault
 		str = str.replaceAll("&amp;", "&");
 		vo.setEquipment(str);
 
-		List<TaEquFaultEntity> faultList = baseMapper.qureyFualtList(vo);
+		List<FaultVo> faultList = baseMapper.qureyFualtList(vo);
 		return faultList;
 	}
 }

@@ -231,25 +231,28 @@ public class DateUtils {
         String timeStr = null;
         int hour = 0;
         int minute = 0;
-        int second = 0;
-        int millisecond = 0;
+        int second = time;
+        //int millisecond = 0;
         if (time <= 0)
-            return "00:00:00.000";
+            return "00:00:00";
         else {
-            second = time / 1000;
+            //second = time / 60;
             minute = second / 60;
-            millisecond = time % 1000;
+           // millisecond = time % 1000;
             if (second < 60) {
-                timeStr = "00:00:" + unitFormat(second) + "." + unitFormat2(millisecond);
+                //timeStr = "00:00:" + unitFormat(second) + "." + unitFormat2(millisecond);
+            	timeStr = "00:00:" + unitFormat(second);
             } else if (minute < 60) {
                 second = second % 60;
-                timeStr = "00:" + unitFormat(minute) + ":" + unitFormat(second) + "." + unitFormat2(millisecond);
+                //timeStr = "00:" + unitFormat(minute) + ":" + unitFormat(second) + "." + unitFormat2(millisecond);
+                timeStr = "00:" + unitFormat(minute) + ":" + unitFormat(second);
             } else {// 数字>=3600 000的时候
                 hour = minute / 60;
                 minute = minute % 60;
                 second = second - hour * 3600 - minute * 60;
-                timeStr = unitFormat(hour) + ":" + unitFormat(minute) + ":" + unitFormat(second) + "."
-                    + unitFormat2(millisecond);
+               // timeStr = unitFormat(hour) + ":" + unitFormat(minute) + ":" + unitFormat(second) + "."
+                //    + unitFormat2(millisecond);
+                timeStr = unitFormat(hour) + ":" + unitFormat(minute) + ":" + unitFormat(second);
             }
         }
         return timeStr;

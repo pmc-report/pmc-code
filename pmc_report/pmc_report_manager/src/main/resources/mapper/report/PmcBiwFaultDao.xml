@@ -28,7 +28,31 @@
         <result property="webFlag" column="web_flag"/>
         <result property="posWord31" column="pos_word31"/>
         <result property="dbTimeStamp" column="db_time_stamp"/>
+        <result property="totalDuration" column="total_duration"/>
     </resultMap>
+    
+    <resultMap type="gean.pmc_report_manager.modules.report.vo.FaultVo" id="FaultVoMap">
+        <result property="shop" column="shop"/>
+        <result property="zone" column="zone"/>
+        <result property="line" column="line"/>
+        <result property="equipment" column="equipment"/>
+        <result property="station" column="station"/>
+        <result property="jobId" column="job_id"/>
+        <result property="facilityId" column="facility_id"/>
+        <result property="facilityDesc" column="facility_desc"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="duration" column="duration"/>
+        <result property="faultWord1" column="fault_word1"/>
+        <result property="faultWord2" column="fault_word2"/>
+        <result property="faultWord3" column="fault_word3"/>
+        <result property="faultDescription" column="fault_description"/>
+        <result property="reasonCode" column="reason_code"/>
+        <result property="reasonDescription" column="reason_description"/>
+        <result property="posWord31" column="pos_word31"/>
+        <result property="totalDuration" column="total_duration"/>
+    </resultMap>
+    
 
 
 	<sql id="common_sql">
@@ -36,45 +60,6 @@
 	</sql>
 	
 	<sql id="common_sql_footer">
-		<if test="shop!=null and shop!=''">
-    		AND shop  = #{shop}
-    	</if>
-    	<if test="area!=null and area!=''">
-			AND line = #{area}
-		</if>
-		<if test="zone!=null and zone!=''">
-			AND ZONE = #{zone}
-		</if>
-		<if test="shift!=null and shift!=''">
-			AND shift = #{shift}
-		</if>
-	</sql>
-	
-	<select id="qureyFualtList" resultMap="pmcBiwFaultMap">
-		SELECT
-			t.shop,
-			t.line,
-			t. ZONE,
-			t.equipment,
-			ISNULL(t.facility_desc,N'无描述') AS 'Facility_desc',
-			t.station,
-			t.facility_id,
-			t.job_id,
-			t.start_time,
-			t.end_time,
-			t.duration,
-			t.fault_word1,
-			t.fault_word2,
-			t.fault_word3,
-			t.fault_description,
-			t.reason_code,
-			t.reason_description,
-			t.shift,
-			t.tav_flag,
-			ISNULL(t.pos_word31, 0) AS 'pos_word31'
-		FROM
-			PMC.dbo.PMC_BIW_FAULT t
-		where 1 = 1
 		<if test="shop!=null and shop!=''">
 			AND	shop = #{shop}
 		</if>
@@ -97,13 +82,44 @@
 			AND job_id = #{jobId}
 		</if>
 		<if test="startTime!=null">
-			AND start_Time &gt; CONVERT(datetime2,#{startTime},121)
+			AND start_Time &gt;= CONVERT(datetime2,#{startTime},121)
 		</if>
 		<if test="endTime!=null">
-			AND end_Time &lt; CONVERT(datetime2,#{endTime},121)
+			AND end_Time &lt;= CONVERT(datetime2,#{endTime},121)
 		</if>
 		 and fault_word3 !=0 
 		 and duration is not NULL
+	</sql>
+	
+	<select id="qureyFualtList" resultMap="FaultVoMap">
+		SELECT
+			t.shop,
+			t.line,
+			t. ZONE,
+			t.equipment,
+			ISNULL(t.facility_desc,N'无描述') AS 'facility_desc',
+			t.station,
+			t.facility_id,
+			t.job_id,
+			t.start_time,
+			t.end_time,
+			t.duration,
+			t.fault_word1,
+			t.fault_word2,
+			t.fault_word3,
+			t.fault_description,
+			t.reason_code,
+			t.reason_description,
+			ISNULL(t.pos_word31, 0) AS 'pos_word31',
+			(SELECT sum(duration) as 'total_duration'
+				FROM PMC_BIW_FAULT 
+				WHERE 1 = 1
+				<include refid="common_sql_footer"/>
+			) as total_duration
+		FROM
+			PMC.dbo.PMC_BIW_FAULT t
+		where 1 = 1
+		<include refid="common_sql_footer"/>
 		 ORDER BY t.facility_id asc,t.start_time DESC
 	</select>
 	
@@ -132,10 +148,10 @@
 			AND t.shift =#{shift}
 		</if>
 		<if test="startTime!=null">
-			AND start_Time &gt; CONVERT(datetime2,#{startTime},121)
+			AND start_Time &gt;= CONVERT(datetime2,#{startTime},121)
 		</if>
 		<if test="endTime!=null">
-			AND end_Time &lt; CONVERT(datetime2,#{endTime},121)
+			AND end_Time &lt;= CONVERT(datetime2,#{endTime},121)
 		</if>
 		 and fault_word3 !=0 
 		 and duration is not NULL

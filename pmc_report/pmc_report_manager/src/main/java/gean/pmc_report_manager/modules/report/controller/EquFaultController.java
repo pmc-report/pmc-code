@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import gean.pmc_report_common.common.utils.DateUtils;
-import gean.pmc_report_common.common.utils.IPUtils;
 import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_common.common.utils.R;
 import gean.pmc_report_common.common.utils.StringUtils;
@@ -26,6 +25,7 @@ import gean.pmc_report_manager.common.utils.JasperExportUtils;
 import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
 import gean.pmc_report_manager.modules.report.service.TaEquFaultService;
 import gean.pmc_report_manager.modules.report.vo.EquFaultExport;
+import gean.pmc_report_manager.modules.report.vo.FaultVo;
 
 
 /**
@@ -51,35 +51,39 @@ public class EquFaultController {
     @RequestMapping("/list")
     @RequiresPermissions("report:fault:list")
     public R list(@RequestParam Map<String, Object> params){
-    	resultMap = new HashMap<>();
     	TaEquFaultEntity totalDur = equFaultService.queryTotalMins(params);
         PageUtils page = equFaultService.queryEquFaultByParam(params);
     	int duration = totalDur==null?0:totalDur.getDuration();
-    	resultMap.put("duration", duration);
         return R.ok().put("page", page).put("duration", duration);
     }
     
     @RequestMapping("/exportAll")
     public void exportAll(@RequestParam Map<String,Object> params) {
+    	resultMap = new HashMap<>();
     	long startTime = System.currentTimeMillis();
     	logger.debug("页面表格加载完成后执行导出查询开始....");
-    	List<TaEquFaultEntity> result = equFaultService.queryExportFault(params);
+    	List<FaultVo> result = equFaultService.queryExportFault(params);
     	long endTime = System.currentTimeMillis();
     	long usedTime = (endTime - startTime)/1000;
     	logger.debug("执行查询结束，耗时："+usedTime+" 秒");
-        resultMap.put("result", result);
+    	if(result.size()>0) {
+    		 resultMap.put("result", result);
+    	     resultMap.put("duration", result.get(0).getTotalDuration());
+    	}
     }
     
     @RequestMapping("/exportFault")
     public void exportEquFault(HttpServletRequest request,HttpServletResponse response,@RequestParam Map<String,Object> params) {
     	logger.debug("执行导出开始....");
     	long startTime = System.currentTimeMillis();
-    	List<TaEquFaultEntity> result = (List)resultMap.get("result");
+    	//List<FaultVo> result = (List)resultMap.get("result");
+    	List<FaultVo> result = equFaultService.queryExportFault(params);
     	logger.debug("需要处理的数据有："+result.size()+" 条");
-    	Integer totalDur = (int)resultMap.get("duration");
+    	//Integer totalDur = (int)resultMap.get("duration");
+    	Integer totalDur = result.get(0).getTotalDuration();
         List<EquFaultExport> exportList = new ArrayList<EquFaultExport>();
         if(result!= null && !result.isEmpty()) {
-        	for (TaEquFaultEntity taEquFaultEntity : result) {
+        	for (FaultVo taEquFaultEntity : result) {
            		EquFaultExport exportfault = new EquFaultExport();
            		
            		exportfault.setShop(!StringUtils.isNotBlank((String)params.get("shop")) ? "" : (String)params.get("shop"));
@@ -120,10 +124,10 @@ public class EquFaultController {
 				exportfault.setEndTime_2(taEquFaultEntity.getEndTime() == null ? "" : DateUtils.format(taEquFaultEntity.getEndTime(), DateUtils.DATE_TIME_PATTERN));
 				//单条持续时间
 				Integer duration = taEquFaultEntity.getDuration();
-				exportfault.setDuration(DateUtils.secToTime(duration));
+				exportfault.setDuration(DateUtils.msecToTime(duration));
 				//总持续时间
 				//Integer totalDuration = totalDur.getDuration();
-				exportfault.setDuration_2(DateUtils.secToTime(totalDur));
+				exportfault.setDuration_2(DateUtils.msecToTime(totalDur));
 	        	exportList.add(exportfault);
         	}
         	long endTime = System.currentTimeMillis();
@@ -165,7 +169,6 @@ public class EquFaultController {
     		long endTime = System.currentTimeMillis();
         	long usedTime = (endTime - startTime)/1000;
         	logger.debug("导出数据结束,耗时："+usedTime+" 秒");
-        	resultMap.clear();
     	} catch (Exception e) {
     		resultMap.clear();
 			e.getMessage();
