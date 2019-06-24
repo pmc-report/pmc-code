@@ -438,7 +438,7 @@ function selectTime() {
 	    var laydate = layui.laydate;
 	    var startDate = laydate.render({
 	        elem: '#startTime',
-	        max: $('#endTime').val(),
+	        //max: $('#endTime').val(),
 	        theme: 'molv',
 	        trigger: 'click',
 	        //type: 'datetime',
@@ -446,7 +446,7 @@ function selectTime() {
 	        //format: 'yyyy-MM-dd HH:mm:ss',
 	        format: 'yyyy-MM-dd',
 	        istime: false, //是否开启时间选择
-	        done: function(value, date) {
+	        /*done: function(value, date) {
 	            // 结束时间大于开始时间
 	           if (value !== '') {
 	                endDate.config.min.year = date.year;
@@ -459,11 +459,11 @@ function selectTime() {
 	                endDate.config.min.date = '';
 	                //endDate.config.min.time = '';
 	            }
-	        }
+	        }*/
 	    });
 	    var endDate = laydate.render({
 	        elem: '#endTime',
-	        min: $('#startTime').val(),
+	        //min: $('#startTime').val(),
 	        theme: 'molv',
 	        trigger: 'click',
 	        //type: 'datetime',
@@ -471,7 +471,7 @@ function selectTime() {
 	        //format: 'yyyy-MM-dd HH:mm:ss',
 	        format: 'yyyy-MM-dd',
 	        istime: false, //是否开启时间选择
-	        done: function(value, date) {
+	       /* done: function(value, date) {
 	            // 开始时间小于结束时间
 	        	if (value !== '') {
 	                startDate.config.max.year = date.year;
@@ -484,7 +484,7 @@ function selectTime() {
 	                startDate.config.max.date = '';
 	                //startDate.config.max.time = '';
 	            }
-	        }
+	        }*/
 	    });
 	});
 }
@@ -646,6 +646,23 @@ function search(tag){
 	queryReport(tag,params);
 }
 
+//获取当前时间
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = year + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+}
+
 //重置查询条件，禁用下级下拉框
 function resetParam(){
 	layui.use('laydate', function() {
@@ -654,16 +671,13 @@ function resetParam(){
 	        elem: '#startTime',
 	        theme: 'molv',
 	        type: 'date',
-	        isInitValue: true,
-	        format: 'yyyy-MM-dd'
+	        format: 'yyyy-MM-dd',
 	    });
 	    var endDate = laydate.render({
 	        elem: '#endTime',
 	        theme: 'molv',
 	        type: 'date',
-	        isInitValue: true,
-	        format: 'yyyy-MM-dd'
-	      
+	        format: 'yyyy-MM-dd',
 	    });
 	});
 	$("#shop_search").val('');

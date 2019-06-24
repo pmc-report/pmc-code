@@ -423,7 +423,6 @@ function initPreDownTime(queryParams){
 			 $('#preDownTimeFoot').show();
 			//预先处理表格转换图片(base64)作导出时使用
 			 createDownTimeExportImg();
-			 setPorpById('panelBtn','disabled',false);
 		 },
 	     onLoadError: function (res) { 			//加载失败时执行
 	     }
@@ -436,43 +435,51 @@ function createDownTimeExportImg(){
 	for(var i = 0 ; i <tableDownTimetrleg;i++){
 		for(var j = 0;j<tableDownTimetdleg;j++){
 			if(j == 6 || j == 7){
-				//div转换成图片(base64编码)
-				var canvas2 = document.createElement("canvas");
-				if(j == 6){
-					_canvas = document.querySelector('.paretoDownTime_'+i);
-				}else if( j == 7){
-					_canvas = document.querySelector('.statusDownTime_'+i);
-				}
-				var w = parseInt(window.getComputedStyle(_canvas).width);
-				var h = parseInt(window.getComputedStyle(_canvas).height);
-				//将canvas画布放大若干倍，然后盛放在较小的容器内，就显得不模糊了
-				canvas2.width = w * 2;
-				canvas2.height = h * 2;
-				canvas2.style.width = w + "px";
-				canvas2.style.height = h + "px";
-				var context = canvas2.getContext("2d");
-				context.scale(2, 2);
 				if( j == 6){
-					createDownTimeDivtoCanvas('.paretoDownTime_'+i,canvas2,i,j)
+					createDownTimeDivtoCanvas(i,j)
 				}else if(j == 7){
-					createDownTimeDivtoCanvas('.statusDownTime_'+i,canvas2,i,j);
+					createDownTimeDivtoCanvas(i,j);
 				}
 			}
 		}
 	}
 }
 
-function createDownTimeDivtoCanvas(divClass,canvas2,i,j){
-	//回调函数
-	html2canvas(document.querySelector(divClass), { canvas: canvas2 }).then(function(canvas){
-//		console.log(canvas.toDataURL());
+function createDownTimeDivtoCanvas(i,j){
+	setTimeout(function(){
+		var _canvas='';
 		if(j == 6){
-			tableDownTimeparetoImgArray[i] = canvas.toDataURL();
+			_canvas = document.querySelector('.paretoDownTime_'+i);
 		}
 		if(j == 7){
-			tableDownTimestatusImgArray[i] = canvas.toDataURL();
+			_canvas = document.querySelector('.statusDownTime_'+i);
 		}
-	})
+		var w = parseInt(window.getComputedStyle(_canvas).width);
+		var h = parseInt(window.getComputedStyle(_canvas).height);
+	 	// 导出宽度
+		var width = w * 2;
+		// 导出高度
+		var height = h * 2;
+		domtoimage.toPng(_canvas).then(function (dataUrl) {
+			    var img = new Image();
+			    img.width = width;
+			    img.height = height;
+			    img.style.width = w + "px";
+			    img.style.height = h + "px";
+			    img.src = dataUrl;
+			    //document.body.appendChild(img);
+			    if(j == 6){
+			    	tableDownTimeparetoImgArray[i] = dataUrl;
+				}
+				if(j == 7){
+					tableDownTimestatusImgArray[i] = dataUrl;
+				}
+		})
+		.catch(function (error) {
+		    console.error('图片转换异常!', error);
+		});
+		setPorpById('panelBtn','disabled',false);
+	},5000);
 }
 function initOccTab(queryParams){ 
 	var fdates = queryParams.fDate;
@@ -729,10 +736,7 @@ function initOccTab(queryParams){
 		 },*/
 		 onPostBody : function (data){
 			 $('#preOccFoot').show();
-			createOccExportImg();
-			/*setTimeout(function () { 
-				window.onmousewheel = document.onmousewheel=function() {return true}
-			}, 5000);*/
+			 createOccExportImg();
 		 },
 	     onLoadError: function (res) { 			//加载失败时执行
 	     }
@@ -742,46 +746,52 @@ function initOccTab(queryParams){
 function createOccExportImg(){
 	var tableOccparamstrleg = $('#preOcc tbody').find('tr').length;
 	var tableOccparamstdleg = $('#preOcc tbody').find('tr').eq(0).find('td').length;
+	var node = '';
 	for(var i = 0 ; i <tableOccparamstrleg;i++){
 		for(var j = 0;j<tableOccparamstdleg;j++){
 			if(j == 6 || j == 7){
-				//div转换成图片(base64编码)
-				var canvas2 = document.createElement("canvas");
 				if(j == 6){
-					_canvas = document.querySelector('.paretoOcc_'+i);
-				}else if( j == 7){
-					_canvas = document.querySelector('.statusOcc_'+i);
-				}
-				var w = parseInt(window.getComputedStyle(_canvas).width);
-				var h = parseInt(window.getComputedStyle(_canvas).height);
-				//将canvas画布放大若干倍，然后盛放在较小的容器内，就显得不模糊了
-				canvas2.width = w * 2;
-				canvas2.height = h * 2;
-				canvas2.style.width = w + "px";
-				canvas2.style.height = h + "px";
-				var context = canvas2.getContext("2d");
-				context.scale(2, 2);
-				if( j == 6){
-					createOccDivtoCanvas('.paretoOcc_'+i,canvas2,i,j)
-				}else if(j == 7){
-					createOccDivtoCanvas('.statusOcc_'+i,canvas2,i,j);
+					createOccDivtoCanvas(i,j)
+				} else if(j == 7){
+					createOccDivtoCanvas(i,j);
 				}
 			}
 		}
 	}
 }
 
-function createOccDivtoCanvas(divClass,canvas2,i,j){
-	//回调函数
-	html2canvas(document.querySelector(divClass), { canvas: canvas2 }).then(function(canvas){
-//		console.log(canvas.toDataURL());
-		if(j == 6){
-			tableOccparetoImgArray[i] = canvas.toDataURL();
-		}
-		if(j == 7){
-			tableOccstatusImgArray[i] = canvas.toDataURL();
-		}
+function createOccDivtoCanvas(i,j){
+	var _canvas='';
+	if(j == 6){
+		_canvas = document.querySelector('.paretoOcc_'+i);
+	}
+	if(j == 7){
+		_canvas = document.querySelector('.statusOcc_'+i);
+	}
+	var w = parseInt(window.getComputedStyle(_canvas).width);
+	var h = parseInt(window.getComputedStyle(_canvas).height);
+ 	// 导出宽度
+	var width = w * 2;
+	// 导出高度
+	var height = h * 2;
+	domtoimage.toPng(_canvas).then(function (dataUrl) {
+		    var img = new Image();
+		    img.width = width;
+		    img.height = height;
+		    img.style.width = w + "px";
+		    img.style.height = h + "px";
+		    img.src = dataUrl;
+		    //document.body.appendChild(img);
+		    if(j == 6){
+				tableOccparetoImgArray[i] = dataUrl;
+			}
+			if(j == 7){
+				tableOccstatusImgArray[i] = dataUrl;
+			}
 	})
+	.catch(function (error) {
+	    console.error('图片转换异常!', error);
+	});
 }
 
 function queryReport(tag,params){
@@ -1179,11 +1189,6 @@ function echars2(params){
 }
 
 function report() {
-	/*$("#preDownTime").bootstrapTable('refresh');
-	$("#preOcc").bootstrapTable('refresh');
-	setTimeout(function () {
-		console.log("kaishiyanshi");
-	}, 10000);*/
 	var area = $("#area_search").val();
 	var zone = $("#zone_search").val();
 	var shift = $("#shift_search").val();
@@ -1209,7 +1214,7 @@ function report() {
 			fromDates : fDates,
 			toDates : tDates,
 	} ;
-	console.log(params+'_____________________')
+	//console.log(params+'_____________________')
 	//图片
 	var image = new Image();
 	var image1 = new Image();
@@ -1293,7 +1298,6 @@ function report() {
 	params.occNewTol = $("#totalOccurrenceNew").text();
 	createReportInput(params);
 	document.getElementById("fromexport").action = baseURL +'modules/report/panel/report';
-	// console.log(document.getElementById("fromexport").action);
 	$("#fromexport").submit();
 }
 
@@ -1304,6 +1308,6 @@ function createReportInput(params,tableDownTimeArray,tableOccparamsArray){
 		inputSearch += '<input type = "hidden" name = "'+index+'" value = "'+params[index]+'"/>'
 	}
 	inputParams += inputSearch;
-	console.log("输入参数："+inputParams)
+	//console.log("输入参数："+inputParams)
 	$("#fromexport").prepend(inputParams);
 }
