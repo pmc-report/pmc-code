@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OPR_Map" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="f75a4b5d-7633-4b47-8a01-e1ad04477650">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="9"/>
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<import value="net.sf.jasperreports.engine.*"/>
@@ -47,8 +47,8 @@
 	<parameter name="equipmentOpr2" class="java.lang.Float"/>
 	<parameter name="equipAvail" class="java.lang.Integer"/>
 	<parameter name="cycleTime" class="java.lang.Integer"/>
-	<parameter name="blocked" class="java.lang.Integer"/>
-	<parameter name="starved" class="java.lang.Integer"/>
+	<parameter name="blocked" class="java.lang.String"/>
+	<parameter name="starved" class="java.lang.String"/>
 	<field name="actual" class="java.lang.Integer"/>
 	<field name="shiftPlan" class="java.lang.Integer"/>
 	<field name="variation" class="java.lang.Integer"/>
@@ -59,13 +59,13 @@
 	<field name="shop" class="java.lang.String"/>
 	<field name="zone2" class="java.lang.String"/>
 	<field name="goodPartCount" class="java.lang.Integer"/>
-	<field name="downTime" class="java.lang.Integer"/>
+	<field name="downTime" class="java.lang.String"/>
 	<field name="productionOpr2" class="java.lang.Float"/>
 	<field name="equipmentOpr2" class="java.lang.Float"/>
 	<field name="equipAvail" class="java.lang.Float"/>
 	<field name="cycleTime" class="java.lang.Integer"/>
-	<field name="blocked" class="java.lang.Integer"/>
-	<field name="starved" class="java.lang.Integer"/>
+	<field name="blocked" class="java.lang.String"/>
+	<field name="starved" class="java.lang.String"/>
 	<field name="stime" class="java.lang.String"/>
 	<variable name="ColIndex" class="java.lang.Integer" calculation="Count">
 		<variableExpression><![CDATA["1"]]></variableExpression>
@@ -155,14 +155,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="宋体" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
-				<text><![CDATA[实际OPR]]></text>
+				<text><![CDATA[实际产量]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="179" y="87" width="87" height="26" uuid="998dfd59-ce50-41e4-aceb-8df5cf091193"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="宋体" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
-				<text><![CDATA[班次计划OPR]]></text>
+				<text><![CDATA[班次计划产量]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="268" y="87" width="87" height="26" uuid="b2a29366-e87a-444b-97b5-7e531d8d2004"/>
@@ -250,7 +250,7 @@
 				<reportElement x="44" y="55" width="56" height="20" uuid="848984a9-1604-49ae-b7dc-ce3002e705cb"/>
 			</rectangle>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-2" x="45" y="55" width="55" height="20" uuid="bd8783f3-643a-46d9-ae8a-fd7a3b96e891"/>
+				<reportElement key="textField-2" x="46" y="55" width="55" height="20" uuid="bd8783f3-643a-46d9-ae8a-fd7a3b96e891"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="宋体" size="8"/>
 				</textElement>
@@ -276,7 +276,7 @@
 				<reportElement x="142" y="55" width="56" height="20" uuid="f1fff4a4-aecc-41fa-a4d3-6a1a21389740"/>
 			</rectangle>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-3" x="142" y="55" width="56" height="20" uuid="757c482f-a660-44aa-9934-0cc2155e1f2b"/>
+				<reportElement key="textField-3" x="146" y="55" width="50" height="20" uuid="757c482f-a660-44aa-9934-0cc2155e1f2b"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="宋体" size="8"/>
 				</textElement>
@@ -302,7 +302,7 @@
 				<reportElement x="240" y="55" width="91" height="20" uuid="1c328884-868f-4e1c-9e4b-9b0e00a38496"/>
 			</rectangle>
 			<textField isBlankWhenNull="true">
-				<reportElement key="textField-4" x="240" y="55" width="91" height="20" uuid="f0e5bbe4-6fd6-4c7f-a202-7fcd9c76bbed"/>
+				<reportElement key="textField-4" x="245" y="55" width="77" height="20" uuid="f0e5bbe4-6fd6-4c7f-a202-7fcd9c76bbed"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="宋体" size="8"/>
 				</textElement>
@@ -328,7 +328,7 @@
 				<reportElement x="399" y="55" width="134" height="20" uuid="c7ca8d51-9aed-4b09-babf-d221e00e0572"/>
 			</rectangle>
 			<textField pattern="yyyy/MM/dd HH:mm:ss" isBlankWhenNull="false">
-				<reportElement key="textField-5" x="399" y="55" width="134" height="20" uuid="c4b09bd9-ff0c-4b1b-a281-36ddf5882d35"/>
+				<reportElement key="textField-5" x="403" y="55" width="130" height="20" uuid="c4b09bd9-ff0c-4b1b-a281-36ddf5882d35"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="宋体" size="8"/>
 				</textElement>
@@ -428,17 +428,17 @@
 				<reportElement x="403" y="2" width="50" height="28" uuid="110af987-bb84-4ecf-85ec-c6b489a8b83d"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="404" y="3" width="48" height="26" uuid="0a1a8656-6f92-457d-99ae-863d98c8704f"/>
+				<reportElement x="403" y="3" width="48" height="26" uuid="0a1a8656-6f92-457d-99ae-863d98c8704f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="宋体" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
-				<text><![CDATA[缺料时间]]></text>
+				<text><![CDATA[堵料时间]]></text>
 			</staticText>
 			<rectangle>
 				<reportElement x="453" y="2" width="82" height="28" uuid="3f00f660-e84d-4131-a0ad-885e8563c7bb"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="454" y="3" width="80" height="26" uuid="9825cc20-487e-4e45-8803-0a417fc2c53b"/>
+				<reportElement x="455" y="3" width="80" height="26" uuid="9825cc20-487e-4e45-8803-0a417fc2c53b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="宋体" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
@@ -531,22 +531,22 @@
 			<rectangle>
 				<reportElement x="403" y="0" width="50" height="28" uuid="4b615243-f4fc-47dc-be9b-d8e6a7aaf332"/>
 			</rectangle>
-			<textField>
-				<reportElement x="404" y="1" width="48" height="26" uuid="f2eeb1a3-5646-471c-ac91-14aee0d9a958"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{blocked}]]></textFieldExpression>
-			</textField>
 			<rectangle>
 				<reportElement x="453" y="0" width="82" height="28" uuid="aa4dabc7-ad48-443f-b873-3da4595d265f"/>
 			</rectangle>
 			<textField>
-				<reportElement x="454" y="1" width="80" height="26" uuid="986a1a31-7b8a-41f0-9f1d-ec4c42741d1a"/>
+				<reportElement x="455" y="1" width="78" height="26" uuid="986a1a31-7b8a-41f0-9f1d-ec4c42741d1a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="宋体" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{starved}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="403" y="1" width="48" height="26" uuid="f2eeb1a3-5646-471c-ac91-14aee0d9a958"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{blocked}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

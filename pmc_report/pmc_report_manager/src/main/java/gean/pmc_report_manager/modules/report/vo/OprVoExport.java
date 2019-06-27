@@ -14,15 +14,15 @@ public class OprVoExport {
 	private String shift;
 	private String shop;
 	private String stime;
-	private Integer starved;
+	private String starved;
 	private String zone2; 
 	private Integer goodPartCount;
-	private Integer downTime;
+	private String downTime;
 	private Float productionOpr2;
 	private Float equipmentOpr2;
 	private Float equipAvail;
 	private Integer cycleTime;
-	private Integer blocked;
+	private String blocked;
 	private Integer facilityId;
 	private Float availableTime;
 }

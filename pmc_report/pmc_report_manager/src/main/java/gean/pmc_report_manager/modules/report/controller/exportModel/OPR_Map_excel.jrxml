@@ -3,7 +3,7 @@
 	<property name="ireport.callouts" value="##Mon May 13 09:49:40 CST 2019"/>
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="192"/>
 	<subDataset name="dataset1" uuid="1b79ed2d-78d0-459c-b0a1-568adb01abc4"/>
 	<field name="area" class="java.lang.String"/>
 	<field name="shop" class="java.lang.String"/>
@@ -17,12 +17,12 @@
 	<field name="zone" class="java.lang.String"/>
 	<field name="zone2" class="java.lang.String"/>
 	<field name="goodPartCount" class="java.lang.Integer"/>
-	<field name="downTime" class="java.lang.Integer"/>
+	<field name="downTime" class="java.lang.String"/>
 	<field name="productionOpr2" class="java.lang.Float"/>
 	<field name="equipmentOpr2" class="java.lang.Float"/>
 	<field name="equipAvail" class="java.lang.Float"/>
 	<field name="cycleTime" class="java.lang.Float"/>
-	<field name="blocked" class="java.lang.Integer"/>
+	<field name="blocked" class="java.lang.String"/>
 	<field name="starved" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
@@ -124,14 +124,14 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[实际OPR]]></text>
+				<text><![CDATA[实际产量]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="158" y="33" width="100" height="20" uuid="39c5225e-6e64-4eb9-89c4-981e02e075c1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[班次计划OPR]]></text>
+				<text><![CDATA[班次计划产量]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="258" y="33" width="103" height="20" uuid="b36f58b6-e904-42fc-93f4-46afd5ba7ba3"/>
@@ -314,7 +314,7 @@
 				<textFieldExpression><![CDATA[$F{goodPartCount}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="158" y="0" width="49" height="20" uuid="e8218b06-d5bc-4c79-8170-cf4708a948e9"/>
+				<reportElement mode="Transparent" x="158" y="0" width="49" height="20" uuid="e8218b06-d5bc-4c79-8170-cf4708a948e9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="false"/>
 				</textElement>
@@ -349,18 +349,18 @@
 				<textFieldExpression><![CDATA[$F{cycleTime}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="429" y="0" width="59" height="20" uuid="d1bdff4c-d67a-4086-a83d-7249dcf46180"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="8"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{blocked}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="488" y="0" width="67" height="20" uuid="12c880df-2a00-4cb4-9848-d3adf4f7617c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{starved}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="429" y="0" width="59" height="20" uuid="d1bdff4c-d67a-4086-a83d-7249dcf46180"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{blocked}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

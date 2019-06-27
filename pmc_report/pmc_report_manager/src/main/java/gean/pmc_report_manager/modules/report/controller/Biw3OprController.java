@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import gean.pmc_report_common.common.utils.DateUtils;
 import gean.pmc_report_common.common.utils.R;
 import gean.pmc_report_manager.common.utils.JasperExportUtils;
 import gean.pmc_report_manager.modules.report.service.TaBiw3OprService;
@@ -54,7 +55,7 @@ public class Biw3OprController {
     }
 
     /**
-     * 导出测试
+     * 导出
      * @param request
      * @param response
      * @param params
@@ -81,12 +82,12 @@ public class Biw3OprController {
         	
     				oprexport.setZone2(zoneOprVo.getZone());
     				oprexport.setGoodPartCount(zoneOprVo.getGoodPartCount());
-    				oprexport.setDownTime(zoneOprVo.getDownTime());
+    				oprexport.setDownTime(DateUtils.msecToTime(zoneOprVo.getDownTime()));
     				oprexport.setProductionOpr2(zoneOprVo.getProductionOpr());
     				oprexport.setEquipmentOpr2(zoneOprVo.getEquipmentOpr());
     				oprexport.setEquipAvail(zoneOprVo.getEquipAvail());
-    				oprexport.setBlocked(zoneOprVo.getBlocked());
-    				oprexport.setStarved(zoneOprVo.getStarved());
+    				oprexport.setBlocked(DateUtils.msecToTime(zoneOprVo.getBlocked()));
+    				oprexport.setStarved(DateUtils.msecToTime(zoneOprVo.getStarved()));
     				oprexport.setCycleTime(zoneOprVo.getCycleTime());
         	
     				list.add(oprexport);

@@ -237,8 +237,8 @@ function initZoneTable(url,queryParams){
         { field: 'equipmentOpr', title: '设备OPR', align: 'center' },
         { field: 'equipAvail', title: '设备可用率', align:'center' }, 
         { field: 'cycleTime', title: '节拍时间', align:'center' },
-    	{ field: 'starved', title: '堵料时间', align: 'center', formatter: dateFormatter },
-        { field: 'blocked', title: '缺料时间', align:'center',formatter: dateFormatter }
+    	{ field: 'blocked', title: '堵料时间', align: 'center', formatter: dateFormatter },
+        { field: 'starved', title: '缺料时间', align:'center',formatter: dateFormatter }
     ];
    
 	  $('#zoneTab').empty();
