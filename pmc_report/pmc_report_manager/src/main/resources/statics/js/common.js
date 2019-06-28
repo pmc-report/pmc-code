@@ -701,6 +701,9 @@ function resetParam(){
 	setCssById('equ_search','background-color','#EEEEEE');
 	setPorpById('jobId_search','disabled',true);
 	setCssById('jobId_search','background-color','#EEEEEE');
+	setPorpById('panelBtn','disabled',true);
+	setPorpById('faultBtn','disabled',true);
+	setPorpById('oprBtn','disabled',true);
 }
 
 //重置表格上查询条件列表

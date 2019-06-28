@@ -1188,7 +1188,8 @@ function echars2(params){
 	});
 }
 
-function report() {
+function report(param) {
+	//console.log(param+'_____________________');
 	var area = $("#area_search").val();
 	var zone = $("#zone_search").val();
 	var shift = $("#shift_search").val();
@@ -1297,7 +1298,11 @@ function report() {
 	params.occOldTol = $("#totalOccurrenceOld").text();
 	params.occNewTol = $("#totalOccurrenceNew").text();
 	createReportInput(params);
-	document.getElementById("fromexport").action = baseURL +'modules/report/panel/report';
+	if('doc'== param){
+		document.getElementById("fromexport").action = baseURL +'modules/report/panel/report';
+	}else if('xls' == param) {
+		document.getElementById("fromexport").action = baseURL +'modules/report/panel/report/excel';
+	}
 	$("#fromexport").submit();
 }
 

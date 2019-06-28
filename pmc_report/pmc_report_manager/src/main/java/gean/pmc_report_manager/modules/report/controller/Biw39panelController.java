@@ -1,9 +1,16 @@
 package gean.pmc_report_manager.modules.report.controller;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,26 +19,21 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gean.pmc_report_common.common.validator.ValidatorUtils;
-
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import gean.pmc_report_manager.common.utils.JasperExportUtils;
-import gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity;
-import gean.pmc_report_manager.modules.report.service.TaBiw39panelService;
-import gean.pmc_report_manager.modules.report.vo.PanelVo;
 import gean.pmc_report_common.common.utils.DateUtils;
 import gean.pmc_report_common.common.utils.R;
+import gean.pmc_report_common.common.utils.StringUtils;
+import gean.pmc_report_manager.common.utils.JasperExportUtils;
+import gean.pmc_report_manager.modules.report.service.TaBiw39panelService;
+import gean.pmc_report_manager.modules.report.vo.PanelVo;
+import gean.pmc_report_manager.modules.report.vo.PanelVoExport;
 
 
 
@@ -164,4 +166,86 @@ public class Biw39panelController {
 		}
 	}
 
+    
+    @RequestMapping("/report/excel")
+    public void exportExcel(HttpServletRequest request,HttpServletResponse response,
+			@RequestParam Map<String, Object> params) throws Exception {
+    	
+    	//创建VO list 
+    	List<PanelVoExport> voList = generate9PanelVo(params);
+    	try {
+    		InputStream is = this.getClass().getResourceAsStream("exportModel/9panel.jasper");//获取同包下模版文件
+        	String exportName = "9Panel报表";
+    		JasperExportUtils.export(voList, "excel", is, request, response,exportName);
+		} catch (Exception e) {
+			e.getMessage();
+		}
+    }
+    
+    private List<PanelVoExport> generate9PanelVo(Map<String, Object> params){
+    	
+    	DecimalFormat df = new DecimalFormat("##0.00");
+    	//创建VO list 
+    	List<PanelVoExport> voList = new ArrayList<>();
+    	PanelVoExport vo = new PanelVoExport();
+    	vo.setShop(!StringUtils.isNotBlank((String)params.get("shop")) ? "" : (String)params.get("shop"));
+    	vo.setArea(!StringUtils.isNotBlank((String)params.get("area")) ? "ALL" : (String)params.get("area"));
+    	vo.setZone(!StringUtils.isNotBlank((String)params.get("zone")) ? "ALL" : (String)params.get("zone"));
+    	vo.setJobId(!StringUtils.isNotBlank((String)params.get("jobId")) ? "ALL" : (String)params.get("jobId"));
+    	vo.setShift(!StringUtils.isNotBlank((String)params.get("shift")) ? "ALL" : (String)params.get("shift"));
+    	vo.setFromWeek(!StringUtils.isNotBlank((String)params.get("fromWeek")) ? "" : (String)params.get("fromWeek"));
+    	vo.setToWeek(!StringUtils.isNotBlank((String)params.get("toWeek")) ? "" : (String)params.get("toWeek"));
+    	vo.setFromDates(!StringUtils.isNotBlank((String)params.get("fromDates")) ? "" : (String)params.get("fromDates"));
+    	vo.setToDates(!StringUtils.isNotBlank((String)params.get("toDates")) ? "" : (String)params.get("toDates"));
+    	vo.setCreateDates(!StringUtils.isNotBlank((String)params.get("createDates")) ? "" : (String)params.get("createDates"));
+    	vo.setFromDates_2(!StringUtils.isNotBlank((String)params.get("fromDates")) ? "" : (String)params.get("fromDates"));
+    	vo.setTargetTA(df.format(resultMap.get("Target TA")));
+
+    	vo.setEcharepxport(!StringUtils.isNotBlank((String)params.get("echarepxport"))?"":(String)params.get("echarepxport"));
+    	vo.setEcharepxport1(!StringUtils.isNotBlank((String)params.get("echarepxport1"))?"":(String)params.get("echarepxport1"));
+    	vo.setEcharepxport2(!StringUtils.isNotBlank((String)params.get("echarepxport2"))?"":(String)params.get("echarepxport2"));
+    	vo.setdTime_0(!StringUtils.isNotBlank((String)params.get("dTime_0"))?"":(String)params.get("dTime_0"));
+    	vo.setdTime_1(!StringUtils.isNotBlank((String)params.get("dTime_1"))?"":(String)params.get("dTime_1"));
+    	vo.setdTime_2(!StringUtils.isNotBlank((String)params.get("dTime_2"))?"":(String)params.get("dTime_2"));
+    	vo.setdTime_3(!StringUtils.isNotBlank((String)params.get("dTime_3"))?"":(String)params.get("dTime_3"));
+    	vo.setdTime_4(!StringUtils.isNotBlank((String)params.get("dTime_4"))?"":(String)params.get("dTime_4"));
+    	vo.setdTime_5(!StringUtils.isNotBlank((String)params.get("dTime_5"))?"":(String)params.get("dTime_5"));
+    	vo.setdTime_6(!StringUtils.isNotBlank((String)params.get("dTime_6"))?"":(String)params.get("dTime_6"));
+    	vo.setdTime_7(!StringUtils.isNotBlank((String)params.get("dTime_7"))?"":(String)params.get("dTime_7"));
+    	vo.setdTime_8(!StringUtils.isNotBlank((String)params.get("dTime_8"))?"":(String)params.get("dTime_8"));	
+    	vo.setdTime_12(!StringUtils.isNotBlank((String)params.get("dTime_12"))?"":(String)params.get("dTime_12"));
+    	vo.setdTime_13(!StringUtils.isNotBlank((String)params.get("dTime_13"))?"":(String)params.get("dTime_13"));
+    	vo.setdTime_14(!StringUtils.isNotBlank((String)params.get("dTime_14"))?"":(String)params.get("dTime_14"));
+    	vo.setdTime_15(!StringUtils.isNotBlank((String)params.get("dTime_15"))?"":(String)params.get("dTime_15"));
+    	vo.setdTime_16(!StringUtils.isNotBlank((String)params.get("dTime_16"))?"":(String)params.get("dTime_16"));
+    	
+    	vo.setdTime_17(!StringUtils.isNotBlank((String)params.get("dTime_17"))?"":(String)params.get("dTime_17"));
+    	vo.setdTime_18(!StringUtils.isNotBlank((String)params.get("dTime_18"))?"":(String)params.get("dTime_18"));
+    	vo.setdTime_19(!StringUtils.isNotBlank((String)params.get("dTime_19"))?"":(String)params.get("dTime_19"));
+    	vo.setdTime_20(!StringUtils.isNotBlank((String)params.get("dTime_20"))?"":(String)params.get("dTime_20"));
+    	vo.setdTime_21(!StringUtils.isNotBlank((String)params.get("dTime_21"))?"":(String)params.get("dTime_21"));
+    	vo.setdTime_22(!StringUtils.isNotBlank((String)params.get("dTime_22"))?"":(String)params.get("dTime_22"));
+    	vo.setdTime_23(!StringUtils.isNotBlank((String)params.get("dTime_23"))?"":(String)params.get("dTime_23"));
+    	vo.setdTime_24(!StringUtils.isNotBlank((String)params.get("dTime_24"))?"":(String)params.get("dTime_24"));
+    	
+    	//vo.setdTime_25(!StringUtils.isNotBlank((String)params.get("dTime_25"))?"":(String)params.get("dTime_25"));
+    	//vo.setdTime_26(!StringUtils.isNotBlank((String)params.get("dTime_26"))?"":(String)params.get("dTime_26"));
+    	//vo.setdTime_27(!StringUtils.isNotBlank((String)params.get("dTime_27"))?"":(String)params.get("dTime_27"));
+    	//vo.setdTime_28(!StringUtils.isNotBlank((String)params.get("dTime_28"))?"":(String)params.get("dTime_28"));
+    	vo.setdTime_29(!StringUtils.isNotBlank((String)params.get("dTime_29"))?"":(String)params.get("dTime_29"));
+    	vo.setdTime_30(!StringUtils.isNotBlank((String)params.get("dTime_30"))?"":(String)params.get("dTime_30"));
+     	vo.setdTime_31(!StringUtils.isNotBlank((String)params.get("dTime_31"))?"":(String)params.get("dTime_31"));
+    	vo.setdTime_32(!StringUtils.isNotBlank((String)params.get("dTime_32"))?"":(String)params.get("dTime_32"));
+    	vo.setdTime_33(!StringUtils.isNotBlank((String)params.get("dTime_33"))?"":(String)params.get("dTime_33"));
+    	//vo.setdTime_34(!StringUtils.isNotBlank((String)params.get("dTime_34"))?"":(String)params.get("dTime_34"));
+    	//vo.setdTime_35(!StringUtils.isNotBlank((String)params.get("dTime_35"))?"":(String)params.get("dTime_35"));
+    	//vo.setdTime_36(!StringUtils.isNotBlank((String)params.get("dTime_36"))?"":(String)params.get("dTime_36"));
+    	
+    	voList.add(vo);
+    	
+		return voList;
+    	
+    }
+    	
+	
 }

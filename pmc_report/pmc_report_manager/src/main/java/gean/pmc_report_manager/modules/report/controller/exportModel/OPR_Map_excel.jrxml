@@ -21,7 +21,7 @@
 	<field name="productionOpr2" class="java.lang.Float"/>
 	<field name="equipmentOpr2" class="java.lang.Float"/>
 	<field name="equipAvail" class="java.lang.Float"/>
-	<field name="cycleTime" class="java.lang.Float"/>
+	<field name="cycleTime" class="java.lang.Integer"/>
 	<field name="blocked" class="java.lang.String"/>
 	<field name="starved" class="java.lang.String"/>
 	<background>

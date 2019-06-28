@@ -96,14 +96,14 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="宋体" size="18" isBold="true"/>
+					<font fontName="SansSerif" size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[OPR Map -]]></text>
 			</staticText>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField-1" x="93" y="0" width="441" height="50" uuid="4ce19df2-f467-4c60-b208-42134ecf0667"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None">
-					<font fontName="宋体" size="18" isBold="true"/>
+					<font fontName="SansSerif" size="18" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
 			</textField>
@@ -146,77 +146,77 @@
 			<staticText>
 				<reportElement x="1" y="87" width="87" height="26" uuid="f9ceac73-d76f-4541-980a-cdd81df1ead6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[区域]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="90" y="87" width="87" height="26" uuid="bb50b632-7d34-4794-a7f6-2bd0bf0a1efe"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[实际产量]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="179" y="87" width="87" height="26" uuid="998dfd59-ce50-41e4-aceb-8df5cf091193"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[班次计划产量]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="268" y="87" width="87" height="26" uuid="b2a29366-e87a-444b-97b5-7e531d8d2004"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[偏差]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="357" y="87" width="87" height="26" uuid="cd097277-6b04-47ad-9491-17414b07ec30"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[生产OPR]]></text>
 			</staticText>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement key="textField" x="1" y="113" width="87" height="26" uuid="b72a98df-c449-4c1a-81de-069cd9475d6e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
 				<reportElement key="textField" x="90" y="114" width="87" height="26" uuid="b00e737b-2bd5-45d3-aaf1-2712da4f78f6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{actual}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField" x="179" y="113" width="87" height="24" uuid="270a6b4f-f267-4df3-a926-15f11fc2640a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{shiftPlan}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField" x="268" y="115" width="87" height="22" uuid="cfa22ed5-d139-4cb1-934a-4278d6f0c4da"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{variation}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField-13" x="357" y="115" width="87" height="22" uuid="2357240a-e31b-408a-bdfa-c3f0176b501a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{productionOpr}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField-14" x="446" y="114" width="87" height="24" uuid="ec61f436-47dc-4696-baf1-1b9d7520270b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="10"/>
+					<font fontName="SansSerif" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{equipmentOpr}]]></textFieldExpression>
 			</textField>
@@ -226,7 +226,7 @@
 			<staticText>
 				<reportElement x="446" y="88" width="87" height="26" uuid="6ef69b66-3336-48b4-8a93-a0741503a89b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[设备OPR]]></text>
 			</staticText>
@@ -242,7 +242,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[车间:]]></text>
 			</staticText>
@@ -252,7 +252,7 @@
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField-2" x="46" y="55" width="55" height="20" uuid="bd8783f3-643a-46d9-ae8a-fd7a3b96e891"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="宋体" size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{shop}]]></textFieldExpression>
 			</textField>
@@ -268,7 +268,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[班次:]]></text>
 			</staticText>
@@ -278,7 +278,7 @@
 			<textField isBlankWhenNull="false">
 				<reportElement key="textField-3" x="146" y="55" width="50" height="20" uuid="757c482f-a660-44aa-9934-0cc2155e1f2b"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="宋体" size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{shift}]]></textFieldExpression>
 			</textField>
@@ -294,7 +294,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[日期:]]></text>
 			</staticText>
@@ -304,7 +304,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement key="textField-4" x="245" y="55" width="77" height="20" uuid="f0e5bbe4-6fd6-4c7f-a202-7fcd9c76bbed"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="宋体" size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{stime}]]></textFieldExpression>
 			</textField>
@@ -320,7 +320,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[报表生成时间:]]></text>
 			</staticText>
@@ -330,7 +330,7 @@
 			<textField pattern="yyyy/MM/dd HH:mm:ss" isBlankWhenNull="false">
 				<reportElement key="textField-5" x="403" y="55" width="130" height="20" uuid="c4b09bd9-ff0c-4b1b-a281-36ddf5882d35"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="宋体" size="8"/>
+					<font fontName="SansSerif" size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[java.util.Calendar.getInstance().getTime()]]></textFieldExpression>
 			</textField>
@@ -350,7 +350,7 @@
 			<staticText>
 				<reportElement x="2" y="3" width="22" height="26" uuid="83dcea26-7e67-46b7-9a5a-6022b88124c2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="8" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[序号]]></text>
 			</staticText>
@@ -360,7 +360,7 @@
 			<staticText>
 				<reportElement x="27" y="3" width="39" height="26" uuid="021d0aa1-1b7b-49ce-bd6d-582d8f46feaa"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[Zone]]></text>
 			</staticText>
@@ -370,7 +370,7 @@
 			<staticText>
 				<reportElement x="68" y="3" width="70" height="26" uuid="b49fa585-901e-4781-b85c-c99c1bb7b1e7"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[合格件产量计数]]></text>
 			</staticText>
@@ -380,7 +380,7 @@
 			<staticText>
 				<reportElement x="140" y="3" width="54" height="26" uuid="33db763f-2dc3-4e25-af0d-163da02007da"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[停机时间]]></text>
 			</staticText>
@@ -390,7 +390,7 @@
 			<staticText>
 				<reportElement x="196" y="3" width="50" height="26" uuid="d5a17f14-29ce-475a-b6aa-654b68a8da71"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[生产OPR]]></text>
 			</staticText>
@@ -400,7 +400,7 @@
 			<staticText>
 				<reportElement x="248" y="3" width="50" height="26" uuid="cbb0b74c-50ca-47d0-8e9b-a1f8c56acafc"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[设备OPR]]></text>
 			</staticText>
@@ -410,7 +410,7 @@
 			<staticText>
 				<reportElement x="300" y="3" width="50" height="26" uuid="3ed79178-d412-4bf6-bb5d-9445c4d8b1de"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[设备可用率]]></text>
 			</staticText>
@@ -420,7 +420,7 @@
 			<staticText>
 				<reportElement x="352" y="3" width="50" height="26" uuid="0fe755de-68d7-47c2-9f7f-a5fe0feac781"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[节拍时间]]></text>
 			</staticText>
@@ -430,7 +430,7 @@
 			<staticText>
 				<reportElement x="403" y="3" width="48" height="26" uuid="0a1a8656-6f92-457d-99ae-863d98c8704f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[堵料时间]]></text>
 			</staticText>
@@ -440,7 +440,7 @@
 			<staticText>
 				<reportElement x="455" y="3" width="80" height="26" uuid="9825cc20-487e-4e45-8803-0a417fc2c53b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					<font fontName="SansSerif" size="9" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
 				</textElement>
 				<text><![CDATA[缺料时间]]></text>
 			</staticText>
@@ -454,7 +454,7 @@
 			<textField>
 				<reportElement x="2" y="1" width="22" height="26" uuid="bf82d555-17ad-4234-83e3-93e44966dd4c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9"/>
+					<font fontName="SansSerif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{ColIndex}]]></textFieldExpression>
 			</textField>
@@ -464,7 +464,7 @@
 			<textField>
 				<reportElement x="26" y="1" width="40" height="26" uuid="5a118669-64be-4547-9ff9-ed8abac38a30"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9"/>
+					<font fontName="SansSerif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{zone2}]]></textFieldExpression>
 			</textField>
@@ -474,7 +474,7 @@
 			<textField>
 				<reportElement x="68" y="1" width="70" height="26" uuid="0d6be92a-91b0-467d-8cd6-833d882a754a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9"/>
+					<font fontName="SansSerif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{goodPartCount}]]></textFieldExpression>
 			</textField>
@@ -484,7 +484,7 @@
 			<textField>
 				<reportElement x="140" y="1" width="54" height="26" uuid="8dbd7efb-0bab-44ea-97c9-3eb8b5488c87"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9"/>
+					<font fontName="SansSerif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{downTime}]]></textFieldExpression>
 			</textField>
@@ -494,7 +494,7 @@
 			<textField>
 				<reportElement x="196" y="1" width="50" height="26" uuid="28cc5ff8-7f27-428a-b371-12d66fe2a232"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9"/>
+					<font fontName="SansSerif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{productionOpr}]]></textFieldExpression>
 			</textField>
@@ -504,7 +504,7 @@
 			<textField>
 				<reportElement x="248" y="1" width="50" height="26" uuid="abdc4f2f-3f80-4224-bfb5-efe0ac32e671"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9"/>
+					<font fontName="SansSerif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{equipmentOpr}]]></textFieldExpression>
 			</textField>
@@ -514,7 +514,7 @@
 			<textField>
 				<reportElement x="300" y="1" width="50" height="26" uuid="aff24863-cfd1-4cf6-b50e-5a2518f55b2c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9"/>
+					<font fontName="SansSerif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{equipAvail}]]></textFieldExpression>
 			</textField>
@@ -524,7 +524,7 @@
 			<textField>
 				<reportElement x="352" y="1" width="50" height="26" uuid="2b2c8403-9eda-4585-b9c1-aaa63c4a3318"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9"/>
+					<font fontName="SansSerif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{cycleTime}]]></textFieldExpression>
 			</textField>
@@ -537,14 +537,14 @@
 			<textField>
 				<reportElement x="455" y="1" width="78" height="26" uuid="986a1a31-7b8a-41f0-9f1d-ec4c42741d1a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9"/>
+					<font fontName="SansSerif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{starved}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="403" y="1" width="48" height="26" uuid="f2eeb1a3-5646-471c-ac91-14aee0d9a958"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="宋体" size="9"/>
+					<font fontName="SansSerif" size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{blocked}]]></textFieldExpression>
 			</textField>
