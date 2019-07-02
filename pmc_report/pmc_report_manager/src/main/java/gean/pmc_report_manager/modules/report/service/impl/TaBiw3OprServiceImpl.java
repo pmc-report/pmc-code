@@ -112,42 +112,6 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 				areaList.add(areaVo);
 			}
 		}
-		/*for(MasterDataVo masterVo : OPRDataList) {
-			vo.setZone(masterVo.getZoneNo());
-			vo.setFacilityId(masterVo.getFacilityId());
-			ZoneOprVo zoneOpr = this.generateZoneOpr(vo);
-			zoneOpr.setCycleTime(masterVo.getDesignCycleTime());
-			
-			//设备OPR = （zone产量 * 设计节拍时间）/设备有效生产时间
-			equipmentOpr = (zoneOpr.getGoodPartCount() * masterVo.getDesignCycleTime())/zoneOpr.getAvailableTime();
-			if(!Float.isNaN(equipmentOpr)&&!Float.isInfinite(equipmentOpr)) {
-				zoneOpr.setEquipmentOpr(Float.parseFloat(df.format(equipmentOpr)));
-			}else {
-				zoneOpr.setEquipmentOpr(0.00f);
-			}
-			//生产OPR = （zone产量 * 标准节拍时间）/设备有效生产时间
-			productionOpr = (zoneOpr.getGoodPartCount() * masterVo.getStandardCycleTime())/zoneOpr.getAvailableTime();
-			if(!Float.isNaN(productionOpr)&&!Float.isInfinite(productionOpr)) {
-				zoneOpr.setProductionOpr(Float.parseFloat(df.format(productionOpr)));
-			}else {
-				zoneOpr.setProductionOpr(0.00f);
-			}
-			zoneOprList.add(zoneOpr);
-			
-			String zoneKey = masterVo.getZoneNo()+"_"+masterVo.getFacilityId();
-			//根据标志位生成area OPR
-			if(areaMap.containsKey(zoneKey)) {
-				areaVo.setArea(areaEol.getLineNo());
-				areaVo.setActual(zoneOpr.getGoodPartCount());
-				areaVo.setShiftPlan(shiftPlan);
-				Integer variation = shiftPlan - zoneOpr.getGoodPartCount();
-				areaVo.setVariation(variation);
-				areaVo.setEquipmentOpr(zoneOpr.getEquipmentOpr());
-				areaVo.setProductionOpr(zoneOpr.getProductionOpr());
-				areaVo.setZoneList(zoneOprList);
-				areaList.add(areaVo);
-			}
-		}*/
 		return areaList;
 	}
 	
@@ -280,57 +244,4 @@ public class TaBiw3OprServiceImpl extends ServiceImpl<TaBiw3OprDao, TaBiw3OprEnt
 		}
 		return result;
 	}
-
-	//3
-	/*public ZoneOprVo generateZoneOpr(PageParamVo vo){
-		
-		ZoneOprVo zoneVo = new ZoneOprVo();
-		zoneVo.setZone(vo.getZone());
-		
-		//获取堵料和缺料的持续时间
-		ZoneOprVo starvedAndblocked = baseMapper.queryStarvedAndblocked(vo);
-		if(starvedAndblocked!= null) {
-			zoneVo.setBlocked(starvedAndblocked.getBlocked());
-		}else {
-			zoneVo.setBlocked(0);
-		}
-		if(starvedAndblocked!=null) {
-			zoneVo.setStarved(starvedAndblocked.getStarved());
-		}else {
-			zoneVo.setStarved(0);
-		}
-		//获取总停机时间
-		Integer downTime = baseMapper.queryDownTime(vo);
-		if(downTime!=null) {
-			zoneVo.setDownTime(downTime);
-		}else {
-			zoneVo.setDownTime(0);
-		}
-		
-		//获取小时合格件产量
-		Integer partCount = baseMapper.queryGoodPartCount(vo);
-		if(partCount!=null) {
-			zoneVo.setGoodPartCount(partCount);
-		}else {
-			zoneVo.setGoodPartCount(0);
-		}
-		
-		//获取设备可用率
-		Float techAvali = baseMapper.queryTechAvali(vo);
-		if(techAvali!=null) {
-			zoneVo.setEquipAvail(techAvali);
-		}else {
-			zoneVo.setEquipAvail(0f);
-		}
-		
-		//获取设备正常生产时间
-		Float availableTime = baseMapper.queryAvailableTime(vo);
-		if(availableTime!=null) {
-			zoneVo.setAvailableTime(availableTime);
-		}else {
-			zoneVo.setAvailableTime(0f);
-		}
-		return zoneVo;
-		
-	}*/
 }

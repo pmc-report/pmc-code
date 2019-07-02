@@ -109,8 +109,11 @@ function queryReport(tag,params){
 
 function initAreaTable(url,queryParams){
 	
+	var area = '';
+	
 	var responseHandler = function (e) {
 	      if (e.area && e.area.length>0) {
+	    	  area = e.area[0].area;
 	          return { "rows": e.area, "total": e.area.length };
 	      } else {
 	          return { "rows": [], "total": 0 };
@@ -122,13 +125,20 @@ function initAreaTable(url,queryParams){
 	      return html;
 	 }
 	 
+	 var dataFormatter = function(value, row, index){
+		 if('Closure area'==area){
+			 value = 'N/A'
+		 }
+		 return value;
+	 }
+	 
    var columns = [
         { field: 'area', title: '区域', align: 'center'},
-        { field: 'actual', title: '实际产量', align: 'center'}, 
-        { field: 'shiftPlan', title: '班次计划产量', align: 'center' },
-        { field: 'variation', title: '偏差', align:'center' }, 
-        { field: 'productionOpr', title: '生产OPR', align: 'center'}, 
-        { field: 'equipmentOpr', title: '设备OPR', align: 'center' }
+        { field: 'actual', title: '实际产量', align: 'center',formatter: dataFormatter}, 
+        { field: 'shiftPlan', title: '班次计划产量', align: 'center',formatter: dataFormatter },
+        { field: 'variation', title: '偏差', align:'center',formatter: dataFormatter }, 
+        { field: 'productionOpr', title: '生产OPR', align: 'center',formatter: dataFormatter}, 
+        { field: 'equipmentOpr', title: '设备OPR', align: 'center',formatter: dataFormatter }
     ];
    
 	  $('#areaTab').empty();
