@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="OPR_Map" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="f75a4b5d-7633-4b47-8a01-e1ad04477650">
-	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="9"/>
+	<property name="ireport.zoom" value="2.200000000000001"/>
+	<property name="ireport.x" value="10"/>
+	<property name="ireport.y" value="0"/>
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<import value="net.sf.jasperreports.engine.*"/>
@@ -496,7 +496,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{productionOpr}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{productionOpr2}]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement x="247" y="0" width="52" height="28" uuid="9bd3f13c-3c5d-4f5a-89ab-6ce19dd40947"/>
@@ -506,7 +506,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="9"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{equipmentOpr}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{equipmentOpr2}]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement x="299" y="0" width="52" height="28" uuid="49820759-1bfd-47c4-af31-31218a878723"/>

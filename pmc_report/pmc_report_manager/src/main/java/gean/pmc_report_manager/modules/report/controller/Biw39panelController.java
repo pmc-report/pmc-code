@@ -71,12 +71,22 @@ public class Biw39panelController {
     @RequestMapping("/echarts")
     public R list(@RequestParam Map<String, Object> params){
        resultMap = new HashMap<>();
+       DecimalFormat df = new DecimalFormat("##0.00");
        List<PanelVo> list = taBiw39panelService.queryEchart(params);
        for(PanelVo vo : list) {
-    	   if(vo.getTargetTav()>0) {
-    		   resultMap.put("Target TA", vo.getTargetTav());
-    		   break;
-    	   }
+    	   try {
+    		   if(vo.getTargetTav()>0) {
+        		   resultMap.put("Target TA", df.format(vo.getTargetTav()));
+        		   break;
+        	   }else {
+        		   resultMap.put("Target TA", "0.0");
+        		   break;
+        	   }
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    	 
        }
         return R.ok().put("list", list);
     }
@@ -124,7 +134,7 @@ public class Biw39panelController {
 			map.put(str, params.get(str) == null ? " " : (String)params.get(str));
 //			System.out.println(str+" : "+map.get(str));
 		}
-		map.put("targetTA", df.format(resultMap.get("Target TA")));
+		map.put("targetTA", (String)resultMap.get("Target TA"));
 		map.put("createDates", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
 		template.process(map, writer);
 		writer.close();
@@ -145,6 +155,7 @@ public class Biw39panelController {
 					outputStream.write(buffer, 0, i);
 					i = bis.read(buffer);
 				}
+				resultMap.clear();
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -166,76 +177,6 @@ public class Biw39panelController {
 		}
 	}
 
-    
-   
-    public void exportExcel1(HttpServletRequest request,HttpServletResponse response,
-			@RequestParam Map<String, Object> params) throws Exception {
-    	
-		// String realPath=request.getServletContext().getRealPath("pmc_report_manager"); //得到项目的绝对路径
-		// System.out.println(realPath);
-		// String tagertFile = "d:/Test/word.doc"; //word模板的目录
-
-		String tagertFile = "src/main/java/gean/pmc_report_manager/modules/report/controller/exportModel/excel.xls";
-		// String sourceFile = "d:/Test"; //word生成的目标目录
-		Configuration configuration = new Configuration();
-		configuration.setDefaultEncoding("utf-8");
-		// configuration.setDirectoryForTemplateLoading(new File(sourceFile));   //根据绝对路径加载文件
-		//System.out.println(this.getClass());
-		configuration.setClassForTemplateLoading(this.getClass(), "exportModel"); // 获取需要加载文件的相对路径 只到上级包
-		InputStream is = this.getClass().getClassLoader().getResourceAsStream("export/excel.xls");
-		File f = new File(tagertFile);
-		FileUtils.copyInputStreamToFile(is, f);
-		Writer writer = new OutputStreamWriter(new FileOutputStream(f), "utf-8");
-		Template template = configuration.getTemplate("excel.xml");
-		Map<String, String> map = new HashMap<>();
-		DecimalFormat df = new DecimalFormat("##0.00");
-		//组装数据
-		for (String str : params.keySet()) {
-			map.put(str, params.get(str) == null ? " " : (String)params.get(str));
-//			System.out.println(str+" : "+map.get(str));
-		}
-		map.put("targetTA", df.format(resultMap.get("Target TA")));
-		map.put("createDates", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
-		template.process(map, writer);
-		writer.close();
-
-		File file = new File(tagertFile);
-		if (file.exists()) {
-			response.setContentType("application/force-download");// 设置强制下载不打开            
-			response.addHeader("Content-Disposition", "attachment;fileName= 9Panel报表.xls");
-			byte[] buffer = new byte[10240];
-			FileInputStream fis = null;
-			BufferedInputStream bis = null;
-			try {
-				fis = new FileInputStream(file);
-				bis = new BufferedInputStream(fis);
-				OutputStream outputStream = response.getOutputStream();
-				int i = bis.read(buffer);
-				while (i != -1) {
-					outputStream.write(buffer, 0, i);
-					i = bis.read(buffer);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (bis != null) {
-					try {
-						bis.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-				if (fis != null) {
-					try {
-						fis.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		}
-	}
-    
     @RequestMapping("/report/excel")
     public void exportExcel(HttpServletRequest request,HttpServletResponse response,
 			@RequestParam Map<String, Object> params) throws Exception {
@@ -246,7 +187,9 @@ public class Biw39panelController {
     		InputStream is = this.getClass().getResourceAsStream("exportModel/9panel.jasper");//获取同包下模版文件
         	String exportName = "9Panel报表";
     		JasperExportUtils.export(voList, "excel", is, request, response,exportName);
+    		resultMap.clear();
 		} catch (Exception e) {
+			resultMap.clear();
 			e.getMessage();
 		}
     }
@@ -267,8 +210,7 @@ public class Biw39panelController {
     	vo.setFromDates(!StringUtils.isNotBlank((String)params.get("fromDates")) ? "" : (String)params.get("fromDates"));
     	vo.setToDates(!StringUtils.isNotBlank((String)params.get("toDates")) ? "" : (String)params.get("toDates"));
     	vo.setCreateDates(DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
-    	vo.setTargetTA(df.format(resultMap.get("Target TA")));
-
+    	vo.setTargetTA((String)resultMap.get("Target TA"));
     	vo.setEcharepxport(!StringUtils.isNotBlank((String)params.get("echarepxport"))?"":(String)params.get("echarepxport"));
     	vo.setEcharepxport1(!StringUtils.isNotBlank((String)params.get("echarepxport1"))?"":(String)params.get("echarepxport1"));
     	vo.setEcharepxport2(!StringUtils.isNotBlank((String)params.get("echarepxport2"))?"":(String)params.get("echarepxport2"));
