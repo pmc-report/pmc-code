@@ -48,11 +48,12 @@ dynamic:
       username: mes_ods
       password: 2QZjRqTj4kLT
       validation-query: SELECT 1 FROM DUAL
-#    slave2:
-#      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-#      url: jdbc:sqlserver://172.17.97.22:1433;DatabaseName=PMC
-#      username: MesQAT
-#      password: MesQAT01
+    slave2:
+      driver-class-name: oracle.jdbc.OracleDriver
+      url: jdbc:oracle:thin:@172.17.97.23:1521:ORAMESQ
+      username: QMESAMS
+      password: vatBxYjsvSlJ
+      validation-query: SELECT 1 FROM DUAL
 #    slave3:
 #      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 #      url: jdbc:sqlserver://172.18.4.121:1433;DatabaseName=BIW3
