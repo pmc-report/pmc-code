@@ -99,6 +99,18 @@ tbody > tr > th {font-weight: normal; }
 	border-left : 1px solid #fff;
 }
 
+#faultOrderTableHeader{
+	width:100%;
+	border :1px solid #000;
+	margin-bottom:10px;
+}
+
+#faultOrderTableHeader tr td {
+	padding: 10px 5px;
+	border-top:1px solid #000;
+	border-left : 1px solid #fff;
+}
+
 .panelTableTitleH1{
 	width : 100%;
 	padding : 10px;
@@ -125,6 +137,18 @@ tbody > tr > th {font-weight: normal; }
 }
 
 #biw3oprTableHeader tr td{
+	padding: 10px 5px;
+	border-bottom : 1px solid #000;
+	border-left:1px solid #fff;
+}
+
+#lossTableHeader {
+	width:100%;
+	border : 1px solid #000;
+	margin-bottom : 10px;
+}
+
+#lossTableHeader tr td{
 	padding: 10px 5px;
 	border-bottom : 1px solid #000;
 	border-left:1px solid #fff;

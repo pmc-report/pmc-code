@@ -51,9 +51,39 @@
         <result property="reasonDescription" column="reason_description"/>
         <result property="posWord31" column="pos_word31"/>
         <result property="totalDuration" column="total_duration"/>
+        <result property="occurence" column="occurence"/>
     </resultMap>
     
-
+	<resultMap type="gean.pmc_report_manager.modules.report.vo.LossOPRVo" id="LossOprVoMap">
+    	<result property="weekRange" column="WeekRange"/>
+    	<result property="monday" column="mondayOfCurrentWeek"/>
+    	<result property="weekNo" column="weekNo"/>
+    	<result property="downTime" column="downTime"/>
+    	<result property="week" column="week"/>
+    	<result property="actualPOpr" column="actualP_OPR"/>
+    	<result property="actualEOpr" column="actualE_OPR"/>
+		<result property="targetEOpr" column="targetE_OPR"/>
+		<result property="targetPOpr" column="targetP_OPR"/>
+		<result property="startTime" column="start_Time"/>
+		
+		<result property="facilityId" column="facilityId"/>   
+		<result property="rn" column="RN"/> 
+		<result property="occ" column="occ"/>
+    	<result property="loss" column="loss"/>
+    	<result property="weekNo2" column="weekNo2"/>
+    	<result property="minStartTime" column="min_start_time"/>
+    	
+    	<result property="facilityId2" column="facilityId2"/>   
+    	<result property="duration" column="duration"/> 	
+    </resultMap>
+    
+     <resultMap type="gean.pmc_report_manager.modules.report.vo.FaultOrderVo" id="FaultOrderVoMap">
+        <result property="stn" column="facility_id1"/>
+        <!-- <result property="duration" column="Duration1"/> -->
+        <result property="description" column="fault_description1"/>
+        <result property="mins" column="Duration1"/>
+        <result property="occ" column="Occurrences1"/>
+    </resultMap>
 
 	<sql id="common_sql">
 		select * from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
@@ -163,4 +193,155 @@
     	WHERE c.Facility_Id = #{facilityId} and c.Facility_desc != ''
     </select>
 
+	<select id="queryFaultLoss" resultMap="LossOprVoMap">
+		with CTE as
+		(
+		select  
+			COUNT(1) "occ" ,
+			SUM(duration) "loss",
+			facility_id,
+			DATEPART(WK,start_time) "weekNo2",
+			Min(start_time)"min_start_time" 
+		from PMC_BIW_FAULT
+		where 1 = 1
+		<if test="shop!=null and shop!=''">
+			AND	shop = #{shop}
+		</if>
+		<if test="area!=null and area!=''">
+			AND line = #{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND ZONE = #{zone}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift = #{shift}
+		</if>
+		 and fault_word3 !=0 
+		 and end_time is not null
+		 and start_time between DATEADD(wk,-12,DATEADD(wk, DATEDIFF(wk,0,getdate()), 0)) and getdate()
+		group by facility_id,DATEPART(WK,start_time)
+		)
+		select RN = dense_rank() over (partition by facility_id order by facility_id, "min_start_time" desc),* from CTE
+	</select>
+	
+	<select id="queryTop10Fault" resultMap="LossOprVoMap">
+		select top 10 
+			facility_id "facilityId2",
+			SUM(duration)/60 "duration"
+		from PMC_BIW_FAULT 
+		where 1 = 1 
+		and start_time between DATEADD(wk,-12,DATEADD(wk, DATEDIFF(wk,0,getdate()), 0)) and DATEADD(wk,0,DATEADD(wk, DATEDIFF(wk,0,getdate()), 0))
+		<if test="shop!=null and shop!=''">
+			AND	shop = #{shop}
+		</if>
+		<if test="area!=null and area!=''">
+			AND line = #{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND ZONE = #{zone}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift = #{shift}
+		</if>
+		 and fault_word3 !=0 
+		 and end_time is not null
+		 group by facility_id 
+		 order by SUM(duration) desc
+	</select>
+	
+	<select id="queryCurrShiftFaults" resultMap="FaultOrderVoMap">
+		SELECT TOP 10
+		facility_id1,
+		fault_description1,
+		Occurrences1,
+		Duration1
+	   FROM
+		(
+		  Select 
+		  ROW_NUMBER() OVER (PARTITION BY fault_description ORDER BY TotalDuration desc) ROWNUMS,
+		  facility_id "facility_id1",
+		  fault_description "fault_description1",
+		  Occurrences "Occurrences1",
+		  TotalDuration "Duration1"
+		  FROM
+		  (
+		  select facility_id,fault_description,count(fault_description) Occurrences,sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotalDuration
+		  from(
+		  select fault_description,facility_id,start_time,ISNULL(end_time,GETDATE()) Current_End_Time
+		  from PMC_BIW_FAULT with (nolock)
+		  where 1 = 1
+			 <if test="startTime!=null">
+				AND start_time between #{startTime} and #{endTime}
+			</if>
+			<if test="shop!=null and shop!=''">
+				AND	shop = #{shop}
+			</if>
+			<if test="area!=null and area!=''">
+				AND line = #{area}
+			</if>
+			<if test="zone!=null and zone!=''">
+				AND ZONE = #{zone}
+			</if>
+		  and end_time is not null
+		  and tav_flag!=1
+		  )T
+		  group by facility_id,fault_description
+		  )ALL_DATA
+		  )FINAL
+	  where ROWNUMS = 1
+	  <if test="flag!=null and flag==0">
+	  	order by Duration1 desc;
+	  </if>
+	  <if test="flag!=null and flag==1">
+	  	order by Occurrences1 desc;
+	  </if>
+	</select>
+	
+	<select id="queryPreShiftFaults" resultMap="FaultOrderVoMap">
+		SELECT TOP 10
+		facility_id1,
+		fault_description1,
+		Occurrences1,
+		Duration1
+	   FROM
+		(
+		  Select 
+		  ROW_NUMBER() OVER (PARTITION BY fault_description ORDER BY TotalDuration desc) ROWNUMS,
+		  facility_id "facility_id1",
+		  fault_description "fault_description1",
+		  Occurrences "Occurrences1",
+		  TotalDuration "Duration1"
+		  FROM
+		  (
+		  select facility_id,fault_description,count(fault_description) Occurrences,sum(convert(float,datediff(SS,start_time,Current_End_Time))/60) TotalDuration
+		  from(
+		  select fault_description,facility_id,start_time,ISNULL(end_time,GETDATE()) Current_End_Time
+		  from PMC_BIW_FAULT with (nolock)
+		  where 1 = 1
+			 <if test="startTime!=null">
+				AND start_time between #{startTime} and #{endTime}
+			</if>
+			<if test="shop!=null and shop!=''">
+				AND	shop = #{shop}
+			</if>
+			<if test="area!=null and area!=''">
+				AND line = #{area}
+			</if>
+			<if test="zone!=null and zone!=''">
+				AND ZONE = #{zone}
+			</if>
+		  and end_time is not null
+		  and tav_flag!=1
+		  )T
+		  group by facility_id,fault_description
+		  )ALL_DATA
+		  )FINAL
+	  where ROWNUMS = 1
+	  <if test="flag!=null and flag==0">
+	  	order by Duration1 desc;
+	  </if>
+	  <if test="flag!=null and flag==1">
+	  	order by Occurrences1 desc;
+	  </if>
+	</select>
 </mapper>

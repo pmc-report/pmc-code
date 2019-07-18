@@ -76,14 +76,12 @@ public class Biw39panelController {
        for(PanelVo vo : list) {
     	   try {
     		   if(vo.getTargetTav()>0) {
-        		   resultMap.put("Target TA", df.format(vo.getTargetTav()));
-        		   break;
-        	   }else {
-        		   resultMap.put("Target TA", "0.0");
+        		   resultMap.put("Target_TA", df.format(vo.getTargetTav()));
         		   break;
         	   }
 			
 			} catch (Exception e) {
+				resultMap.put("Target_TA", "0.0");
 				e.printStackTrace();
 			}
     	 
@@ -122,6 +120,7 @@ public class Biw39panelController {
 		// configuration.setDirectoryForTemplateLoading(new File(sourceFile));   //根据绝对路径加载文件
 		//System.out.println(this.getClass());
 		configuration.setClassForTemplateLoading(this.getClass(), "exportModel"); // 获取需要加载文件的相对路径 只到上级包
+		configuration.setClassicCompatible(true);
 		InputStream is = this.getClass().getClassLoader().getResourceAsStream("export/word.doc");
 		File f = new File(tagertFile);
 		FileUtils.copyInputStreamToFile(is, f);
@@ -134,7 +133,7 @@ public class Biw39panelController {
 			map.put(str, params.get(str) == null ? " " : (String)params.get(str));
 //			System.out.println(str+" : "+map.get(str));
 		}
-		map.put("targetTA", (String)resultMap.get("Target TA"));
+		map.put("targetTA", (String)resultMap.get("Target_TA"));
 		map.put("createDates", DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
 		template.process(map, writer);
 		writer.close();
@@ -188,8 +187,10 @@ public class Biw39panelController {
         	String exportName = "9Panel报表";
     		JasperExportUtils.export(voList, "excel", is, request, response,exportName);
     		resultMap.clear();
+    		params.clear();
 		} catch (Exception e) {
 			resultMap.clear();
+			params.clear();
 			e.getMessage();
 		}
     }
@@ -197,6 +198,9 @@ public class Biw39panelController {
     private List<PanelVoExport> generate9PanelVo(Map<String, Object> params){
     	
     	DecimalFormat df = new DecimalFormat("##0.00");
+    	
+    	String blankPerato = "iVBORw0KGgoAAAANSUhEUgAAAOoAAAA4CAYAAADzYmRqAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAACzSURBVHhe7dMBDQAwEAOh+Tfd2fhLwANvwHmiQoCoECAqBIgKAaJCgKgQICoEiAoBokKAqBAgKgSICgGiQoCoECAqBIgKAaJCgKgQICoEiAoBokKAqBAgKgSICgGiQoCoECAqBIgKAaJCgKgQICoEiAoBokKAqBAgKgSICgGiQoCoECAqBIgKAaJCgKgQICoEiAoBokKAqBAgKgSICgGiQoCoECAqBIgKAaJCgKgQICqct30daf8m93wkrwAAAABJRU5ErkJggg==";
+    	String blankStatus = "iVBORw0KGgoAAAANSUhEUgAAADwAAAA6CAYAAADspTpvAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAABUSURBVGhD7c8BAQAwDMOg+zfd+2DBAW/HFNYV1hXWFdYV1hXWFdYV1hXWFdYV1hXWFdYV1hXWFdYV1hXWFdYV1hXWFdYV1hXWFdYV1hXWFdYdC28fRQUsy31WIO8AAAAASUVORK5CYII=";
     	//创建VO list 
     	List<PanelVoExport> voList = new ArrayList<>();
     	PanelVoExport vo = new PanelVoExport();
@@ -210,7 +214,7 @@ public class Biw39panelController {
     	vo.setFromDates(!StringUtils.isNotBlank((String)params.get("fromDates")) ? "" : (String)params.get("fromDates"));
     	vo.setToDates(!StringUtils.isNotBlank((String)params.get("toDates")) ? "" : (String)params.get("toDates"));
     	vo.setCreateDates(DateUtils.format(new Date(), DateUtils.DATE_TIME_PATTERN));
-    	vo.setTargetTA((String)resultMap.get("Target TA"));
+    	vo.setTargetTA((String)resultMap.get("Target_TA"));
     	vo.setEcharepxport(!StringUtils.isNotBlank((String)params.get("echarepxport"))?"":(String)params.get("echarepxport"));
     	vo.setEcharepxport1(!StringUtils.isNotBlank((String)params.get("echarepxport1"))?"":(String)params.get("echarepxport1"));
     	vo.setEcharepxport2(!StringUtils.isNotBlank((String)params.get("echarepxport2"))?"":(String)params.get("echarepxport2"));
@@ -221,8 +225,8 @@ public class Biw39panelController {
     	vo.setdTime_4(!StringUtils.isNotBlank((String)params.get("dTime_4"))?"":(String)params.get("dTime_4"));
     	vo.setdTime_5(!StringUtils.isNotBlank((String)params.get("dTime_5"))?"":(String)params.get("dTime_5"));
     	vo.setdTime_6(!StringUtils.isNotBlank((String)params.get("dTime_6"))?"":(String)params.get("dTime_6"));
-    	vo.setdTime_7(!StringUtils.isNotBlank((String)params.get("dTime_7"))?"":(String)params.get("dTime_7"));
-    	vo.setdTime_8(!StringUtils.isNotBlank((String)params.get("dTime_8"))?"":(String)params.get("dTime_8"));	
+    	vo.setdTime_7(!StringUtils.isNotBlank((String)params.get("dTime_7"))?blankPerato:(String)params.get("dTime_7"));
+    	vo.setdTime_8(!StringUtils.isNotBlank((String)params.get("dTime_8"))?blankStatus:(String)params.get("dTime_8"));	
     	vo.setdTime_12(!StringUtils.isNotBlank((String)params.get("dTime_12"))?"":(String)params.get("dTime_12"));
     	vo.setdTime_13(!StringUtils.isNotBlank((String)params.get("dTime_13"))?"":(String)params.get("dTime_13"));
     	vo.setdTime_14(!StringUtils.isNotBlank((String)params.get("dTime_14"))?"":(String)params.get("dTime_14"));
@@ -235,8 +239,8 @@ public class Biw39panelController {
     	vo.setdTime_20(!StringUtils.isNotBlank((String)params.get("dTime_20"))?"":(String)params.get("dTime_20"));
     	vo.setdTime_21(!StringUtils.isNotBlank((String)params.get("dTime_21"))?"":(String)params.get("dTime_21"));
     	vo.setdTime_22(!StringUtils.isNotBlank((String)params.get("dTime_22"))?"":(String)params.get("dTime_22"));
-    	vo.setdTime_23(!StringUtils.isNotBlank((String)params.get("dTime_23"))?"":(String)params.get("dTime_23"));
-    	vo.setdTime_24(!StringUtils.isNotBlank((String)params.get("dTime_24"))?"":(String)params.get("dTime_24"));
+    	vo.setdTime_23(!StringUtils.isNotBlank((String)params.get("dTime_23"))?blankPerato:(String)params.get("dTime_23"));
+    	vo.setdTime_24(!StringUtils.isNotBlank((String)params.get("dTime_24"))?blankStatus:(String)params.get("dTime_24"));
     	vo.setdTime_29(!StringUtils.isNotBlank((String)params.get("dTime_29"))?"":(String)params.get("dTime_29"));
     	vo.setdTime_30(!StringUtils.isNotBlank((String)params.get("dTime_30"))?"":(String)params.get("dTime_30"));
      	vo.setdTime_31(!StringUtils.isNotBlank((String)params.get("dTime_31"))?"":(String)params.get("dTime_31"));
@@ -249,8 +253,8 @@ public class Biw39panelController {
     	vo.setdTime_37(!StringUtils.isNotBlank((String)params.get("dTime_37"))?"":(String)params.get("dTime_37"));
     	vo.setdTime_38(!StringUtils.isNotBlank((String)params.get("dTime_38"))?"":(String)params.get("dTime_38"));
     	vo.setdTime_39(!StringUtils.isNotBlank((String)params.get("dTime_39"))?"":(String)params.get("dTime_39"));
-    	vo.setdTime_40(!StringUtils.isNotBlank((String)params.get("dTime_40"))?"":(String)params.get("dTime_40"));
-     	vo.setdTime_41(!StringUtils.isNotBlank((String)params.get("dTime_41"))?"":(String)params.get("dTime_41"));
+    	vo.setdTime_40(!StringUtils.isNotBlank((String)params.get("dTime_40"))?blankPerato:(String)params.get("dTime_40"));
+     	vo.setdTime_41(!StringUtils.isNotBlank((String)params.get("dTime_41"))?blankStatus:(String)params.get("dTime_41"));
      	vo.setdTime_46(!StringUtils.isNotBlank((String)params.get("dTime_46"))?"":(String)params.get("dTime_46"));
     	vo.setdTime_47(!StringUtils.isNotBlank((String)params.get("dTime_47"))?"":(String)params.get("dTime_47"));
     	vo.setdTime_48(!StringUtils.isNotBlank((String)params.get("dTime_48"))?"":(String)params.get("dTime_48"));
@@ -263,8 +267,8 @@ public class Biw39panelController {
     	vo.setdTime_54(!StringUtils.isNotBlank((String)params.get("dTime_54"))?"":(String)params.get("dTime_54"));
     	vo.setdTime_55(!StringUtils.isNotBlank((String)params.get("dTime_55"))?"":(String)params.get("dTime_55"));
     	vo.setdTime_56(!StringUtils.isNotBlank((String)params.get("dTime_56"))?"":(String)params.get("dTime_56"));
-    	vo.setdTime_57(!StringUtils.isNotBlank((String)params.get("dTime_57"))?"":(String)params.get("dTime_57"));
-     	vo.setdTime_58(!StringUtils.isNotBlank((String)params.get("dTime_58"))?"":(String)params.get("dTime_58"));
+    	vo.setdTime_57(!StringUtils.isNotBlank((String)params.get("dTime_57"))?blankPerato:(String)params.get("dTime_57"));
+     	vo.setdTime_58(!StringUtils.isNotBlank((String)params.get("dTime_58"))?blankStatus:(String)params.get("dTime_58"));
     	vo.setdTime_63(!StringUtils.isNotBlank((String)params.get("dTime_63"))?"":(String)params.get("dTime_63"));
     	vo.setdTime_64(!StringUtils.isNotBlank((String)params.get("dTime_64"))?"":(String)params.get("dTime_64"));
     	vo.setdTime_65(!StringUtils.isNotBlank((String)params.get("dTime_65"))?"":(String)params.get("dTime_65"));
@@ -277,8 +281,8 @@ public class Biw39panelController {
     	vo.setdTime_71(!StringUtils.isNotBlank((String)params.get("dTime_71"))?"":(String)params.get("dTime_71"));
     	vo.setdTime_72(!StringUtils.isNotBlank((String)params.get("dTime_72"))?"":(String)params.get("dTime_72"));
     	vo.setdTime_73(!StringUtils.isNotBlank((String)params.get("dTime_73"))?"":(String)params.get("dTime_73"));
-    	vo.setdTime_74(!StringUtils.isNotBlank((String)params.get("dTime_74"))?"":(String)params.get("dTime_74"));
-     	vo.setdTime_75(!StringUtils.isNotBlank((String)params.get("dTime_75"))?"":(String)params.get("dTime_75"));
+    	vo.setdTime_74(!StringUtils.isNotBlank((String)params.get("dTime_74"))?blankPerato:(String)params.get("dTime_74"));
+     	vo.setdTime_75(!StringUtils.isNotBlank((String)params.get("dTime_75"))?blankStatus:(String)params.get("dTime_75"));
     	vo.setdTime_80(!StringUtils.isNotBlank((String)params.get("dTime_80"))?"":(String)params.get("dTime_80"));
     	vo.setdTime_81(!StringUtils.isNotBlank((String)params.get("dTime_81"))?"":(String)params.get("dTime_81"));
     	vo.setdTime_82(!StringUtils.isNotBlank((String)params.get("dTime_82"))?"":(String)params.get("dTime_82"));
@@ -291,8 +295,8 @@ public class Biw39panelController {
     	vo.setdTime_88(!StringUtils.isNotBlank((String)params.get("dTime_88"))?"":(String)params.get("dTime_88"));
     	vo.setdTime_89(!StringUtils.isNotBlank((String)params.get("dTime_89"))?"":(String)params.get("dTime_89"));
     	vo.setdTime_90(!StringUtils.isNotBlank((String)params.get("dTime_90"))?"":(String)params.get("dTime_90"));
-    	vo.setdTime_91(!StringUtils.isNotBlank((String)params.get("dTime_91"))?"":(String)params.get("dTime_91"));
-     	vo.setdTime_92(!StringUtils.isNotBlank((String)params.get("dTime_92"))?"":(String)params.get("dTime_92"));
+    	vo.setdTime_91(!StringUtils.isNotBlank((String)params.get("dTime_91"))?blankPerato:(String)params.get("dTime_91"));
+     	vo.setdTime_92(!StringUtils.isNotBlank((String)params.get("dTime_92"))?blankStatus:(String)params.get("dTime_92"));
     	vo.setdTime_97(!StringUtils.isNotBlank((String)params.get("dTime_97"))?"":(String)params.get("dTime_97"));
     	vo.setdTime_98(!StringUtils.isNotBlank((String)params.get("dTime_98"))?"":(String)params.get("dTime_98"));
     	vo.setdTime_99(!StringUtils.isNotBlank((String)params.get("dTime_99"))?"":(String)params.get("dTime_99"));
@@ -305,8 +309,8 @@ public class Biw39panelController {
     	vo.setdTime_105(!StringUtils.isNotBlank((String)params.get("dTime_105"))?"":(String)params.get("dTime_105"));
     	vo.setdTime_106(!StringUtils.isNotBlank((String)params.get("dTime_106"))?"":(String)params.get("dTime_106"));
     	vo.setdTime_107(!StringUtils.isNotBlank((String)params.get("dTime_107"))?"":(String)params.get("dTime_107"));
-    	vo.setdTime_108(!StringUtils.isNotBlank((String)params.get("dTime_108"))?"":(String)params.get("dTime_108"));
-     	vo.setdTime_109(!StringUtils.isNotBlank((String)params.get("dTime_109"))?"":(String)params.get("dTime_109"));
+    	vo.setdTime_108(!StringUtils.isNotBlank((String)params.get("dTime_108"))?blankPerato:(String)params.get("dTime_108"));
+     	vo.setdTime_109(!StringUtils.isNotBlank((String)params.get("dTime_109"))?blankStatus:(String)params.get("dTime_109"));
     	vo.setdTime_114(!StringUtils.isNotBlank((String)params.get("dTime_114"))?"":(String)params.get("dTime_114"));
     	vo.setdTime_115(!StringUtils.isNotBlank((String)params.get("dTime_115"))?"":(String)params.get("dTime_115"));
     	vo.setdTime_116(!StringUtils.isNotBlank((String)params.get("dTime_116"))?"":(String)params.get("dTime_116"));
@@ -319,8 +323,8 @@ public class Biw39panelController {
     	vo.setdTime_122(!StringUtils.isNotBlank((String)params.get("dTime_122"))?"":(String)params.get("dTime_122"));
     	vo.setdTime_123(!StringUtils.isNotBlank((String)params.get("dTime_123"))?"":(String)params.get("dTime_123"));
     	vo.setdTime_124(!StringUtils.isNotBlank((String)params.get("dTime_124"))?"":(String)params.get("dTime_124"));
-    	vo.setdTime_125(!StringUtils.isNotBlank((String)params.get("dTime_125"))?"":(String)params.get("dTime_125"));
-     	vo.setdTime_126(!StringUtils.isNotBlank((String)params.get("dTime_126"))?"":(String)params.get("dTime_126"));
+    	vo.setdTime_125(!StringUtils.isNotBlank((String)params.get("dTime_125"))?blankPerato:(String)params.get("dTime_125"));
+     	vo.setdTime_126(!StringUtils.isNotBlank((String)params.get("dTime_126"))?blankStatus:(String)params.get("dTime_126"));
     	vo.setdTime_131(!StringUtils.isNotBlank((String)params.get("dTime_131"))?"":(String)params.get("dTime_131"));
     	vo.setdTime_132(!StringUtils.isNotBlank((String)params.get("dTime_132"))?"":(String)params.get("dTime_132"));
     	vo.setdTime_133(!StringUtils.isNotBlank((String)params.get("dTime_133"))?"":(String)params.get("dTime_133"));
@@ -333,8 +337,8 @@ public class Biw39panelController {
     	vo.setdTime_139(!StringUtils.isNotBlank((String)params.get("dTime_139"))?"":(String)params.get("dTime_139"));
     	vo.setdTime_140(!StringUtils.isNotBlank((String)params.get("dTime_140"))?"":(String)params.get("dTime_140"));
     	vo.setdTime_141(!StringUtils.isNotBlank((String)params.get("dTime_141"))?"":(String)params.get("dTime_141"));
-    	vo.setdTime_142(!StringUtils.isNotBlank((String)params.get("dTime_142"))?"":(String)params.get("dTime_142"));
-     	vo.setdTime_143(!StringUtils.isNotBlank((String)params.get("dTime_143"))?"":(String)params.get("dTime_143"));
+    	vo.setdTime_142(!StringUtils.isNotBlank((String)params.get("dTime_142"))?blankPerato:(String)params.get("dTime_142"));
+     	vo.setdTime_143(!StringUtils.isNotBlank((String)params.get("dTime_143"))?blankStatus:(String)params.get("dTime_143"));
     	vo.setdTime_148(!StringUtils.isNotBlank((String)params.get("dTime_148"))?"":(String)params.get("dTime_148"));
     	vo.setdTime_149(!StringUtils.isNotBlank((String)params.get("dTime_149"))?"":(String)params.get("dTime_149"));
     	vo.setdTime_150(!StringUtils.isNotBlank((String)params.get("dTime_150"))?"":(String)params.get("dTime_150"));
@@ -347,8 +351,8 @@ public class Biw39panelController {
     	vo.setdTime_156(!StringUtils.isNotBlank((String)params.get("dTime_156"))?"":(String)params.get("dTime_156"));
     	vo.setdTime_157(!StringUtils.isNotBlank((String)params.get("dTime_157"))?"":(String)params.get("dTime_157"));
     	vo.setdTime_158(!StringUtils.isNotBlank((String)params.get("dTime_158"))?"":(String)params.get("dTime_158"));
-    	vo.setdTime_159(!StringUtils.isNotBlank((String)params.get("dTime_159"))?"":(String)params.get("dTime_159"));
-     	vo.setdTime_160(!StringUtils.isNotBlank((String)params.get("dTime_160"))?"":(String)params.get("dTime_160"));
+    	vo.setdTime_159(!StringUtils.isNotBlank((String)params.get("dTime_159"))?blankPerato:(String)params.get("dTime_159"));
+     	vo.setdTime_160(!StringUtils.isNotBlank((String)params.get("dTime_160"))?blankStatus:(String)params.get("dTime_160"));
     	vo.setdTime_165(!StringUtils.isNotBlank((String)params.get("dTime_165"))?"":(String)params.get("dTime_165"));
     	vo.setdTime_166(!StringUtils.isNotBlank((String)params.get("dTime_166"))?"":(String)params.get("dTime_166"));
     	vo.setdTime_167(!StringUtils.isNotBlank((String)params.get("dTime_167"))?"":(String)params.get("dTime_167"));
@@ -367,8 +371,8 @@ public class Biw39panelController {
     	vo.setOcc_4(!StringUtils.isNotBlank((String)params.get("occ_4"))?"":(String)params.get("occ_4"));
     	vo.setOcc_5(!StringUtils.isNotBlank((String)params.get("occ_5"))?"":(String)params.get("occ_5"));
     	vo.setOcc_6(!StringUtils.isNotBlank((String)params.get("occ_6"))?"":(String)params.get("occ_6"));
-    	vo.setOcc_7(!StringUtils.isNotBlank((String)params.get("occ_7"))?"":(String)params.get("occ_7"));
-    	vo.setOcc_8(!StringUtils.isNotBlank((String)params.get("occ_8"))?"":(String)params.get("occ_8"));	
+    	vo.setOcc_7(!StringUtils.isNotBlank((String)params.get("occ_7"))?blankPerato:(String)params.get("occ_7"));
+    	vo.setOcc_8(!StringUtils.isNotBlank((String)params.get("occ_8"))?blankStatus:(String)params.get("occ_8"));	
     	vo.setOcc_12(!StringUtils.isNotBlank((String)params.get("occ_12"))?"":(String)params.get("occ_12"));
     	vo.setOcc_13(!StringUtils.isNotBlank((String)params.get("occ_13"))?"":(String)params.get("occ_13"));
     	vo.setOcc_14(!StringUtils.isNotBlank((String)params.get("occ_14"))?"":(String)params.get("occ_14"));
@@ -381,8 +385,8 @@ public class Biw39panelController {
     	vo.setOcc_20(!StringUtils.isNotBlank((String)params.get("occ_20"))?"":(String)params.get("occ_20"));
     	vo.setOcc_21(!StringUtils.isNotBlank((String)params.get("occ_21"))?"":(String)params.get("occ_21"));
     	vo.setOcc_22(!StringUtils.isNotBlank((String)params.get("occ_22"))?"":(String)params.get("occ_22"));
-    	vo.setOcc_23(!StringUtils.isNotBlank((String)params.get("occ_23"))?"":(String)params.get("occ_23"));
-    	vo.setOcc_24(!StringUtils.isNotBlank((String)params.get("occ_24"))?"":(String)params.get("occ_24"));
+    	vo.setOcc_23(!StringUtils.isNotBlank((String)params.get("occ_23"))?blankPerato:(String)params.get("occ_23"));
+    	vo.setOcc_24(!StringUtils.isNotBlank((String)params.get("occ_24"))?blankStatus:(String)params.get("occ_24"));
     	vo.setOcc_29(!StringUtils.isNotBlank((String)params.get("occ_29"))?"":(String)params.get("occ_29"));
     	vo.setOcc_30(!StringUtils.isNotBlank((String)params.get("occ_30"))?"":(String)params.get("occ_30"));
      	vo.setOcc_31(!StringUtils.isNotBlank((String)params.get("occ_31"))?"":(String)params.get("occ_31"));
@@ -395,8 +399,8 @@ public class Biw39panelController {
     	vo.setOcc_37(!StringUtils.isNotBlank((String)params.get("occ_37"))?"":(String)params.get("occ_37"));
     	vo.setOcc_38(!StringUtils.isNotBlank((String)params.get("occ_38"))?"":(String)params.get("occ_38"));
     	vo.setOcc_39(!StringUtils.isNotBlank((String)params.get("occ_39"))?"":(String)params.get("occ_39"));
-    	vo.setOcc_40(!StringUtils.isNotBlank((String)params.get("occ_40"))?"":(String)params.get("occ_40"));
-     	vo.setOcc_41(!StringUtils.isNotBlank((String)params.get("occ_41"))?"":(String)params.get("occ_41"));
+    	vo.setOcc_40(!StringUtils.isNotBlank((String)params.get("occ_40"))?blankPerato:(String)params.get("occ_40"));
+     	vo.setOcc_41(!StringUtils.isNotBlank((String)params.get("occ_41"))?blankStatus:(String)params.get("occ_41"));
      	vo.setOcc_46(!StringUtils.isNotBlank((String)params.get("occ_46"))?"":(String)params.get("occ_46"));
     	vo.setOcc_47(!StringUtils.isNotBlank((String)params.get("occ_47"))?"":(String)params.get("occ_47"));
     	vo.setOcc_48(!StringUtils.isNotBlank((String)params.get("occ_48"))?"":(String)params.get("occ_48"));
@@ -409,8 +413,8 @@ public class Biw39panelController {
     	vo.setOcc_54(!StringUtils.isNotBlank((String)params.get("occ_54"))?"":(String)params.get("occ_54"));
     	vo.setOcc_55(!StringUtils.isNotBlank((String)params.get("occ_55"))?"":(String)params.get("occ_55"));
     	vo.setOcc_56(!StringUtils.isNotBlank((String)params.get("occ_56"))?"":(String)params.get("occ_56"));
-    	vo.setOcc_57(!StringUtils.isNotBlank((String)params.get("occ_57"))?"":(String)params.get("occ_57"));
-     	vo.setOcc_58(!StringUtils.isNotBlank((String)params.get("occ_58"))?"":(String)params.get("occ_58"));
+    	vo.setOcc_57(!StringUtils.isNotBlank((String)params.get("occ_57"))?blankPerato:(String)params.get("occ_57"));
+     	vo.setOcc_58(!StringUtils.isNotBlank((String)params.get("occ_58"))?blankStatus:(String)params.get("occ_58"));
     	vo.setOcc_63(!StringUtils.isNotBlank((String)params.get("occ_63"))?"":(String)params.get("occ_63"));
     	vo.setOcc_64(!StringUtils.isNotBlank((String)params.get("occ_64"))?"":(String)params.get("occ_64"));
     	vo.setOcc_65(!StringUtils.isNotBlank((String)params.get("occ_65"))?"":(String)params.get("occ_65"));
@@ -423,8 +427,8 @@ public class Biw39panelController {
     	vo.setOcc_71(!StringUtils.isNotBlank((String)params.get("occ_71"))?"":(String)params.get("occ_71"));
     	vo.setOcc_72(!StringUtils.isNotBlank((String)params.get("occ_72"))?"":(String)params.get("occ_72"));
     	vo.setOcc_73(!StringUtils.isNotBlank((String)params.get("occ_73"))?"":(String)params.get("occ_73"));
-    	vo.setOcc_74(!StringUtils.isNotBlank((String)params.get("occ_74"))?"":(String)params.get("occ_74"));
-     	vo.setOcc_75(!StringUtils.isNotBlank((String)params.get("occ_75"))?"":(String)params.get("occ_75"));
+    	vo.setOcc_74(!StringUtils.isNotBlank((String)params.get("occ_74"))?blankPerato:(String)params.get("occ_74"));
+     	vo.setOcc_75(!StringUtils.isNotBlank((String)params.get("occ_75"))?blankStatus:(String)params.get("occ_75"));
     	vo.setOcc_80(!StringUtils.isNotBlank((String)params.get("occ_80"))?"":(String)params.get("occ_80"));
     	vo.setOcc_81(!StringUtils.isNotBlank((String)params.get("occ_81"))?"":(String)params.get("occ_81"));
     	vo.setOcc_82(!StringUtils.isNotBlank((String)params.get("occ_82"))?"":(String)params.get("occ_82"));
@@ -437,8 +441,8 @@ public class Biw39panelController {
     	vo.setOcc_88(!StringUtils.isNotBlank((String)params.get("occ_88"))?"":(String)params.get("occ_88"));
     	vo.setOcc_89(!StringUtils.isNotBlank((String)params.get("occ_89"))?"":(String)params.get("occ_89"));
     	vo.setOcc_90(!StringUtils.isNotBlank((String)params.get("occ_90"))?"":(String)params.get("occ_90"));
-    	vo.setOcc_91(!StringUtils.isNotBlank((String)params.get("occ_91"))?"":(String)params.get("occ_91"));
-     	vo.setOcc_92(!StringUtils.isNotBlank((String)params.get("occ_92"))?"":(String)params.get("occ_92"));
+    	vo.setOcc_91(!StringUtils.isNotBlank((String)params.get("occ_91"))?blankPerato:(String)params.get("occ_91"));
+     	vo.setOcc_92(!StringUtils.isNotBlank((String)params.get("occ_92"))?blankStatus:(String)params.get("occ_92"));
     	vo.setOcc_97(!StringUtils.isNotBlank((String)params.get("occ_97"))?"":(String)params.get("occ_97"));
     	vo.setOcc_98(!StringUtils.isNotBlank((String)params.get("occ_98"))?"":(String)params.get("occ_98"));
     	vo.setOcc_99(!StringUtils.isNotBlank((String)params.get("occ_99"))?"":(String)params.get("occ_99"));
@@ -451,8 +455,8 @@ public class Biw39panelController {
     	vo.setOcc_105(!StringUtils.isNotBlank((String)params.get("occ_105"))?"":(String)params.get("occ_105"));
     	vo.setOcc_106(!StringUtils.isNotBlank((String)params.get("occ_106"))?"":(String)params.get("occ_106"));
     	vo.setOcc_107(!StringUtils.isNotBlank((String)params.get("occ_107"))?"":(String)params.get("occ_107"));
-    	vo.setOcc_108(!StringUtils.isNotBlank((String)params.get("occ_108"))?"":(String)params.get("occ_108"));
-     	vo.setOcc_109(!StringUtils.isNotBlank((String)params.get("occ_109"))?"":(String)params.get("occ_109"));
+    	vo.setOcc_108(!StringUtils.isNotBlank((String)params.get("occ_108"))?blankPerato:(String)params.get("occ_108"));
+     	vo.setOcc_109(!StringUtils.isNotBlank((String)params.get("occ_109"))?blankStatus:(String)params.get("occ_109"));
     	vo.setOcc_114(!StringUtils.isNotBlank((String)params.get("occ_114"))?"":(String)params.get("occ_114"));
     	vo.setOcc_115(!StringUtils.isNotBlank((String)params.get("occ_115"))?"":(String)params.get("occ_115"));
     	vo.setOcc_116(!StringUtils.isNotBlank((String)params.get("occ_116"))?"":(String)params.get("occ_116"));
@@ -465,8 +469,8 @@ public class Biw39panelController {
     	vo.setOcc_122(!StringUtils.isNotBlank((String)params.get("occ_122"))?"":(String)params.get("occ_122"));
     	vo.setOcc_123(!StringUtils.isNotBlank((String)params.get("occ_123"))?"":(String)params.get("occ_123"));
     	vo.setOcc_124(!StringUtils.isNotBlank((String)params.get("occ_124"))?"":(String)params.get("occ_124"));
-    	vo.setOcc_125(!StringUtils.isNotBlank((String)params.get("occ_125"))?"":(String)params.get("occ_125"));
-     	vo.setOcc_126(!StringUtils.isNotBlank((String)params.get("occ_126"))?"":(String)params.get("occ_126"));
+    	vo.setOcc_125(!StringUtils.isNotBlank((String)params.get("occ_125"))?blankPerato:(String)params.get("occ_125"));
+     	vo.setOcc_126(!StringUtils.isNotBlank((String)params.get("occ_126"))?blankStatus:(String)params.get("occ_126"));
     	vo.setOcc_131(!StringUtils.isNotBlank((String)params.get("occ_131"))?"":(String)params.get("occ_131"));
     	vo.setOcc_132(!StringUtils.isNotBlank((String)params.get("occ_132"))?"":(String)params.get("occ_132"));
     	vo.setOcc_133(!StringUtils.isNotBlank((String)params.get("occ_133"))?"":(String)params.get("occ_133"));
@@ -479,8 +483,8 @@ public class Biw39panelController {
     	vo.setOcc_139(!StringUtils.isNotBlank((String)params.get("occ_139"))?"":(String)params.get("occ_139"));
     	vo.setOcc_140(!StringUtils.isNotBlank((String)params.get("occ_140"))?"":(String)params.get("occ_140"));
     	vo.setOcc_141(!StringUtils.isNotBlank((String)params.get("occ_141"))?"":(String)params.get("occ_141"));
-    	vo.setOcc_142(!StringUtils.isNotBlank((String)params.get("occ_142"))?"":(String)params.get("occ_142"));
-     	vo.setOcc_143(!StringUtils.isNotBlank((String)params.get("occ_143"))?"":(String)params.get("occ_143"));
+    	vo.setOcc_142(!StringUtils.isNotBlank((String)params.get("occ_142"))?blankPerato:(String)params.get("occ_142"));
+     	vo.setOcc_143(!StringUtils.isNotBlank((String)params.get("occ_143"))?blankStatus:(String)params.get("occ_143"));
     	vo.setOcc_148(!StringUtils.isNotBlank((String)params.get("occ_148"))?"":(String)params.get("occ_148"));
     	vo.setOcc_149(!StringUtils.isNotBlank((String)params.get("occ_149"))?"":(String)params.get("occ_149"));
     	vo.setOcc_150(!StringUtils.isNotBlank((String)params.get("occ_150"))?"":(String)params.get("occ_150"));
@@ -493,8 +497,8 @@ public class Biw39panelController {
     	vo.setOcc_156(!StringUtils.isNotBlank((String)params.get("occ_156"))?"":(String)params.get("occ_156"));
     	vo.setOcc_157(!StringUtils.isNotBlank((String)params.get("occ_157"))?"":(String)params.get("occ_157"));
     	vo.setOcc_158(!StringUtils.isNotBlank((String)params.get("occ_158"))?"":(String)params.get("occ_158"));
-    	vo.setOcc_159(!StringUtils.isNotBlank((String)params.get("occ_159"))?"":(String)params.get("occ_159"));
-     	vo.setOcc_160(!StringUtils.isNotBlank((String)params.get("occ_160"))?"":(String)params.get("occ_160"));
+    	vo.setOcc_159(!StringUtils.isNotBlank((String)params.get("occ_159"))?blankPerato:(String)params.get("occ_159"));
+     	vo.setOcc_160(!StringUtils.isNotBlank((String)params.get("occ_160"))?blankStatus:(String)params.get("occ_160"));
     	vo.setOcc_165(!StringUtils.isNotBlank((String)params.get("occ_165"))?"":(String)params.get("occ_165"));
     	vo.setOcc_166(!StringUtils.isNotBlank((String)params.get("occ_166"))?"":(String)params.get("occ_166"));
     	vo.setOcc_167(!StringUtils.isNotBlank((String)params.get("occ_167"))?"":(String)params.get("occ_167"));
@@ -505,7 +509,6 @@ public class Biw39panelController {
     	vo.setOccOldTol(!StringUtils.isNotBlank((String)params.get("occOldTol"))?"":(String)params.get("occOldTol"));
     	vo.setT10OccNew(!StringUtils.isNotBlank((String)params.get("t10OccNew"))?"":(String)params.get("t10OccNew"));
     	vo.setOccNewTol(!StringUtils.isNotBlank((String)params.get("occNewTol"))?"":(String)params.get("occNewTol"));
-    	
     	
     	voList.add(vo);
     	if(voList.size()>0) {

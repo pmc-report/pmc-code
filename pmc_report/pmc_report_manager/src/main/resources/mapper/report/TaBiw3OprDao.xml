@@ -61,6 +61,30 @@
 		<result property="productionVolume" column="production_volume"/> 	  	
     </resultMap>
 	
+	
+	<resultMap type="gean.pmc_report_manager.modules.report.vo.LossOPRVo" id="LossOprVoMap">
+    	<result property="weekRange" column="WeekRange"/>
+    	<result property="monday" column="mondayOfCurrentWeek"/>
+    	<result property="weekNo" column="weekNo"/>
+    	<result property="downTime" column="downTime"/>
+    	<result property="week" column="week"/>
+    	<result property="actualPOpr" column="actualP_OPR"/>
+    	<result property="actualEOpr" column="actualE_OPR"/>
+		<result property="targetEOpr" column="targetE_OPR"/>
+		<result property="targetPOpr" column="targetP_OPR"/>
+		<result property="startTime" column="start_Time"/>
+		
+		<result property="facilityId" column="facilityId"/>   
+		<result property="rn" column="RN"/> 
+		<result property="occ" column="occ"/>
+    	<result property="loss" column="loss"/>
+    	<result property="weekNo2" column="weekNo2"/>
+    	<result property="minStartTime" column="min_start_time"/>
+    	
+    	<result property="facilityId2" column="facilityId2"/>   
+    	<result property="duration" column="duration"/> 	
+    </resultMap>
+    
 	<select id="queryStarvedAndblocked" resultMap="zoneOprVoMap">
 		BEGIN WITH mainquery AS(
 		select 
@@ -207,4 +231,60 @@
 		and opr_level='zone'
 		and frequency='Shiftwise'
 	</select>
+	
+	<select id="queryLossOpr" resultMap="LossOprVoMap">
+		select * from
+		(
+			SELECT 
+				WeekRange ,
+				DATEADD(wk,WeekRange,DATEADD(wk, DATEDIFF(wk,0,getdate()), 0)) "mondayOfCurrentWeek",
+				DATEPART("wk", DATEADD(wk,WeekRange,DATEADD(wk, DATEDIFF(wk,0,getdate()), 0))) "weekNo"
+			FROM  
+			( 
+				SELECT 0 AS WeekRange UNION ALL
+		        SELECT -1 AS WeekRange UNION ALL
+		        SELECT -2 AS WeekRange UNION ALL
+		        SELECT -3 AS WeekRange UNION ALL
+		        SELECT -4 AS WeekRange UNION ALL
+		        SELECT -5 AS WeekRange UNION ALL
+		        SELECT -6 AS WeekRange UNION ALL
+		        SELECT -7 AS WeekRange UNION ALL
+		        SELECT -8 AS WeekRange UNION ALL
+		        SELECT -9 AS WeekRange UNION ALL
+		        SELECT -10 AS WeekRange UNION ALL
+		        SELECT -11 AS WeekRange 
+		    ) t2
+		) Q
+		left join 
+		(
+			select TOP 12 
+				DATEADD(dd, -(DATEPART(DW, start_time)-2), start_time) "week",
+				actual_equipment_opr * 100 "actualE_OPR",
+				actual_production_opr * 100 "actualP_OPR",
+				downtime/60 "downtime",
+				target_equipment_opr "targetE_OPR",
+				target_production_opr "targetP_OPR",
+				start_time
+			from PMC.dbo.Final_BIW3_OPR 
+			where 1 = 1
+			<if test="shop!=null and shop!=''">
+				AND	shop = #{shop}
+			</if>
+			<if test="area!=null and area!=''">
+				AND area = #{area}
+			</if>
+			<if test="zone!=null and zone!=''">
+				AND ZONE = #{zone}
+			</if>
+			<if test="shift!=null and shift!=''">
+				AND shift = #{shift}
+			</if>
+			and opr_level = 'zone'	
+			and frequency='Weekly'
+			order by start_time desc
+		) P
+		on DATEPART(WK,Week)=weekNo
+		ORDER BY weekNo asc;
+	</select>
+	
 </mapper>

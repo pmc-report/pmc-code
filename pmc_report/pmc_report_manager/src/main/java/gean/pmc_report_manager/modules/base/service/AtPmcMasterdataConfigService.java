@@ -46,5 +46,10 @@ public interface AtPmcMasterdataConfigService extends IService<AtPmcMasterdataCo
     
     /** Area OPR Eol*/
     MasterDataVo queryEolArea(Map<String, Object> params);
+    
+    /** 前一班次信息*/
+    Map<String,Object> queryBeforeShift();
+    /** 当前班次信息*/
+    Map<String,Object> queryCurrentShift();
 }
 

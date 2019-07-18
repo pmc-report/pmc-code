@@ -448,14 +448,21 @@ function createDownTimeExportImg(){
 function createDownTimeDivtoCanvas(i,j){
 	setTimeout(function(){
 		var _canvas='';
+		var w = '';
+		var h = '';
 		if(j == 6){
 			_canvas = document.querySelector('.paretoDownTime_'+i);
 		}
 		if(j == 7){
 			_canvas = document.querySelector('.statusDownTime_'+i);
 		}
-		var w = parseInt(window.getComputedStyle(_canvas).width);
-		var h = parseInt(window.getComputedStyle(_canvas).height);
+		if(_canvas!=null){
+			w = parseInt(window.getComputedStyle(_canvas).width);
+			h = parseInt(window.getComputedStyle(_canvas).height);
+		}else{
+			w = 1;
+			h = 1;
+		}
 	 	// 导出宽度
 		var width = w * 2;
 		// 导出高度
@@ -477,9 +484,15 @@ function createDownTimeDivtoCanvas(i,j){
 		})
 		.catch(function (error) {
 		    console.error('图片转换异常!', error);
+		    if(j == 6){
+		    	tableDownTimeparetoImgArray[i] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAAAnCAYAAACxMTBTAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAABASURBVGhD7c8BAQAwDMOg+zfd+2DBAW+HlFWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlTVtH1iz0hpkBny1AAAAAElFTkSuQmCC';
+			}
+			if(j == 7){
+				tableDownTimestatusImgArray[i] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAAAnCAYAAACxMTBTAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAABASURBVGhD7c8BAQAwDMOg+zfd+2DBAW+HlFWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlTVtH1iz0hpkBny1AAAAAElFTkSuQmCC';
+			}
 		});
 		setPorpById('panelBtn','disabled',false);
-	},5000);
+	},7000);
 }
 function initOccTab(queryParams){ 
 	var fdates = queryParams.fDate;
@@ -762,14 +775,23 @@ function createOccExportImg(){
 
 function createOccDivtoCanvas(i,j){
 	var _canvas='';
+	var w = '';
+	var h = '';
 	if(j == 6){
 		_canvas = document.querySelector('.paretoOcc_'+i);
 	}
 	if(j == 7){
 		_canvas = document.querySelector('.statusOcc_'+i);
 	}
-	var w = parseInt(window.getComputedStyle(_canvas).width);
-	var h = parseInt(window.getComputedStyle(_canvas).height);
+	
+	if(_canvas!=null){
+		w = parseInt(window.getComputedStyle(_canvas).width);
+		h = parseInt(window.getComputedStyle(_canvas).height);
+	}else{
+		w = 1;
+		h = 1;
+	}
+	
  	// 导出宽度
 	var width = w * 2;
 	// 导出高度
@@ -791,6 +813,12 @@ function createOccDivtoCanvas(i,j){
 	})
 	.catch(function (error) {
 	    console.error('图片转换异常!', error);
+	    if(j == 6){
+			tableOccparetoImgArray[i] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAAAnCAYAAACxMTBTAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAABASURBVGhD7c8BAQAwDMOg+zfd+2DBAW+HlFWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlTVtH1iz0hpkBny1AAAAAElFTkSuQmCC';
+		}
+		if(j == 7){
+			tableOccstatusImgArray[i] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAAAnCAYAAACxMTBTAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAABASURBVGhD7c8BAQAwDMOg+zfd+2DBAW+HlFWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlTVtH1iz0hpkBny1AAAAAElFTkSuQmCC';
+		}
 	});
 }
 
@@ -828,6 +856,7 @@ function queryReport(tag,params){
 		initPreDownTime(params)
 		initOccTab(params);
 	}
+	setPorpById('panelBtn','disabled',true);
 }
 
 function echars(params){
@@ -1189,7 +1218,6 @@ function echars2(params){
 }
 
 function report(param) {
-	//console.log(param+'_____________________');
 	var area = $("#area_search").val();
 	var zone = $("#zone_search").val();
 	var shift = $("#shift_search").val();
@@ -1215,7 +1243,6 @@ function report(param) {
 			fromDates : fDates,
 			toDates : tDates,
 	} ;
-	//console.log(params+'_____________________')
 	//图片
 	var image = new Image();
 	var image1 = new Image();
@@ -1266,7 +1293,6 @@ function report(param) {
 			}
 		}
 	}
-	
 	//table preOcc
 	var tableOccparamstrleg = $('#preOcc tbody').find('tr').length;
 	var tableOccparamstdleg = $('#preOcc tbody').find('tr').eq(0).find('td').length;
@@ -1286,7 +1312,6 @@ function report(param) {
 			}
 		}
 	}
-	
 	params.tableOccparamsArray = tableOccparamsArray;
 	params.t10DTimeOld = $("#top10DownTimeOld").text();
 	params.t10DTimeNew = $("#top10DownTimeNew").text();
@@ -1309,10 +1334,10 @@ function report(param) {
 function createReportInput(params,tableDownTimeArray,tableOccparamsArray){
 	var inputParams = '';
 	var inputSearch = '';
+	debugger
 	for(var index in params){
 		inputSearch += '<input type = "hidden" name = "'+index+'" value = "'+params[index]+'"/>'
 	}
 	inputParams += inputSearch;
-	//console.log("输入参数："+inputParams)
 	$("#fromexport").prepend(inputParams);
 }

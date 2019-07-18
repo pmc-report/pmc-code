@@ -96,5 +96,23 @@ public class AtPmcMasterdataConfigServiceImpl extends ServiceImpl<AtPmcMasterdat
 			return null;
 		}
 	}
+
+	@Override
+	public   Map<String,Object> queryBeforeShift() {
+		  Map<String,Object> map = baseMapper.queryBeforeShift();
+		if(!map.isEmpty()) {
+			return map;
+		}
+		return null;
+	}
+
+	@Override
+	public   Map<String,Object> queryCurrentShift() {
+		  Map<String,Object> map = baseMapper.queryCurrentShift();
+		if(!map.isEmpty()) {
+			return map;
+		}
+		return null;
+	}
 	
 }

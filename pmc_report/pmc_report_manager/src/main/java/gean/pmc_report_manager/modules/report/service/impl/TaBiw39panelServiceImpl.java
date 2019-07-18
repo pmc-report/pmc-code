@@ -84,14 +84,14 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 				if(panel.getMonday()!=null) {
 					_new.setMonday(panel.getMonday());
 				}
-				if(panel.getTav()!=0) {
+				if(panel.getTav()>0) {
 					_new.setTargetTav(Float.parseFloat(df.format(panelVo.getTargetTav())));
 					_new.setTav(Float.parseFloat(df.format(panel.getTav())));
 				}
 				
-				if(panel.getMtbf()!=0) {
+				if(panel.getMtbf()>0) {
 					_new.setTargetMtbf(Float.parseFloat(df.format(panelVo.getTargetMtbf())));
-					_new.setMtbf(panel.getMtbf());
+					_new.setMtbf(Float.parseFloat(df.format(panel.getMtbf())));
 				}
 				_new.setStartTime(panel.getStartTime());
 				_new.setWeek(panel.getWeek());
@@ -197,19 +197,21 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 				int count = top10DownTimeNewList.size();
 				if(i<=count-1) {
 					PanelVo newVo = top10DownTimeNewList.get(i);
-					PanelVo oldVo = resultList.get(i);
-					if(i==0) {
-						float totalDur2 = totalDownTimeForTo.get(0).getTotalDuration2();
-						oldVo.setTotalDuration2(Float.parseFloat(df.format(totalDur2)));
-					}
-					Integer newOrder = newVo.get_new();
-					oldVo.set_new(newOrder);
-					oldVo.setOcc2(newVo.getOcc2());
-					oldVo.setMins2(Float.parseFloat(df.format(newVo.getMins2())));
-					oldVo.setStn2(newVo.getStn2());
-					oldVo.setDescription2(newVo.getDescription2());
-					if(oldVo.getStatus()==null) {
-						oldVo.setStatus(1);//故障消失
+					if(i<resultList.size()) {
+						PanelVo oldVo = resultList.get(i);
+						if(i==0) {
+							float totalDur2 = totalDownTimeForTo.get(0).getTotalDuration2();
+							oldVo.setTotalDuration2(Float.parseFloat(df.format(totalDur2)));
+						}
+						Integer newOrder = newVo.get_new();
+						oldVo.set_new(newOrder);
+						oldVo.setOcc2(newVo.getOcc2());
+						oldVo.setMins2(Float.parseFloat(df.format(newVo.getMins2())));
+						oldVo.setStn2(newVo.getStn2());
+						oldVo.setDescription2(newVo.getDescription2());
+						if(oldVo.getStatus()==null) {
+							oldVo.setStatus(1);//故障消失
+						}
 					}
 				}
 			}
@@ -304,20 +306,21 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 				int count = top10OccurrenceNewList.size();
 				if(i <= count -1) {
 					PanelVo newVo = top10OccurrenceNewList.get(i);
-					//取值需验证
-					PanelVo oldVo = resultList.get(i);
-					if(i==0) {
-						int totalOcc2 = totalOccurrenceForTo.get(0).getTotalOcc2();
-						oldVo.setTotalOcc2(totalOcc2);
-					}
-					Integer newOrder = newVo.get_new();
-					oldVo.set_new(newOrder);
-					oldVo.setOcc2(newVo.getOcc2());
-					oldVo.setMins2(Float.parseFloat(df.format(newVo.getMins2())));
-					oldVo.setStn2(newVo.getStn2());
-					oldVo.setDescription2(newVo.getDescription2());
-					if(oldVo.getStatus()== null) {
-						oldVo.setStatus(1);//故障消失
+					if(i<resultList.size()) {
+						PanelVo oldVo = resultList.get(i);
+						if(i==0) {
+							int totalOcc2 = totalOccurrenceForTo.get(0).getTotalOcc2();
+							oldVo.setTotalOcc2(totalOcc2);
+						}
+						Integer newOrder = newVo.get_new();
+						oldVo.set_new(newOrder);
+						oldVo.setOcc2(newVo.getOcc2());
+						oldVo.setMins2(Float.parseFloat(df.format(newVo.getMins2())));
+						oldVo.setStn2(newVo.getStn2());
+						oldVo.setDescription2(newVo.getDescription2());
+						if(oldVo.getStatus()== null) {
+							oldVo.setStatus(1);//故障消失
+						}
 					}
 				}
 			}

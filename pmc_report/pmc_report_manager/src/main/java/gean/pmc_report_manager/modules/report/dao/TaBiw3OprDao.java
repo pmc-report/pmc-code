@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import gean.pmc_report_manager.modules.report.entity.TaBiw3OprEntity;
+import gean.pmc_report_manager.modules.report.vo.LossOPRVo;
 import gean.pmc_report_manager.modules.report.vo.PageParamVo;
 import gean.pmc_report_manager.modules.report.vo.ZoneOprVo;
 
@@ -32,4 +33,6 @@ public interface TaBiw3OprDao extends BaseMapper<TaBiw3OprEntity> {
 	List<ZoneOprVo> queryTechAvali(PageParamVo vo);
 	
 	List<ZoneOprVo> queryZoneOpr(PageParamVo vo);
+	
+	List<LossOPRVo> queryLossOpr(PageParamVo vo);
 }

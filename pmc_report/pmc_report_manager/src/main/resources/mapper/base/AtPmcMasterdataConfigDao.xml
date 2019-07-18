@@ -163,4 +163,38 @@
 		                    where SHOP_S = #{shop})
 	</select>
 	
+	<select id="queryBeforeShift" resultType="java.util.HashMap">
+		select START_TIME_T, END_TIME_T, ROWNUM
+		  from (SELECT START_TIME_T, END_TIME_T
+		          FROM AT_AS_SM_CALENDAR
+		         where START_TIME_T &lt;
+		               (select START_TIME_T
+		                  from (select START_TIME_T, END_TIME_T, ROWNUM
+		                          from (select CAL2.START_TIME_T, CAL2.END_TIME_T
+		                                  from AT_AS_SM_CALENDAR CAL2
+		                                 inner join SHIFT SH1
+		                                    on CAL2.SHIFT_198 = SH1.SHIFT_KEY
+		                                 where CAL2.TARGET_S = 'CS01_BS3'
+		                                   and CAL2.CATEGORY_S = 'MFG'
+		                                   and sysdate &gt; CAL2.START_TIME_T
+		                                 ORDER by CAL2.START_TIME_T desc)
+		                         where ROWNUM = 1))
+		           and TARGET_S = 'CS01_BS3'
+		           and CATEGORY_S = 'MFG'
+		         order by START_TIME_T desc)
+		 where ROWNUM = 1
+	</select>
+	
+	<select id="queryCurrentShift" resultType="java.util.HashMap">
+		select START_TIME_T,END_TIME_T,ROWNUM
+		from(
+			select  CAL2.START_TIME_T,CAL2.END_TIME_T 
+			from AT_AS_SM_CALENDAR CAL2 inner join SHIFT SH1 on CAL2.SHIFT_198=SH1.SHIFT_KEY
+			where CAL2.TARGET_S='CS01_BS3'
+			and CAL2.CATEGORY_S='MFG'
+			and sysdate &gt; CAL2.START_TIME_T
+			ORDER by CAL2.START_TIME_T desc
+			)
+		where ROWNUM = 1
+	</select>
 </mapper>

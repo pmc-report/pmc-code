@@ -660,7 +660,7 @@
 	w:fareast="宋体" w:hint="default" /><w:vertAlign
 	w:val="baseline" /><w:lang w:val="EN-US" w:fareast="ZH-CN" /></w:rPr></w:pPr><w:r><w:rPr><w:rFonts
 	w:hint="fareast" /><w:vertAlign w:val="baseline" /><w:lang
-	w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>-</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW
+	w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t><#if targetTA??> ${targetTA} <#else>0.0</#if></w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW
 	w:w="3720" w:type="dxa" /><w:shd w:val="clear" w:color="auto"
 	w:fill="C0C0C0" /></w:tcPr><w:p><w:pPr><w:keepNext
 	w:val="off" /><w:keepLines w:val="off" /><w:pageBreakBefore
@@ -2748,7 +2748,7 @@
 	w:val="EN-US" w:fareast="ZH-CN" /></w:rPr></w:pPr><w:r><w:rPr><w:rFonts
 	w:hint="fareast" /><w:b /><w:sz w:val="24" /><w:sz-cs
 	w:val="24" /><w:vertAlign w:val="baseline" /><w:lang
-	w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>Previous Faults Ranked by Downtime</w:t></w:r></w:p><w:p><w:pPr><w:widowControl
+	w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>Previous Faults Ranked by Occurrence</w:t></w:r></w:p><w:p><w:pPr><w:widowControl
 	w:val="off" /><w:jc w:val="center" /><w:rPr><w:rFonts
 	w:hint="default" /><w:b /><w:vertAlign w:val="baseline" /><w:lang
 	w:val="EN-US" w:fareast="ZH-CN" /></w:rPr></w:pPr><w:r><w:rPr><w:rFonts
@@ -2767,7 +2767,7 @@
 	w:hint="default" /><w:b /><w:vertAlign w:val="baseline" /><w:lang
 	w:val="EN-US" w:fareast="ZH-CN" /></w:rPr></w:pPr><w:r><w:rPr><w:rFonts
 	w:hint="fareast" /><w:b /><w:vertAlign w:val="baseline" /><w:lang
-	w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>[Ranked by Downtime]</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW
+	w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>[Ranked by Occurrence]</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW
 	w:w="8137" w:type="dxa" /><w:gridSpan w:val="6" /><w:vmerge
 	w:val="restart" /><w:shd w:val="clear" w:color="auto"
 	w:fill="04B45F" /></w:tcPr><w:p><w:pPr><w:widowControl
@@ -2775,7 +2775,7 @@
 	w:fareast="宋体" w:hint="default" /><w:b /><w:vertAlign
 	w:val="baseline" /><w:lang w:val="EN-US" w:fareast="ZH-CN" /></w:rPr></w:pPr><w:r><w:rPr><w:rFonts
 	w:hint="fareast" /><w:b /><w:vertAlign w:val="baseline" /><w:lang
-	w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>Current Faults Ranked by Downtime</w:t></w:r><w:r><w:rPr><w:rFonts
+	w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>Current Faults Ranked by Occurrence</w:t></w:r><w:r><w:rPr><w:rFonts
 	w:hint="default" /><w:b /><w:vertAlign w:val="baseline" /><w:lang
 	w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:br
 	w:type="text-wrapping" /></w:r><w:r><w:rPr><w:rFonts
@@ -4351,7 +4351,7 @@
 	w:val="20" /></w:rPr></w:pPr><w:r><w:rPr><w:rFonts
 	w:ascii="Arial" w:h-ansi="Arial" w:fareast="Arial" w:hint="default" /><w:b
 	w:val="off" /><w:i w:val="off" /><w:color w:val="000000" /><w:sz
-	w:val="20" /></w:rPr><w:t>Total Downtime for Top 10 Faults</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW
+	w:val="20" /></w:rPr><w:t>Total Occurrence for Top 10 Faults</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW
 	w:w="1840" w:type="dxa" /><w:gridSpan w:val="2" /><w:shd
 	w:val="clear" w:color="auto" w:fill="auto" /></w:tcPr><w:p><w:pPr><w:keepNext
 	w:val="off" /><w:keepLines w:val="off" /><w:pageBreakBefore
@@ -4508,7 +4508,7 @@
 	w:val="20" /><w:lang w:val="EN-US" w:fareast="ZH-CN" /></w:rPr></w:pPr><w:r><w:rPr><w:rFonts
 	w:ascii="Arial" w:h-ansi="Arial" w:fareast="Arial" w:hint="default" /><w:b
 	w:val="off" /><w:i w:val="off" /><w:color w:val="000000" /><w:sz
-	w:val="20" /><w:lang w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>Total Downtime for Top 10 Faults</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW
+	w:val="20" /><w:lang w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>Total Occurrence for Top 10 Faults</w:t></w:r></w:p></w:tc><w:tc><w:tcPr><w:tcW
 	w:w="1834" w:type="dxa" /><w:shd w:val="clear" w:color="auto"
 	w:fill="auto" /></w:tcPr><w:p><w:pPr><w:keepNext w:val="off" /><w:keepLines
 	w:val="off" /><w:pageBreakBefore w:val="off" /><w:widowControl
@@ -4541,7 +4541,7 @@
 	w:val="20" /></w:rPr></w:pPr><w:r><w:rPr><w:rFonts
 	w:ascii="Arial" w:h-ansi="Arial" w:fareast="Arial" w:hint="default" /><w:b
 	w:val="off" /><w:i w:val="off" /><w:color w:val="000000" /><w:sz
-	w:val="20" /></w:rPr><w:t>Total Downtime for Top </w:t></w:r><w:r><w:rPr><w:rFonts
+	w:val="20" /></w:rPr><w:t>Total Occurrence for Top </w:t></w:r><w:r><w:rPr><w:rFonts
 	w:ascii="Arial" w:h-ansi="Arial" w:fareast="Arial" w:hint="fareast" /><w:b
 	w:val="off" /><w:i w:val="off" /><w:color w:val="000000" /><w:sz
 	w:val="20" /><w:lang w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>All</w:t></w:r><w:r><w:rPr><w:rFonts
@@ -4611,7 +4611,7 @@
 	w:val="20" /><w:lang w:val="EN-US" w:fareast="ZH-CN" /></w:rPr></w:pPr><w:r><w:rPr><w:rFonts
 	w:ascii="Arial" w:h-ansi="Arial" w:fareast="Arial" w:hint="default" /><w:b
 	w:val="off" /><w:i w:val="off" /><w:color w:val="000000" /><w:sz
-	w:val="20" /><w:lang w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>Total Downtime for Top </w:t></w:r><w:r><w:rPr><w:rFonts
+	w:val="20" /><w:lang w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>Total Occurrence for Top </w:t></w:r><w:r><w:rPr><w:rFonts
 	w:ascii="Arial" w:h-ansi="Arial" w:fareast="Arial" w:hint="fareast" /><w:b
 	w:val="off" /><w:i w:val="off" /><w:color w:val="000000" /><w:sz
 	w:val="20" /><w:lang w:val="EN-US" w:fareast="ZH-CN" /></w:rPr><w:t>All</w:t></w:r><w:r><w:rPr><w:rFonts

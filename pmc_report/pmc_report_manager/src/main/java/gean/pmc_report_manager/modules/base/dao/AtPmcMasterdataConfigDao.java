@@ -66,4 +66,14 @@ public interface AtPmcMasterdataConfigDao extends BaseMapper<AtPmcMasterdataConf
     @DataSource("slave1")
 	List<MasterDataVo> queryEolArea(Map<String, Object> params);
 	
+	/** 查当前一班次信息*/
+	@Transactional
+    @DataSource("slave2")
+	 Map<String,Object> queryBeforeShift();
+	
+	/** 查当当班次信息*/
+	@Transactional
+    @DataSource("slave2")
+	 Map<String,Object> queryCurrentShift();
+	
 }
