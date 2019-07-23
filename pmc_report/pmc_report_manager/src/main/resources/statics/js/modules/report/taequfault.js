@@ -9,6 +9,7 @@ $(function () {
 	inittableTitle();
 	//初始化表格
 	initTable();
+	selectChange();
 });
 
 function inittableTitle(params) {
@@ -337,7 +338,7 @@ function initTable(url,queryParams){
 	      }, 
 	      onLoadSuccess: function (data) { 		//加载成功时执行
 	    	 // exportAll(queryParams);
-	    	  setPorpById('faultBtn','disabled',false);
+	    	  setPorpById('exportBtn','disabled',false);
 	      },
 	      onLoadError: function (res) { 		//加载失败时执行
 	          //console.log(res);

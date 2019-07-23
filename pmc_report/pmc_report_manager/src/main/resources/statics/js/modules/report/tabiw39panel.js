@@ -9,6 +9,7 @@ $(function () {
 	initDate();
 	$('#preDownTimeFoot').hide();
 	$('#preOccFoot').hide();
+	selectChange();
 });
 
 //preDownTime
@@ -491,7 +492,7 @@ function createDownTimeDivtoCanvas(i,j){
 				tableDownTimestatusImgArray[i] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAAAnCAYAAACxMTBTAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAABASURBVGhD7c8BAQAwDMOg+zfd+2DBAW+HlFWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlTVtH1iz0hpkBny1AAAAAElFTkSuQmCC';
 			}
 		});
-		setPorpById('panelBtn','disabled',false);
+		setPorpById('exportBtn','disabled',false);
 	},7000);
 }
 function initOccTab(queryParams){ 
@@ -857,6 +858,7 @@ function queryReport(tag,params){
 		initOccTab(params);
 	}
 	setPorpById('panelBtn','disabled',true);
+	clearForm("fromexport");
 }
 
 function echars(params){
@@ -921,9 +923,7 @@ function echars(params){
 	                        x: 'left',  
 	                        //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
 	                       y: 'top'  ,
-	                       textStyle:{
-	                   　　　　			 fontSize:13
-	                       },
+	                       textStyle:{fontSize:13}
 	                    }, 
 
 				    color: ['#2E9AFE', '#FFA500'],
@@ -931,6 +931,7 @@ function echars(params){
 				    xAxis: [
 				        {
 				            type: 'category',
+				            boundaryGap: false,
 				            axisTick: {show: true},
 				            axisLabel :{
 				                interval:0,
@@ -1034,9 +1035,7 @@ function echars1(params){
 	                        x: 'left',  
 	                        //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
 	                       y: 'top'  ,
-	                       textStyle:{
-	                   　　　　			 fontSize:13
-	                       },
+	                       textStyle:{fontSize:13}
 	                    }, 
 	                    
 				    color: ['#2E9AFE', '#FFA500'],
@@ -1044,6 +1043,7 @@ function echars1(params){
 				    xAxis: [
 				        {
 				            type: 'category',
+				            boundaryGap: false,
 				            axisTick: {show: true},
 				            axisLabel :{
 				                interval:0,
@@ -1158,9 +1158,7 @@ function echars2(params){
 	                        x: 'left',  
 	                        //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
 	                       y: 'top'  ,
-	                       textStyle:{
-	                   　　　　				fontSize:13
-	                       },
+	                       textStyle:{fontSize:13}
 	                    }, 
 				    color: ['#FFA500', '#6fa8dc'],
 				    //calculable: true,

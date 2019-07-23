@@ -11,6 +11,7 @@ $(function () {
 	initAreaTable();
 	//初始化ZoneOpr表格
 	initZoneTable();
+	selectChange();
 });
 
 
@@ -321,7 +322,7 @@ function initZoneTable(url,queryParams){
 	      }, 
 	      onLoadSuccess: function (data) { 		//加载成功时执行
 	          //console.log(data);
-	    	  setPorpById('oprBtn','disabled',false);
+	    	  setPorpById('exportBtn','disabled',false);
 	      },
 	      onLoadError: function (res) { 		//加载失败时执行
 	          //console.log(res);
