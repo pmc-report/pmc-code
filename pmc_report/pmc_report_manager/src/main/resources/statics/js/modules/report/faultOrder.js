@@ -6,6 +6,7 @@ $(function () {
 	shiftSelected();
 	//初始化表格上的查询条件
 	inittableTitle();
+	selectChange();
 });
 
 function inittableTitle(params) {
@@ -99,7 +100,7 @@ function queryReport(tag,params){
 		initPreDurTable(url,params);
 		initPreOccTable(url,params);
 	}
-	document.getElementById("exportfalut").reset();
+	clearForm("exportfalut");
 }
 
 /**
@@ -241,7 +242,7 @@ function initCurrDurTable(url,queryParams){
 	      }, 
 	      onLoadSuccess: function (data) { 		//加载成功时执行
 	    	 // exportAll(queryParams);
-	    	  setPorpById('faultBtn','disabled',false);
+	    	  setPorpById('exportBtn','disabled',false);
 	      },
 	      onLoadError: function (res) { 		//加载失败时执行
 	          //console.log(res);
@@ -534,55 +535,69 @@ function exportfault(type) {
 	} ;
 	
 	var form = $("#exportfalut");
-	
 	assembleParams(params);
 	createReportInput(params,form);
-	
 	form.attr("action", baseURL +'report/order/export');
-	
 	form.submit();
 }
 
 function assembleParams(params){
-	
+	debugger
 	var tableCurrDurparamstrleg = $('#currentfaultDurTable tbody').find('tr').length;
 	var tableCurrDurparamstdleg = $('#currentfaultDurTable tbody').find('tr').eq(0).find('td').length;
 	var y = 1;
-	for(var a =0; a<tableCurrDurparamstrleg; a++){
-		for(var b =0; b <tableCurrDurparamstdleg; b++){
-			params['cd_'+y] = $.trim($('#currentfaultDurTable tbody tr:eq(' + a + ') td:eq(' + b + ')').text());
-			y++;
+	if(tableCurrDurparamstdleg>1){
+		for(var a =0; a<tableCurrDurparamstrleg; a++){
+			for(var b =0; b <tableCurrDurparamstdleg; b++){
+				params['cd_'+y] = $.trim($('#currentfaultDurTable tbody tr:eq(' + a + ') td:eq(' + b + ')').text());
+				y++;
+			}
 		}
+	}else{
+		params['cd_'+y] = '';
 	}
+
 	
 	var tableCurrOccparamstrleg = $('#currentfaultOccTable tbody').find('tr').length;
 	var tableCurrOccparamstdleg = $('#currentfaultOccTable tbody').find('tr').eq(0).find('td').length;
 	var y = 1;
-	for(var a =0; a<tableCurrOccparamstrleg; a++){
-		for(var b =0; b <tableCurrOccparamstdleg; b++){
-			params['co_'+y] = $.trim($('#currentfaultOccTable tbody tr:eq(' + a + ') td:eq(' + b + ')').text());
-			y++;
+	if(tableCurrOccparamstdleg>1){
+		for(var a =0; a<tableCurrOccparamstrleg; a++){
+			for(var b =0; b <tableCurrOccparamstdleg; b++){
+				params['co_'+y] = $.trim($('#currentfaultOccTable tbody tr:eq(' + a + ') td:eq(' + b + ')').text());
+				y++;
+			}
 		}
+	}else{
+		params['co_'+y] = '';
 	}
 	
 	var tablePreDurparamstrleg = $('#prefaultDurTable tbody').find('tr').length;
 	var tablePreDurparamstdleg = $('#prefaultDurTable tbody').find('tr').eq(0).find('td').length;
 	var y = 1;
-	for(var a =0; a<tablePreDurparamstrleg; a++){
-		for(var b =0; b <tablePreDurparamstdleg; b++){
-			params['pd_'+y] = $.trim($('#prefaultDurTable tbody tr:eq(' + a + ') td:eq(' + b + ')').text());
-			y++;
+	if(tablePreDurparamstdleg>1){
+		for(var a =0; a<tablePreDurparamstrleg; a++){
+			for(var b =0; b <tablePreDurparamstdleg; b++){
+				params['pd_'+y] = $.trim($('#prefaultDurTable tbody tr:eq(' + a + ') td:eq(' + b + ')').text());
+				y++;
+			}
 		}
+	}else{
+		params['pd_'+y] = '';
 	}
 	
 	var tablePreOccparamstrleg = $('#prefaultOccTable tbody').find('tr').length;
 	var tablePreOccparamstdleg = $('#prefaultOccTable tbody').find('tr').eq(0).find('td').length;
 	var y = 1;
-	for(var a =0; a<tablePreOccparamstrleg; a++){
-		for(var b =0; b <tablePreOccparamstdleg; b++){
-			params['po_'+y] = $.trim($('#prefaultOccTable tbody tr:eq(' + a + ') td:eq(' + b + ')').text());
-			y++;
+	if(tablePreOccparamstdleg>1){
+		for(var a =0; a<tablePreOccparamstrleg; a++){
+			for(var b =0; b <tablePreOccparamstdleg; b++){
+				params['po_'+y] = $.trim($('#prefaultOccTable tbody tr:eq(' + a + ') td:eq(' + b + ')').text());
+				y++;
+			}
 		}
+	}else{
+		params['po_'+y] = '';
 	}
 }
 

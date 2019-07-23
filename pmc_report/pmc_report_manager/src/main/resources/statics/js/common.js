@@ -565,6 +565,18 @@ function intitToDateArr(param){
 	      });
 }
 
+//批量绑定change事件
+function selectChange(){
+	$("#gen-form select").on('change',function () {
+        setPorpById('exportBtn','disabled',true);
+    })
+}
+
+//form清空方法
+function clearForm(formId){
+	$("#"+formId+" input").val('');
+}
+
 //获取查询参数方法
 function getParams(){
 	var fromDate = $('#fDate').val();
@@ -711,6 +723,7 @@ function resetTableTitle(){
 	resetTableHeader("equFaultTableHeader");
 	resetTableHeader("panelTableHeader");
 	resetTableHeader("biw3oprTableHeader");
+	resetTableHeader("faultOrderTableHeader");
 }
 
 function resetTableHeader(tableid){
