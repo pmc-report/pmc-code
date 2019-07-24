@@ -121,6 +121,12 @@ function setCssById(id,attr,val){
 	$('#'+id).css(attr, val);
 }
 
+function setPorpByClass(el,cal,porp,val){
+	$(el+'[class="'+cal+'"]').prop(porp, val);
+}
+function setPorpByName(el,cal,porp,val){
+	$(el+'[name="'+cal+'"]').prop(porp, val);
+}
 
 /*
  * 初始化查询条件下拉框
@@ -568,6 +574,10 @@ function intitToDateArr(param){
 //批量绑定change事件
 function selectChange(){
 	$("#gen-form select").on('change',function () {
+        setPorpById('exportBtn','disabled',true);
+    })
+    
+    $("#gen-form input").on('change',function () {
         setPorpById('exportBtn','disabled',true);
     })
 }

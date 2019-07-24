@@ -1,15 +1,9 @@
 $(function () {
 	//初始化工厂及下级
 	initShopSelected();
-	//初始化时间频率
-	frequencySelected();
 	//初始化班次
-	initpanelTableTitle();
+	initLossTableTitle();
 	shiftSelected();
-	initDate();
-	$('#preDownTimeFoot').hide();
-	$('#preOccFoot').hide();
-	selectChange();
 });
 
 //preDownTime
@@ -24,9 +18,9 @@ var tableOccparetoImgArray = new Array();
 //用于存放status-->Img
 var tableOccstatusImgArray = new Array();
 
-function initpanelTableTitle(params){
+function initLossTableTitle(params){
 
-	$('#panelTableHeader').empty();   //每次变化时清空所有子节点
+	$('#lossTableHeader').empty();   //每次变化时清空所有子节点
 	var table = '';
 	var tabletdf = '<tbody>';
 	var tablebody = '<tr>'
@@ -34,130 +28,65 @@ function initpanelTableTitle(params){
 			+ '<td></td>'
 			+ '<td>区域</td>'
 			+ '<td></td>'
-			+ '</tr>'
-			
-			+ '<tr>'
 			+ '<td>Zone</td>'
 			+ '<td></td>'
+			+ '</tr>'
+			
+			+ '<tr>'
 			+ '<td>班次</td>'
 			+ '<td></td>'
-			+ '</tr>'
-			
-			+ '<tr>'
-			+ '<td>From Week</td>'
 			+ '<td></td>'
-			+ '<td>From Dates</td>'
-			+ '<td></td>'
-			+ '</tr>'
-			
-			+ '<tr>'
-			+ '<td>To Week</td>'
-			+ '<td></td>'
-			+ '<td>To Dates</td>'
-			+ '<td></td>'
-			+ '</tr>'
-			
-			+ '<tr>'
-			+ '<td>车型</td>'
 			+ '<td></td>'
 			+ '<td>报表生成时间</td>'
 			+ '<td></td>'
 			+ '</tr>'
-			
-			+ '<tr>'
-			+ '<td>Target TA</td>'
-			+ '<td></td>'
-			+ '<td></td>'
-			+ '<td></td>'
-			+ '</tr>'
 	var tabletde = '</tbody>';
 	table += (tabletdf + tablebody + tabletde);
-	$('#panelTableHeader').html(table);
+	$('#lossTableHeader').html(table);
 //	console.log($('#equFaultTableHeader tr:eq(0)').children('td').length);   获取首个tr下td 的个数
-	var lengths = $('#panelTableHeader tr:eq(0)').children('td').length;
+	var lengths = $('#lossTableHeader tr:eq(0)').children('td').length;
 	for(var i = 1 ; i <=lengths;i++){
 		if(i%2 != 0){
-			$('#panelTableHeader td:nth-child('+i+')').css({"font-weight":"bold","width":"10%","background":"#c0c0c0"});
+			$('#lossTableHeader td:nth-child('+i+')').css({"font-weight":"bold","width":"7%","text-align":"center"});
 		}else{
-			$('#panelTableHeader td:nth-child('+i+')').html("All");
+			$('#lossTableHeader td:nth-child('+i+')').html("All");
+			$('#lossTableHeader td:nth-child('+i+')').css("width","23%");
 		}
 	}
-	$('#panelTableHeader td:nth-child(2)').css({"width":"20%"});
-	$('#panelTableHeader td:nth-child(4)').css({"width":"60%"});
-	$('#panelTableHeader tr:last-child td:last-child').html('');
-	$('#panelTableHeader tr:eq(4) td:eq(3)').html('');
+	$('#lossTableHeader td:nth-child(1)').css("border-left","1px solid #000");
+	$('#lossTableHeader tr:eq(1) td:eq(3)').html('');
+	$('#lossTableHeader tr:last-child td:last-child').html('');
 	
 	if(params != null && params != ''){
-		
+		console.log(params)
 		if(params.shop != null && params.shop.trim() != ''){
-			$('#panelTableHeader tr:eq(0) td:eq(1)').html(params.shop);
+			$('#lossTableHeader tr:eq(0) td:eq(1)').html(params.shop);
 		}else{
-			$('#panelTableHeader tr:eq(0) td:eq(1)').html("All");
+			$('#lossTableHeader tr:eq(0) td:eq(1)').html("All");
 		}
 		
 		if(params.area != null && params.area.trim() != ''){
-			$('#panelTableHeader tr:eq(0) td:eq(3)').html(params.area);
+			$('#lossTableHeader tr:eq(0) td:eq(3)').html(params.area);
 		}else{
-			$('#panelTableHeader tr:eq(0) td:eq(3)').html("All");
+			$('#lossTableHeader tr:eq(0) td:eq(3)').html("All");
 		}
 		
 		if(params.zone != null && params.zone.trim() != ''){
-			$('#panelTableHeader tr:eq(1) td:eq(1)').html(params.zone);
+			$('#lossTableHeader tr:eq(0) td:eq(5)').html(params.zone);
 		}else{
-			$('#panelTableHeader tr:eq(1) td:eq(1)').html("All");
+			$('#lossTableHeader tr:eq(0) td:eq(5)').html("All");
 		}
 		
 		if(params.shift != null && params.shift.trim() != ''){
-			$('#panelTableHeader tr:eq(1) td:eq(3)').html(params.shift);
+			$('#lossTableHeader tr:eq(1) td:eq(1)').html(params.shift);
 		}else{
-			$('#panelTableHeader tr:eq(1) td:eq(3)').html("All");
+			$('#lossTableHeader tr:eq(1) td:eq(1)').html("All");
 		}
-		
-		if(params.sTime != null && params.sTime.trim() != ''){
-			$('#panelTableHeader tr:eq(2) td:eq(1)').html(params.sTime);
-		}else{
-			$('#panelTableHeader tr:eq(2) td:eq(1)').html("All");
-		}
-		
-		if(params.fromDates != null){
-			var fromDate = '';
-			for(var index in params.fromDates){
-				fromDate += params.fromDates[index]+", ";
-			}
-			$('#panelTableHeader tr:eq(2) td:eq(3)').html(fromDate);
-		}else{
-			$('#panelTableHeader tr:eq(2) td:eq(3)').html("");
-		}
-		
-		if(params.eTime != null && params.eTime.trim() != ''){
-			$('#panelTableHeader tr:eq(3) td:eq(1)').html(params.eTime);
-		}else{
-			$('#panelTableHeader tr:eq(3) td:eq(1)').html("All");
-		}
-		if(params.toDates != null){
-			var toDate = '';
-			for(var index in params.toDates){
-				toDate += params.toDates[index]+", ";
-			}
-			$('#panelTableHeader tr:eq(3) td:eq(3)').html(toDate);
-		}else{
-			$('#panelTableHeader tr:eq(3) td:eq(3)').html("");
-		}
-		
-		if(params.jobId != null && params.jobId.trim() != ''){
-			$('#panelTableHeader tr:eq(4) td:eq(1)').html(params.jobId);
-		}else{
-			$('#panelTableHeader tr:eq(4) td:eq(1)').html("All");
-		}
-		/*if(params.eTime != null && params.eTime.trim() != ''){
-			$('#panelTableHeader tr:eq(5) td:eq(1)').html(params.eTime);
-		}else{
-			$('#panelTableHeader tr:eq(5) td:eq(1)').html("All");
-		}
-		*/
+
+		$('#lossTableHeader tr:eq(1) td:eq(3)').html("");
 		var mydate = new Date();
 		var createTime = mydate.getFullYear() + '-'+ Appendzero(mydate.getMonth()+1) + '-' + Appendzero(mydate.getDate()) +'  '+mydate.getHours() + ':' + Appendzero(mydate.getMinutes())+':'+Appendzero(mydate.getSeconds());
-		$('#panelTableHeader tr:eq(4) td:eq(3)').html(createTime);
+		$('#lossTableHeader tr:last-child td:last-child').html(createTime);
 	}
 
 }
@@ -170,264 +99,119 @@ function Appendzero(obj){
 	}
 }
 
-function initPreDownTime(queryParams){ 
-	var fdates = queryParams.fDate; //显示在title内的开始时间段
-	var tdates = queryParams.tDate; //显示在title内的结束时间段
-	var occ = ''; //用于显示Perato中的次数
-	var mins = ''; //用于显示Perato中的时间
-	var totalDuration1 = ''; //总持续时间，来源于数据库查询For开始时间段
-	var totalDuration2 = ''; //总持续时间，来源于数据库查询For结束时间段
-	var operateFormatter = function (value, row, index) {//动态修改故障变化灯
-		if(value != undefined){
-			var color = 'style = "background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
-			switch(value){
-				case 0 : color = 'style="background:red;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;"';
-				 break;
-				case 1 : color = 'style="background:black;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;"';
-				 break;
-				case 2 : color = 'style="background:yellow;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
-				 break;
-				case 3 : color = 'style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
-				 break;
-			}
-			return [ '<div class = "statusDownTime_'+index+'"><button type="button" class="btn btn-circle btn-lg" '+color+'></button></div>' ].join('');
-		}
-	     return '';
-	}
-	var  responseHandler = function(res) { // 格式化数据--赋值汇总
-        if (res.preDownTimeList !=null && res.preDownTimeList.length > 0){
-            tmp = {
-                total : res.totalCount,
-                rows : res.preDownTimeList
-            };
-            
-            var list = res.preDownTimeList;
-            for(var i=0;i<list.length;i++ ){
-         	   if(i==0
-         			   &&list[i].totalDuration1!=null
-         			   &&list[i].totalDuration2!=null){
-         		   totalDuration1 = list[i].totalDuration1;
-         		   totalDuration2 = list[i].totalDuration2;
-         		   $('#totalDownTimeOld').html(totalDuration1);
-         		   $('#totalDownTimeNew').html(totalDuration2);
-         	   }
-            }
-       
-         return tmp;
-        }
-        if(res.totalCount==null){
-        	 tmp = {
-                     total : '',
-                     rows : ''
-                 };
-	        $('#totalDownTimeOld').html('0.00');
-	   		$('#totalDownTimeNew').html('0.00');
-        	 return tmp;
-        }
-    }
-	
-	//字体格式化
-	var fontFormatter = function(value,row,index) {
-		var dom = '';
-		if(value!=null){
-			dom = '<span style="font-size:12px">'+value+'</span>';
-		}else{
-			dom = '<span style="font-size:12px"> </span>';
-		}
-          
-     return dom;  
-	}
-	
-	//获取故障次数
-	var getOcc = function(value,row,index){
-		if(value!=null){
-			occ = value;
-		}
-		return occ;
-	}
-	
-	//获取故障时间
-	var getMins = function(value,row,index){
-		if(value!=null){
-			mins = value;
-		}
-		return mins;
-	}
-	
-	//获取故障时间
-	var getMinsOld = function(value,row,index){
-		if(value!=null){
-		  mins1 = value;
-		  var count1 = 0;
-	      for (var i in value) {
-	          count1 += value[i].mins1;
+function initLossTable(queryParams){ 
+	var duration ='';
+	var responseHandler = function (e) {
+	      //console.log(e);
+		  duration = e.duration
+	      if (e.page.list !=null && e.page.list.length > 0) {
+	          return { "rows": e.page.list, "total": e.page.totalCount };
+	      } else {
+	          return { "rows": [], "total": 0 };
 	      }
-	      //开始时间表前十故障时间显示在页脚
-	      $('#top10DownTimeOld').html(count1.toFixed(2));
-		}
-		return mins1;
-	}
+	 }
 	
-	//获取累加故障持续时间
-	var getMinsNew = function(value,row,index){
-		if(value!=null){
-			mins2 = value;
-			 var count2 = 0;
-		      for (var i in value) {
-		          count2 += value[i].mins2;
-		      }
-		}
-		//结束时间表前十故障时间显示在页脚
-	    $('#top10DownTimeNew').html(count2.toFixed(2));
-		return mins2;
-	}
-	
-	//根据次数和持续时间动态展示Pareto
-	var paretoFormatter = function(value,row,index){
-		if(mins!=null){
-			var width1 = occ>100?100:occ;
-			var width2 = mins>100?100:mins;
-			var dom =  '<div class = "paretoDownTime_'+index+'"><input type="text" disabled="disabled" style="background-color: yellow;border: none;height: 12px;width: '+
-			width1 +'px"><span style="font-size:12px">'+ occ +'</span></input></br><input type="text" disabled="disabled" style="background-color: green;border: none;height: 12px;width: '+ 
-			width2.toFixed(1) +'%"><span style="font-size:12px">'+ mins.toFixed(2) +'</span></input></div>'
-			
-			return dom;
-		}
-	}
-	
-	var borderFormatter =  function(value,row,index){
-		return {css:{"border-right-style":"double"}}
-	}
-	
-	$('#preDownTime').empty();
-	$('#preDownTime').bootstrapTable('destroy').bootstrapTable({
-		url: 'panel/listPrePanel', 
-		method: "post",                     //使用get请求到服务器获取数据
-	    dataType: "json",
-	    contentType: "application/x-www-form-urlencoded",
-		queryParamsType: '', 				//参数格式,发送标准的RESTFul类型的参数请求 
-		search: false, 						//显示搜索框
-		showFooter: true,  					//显示底部栏
-		sidePagination: "server", 			//服务端处理分页
-		responseHandler: responseHandler,
-		columns: [
-				[{
-	                 title : "<span>Previous Faults Ranked by Downtime</span></br><span>Days:"+fdates+"</span>",
-	                 halign : "center",
-	                 align : "center",
-	                 colspan : 8
-		        },{
-	                 title : "<span>Root Cause Analysis</span></br><span>[Ranked by Downtime]</span>",
-	                 halign : "center",
-	                 align : "center",
-	                 colspan : 4
-		        },{
-	                 title : "<span>Current Faults Ranked by Downtime</span></br><span>Days:"+tdates+"</span>",
-	                 halign : "center",
-	                 align : "center",
-	                 colspan : 5
-		        }],
-				[{
-				  field: 'old',
-				  title: 'Old',
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'oldThenNew',
-				  title: 'New',
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'occ1',
-				  title: 'Occ',
-				  cellStyle: getOcc,
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'mins1',
-				  title: 'Mins',
-				  cellStyle: getMins,
-				  footerFormatter: getMinsOld,
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'stn1',
-				  title: 'Stn',
-				  formatter: fontFormatter,
-				  //footerFormatter: getTop10DownTime
-				 }, {
-				  field: 'description1',
-				  title: 'Description',
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'pareto',
-				  title: 'Pareto',
-				  formatter: paretoFormatter,
-				 }, {
-				  field: 'status',
-				  title: 'Status',
-				  align: 'center',
-		          valign: 'middle',
-		          cellStyle: borderFormatter,
-		          formatter: operateFormatter, //自定义方法，添加操作按钮
-				 },{
-				  field: 'casualDescription',
-				  title: 'Casual Description',
-				 }, {
-				  field: 'rootCauseAnalysis',
-				  title: 'Root Cause Analysis',
-				 }, {
-				  field: 'who',
-				  title: 'Who',
-				 }, {
-				  field: 'timing',
-				  title: 'Timing',
-				  cellStyle: borderFormatter
-				 },{
-				  field: '_new',
-				  title: 'New',
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'occ2',
-				  title: 'Occ',
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'mins2',
-				  title: 'Mins',
-				  footerFormatter: getMinsNew,
-				  formatter: fontFormatter
-				 }, {
-				  field: 'stn2',
-				  title: 'Stn',
-				  formatter: fontFormatter
-				 }, {
-				  field: 'description2',
-				  title: 'Description',
-				  formatter: fontFormatter
-				 }]
-		],
-		queryParams : function(params) {
+	 var uidHandle = function (res) {
+	      var html = "<a href='#'>"+ res + "</a>";
+	      return html;
+	 }
+	 
+	 var dateFormatter = function(value, row, index){
+ 	    return sec_to_time(value);
+     } 
+     var columns = [
+    	 [{
+         title : "<span>Year </span></br><span>Days:"+fdates+"</span>",
+         halign : "center",
+         align : "left",
+         colspan : colls
+    	 }],[
+    	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1;}},
+          { field: 'line', title: '区域', align: 'center', sortable:false },
+          { field: 'zone', title: 'Zone', align: 'center', sortable:false }, 
+          { field: 'station', title: '工位', align: 'center', sortable:false }, 
+          { field: 'facilityId', title: '设备号', align: 'center'},
+          { field: 'facilityDesc', title: '设备名称', halign:'center' }, 
+          { field: 'jobId', title: '车型', align: 'center'}, 
+          { field: 'faultWord1', title: 'fault_Word1', align: 'center' },
+          { field: 'faultWord2', title: 'fault_Word2', align: 'center' }, 
+          { field: 'faultWord3', title: 'fault_Word3', align: 'center' }, 
+          { field: 'posWord31', title: 'Word31', align: 'center',
+        	  formatter : function replaceFormatter(value, row, index) {
+        		  if(value == null){
+        			  return "0"
+        		  }
+        		  return value;
+        	  } 
+          },
+          { field: 'faultDescription', title: '故障描述', align: 'center' }, 
+          { field: 'reasonCode', title: '原因代码', align: 'center' },
+          { field: 'reasonDescription', title: '原因描述', align: 'center' },
+          { field: 'startTime', title: '开始时间', align: 'center', width: 90 },
+          { field: 'endTime', title: '结束时间', align: 'center', width: 90 }, 
+          { field: 'duration', title: '持续时间', align: 'center',formatter: dateFormatter}
+      ]
+     ];
+     
+	  $('#faultLossTable').empty();
+	  $('#faultLossTable').bootstrapTable('destroy').bootstrapTable({
+	      url: url,   						  //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
+	      method: "post",                     //使用get请求到服务器获取数据
+	      dataType: "json",
+	      contentType: "application/x-www-form-urlencoded",
+	      //toolbar: "#toolbar",                //一个jQuery 选择器，指明自定义的toolbar 例如:#toolbar, .toolbar.
+	    //uniqueId: 'taEquFaultId',           //每一行的唯一标识，一般为主键列
+	      height: 522,						  //document.body.clientHeight-165  //动态获取高度值，可以使表格自适应页面
+	      cache: false,                       // 不缓存
+	      striped: true,                      // 隔行加亮
+	      queryParamsType: '',           	  //设置为"undefined",可以获取pageNumber，pageSize，searchText，sortName，sortOrder 
+	                                          //设置为"limit",符合 RESTFul 格式的参数,可以获取limit, offset, search, sort, order 
+	      sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）                 //是否启用排序;意味着整个表格都会排序         // 设置默认排序为 name
+	      sortOrder: "asc",                   //排序方式
+	      pagination: true,                   //是否显示分页（*）
+	      search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+	      strictSearch: true,
+	      //showColumns: true,                  //是否显示所有的列
+	      //showRefresh: true,                  //是否显示刷新按钮
+	      //showToggle:true,                    //是否显示详细视图和列表视图
+	      //clickToSelect: true,                //是否启用点击选中行
+	      minimumCountColumns: 2,             //最少允许的列数 clickToSelect: true, //是否启用点击选中行
+	      pageNumber: 1,                      //初始化加载第一页，默认第一页
+	      pageSize: 100,                    	  //每页的记录行数（*）
+	      //pageList: [10, 25, 50, 100],     	  //可供选择的每页的行数（*）
+	      //showExport: true,  				  //是否显示导出按钮  
+		  //exportDataType:'all', 			  //导出所有数据
+	      //buttonsAlign:"right",  			  //按钮位置  
+	      //exportTypes:['excel','csv','txt','xml','word'],  //导出文件类型  
+	      //Icons:'glyphicon-export',  
+	      //smartDisplay: true,					//智能显示分页按钮
+	      //paginationPreText: "上一页",
+	      //paginationNextText: "下一页",
+	      responseHandler: responseHandler,
+	      //showFooter: true,
+	      columns: columns,
+	      queryParams : function(params) {
 		      return {
-	                area : queryParams.area,
+			    	limit : params.pageSize,
+		            page : params.pageNumber,
+		            //keyword: params.search,//搜索
+					//sortOrder: params.order,//排序
+					//sortName: params.sort,//排序字段
+		            
+	            	area : queryParams.area,
 					zone : queryParams.zone,
-					eTime: queryParams.eTime,
-					sTime: queryParams.sTime,
 					shift: queryParams.shift,
-					shop: queryParams.shop,
-					jobId : queryParams.jobId,
-					fromDate : queryParams.fromDates,
-					toDate : queryParams.toDates
-	            }
-	     },
-		 /*onLoadSuccess: function (data) { 		// 加载成功时执行
-			 $('#preDownTimeFoot').show();
-			 //预先处理表格转换图片(base64)作导出时使用
-			 createDownTimeExportImg();
-		 },*/
-		 onPostBody : function (data){
-			 $('#preDownTimeFoot').show();
-			//预先处理表格转换图片(base64)作导出时使用
-			 createDownTimeExportImg();
-		 },
-	     onLoadError: function (res) { 			//加载失败时执行
-	     }
-	});
+					shop: queryParams.shop
+		      	}
+		  },
+	      onLoadSuccess: function (data) { 		//加载成功时执行
+	    	 // exportAll(queryParams);
+	    	  setPorpById('exportBtn','disabled',false);
+	      },
+	      onLoadError: function (res) { 		//加载失败时执行
+	          //console.log(res);
+	      }
+	  });
 }
 
 function createDownTimeExportImg(){
@@ -449,21 +233,14 @@ function createDownTimeExportImg(){
 function createDownTimeDivtoCanvas(i,j){
 	setTimeout(function(){
 		var _canvas='';
-		var w = '';
-		var h = '';
 		if(j == 6){
 			_canvas = document.querySelector('.paretoDownTime_'+i);
 		}
 		if(j == 7){
 			_canvas = document.querySelector('.statusDownTime_'+i);
 		}
-		if(_canvas!=null){
-			w = parseInt(window.getComputedStyle(_canvas).width);
-			h = parseInt(window.getComputedStyle(_canvas).height);
-		}else{
-			w = 1;
-			h = 1;
-		}
+		var w = parseInt(window.getComputedStyle(_canvas).width);
+		var h = parseInt(window.getComputedStyle(_canvas).height);
 	 	// 导出宽度
 		var width = w * 2;
 		// 导出高度
@@ -485,18 +262,9 @@ function createDownTimeDivtoCanvas(i,j){
 		})
 		.catch(function (error) {
 		    console.error('图片转换异常!', error);
-		    if(j == 6){
-		    	tableDownTimeparetoImgArray[i] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAAAnCAYAAACxMTBTAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAABASURBVGhD7c8BAQAwDMOg+zfd+2DBAW+HlFWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlTVtH1iz0hpkBny1AAAAAElFTkSuQmCC';
-			}
-			if(j == 7){
-				tableDownTimestatusImgArray[i] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAAAnCAYAAACxMTBTAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAABASURBVGhD7c8BAQAwDMOg+zfd+2DBAW+HlFWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlTVtH1iz0hpkBny1AAAAAElFTkSuQmCC';
-			}
 		});
-		setPorpById('exportBtn','disabled',false);
-		setPorpByClass('select','form-control','disabled',false);
-		setPorpByClass('input','form-control','disabled',false);
-		setPorpByName('select','form-control','disabled',false);
-	},7000);
+		setPorpById('panelBtn','disabled',false);
+	},5000);
 }
 function initOccTab(queryParams){ 
 	var fdates = queryParams.fDate;
@@ -779,23 +547,14 @@ function createOccExportImg(){
 
 function createOccDivtoCanvas(i,j){
 	var _canvas='';
-	var w = '';
-	var h = '';
 	if(j == 6){
 		_canvas = document.querySelector('.paretoOcc_'+i);
 	}
 	if(j == 7){
 		_canvas = document.querySelector('.statusOcc_'+i);
 	}
-	
-	if(_canvas!=null){
-		w = parseInt(window.getComputedStyle(_canvas).width);
-		h = parseInt(window.getComputedStyle(_canvas).height);
-	}else{
-		w = 1;
-		h = 1;
-	}
-	
+	var w = parseInt(window.getComputedStyle(_canvas).width);
+	var h = parseInt(window.getComputedStyle(_canvas).height);
  	// 导出宽度
 	var width = w * 2;
 	// 导出高度
@@ -817,58 +576,34 @@ function createOccDivtoCanvas(i,j){
 	})
 	.catch(function (error) {
 	    console.error('图片转换异常!', error);
-	    if(j == 6){
-			tableOccparetoImgArray[i] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAAAnCAYAAACxMTBTAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAABASURBVGhD7c8BAQAwDMOg+zfd+2DBAW+HlFWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlTVtH1iz0hpkBny1AAAAAElFTkSuQmCC';
-		}
-		if(j == 7){
-			tableOccstatusImgArray[i] = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADsAAAAnCAYAAACxMTBTAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAABASURBVGhD7c8BAQAwDMOg+zfd+2DBAW+HlFWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlVWVVZVVlTVtH1iz0hpkBny1AAAAAElFTkSuQmCC';
-		}
 	});
 }
 
 function queryReport(tag,params){
-	var sTime = params.sTime;
-	var eTime = params.eTime;
-	var fromDates = params.fromDates;
-	var toDates = params.toDates;
-	if(isNullOrBlank(sTime)){
-		alert("请选择开始时间");
+	if(isNullOrBlank(params.area)){
+		alert("请选择查询区域");
     	return ;
 	}
-	if(isNullOrBlank(eTime)){
-		alert("请选择结束时间");
+	if(isNullOrBlank(params.zone)){
+		alert("请选择查询Zone");
     	return ;
 	}
-	if(isNullOrBlank(fromDates)){
-		alert("请选择对比开始周");
+	if(isNullOrBlank(params.shift)){
+		alert("请选择查询班次");
     	return ;
 	}
-	if(isNullOrBlank(toDates)){
-		alert("请选择对比结束周");
-    	return ;
-	}
-	
-	
-	var url = baseURL + 'report/panel/list';
-	if(tag=='9Panel'){
+	if(tag=='faultLoss'){
 		
 		echars(params);
 		echars1(params);
 		echars2(params);
 		
-		initpanelTableTitle(params)
-		initPreDownTime(params)
-		initOccTab(params);
+		initLossTableTitle(params)
+		//initOccTab(params);
 	}
-	setPorpById('panelBtn','disabled',true);
-	setPorpByClass('select','form-control','disabled',true);
-	setPorpByClass('input','form-control','disabled',true);
-	setPorpByName('select','form-control','disabled',true);
-	clearForm("fromexport");
 }
 
 function echars(params){
-	
 	var posList = [
 	    'left', 'right', 'top', 'bottom',
 	    'inside',
@@ -900,18 +635,23 @@ function echars(params){
 	};
 	$.ajax({
         type: "post",
-        url: baseURL + 'modules/report/panel/echarts',
+        url: baseURL + 'report/loss/oprLoss',
         data: params,
         dataType: "json",
         success: function(data){
         	var date = [];
-      	    var mtbf = [];
-      	    var tarMtbf = [];
-      	    
-      	    for(var i=0;i<data.list.length;i++){
-      	    	date.push(data.list[i].monday);
-      	    	data.list[i].mtbf==0?mtbf.push(''):mtbf.push(data.list[i].mtbf);
-      	    	data.list[i].targetMtbf==0?tarMtbf.push(''):tarMtbf.push(data.list[i].targetMtbf);
+      	    var actualEOprArr = [];
+      	    var actualPOprArr = [];
+    	    var targetEOprArr = [];
+    	    var targetPOprArr = [];
+      	    if(data.oprLoss!=null&&data.oprLoss.length>0){
+      	    	for(var i=0;i<data.oprLoss.length;i++){
+          	    	date.push(data.oprLoss[i].monday);
+          	    	data.oprLoss[i].actualPOpr==0?actualPOprArr.push(''):actualPOprArr.push(data.oprLoss[i].actualPOpr);
+          	    	data.oprLoss[i].targetPOpr==0?targetPOprArr.push(''):targetPOprArr.push(data.oprLoss[i].targetPOpr);
+          	    	data.oprLoss[i].actualEOpr==0?actualEOprArr.push(''):actualEOprArr.push(data.oprLoss[i].actualEOpr);
+          	    	data.oprLoss[i].targetEOpr==0?targetEOprArr.push(''):targetEOprArr.push(data.oprLoss[i].targetEOpr);
+          	    }
       	    }
         	
         	var	option = {
@@ -920,19 +660,23 @@ function echars(params){
 			                y:30,
 			                x2:50,
 			                y2:30,
+			                x3:50,
+			                y3:30,
+			                x4:50,
+			                y4:30,
 			                borderWidth:1,
 			            },
 						title: {  
 	                        //主标题文本，'\n'指定换行  
-	                        text: 'Mean Time Between Failure(MTBF)',  
+	                        text: 'Trend Chart OPR (12 Week)',  
 	                        //水平安放位置，默认为左侧，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）  
 	                        x: 'left',  
 	                        //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
 	                       y: 'top'  ,
-	                       textStyle:{fontSize:13}
+	                       textStyle:{ fontSize:13 },
 	                    }, 
 
-				    color: ['#2E9AFE', '#FFA500'],
+				    color: ['#2E9AFE', '#FFA500','#ed4d00','#114377'],
 				    //calculable: true,
 				    xAxis: [
 				        {
@@ -948,9 +692,15 @@ function echars(params){
 				        }
 				    ],
 				  
-				    yAxis: [  {}],
+				    yAxis: [{
+					    	type:'value',
+					    	scale:true,
+					    	max:100,
+					    	min:0,
+					    	splitNumber:5
+				    }],
 				    legend: {
-				        data: ['MTBF','Target MTBF'],
+				        data: ['Actual E-OPR','Target E-OPR','Actual P-OPR','Target P-OPR'],
 				        //orient: 'vertical',
 				    	x:'right',
 				    	y:'top',
@@ -958,18 +708,33 @@ function echars(params){
 				    },
 				    series: [
 				        {
-				            name: 'MTBF',
+				            name: 'Actual E-OPR',
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
-				            data: mtbf,
+				            data: actualEOprArr,
 				            hoverAnimation:false,//禁用鼠标悬停弹出效果
 				        },
 				        {
-				            name: 'Target MTBF',
+				            name: 'Target E-OPR',
 				            type: 'line',
 				            //label: labelOption,
-				            data: tarMtbf,
+				            data: targetEOprArr,
+				            //hoverAnimation:false,
+				        },
+				        {
+				            name: 'Actual P-OPR',
+				            type: 'line',
+				            barGap: 0,
+				            label: labelOption,
+				            data: actualPOprArr,
+				            hoverAnimation:false,//禁用鼠标悬停弹出效果
+				        },
+				        {
+				            name: 'Target P-OPR',
+				            type: 'line',
+				            //label: labelOption,
+				            data: targetPOprArr,
 				            //hoverAnimation:false,
 				        },
 				    ]
@@ -1001,8 +766,6 @@ function echars1(params){
 	        show: true,
 	        position: echart1.config.position,
 	        distance: echart1.config.distance,
-
-
 	        fontSize: 10,
 	        rich: {
 	            name: {
@@ -1013,22 +776,23 @@ function echars1(params){
 	};
 	$.ajax({
         type: "post",
-        url: baseURL + 'modules/report/panel/echarts',
+        url: baseURL + 'report/loss/minutesLoss',
         data: params,
         dataType: "json",
         success: function(data){
         	var date = [];
-      	    var tav = [];
-      	    var tarTav = [];
-      	    
-      	    for(var i=0;i<data.list.length;i++){
-      	    	date.push(data.list[i].monday);
-      	    	data.list[i].tav==0?tav.push(''):tav.push(data.list[i].tav);
-      	    	data.list[i].targetTav==0?tarTav.push(''):tarTav.push(data.list[i].targetTav);
+      	    var lossArr = [];
+      	    if(data.minutesLoss!=null&&data.minutesLoss.length>0){
+      	    	
+      	    	 for(var i=0;i<data.minutesLoss.length;i++){
+           	    	date.push(data.minutesLoss[i].weekNo2);
+           	    	data.minutesLoss[i].loss==0?lossArr.push(''):lossArr.push(data.minutesLoss[i].loss);
+           	    }
       	    }
+      	   
         	var	option = {
 					 grid:{
-			                x:50,
+						 	x:50,
 			                y:30,
 			                x2:50,
 			                y2:30,
@@ -1036,15 +800,15 @@ function echars1(params){
 			            },
 						title: {  
 	                        //主标题文本，'\n'指定换行  
-	                        text: 'Technical Availability Analysis(TA)',  
+	                        text: 'Trend Chart Minutes Loss (12 Week)',  
 	                        //水平安放位置，默认为左侧，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）  
 	                        x: 'left',  
 	                        //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
 	                       y: 'top'  ,
-	                       textStyle:{fontSize:13}
+	                       textStyle:{fontSize:13},
 	                    }, 
 	                    
-				    color: ['#2E9AFE', '#FFA500'],
+				    color: ['#2E9AFE'],
 				    //calculable: true,
 				    xAxis: [
 				        {
@@ -1061,38 +825,24 @@ function echars1(params){
 				    ],
 				    yAxis: [
 				    	{
-				    	type:'value',
-				    	scale:true,
-				    	max:120,
-				    	min:0,
-				    	splitNumber:5
+				    	type:'value'
 				    	}
 				    ],
 				    legend: {
-				        data: ['TAV','Target TAV'],
-				        //orient: 'vertical',
+				        data: ['Loss'],
 				    	x:'right',
 				    	y:'top',
 				    
 				    },
 				    series: [
-				    
 				        {
-				            name: 'TAV',
+				            name: 'Loss',
 				            type: 'line',
-				            barGap: 0,
+				            //barGap: 0,
 				            label: labelOption,
-				            data: tav,
+				            data: lossArr,
 				            hoverAnimation:false,
 				        },
-				        {
-				            name: 'Target TAV',
-				            type: 'line',
-				            //label: labelOption,
-				            data: tarTav,
-				            //hoverAnimation:false,
-				        },
-				       
 				    ],
         	};
         	 //每次窗口大小改变的时候都会触发onresize事件，这个时候我们将echarts对象的尺寸赋值给窗口的大小这个属性，从而实现图表对象与窗口对象的尺寸一致的情况
@@ -1135,62 +885,55 @@ function echars2(params){
 	};
 	$.ajax({
         type: "post",
-        url: baseURL + 'modules/report/panel/echarts',
+        url: baseURL + 'report/loss/equipmentLoss',
         data: params,
         dataType: "json",
         success: function(data){
-        	
-        	var date = [];
-      	    var tav = [];
-      	    var tarTav = [];
-  	    	for(var i=11;i<data.list.length;i++){
-      	    	date.push(data.list[i].monday);
-      	    	data.list[i].tav==0?tav.push(''):tav.push(data.list[i].tav);
-      	    	data.list[i].targetTav==0?tarTav.push(''):tarTav.push(data.list[i].targetTav);
+        
+      	    var facilityArr = [];
+      	    var durationArr = [];
+      	    if(data.equLoss!=null&&data.equLoss.length>0){
+      	    	
+      	    	for(var i=0;i<data.equLoss.length;i++){
+          	    	data.equLoss[i].facilityId2==0?facilityArr.push(''):facilityArr.push(data.equLoss[i].facilityId2);
+          	    	data.equLoss[i].duration==0?durationArr.push(''):durationArr.push(data.equLoss[i].duration);
+          	    }
       	    }
       	    
         	var	option = {
 					 grid:{
-						   x:50,
-			                y:30,
+						    x:30,
+			                y:10,
 			                x2:50,
 			                y2:30,
 			                borderWidth:1,
 			            },
 						title: {  
 	                        //主标题文本，'\n'指定换行  
-	                        text: 'Technical Availability Trend Analysis',  
+	                        text: 'Production Loss Pareto',  
 	                        //水平安放位置，默认为左侧，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）  
 	                        x: 'left',  
 	                        //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
 	                       y: 'top'  ,
-	                       textStyle:{fontSize:13}
+	                       textStyle:{fontSize:13},
 	                    }, 
-				    color: ['#FFA500', '#6fa8dc'],
-				    //calculable: true,
+				    color: ['#2E9AFE'],
 				    xAxis: [
 				        {
 				        	type: 'category',
+				        	// boundaryGap: false,
 				            axisTick: {show: true},
 				            axisLabel :{
 				                interval:0,
 				                //rotate:45,
 				                fontSize:10
 				            },
-				            data: date
+				            data: facilityArr
 				        }
 				    ],
-				    yAxis: [
-				    	{
-					    	type:'value',
-					    	scale:true,
-					    	max:120,
-					    	min:0,
-					    	splitNumber:5
-				    	}
-				    ],
+				    yAxis: [{type:'value'}],
 				    legend: {
-				        data: ['TAV','Target TAV'],
+				        data: ['Duration'],
 				        //orient: 'vertical',
 				    	x:'right',
 				    	y:'top',
@@ -1198,18 +941,10 @@ function echars2(params){
 				    },
 				    series: [
 				        {
-				            name: 'Target TAV',
-				            type: 'line',
-				            barGap: 0,
-				           // label: labelOption,
-				            data: tarTav,
-				            //hoverAnimation:false,
-				        },
-				        {
-				            name: 'TAV',
+				            name: 'Duration',
 				            type: 'bar',
 				            label: labelOption,
-				            data: tav,
+				            data: durationArr,
 				            hoverAnimation:false,
 				        },
 				    ]
@@ -1297,6 +1032,7 @@ function report(param) {
 			}
 		}
 	}
+	
 	//table preOcc
 	var tableOccparamstrleg = $('#preOcc tbody').find('tr').length;
 	var tableOccparamstdleg = $('#preOcc tbody').find('tr').eq(0).find('td').length;
@@ -1316,6 +1052,7 @@ function report(param) {
 			}
 		}
 	}
+	
 	params.tableOccparamsArray = tableOccparamsArray;
 	params.t10DTimeOld = $("#top10DownTimeOld").text();
 	params.t10DTimeNew = $("#top10DownTimeNew").text();
@@ -1342,5 +1079,6 @@ function createReportInput(params,tableDownTimeArray,tableOccparamsArray){
 		inputSearch += '<input type = "hidden" name = "'+index+'" value = "'+params[index]+'"/>'
 	}
 	inputParams += inputSearch;
+	//console.log("输入参数："+inputParams)
 	$("#fromexport").prepend(inputParams);
 }
