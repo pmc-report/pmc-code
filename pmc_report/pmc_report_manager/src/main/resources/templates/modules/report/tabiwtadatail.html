@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OPR 报表</title>
+		<#include "/header.html">
+</head>
+<body>
+<body>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+					 <span class='glyphicon glyphicon-search'>&nbsp查询条件</span>
+				</a>
+			</h4>
+		</div>
+		<div id="collapseOne" class="panel-collapse collapse in">
+			<div class="panel-body">
+				<form id="gen-form" class="form-vertical" role="form">
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3 " data-field="Q_name_EQ">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3">车间</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="shop_search" name="shop" lay-verify="required" onchange="selectShop()"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3" data-field="Q_name_EQ">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">区域</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="area_search" name="area" lay-verify="required" onchange="selectArea()"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">ZONE</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="zone_search" name="zone" lay-verify="required" onchange="selectZone()"></select>
+						</div>
+					</div>
+						<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">开始时间</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<input class="form-control time-input" type="text" id="startTime" placeholder="开始时间" name="params[beginTime]" onclick="selectTime()"/>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">结束时间</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<input class="form-control time-input" type="text" id="endTime" placeholder="结束时间" name="params[endTime]" onclick="selectTime()"/>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3" data-field="Q_name_EQ">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">班次</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="shift_search" name="shift" lay-verify="required"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">车型</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="jobId_search" name="jobId" lay-verify="required"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm find-action col-xs-12 col-sm-6 col-md-4 col-lg-3" data-field="Q_name_EQ">
+						<div class="col-xs-12">
+							<button type="button" class="btn btn-primary btn-sm" onclick="search('TADOPR')">&nbsp;查询</button>
+							<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>
+							<div class="btn-group">
+    							<button id="exportBtn" type="button" class="btn btn-primary dropdown-toggle btn-sm" disabled="disabled" data-toggle="dropdown">导出
+       								<span class="caret"></span>
+    							</button>
+    							<ul class="dropdown-menu" role="menu">
+       								<li>
+            							<a href="#" >word</a>
+        							</li>
+        							<li>
+            							<a href="#" >excel</a>
+        							</li>
+    							</ul>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>    		
+	</div>
+	
+	<div id="tadTableTitle">
+		<h1 style="text-indent: 5px; width: 50%; margin: 10px">Technical Availability Detail Report</h1>
+		<table id="tadTableTitleHeader"></table>
+	</div>
+
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+			    <a data-toggle="collapse" data-parent="#accordion" href="#result">
+					 <span class='glyphicon glyphicon-th'>&nbsp查询结果-MS01</span>
+				</a>
+			</h3>
+		</div>
+		<div id="result" class="panel-collapse collapse in">
+			<div class="panel-body">
+				<div>
+					<div>
+						<table id="tad_MS01"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+			    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+					 <span class='glyphicon glyphicon-th'>&nbsp查询结果-Faults</span>
+				</a>
+			</h3>
+		</div>
+		<div id="collapseTwo" class="panel-collapse collapse in">
+			<div class="panel-body">
+				<div>
+					<div>
+						<table id="tad_Faults"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="${request.contextPath}/statics/js/modules/report/tabiwtadatail.js?_${.now?long}"></script>
+</body>
+</html>
