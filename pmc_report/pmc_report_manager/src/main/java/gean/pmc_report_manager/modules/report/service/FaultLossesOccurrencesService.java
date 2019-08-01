@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
 import gean.pmc_report_manager.modules.report.vo.LossOPRVo;
 
@@ -28,5 +29,5 @@ public interface FaultLossesOccurrencesService extends IService<TaEquFaultEntity
 	 * @param params
 	 * @return fault loss list
 	 */
-	List<LossOPRVo> queryFaultLossOcc(Map<String, Object> params);
+	PageUtils queryFaultLossOcc(Map<String, Object> params);
 }

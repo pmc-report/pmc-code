@@ -87,6 +87,11 @@ tbody > tr > th {font-weight: normal; }
 	color:#fff;
 }
 
+#TASummaryTableStyle table thead .th-inner{
+	background-color : #2E8B57;
+	color:#fff;
+}
+
 #equFaultTableHeader{
 	width:100%;
 	border :1px solid #000;
@@ -149,6 +154,30 @@ tbody > tr > th {font-weight: normal; }
 }
 
 #lossTableHeader tr td{
+	padding: 10px 5px;
+	border-bottom : 1px solid #000;
+	border-left:1px solid #fff;
+}
+
+#tadTableTitleHeader {
+	width:100%;
+	border : 1px solid #000;
+	margin-bottom : 10px;
+}
+
+#tadTableTitleHeader tr td{
+	padding: 10px 5px;
+	border-bottom : 1px solid #000;
+	border-left:1px solid #fff;
+}
+
+#taSTableTitleHeader {
+	width:100%;
+	border : 1px solid #000;
+	margin-bottom : 10px;
+}
+
+#taSTableTitleHeader tr td{
 	padding: 10px 5px;
 	border-bottom : 1px solid #000;
 	border-left:1px solid #fff;

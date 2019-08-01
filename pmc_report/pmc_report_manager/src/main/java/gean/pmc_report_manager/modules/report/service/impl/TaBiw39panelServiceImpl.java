@@ -111,8 +111,6 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 		return resultList;
 	}
 
-	
-
 
 	@Override
 	public List<PanelVo> queryTop10DownTime(Map<String, Object> params) {

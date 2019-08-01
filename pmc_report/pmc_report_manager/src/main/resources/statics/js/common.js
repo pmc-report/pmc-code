@@ -587,6 +587,15 @@ function clearForm(formId){
 	$("#"+formId+" input").val('');
 }
 
+//加0
+function Appendzero(obj){
+	if (obj < 10) {
+		return "0" + "" + obj;
+	} else {
+		return obj;
+	}
+}
+
 //获取查询参数方法
 function getParams(){
 	var fromDate = $('#fDate').val();
@@ -685,6 +694,18 @@ function getNowFormatDate() {
     return currentdate;
 }
 
+//获取指定日期所在当年的第几周
+function getWeek(date) {
+	var time,week,checkDate = new Date(date);
+	checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
+	time = checkDate.getTime();
+	checkDate.setMonth(0);
+	checkDate.setDate(1);
+	week=Math.floor(Math.round((time - checkDate) / 86400000) / 7) + 1;
+	return week;
+}
+
+
 //重置查询条件，禁用下级下拉框
 function resetParam(){
 	layui.use('laydate', function() {
@@ -734,6 +755,8 @@ function resetTableTitle(){
 	resetTableHeader("panelTableHeader");
 	resetTableHeader("biw3oprTableHeader");
 	resetTableHeader("faultOrderTableHeader");
+	resetTableHeader("taSTableTitleHeader");
+	resetTableHeader("lossTableHeader");
 }
 
 function resetTableHeader(tableid){

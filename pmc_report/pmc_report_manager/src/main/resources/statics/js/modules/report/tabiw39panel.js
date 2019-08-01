@@ -222,7 +222,10 @@ function initPreDownTime(queryParams){
                  };
 	        $('#totalDownTimeOld').html('0.00');
 	   		$('#totalDownTimeNew').html('0.00');
-        	 return tmp;
+	   		setPorpByClass('select','form-control','disabled',false);
+			setPorpByClass('input','form-control','disabled',false);
+			setPorpByName('select','select','disabled',false);
+        	return tmp;
         }
     }
 	
@@ -495,7 +498,7 @@ function createDownTimeDivtoCanvas(i,j){
 		setPorpById('exportBtn','disabled',false);
 		setPorpByClass('select','form-control','disabled',false);
 		setPorpByClass('input','form-control','disabled',false);
-		setPorpByName('select','form-control','disabled',false);
+		setPorpByName('select','select','disabled',false);
 	},7000);
 }
 function initOccTab(queryParams){ 
@@ -860,10 +863,11 @@ function queryReport(tag,params){
 		initPreDownTime(params)
 		initOccTab(params);
 	}
-	setPorpById('panelBtn','disabled',true);
+	setPorpById('exportBtn','disabled',true);
 	setPorpByClass('select','form-control','disabled',true);
 	setPorpByClass('input','form-control','disabled',true);
-	setPorpByName('select','form-control','disabled',true);
+	setPorpByClass('select','selectpicker show-tick form-control','disabled',true);
+	setPorpByName('select','select','disabled',true);
 	clearForm("fromexport");
 }
 
@@ -1069,7 +1073,7 @@ function echars1(params){
 				    	}
 				    ],
 				    legend: {
-				        data: ['TAV','Target TAV'],
+				        data: ['TA','Target TA'],
 				        //orient: 'vertical',
 				    	x:'right',
 				    	y:'top',
@@ -1078,7 +1082,7 @@ function echars1(params){
 				    series: [
 				    
 				        {
-				            name: 'TAV',
+				            name: 'TA',
 				            type: 'line',
 				            barGap: 0,
 				            label: labelOption,
@@ -1086,7 +1090,7 @@ function echars1(params){
 				            hoverAnimation:false,
 				        },
 				        {
-				            name: 'Target TAV',
+				            name: 'Target TA',
 				            type: 'line',
 				            //label: labelOption,
 				            data: tarTav,
@@ -1190,7 +1194,7 @@ function echars2(params){
 				    	}
 				    ],
 				    legend: {
-				        data: ['TAV','Target TAV'],
+				        data: ['TA','Target TA'],
 				        //orient: 'vertical',
 				    	x:'right',
 				    	y:'top',
@@ -1198,7 +1202,7 @@ function echars2(params){
 				    },
 				    series: [
 				        {
-				            name: 'Target TAV',
+				            name: 'Target TA',
 				            type: 'line',
 				            barGap: 0,
 				           // label: labelOption,
@@ -1206,7 +1210,7 @@ function echars2(params){
 				            //hoverAnimation:false,
 				        },
 				        {
-				            name: 'TAV',
+				            name: 'TA',
 				            type: 'bar',
 				            label: labelOption,
 				            data: tav,

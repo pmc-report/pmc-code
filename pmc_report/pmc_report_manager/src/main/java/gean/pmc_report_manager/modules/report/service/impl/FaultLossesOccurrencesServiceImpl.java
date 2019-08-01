@@ -3,6 +3,7 @@ package gean.pmc_report_manager.modules.report.service.impl;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
+import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_manager.modules.report.dao.TaBiw3OprDao;
 import gean.pmc_report_manager.modules.report.dao.TaEquFaultDao;
 import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
@@ -133,10 +135,113 @@ public class FaultLossesOccurrencesServiceImpl extends ServiceImpl<TaEquFaultDao
 
 
 	@Override
-	public List<LossOPRVo> queryFaultLossOcc(Map<String, Object> params) {
-		// TODO Auto-generated method stub
-		return null;
+	public PageUtils queryFaultLossOcc(Map<String, Object> params) {
+	
+		/*
+		 * 1.遍历list 周做key 对象做value 存map
+		 * 2.遍历map
+		 */
+		PageParamVo paramVo = new PageParamVo(params);
+		Map<String,Object> groupMap = new LinkedHashMap<>();
+		List<LossOPRVo> allFaultList = baseMapper.queryFaultLoss(paramVo);
+		List<LossOPRVo> lossList = new ArrayList<>();
+		DecimalFormat df = new DecimalFormat("##0.00");
+		if(allFaultList.size()>0) {
+			
+			LossOPRVo lossVo = null;
+			/*
+			 * 组装数据-遍历所有的数据，按照id 分组、周排序
+			 */
+			for(LossOPRVo loss : allFaultList) {
+				if(loss.getRn()==1) {
+					lossVo = new LossOPRVo();
+					lossVo.setFacilityDesc(loss.getFacilityDesc());
+					lossVo.setFacilityId(loss.getFacilityId());
+					lossVo.setPps("");
+					lossVo.setInput("");
+					lossVo.setWeek1(loss.getWeekNo2());
+					lossVo.setWeek2(loss.getWeekNo2()-1);
+					lossVo.setWeek3(loss.getWeekNo2()-2);
+					lossVo.setWeek4(loss.getWeekNo2()-3);
+					lossVo.setWeek5(loss.getWeekNo2()-4);
+					lossVo.setWeek6(loss.getWeekNo2()-5);
+					lossVo.setWeek7(loss.getWeekNo2()-6);
+					lossVo.setWeek8(loss.getWeekNo2()-7);
+					lossVo.setWeek9(loss.getWeekNo2()-8);
+					lossVo.setWeek10(loss.getWeekNo2()-9);
+					lossVo.setWeek11(loss.getWeekNo2()-10);
+					lossVo.setWeek12(loss.getWeekNo2()-11);
+					lossVo.setLoss1(Float.parseFloat(df.format((float)loss.getLoss()/60)));
+					lossVo.setOcc1(loss.getOcc());
+					lossList.add(lossVo);
+				}else {
+					groupMap.put(loss.getFacilityId()+"-"+loss.getRn(),loss.getLoss()+"-"+loss.getOcc());
+				}
+			}
+		}
+		generateLossList(lossList,groupMap);
+		
+		return new PageUtils(lossList,lossList.size(),1,10);
 	}
 
-	
+	private void generateLossList(List<LossOPRVo> lossList,Map<String,Object> groupMap){
+		
+		DecimalFormat df = new DecimalFormat("##0.00");
+		for(LossOPRVo vo : lossList) {
+			for(int i=2;i<12;i++) {
+				String key = vo.getFacilityId()+"-"+i;
+				String value = (String)groupMap.get(key);
+				if(value!=null) {
+					String[] valArr = value.split("-");
+					int lo = Integer.parseInt(valArr[0]);
+					Float loss = Float.parseFloat(df.format((float)lo/60));
+					int occ = Integer.parseInt(valArr[1]);
+					if(i==2) {
+						vo.setLoss2(loss);
+						vo.setOcc2(occ);
+					}
+					if(i==3) {
+						vo.setLoss3(loss);
+						vo.setOcc3(occ);
+					}
+					if(i==4) {
+						vo.setLoss4(loss);
+						vo.setOcc4(occ);
+					}
+					if(i==5) {
+						vo.setLoss5(loss);
+						vo.setOcc5(occ);
+					}
+					if(i==6) {
+						vo.setLoss6(loss);
+						vo.setOcc6(occ);
+					}
+					if(i==7) {
+						vo.setLoss7(loss);
+						vo.setOcc7(occ);
+					}
+					if(i==8) {
+						vo.setLoss8(loss);
+						vo.setOcc8(occ);
+					}
+					if(i==9) {
+						vo.setLoss9(loss);
+						vo.setOcc9(occ);
+					}
+					if(i==10) {
+						vo.setLoss10(loss);
+						vo.setOcc10(occ);
+					}
+					if(i==11) {
+						vo.setLoss11(loss);
+						vo.setOcc11(occ);
+					}
+					if(i==12) {
+						vo.setLoss12(loss);
+						vo.setOcc12(occ);
+					}
+				}
+			}
+		}
+	}
 }

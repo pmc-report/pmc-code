@@ -3,6 +3,9 @@ $(function () {
 	initShopSelected();
 	//初始化班次
 	initLossTableTitle();
+	
+	$('#lossTabFoot').hide();
+	
 	shiftSelected();
 });
 
@@ -19,7 +22,6 @@ var tableOccparetoImgArray = new Array();
 var tableOccstatusImgArray = new Array();
 
 function initLossTableTitle(params){
-
 	$('#lossTableHeader').empty();   //每次变化时清空所有子节点
 	var table = '';
 	var tabletdf = '<tbody>';
@@ -58,7 +60,7 @@ function initLossTableTitle(params){
 	$('#lossTableHeader tr:last-child td:last-child').html('');
 	
 	if(params != null && params != ''){
-		console.log(params)
+		//console.log(params)
 		if(params.shop != null && params.shop.trim() != ''){
 			$('#lossTableHeader tr:eq(0) td:eq(1)').html(params.shop);
 		}else{
@@ -100,10 +102,22 @@ function Appendzero(obj){
 }
 
 function initLossTable(queryParams){ 
-	var duration ='';
+	
+	//获取后台周数
+	var week ='';
+	
+	$.ajax({
+        type: "post",
+        url: baseURL + 'report/loss/minutesLoss',
+        data: queryParams,
+        dataType: "json",
+        async: false,
+        success: function(data){
+        	week = data.week;
+        }
+	});
+	// console.log(queryParams);
 	var responseHandler = function (e) {
-	      //console.log(e);
-		  duration = e.duration
 	      if (e.page.list !=null && e.page.list.length > 0) {
 	          return { "rows": e.page.list, "total": e.page.totalCount };
 	      } else {
@@ -116,52 +130,87 @@ function initLossTable(queryParams){
 	      return html;
 	 }
 	 
+	 var date  = new Date();
+	 
 	 var dateFormatter = function(value, row, index){
  	    return sec_to_time(value);
      } 
+	 
      var columns = [
-    	 [{
-         title : "<span>Year </span></br><span>Days:"+fdates+"</span>",
-         halign : "center",
-         align : "left",
-         colspan : colls
-    	 }],[
-    	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1;}},
-          { field: 'line', title: '区域', align: 'center', sortable:false },
-          { field: 'zone', title: 'Zone', align: 'center', sortable:false }, 
-          { field: 'station', title: '工位', align: 'center', sortable:false }, 
-          { field: 'facilityId', title: '设备号', align: 'center'},
-          { field: 'facilityDesc', title: '设备名称', halign:'center' }, 
-          { field: 'jobId', title: '车型', align: 'center'}, 
-          { field: 'faultWord1', title: 'fault_Word1', align: 'center' },
-          { field: 'faultWord2', title: 'fault_Word2', align: 'center' }, 
-          { field: 'faultWord3', title: 'fault_Word3', align: 'center' }, 
-          { field: 'posWord31', title: 'Word31', align: 'center',
-        	  formatter : function replaceFormatter(value, row, index) {
-        		  if(value == null){
-        			  return "0"
-        		  }
-        		  return value;
-        	  } 
-          },
-          { field: 'faultDescription', title: '故障描述', align: 'center' }, 
-          { field: 'reasonCode', title: '原因代码', align: 'center' },
-          { field: 'reasonDescription', title: '原因描述', align: 'center' },
-          { field: 'startTime', title: '开始时间', align: 'center', width: 90 },
-          { field: 'endTime', title: '结束时间', align: 'center', width: 90 }, 
-          { field: 'duration', title: '持续时间', align: 'center',formatter: dateFormatter}
-      ]
+    	 	[
+    	 		{ title : '&nbsp',halign : "center",align : "center",colspan : 3},
+    	 		{ title : 'Year',halign : "center",align : "center"},
+    	 		{ title : date.getFullYear(),halign : "center",align : "center",colspan : 38 },
+    		 ],
+    		[
+    			{ title : '&nbsp', halign : "center",align : "center",colspan : 3},
+    			{ title : 'Week', halign : "center",align : "center"},
+    			{ title : week, halign : "center",align : "center",colspan : 3},
+    			{ title : week-1, halign : "center",align : "center",colspan : 3},
+    			{ title : week-2, halign : "center",align : "center",colspan : 3},
+    			{ title : week-3, halign : "center",align : "center",colspan : 3},
+    			{ title : week-4, halign : "center",align : "center",colspan : 3},
+    			{ title : week-5, halign : "center",align : "center",colspan : 3},
+    			{ title : week-6, halign : "center",align : "center",colspan : 3},
+    			{ title : week-7, halign : "center",align : "center",colspan : 3},
+    			{ title : week-8, halign : "center",align : "center",colspan : 3},
+    			{ title : week-9, halign : "center",align : "center",colspan : 3},
+    			{ title : week-10, halign : "center",align : "center",colspan : 3},
+    			{ title : week-11, halign : "center",align : "center",colspan : 3}
+    		 ],
+    		 [
+	    	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1;}},
+	          { field: 'facilityDesc', title: '设备', align: 'center', sortable:false },
+	          { field: 'facilityId', title: '设备号', align: 'center', sortable:false }, 
+	          { field: 'pps', title: 'PPS', align: 'center', sortable:false }, 
+	          { field: 'loss1', title: 'L', align: 'center'},
+	          { field: 'occ1', title: 'O', align:'center' }, 
+	          { field: 'input', title: 'A', align: 'center'},
+	          { field: 'loss2', title: 'L', align: 'center'},
+	          { field: 'occ2', title: 'O', align:'center' }, 
+	          { field: 'input', title: 'A', align: 'center'},
+	          { field: 'loss3', title: 'L', align: 'center'},
+	          { field: 'occ3', title: 'O', align:'center' }, 
+	          { field: 'input', title: 'A', align: 'center'},
+	          { field: 'loss4', title: 'L', align: 'center'},
+	          { field: 'occ4', title: 'O', align:'center' }, 
+	          { field: 'input', title: 'A', align: 'center'},
+	          { field: 'loss5', title: 'L', align: 'center'},
+	          { field: 'occ5', title: 'O', align:'center' }, 
+	          { field: 'input', title: 'A', align: 'center'},
+	          { field: 'loss6', title: 'L', align: 'center'},
+	          { field: 'occ6', title: 'O', align:'center' }, 
+	          { field: 'input', title: 'A', align: 'center'},
+	          { field: 'loss7', title: 'L', align: 'center'},
+	          { field: 'occ7', title: 'O', align:'center' }, 
+	          { field: 'input', title: 'A', align: 'center'},
+	          { field: 'loss8', title: 'L', align: 'center'},
+	          { field: 'occ8', title: 'O', align:'center' }, 
+	          { field: 'input', title: 'A', align: 'center'},
+	          { field: 'loss9', title: 'L', align: 'center'},
+	          { field: 'occ9', title: 'O', align:'center' }, 
+	          { field: 'input', title: 'A', align: 'center'},
+	          { field: 'loss10', title: 'L', align: 'center'},
+	          { field: 'occ10', title: 'O', align:'center' }, 
+	          { field: 'input', title: 'A', align: 'center'},
+	          { field: 'loss11', title: 'L', align: 'center'},
+	          { field: 'occ11', title: 'O', align:'center' }, 
+	          { field: 'input', title: 'A', align: 'center'},
+	          { field: 'loss12', title: 'L', align: 'center'},
+	          { field: 'occ12', title: 'O', align:'center' }, 
+	          { field: 'input', title: 'A', align: 'center'}
+	         ]
      ];
      
 	  $('#faultLossTable').empty();
 	  $('#faultLossTable').bootstrapTable('destroy').bootstrapTable({
-	      url: url,   						  //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
+	      url: baseURL+'/report/loss/lossList',   						  //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
 	      method: "post",                     //使用get请求到服务器获取数据
 	      dataType: "json",
 	      contentType: "application/x-www-form-urlencoded",
 	      //toolbar: "#toolbar",                //一个jQuery 选择器，指明自定义的toolbar 例如:#toolbar, .toolbar.
 	    //uniqueId: 'taEquFaultId',           //每一行的唯一标识，一般为主键列
-	      height: 522,						  //document.body.clientHeight-165  //动态获取高度值，可以使表格自适应页面
+	      //height: 522,						  //document.body.clientHeight-165  //动态获取高度值，可以使表格自适应页面
 	      cache: false,                       // 不缓存
 	      striped: true,                      // 隔行加亮
 	      queryParamsType: '',           	  //设置为"undefined",可以获取pageNumber，pageSize，searchText，sortName，sortOrder 
@@ -178,26 +227,12 @@ function initLossTable(queryParams){
 	      minimumCountColumns: 2,             //最少允许的列数 clickToSelect: true, //是否启用点击选中行
 	      pageNumber: 1,                      //初始化加载第一页，默认第一页
 	      pageSize: 100,                    	  //每页的记录行数（*）
-	      //pageList: [10, 25, 50, 100],     	  //可供选择的每页的行数（*）
-	      //showExport: true,  				  //是否显示导出按钮  
-		  //exportDataType:'all', 			  //导出所有数据
-	      //buttonsAlign:"right",  			  //按钮位置  
-	      //exportTypes:['excel','csv','txt','xml','word'],  //导出文件类型  
-	      //Icons:'glyphicon-export',  
-	      //smartDisplay: true,					//智能显示分页按钮
-	      //paginationPreText: "上一页",
-	      //paginationNextText: "下一页",
 	      responseHandler: responseHandler,
-	      //showFooter: true,
 	      columns: columns,
 	      queryParams : function(params) {
 		      return {
 			    	limit : params.pageSize,
 		            page : params.pageNumber,
-		            //keyword: params.search,//搜索
-					//sortOrder: params.order,//排序
-					//sortName: params.sort,//排序字段
-		            
 	            	area : queryParams.area,
 					zone : queryParams.zone,
 					shift: queryParams.shift,
@@ -205,7 +240,7 @@ function initLossTable(queryParams){
 		      	}
 		  },
 	      onLoadSuccess: function (data) { 		//加载成功时执行
-	    	 // exportAll(queryParams);
+	    	  $('#lossTabFoot').show();
 	    	  setPorpById('exportBtn','disabled',false);
 	      },
 	      onLoadError: function (res) { 		//加载失败时执行
@@ -266,318 +301,6 @@ function createDownTimeDivtoCanvas(i,j){
 		setPorpById('panelBtn','disabled',false);
 	},5000);
 }
-function initOccTab(queryParams){ 
-	var fdates = queryParams.fDate;
-	var tdates = queryParams.tDate;
-	var occ = '';
-	var mins = '';
-	var totalOcc1 = '';
-	var totalOcc2 = '';
-	var operateFormatter = function (value, row, index) {//赋予的参数
-		if(value != undefined){
-			var color = '';
-			switch(value){
-				case 0 : color = 'style="background:red;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;"';
-				 break;
-				case 1 : color = 'style="background:black;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px; padding:7px;outline:none;"';
-				 break;
-				case 2 : color = 'style="background:yellow;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
-				 break;
-				case 3 : color = 'style="background:green;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
-				 break;
-				case 4 : color = 'style = "background:#ffffff;border:1px solid #666;border-radius:50%;box-shadow:0 0 1px 1px;padding:7px;outline:none;"';
-				 break;
-			}
-			return [ '<div class = "statusOcc_'+index+'"><button type="button" class="btn btn-circle btn-lg" '+color+'></button></div>' ].join('');
-		}
-	     return '';
-	}
-	var  responseHandler = function(res) { // 格式化数据
-		
-		if (res.preOccurrenceList !=null && res.preOccurrenceList.length > 0){
-            tmp = {
-                total : res.totalCount,
-                rows : res.preOccurrenceList
-            };
-            
-            var list = res.preOccurrenceList;
-            for(var i=0;i<list.length;i++ ){
-         	   if(i==0
-         			   &&list[i].totalOcc1!=null
-         			   &&list[i].totalOcc2!=null){
-	         	   totalOcc1 = list[i].totalOcc1;
-	         	   totalOcc2 = list[i].totalOcc2;
-         		   $('#totalOccurrenceOld').html(totalOcc1);
-         		   $('#totalOccurrenceNew').html(totalOcc2);
-         	   }
-            }
-       
-         return tmp;
-        }
-        if(res.totalCount==null){
-        	 tmp = {
-                     total : '',
-                     rows : ''
-                 };
-	        $('#totalOccurrenceOld').html('0');
-	   		$('#totalOccurrenceNew').html('0');
-        	 return tmp;
-        }
-    
-    }
-	
-	var fontFormatter = function(value,row,index) {
-		var dom = '';
-		if(value!=null){
-			dom = '<span style="font-size:12px">'+value+'</span>';
-		}else{
-			dom = '<span style="font-size:12px"> </span>';
-		}
-          
-     return dom;  
-	}
-	
-	//获取故障次数
-	var getOcc = function(value,row,index){
-		if(value!=null){
-			occ = value;
-		}
-		return occ;
-	}
-	
-	//获取故障时间
-	var getMins = function(value,row,index){
-		if(value!=null){
-			mins = value;
-		}
-		return mins;
-	}
-	
-	//获取故障次数
-	var getOccOld = function(value,row,index){
-		if(value!=null){
-		  occ1 = value;
-		  var count1 = 0;
-	      for (var i in value) {
-	          count1 += value[i].occ1;
-	      }
-	      //开始时间表前十故障次数显示在页脚
-	      $('#top10OccurrenceOld').html(count1);
-		}
-		return occ1;
-	}
-	
-	//获取累加故次数续时间
-	var getOccNew = function(value,row,index){
-		if(value!=null){
-			occ2 = value;
-			 var count2 = 0;
-		      for (var i in value) {
-		          count2 += value[i].occ2;
-		      }
-		}
-		//结束时间表前十故障次数显示在页脚
-	    $('#top10OccurrenceNew').html(count2);
-		return occ2;
-	}
-	
-	//根据次数和持续时间动态展示Pareto
-	var paretoFormatter = function(value,row,index){
-		if(mins!=null){
-			var width1 = occ>100?100:occ;
-			var width2 = mins>100?100:mins;
-			var dom =  '<div class= "paretoOcc_'+index+'"><input type="text" disabled="disabled" style="background-color: yellow;border: none;height: 12px;width: '+
-			width1 +'px"><span style="font-size:12px">'+ occ +'</span></input></br><input type="text" disabled="disabled" style="background-color: green;border: none;height: 12px;width: '+ 
-			width2.toFixed(1) +'%"><span style="font-size:12px">'+ mins.toFixed(2) +'</span></input></div>'
-			
-			return dom;
-		}
-	}
-	
-	var borderFormatter =  function(value,row,index){
-		return {css:{"border-right-style":"double"}}
-	}
-	
-	$('#preOcc').empty();
-	$('#preOcc').bootstrapTable('destroy').bootstrapTable({
-		url: 'panel/listCurrPanel', 
-		method: "post",                     //使用get请求到服务器获取数据
-	    dataType: "json",
-	    contentType: "application/x-www-form-urlencoded",
-		queryParamsType: '', 				//参数格式,发送标准的RESTFul类型的参数请求 
-		search: false, 						//显示搜索框
-		showFooter: true,  					//显示底部栏
-		sidePagination: "server", 			//服务端处理分页
-		responseHandler: responseHandler,
-		columns: [
-				[{
-	                 title : "<span>Previous Faults Ranked by Occurrence</span></br><span>Days:"+fdates+"</span>",
-	                 halign : "center",
-	                 align : "center",
-	                 colspan : 8
-		        },{
-	                 title : "<span>Root Cause Analysis</span></br><span>[Ranked by Occurence]</span>",
-	                 halign : "center",
-	                 align : "center",
-	                 colspan : 4
-		        },{
-	                 title : "<span>Current Faults Ranked by Occurrence</span></br><span>Days:"+tdates+"</span>",
-	                 halign : "center",
-	                 align : "center",
-	                 colspan : 5
-		        }],
-				[{
-				  field: 'old',
-				  title: 'Old',
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'oldThenNew',
-				  title: 'New',
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'occ1',
-				  title: 'Occ',
-				  cellStyle: getOcc,
-				  footerFormatter: getOccOld,
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'mins1',
-				  title: 'Mins',
-				  cellStyle: getMins,
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'stn1',
-				  title: 'Stn',
-				  formatter: fontFormatter,
-				  //footerFormatter: getTop10DownTime
-				 }, {
-				  field: 'description1',
-				  title: 'Description',
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'pareto',
-				  title: 'Pareto',
-				  formatter: paretoFormatter,
-				 }, {
-				  field: 'status',
-				  title: 'Status',
-				  align: 'center',
-		          valign: 'middle',
-		          cellStyle: borderFormatter,
-		          formatter: operateFormatter, //自定义方法，添加操作按钮
-				 },{
-				  field: 'casualDescription',
-				  title: 'Casual Description',
-				 }, {
-				  field: 'rootCauseAnalysis',
-				  title: 'Root Cause Analysis',
-				 }, {
-				  field: 'who',
-				  title: 'Who',
-				 }, {
-				  field: 'timing',
-				  title: 'Timing',
-				  cellStyle: borderFormatter
-				 },{
-				  field: '_new',
-				  title: 'New',
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'occ2',
-				  title: 'Occ',
-				  footerFormatter: getOccNew,
-				  formatter: fontFormatter,
-				 }, {
-				  field: 'mins2',
-				  title: 'Mins',
-				  formatter: fontFormatter
-				 }, {
-				  field: 'stn2',
-				  title: 'Stn',
-				  formatter: fontFormatter
-				 }, {
-				  field: 'description2',
-				  title: 'Description',
-				  formatter: fontFormatter
-				 }]
-		],
-		queryParams : function(params) {
-		      return {
-	                area : queryParams.area,
-					zone : queryParams.zone,
-					eTime: queryParams.eTime,
-					sTime: queryParams.sTime,
-					shift: queryParams.shift,
-					shop: queryParams.shop,
-					jobId : queryParams.jobId,
-					fromDate : queryParams.fromDates,
-					toDate : queryParams.toDates
-	            }
-	     },
-		/* onLoadSuccess: function (data) { 		//加载成功时执行
-			 $('#preOccFoot').show();
-			 createOccExportImg();
-			 setPorpById('panelBtn','disabled',false);
-		 },*/
-		 onPostBody : function (data){
-			 $('#preOccFoot').show();
-			 createOccExportImg();
-		 },
-	     onLoadError: function (res) { 			//加载失败时执行
-	     }
-	});
-}
-
-function createOccExportImg(){
-	var tableOccparamstrleg = $('#preOcc tbody').find('tr').length;
-	var tableOccparamstdleg = $('#preOcc tbody').find('tr').eq(0).find('td').length;
-	var node = '';
-	for(var i = 0 ; i <tableOccparamstrleg;i++){
-		for(var j = 0;j<tableOccparamstdleg;j++){
-			if(j == 6 || j == 7){
-				if(j == 6){
-					createOccDivtoCanvas(i,j)
-				} else if(j == 7){
-					createOccDivtoCanvas(i,j);
-				}
-			}
-		}
-	}
-}
-
-function createOccDivtoCanvas(i,j){
-	var _canvas='';
-	if(j == 6){
-		_canvas = document.querySelector('.paretoOcc_'+i);
-	}
-	if(j == 7){
-		_canvas = document.querySelector('.statusOcc_'+i);
-	}
-	var w = parseInt(window.getComputedStyle(_canvas).width);
-	var h = parseInt(window.getComputedStyle(_canvas).height);
- 	// 导出宽度
-	var width = w * 2;
-	// 导出高度
-	var height = h * 2;
-	domtoimage.toPng(_canvas).then(function (dataUrl) {
-		    var img = new Image();
-		    img.width = width;
-		    img.height = height;
-		    img.style.width = w + "px";
-		    img.style.height = h + "px";
-		    img.src = dataUrl;
-		    //document.body.appendChild(img);
-		    if(j == 6){
-				tableOccparetoImgArray[i] = dataUrl;
-			}
-			if(j == 7){
-				tableOccstatusImgArray[i] = dataUrl;
-			}
-	})
-	.catch(function (error) {
-	    console.error('图片转换异常!', error);
-	});
-}
 
 function queryReport(tag,params){
 	if(isNullOrBlank(params.area)){
@@ -599,7 +322,7 @@ function queryReport(tag,params){
 		echars2(params);
 		
 		initLossTableTitle(params)
-		//initOccTab(params);
+		initLossTable(params);
 	}
 }
 
@@ -673,7 +396,7 @@ function echars(params){
 	                        x: 'left',  
 	                        //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
 	                       y: 'top'  ,
-	                       textStyle:{ fontSize:13 },
+	                       textStyle:{ fontSize:12 },
 	                    }, 
 
 				    color: ['#2E9AFE', '#FFA500','#ed4d00','#114377'],
@@ -783,7 +506,6 @@ function echars1(params){
         	var date = [];
       	    var lossArr = [];
       	    if(data.minutesLoss!=null&&data.minutesLoss.length>0){
-      	    	
       	    	 for(var i=0;i<data.minutesLoss.length;i++){
            	    	date.push(data.minutesLoss[i].weekNo2);
            	    	data.minutesLoss[i].loss==0?lossArr.push(''):lossArr.push(data.minutesLoss[i].loss);
@@ -805,7 +527,7 @@ function echars1(params){
 	                        x: 'left',  
 	                        //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
 	                       y: 'top'  ,
-	                       textStyle:{fontSize:13},
+	                       textStyle:{fontSize:12},
 	                    }, 
 	                    
 				    color: ['#2E9AFE'],
@@ -893,7 +615,6 @@ function echars2(params){
       	    var facilityArr = [];
       	    var durationArr = [];
       	    if(data.equLoss!=null&&data.equLoss.length>0){
-      	    	
       	    	for(var i=0;i<data.equLoss.length;i++){
           	    	data.equLoss[i].facilityId2==0?facilityArr.push(''):facilityArr.push(data.equLoss[i].facilityId2);
           	    	data.equLoss[i].duration==0?durationArr.push(''):durationArr.push(data.equLoss[i].duration);
@@ -902,10 +623,10 @@ function echars2(params){
       	    
         	var	option = {
 					 grid:{
-						    x:30,
-			                y:10,
-			                x2:50,
-			                y2:30,
+						    x:40,
+			                y:20,
+			                x2:40,
+			                y2:20,
 			                borderWidth:1,
 			            },
 						title: {  
@@ -915,7 +636,7 @@ function echars2(params){
 	                        x: 'left',  
 	                        //垂直安放位置，默认为全图顶端，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）  
 	                       y: 'top'  ,
-	                       textStyle:{fontSize:13},
+	                       textStyle:{fontSize:12},
 	                    }, 
 				    color: ['#2E9AFE'],
 				    xAxis: [
@@ -957,30 +678,17 @@ function echars2(params){
 }
 
 function report(param) {
+	var shop = $("#shop_search").val();
 	var area = $("#area_search").val();
 	var zone = $("#zone_search").val();
 	var shift = $("#shift_search").val();
-	var jobId = $("#jobId_search").val();
-	var formWeek = $("#startTime").val();
-	var toWeek = $("#endTime").val();
-	var fromDate = $('#fDate').val();
-	var toDate = $('#tDate').val();
-	var f_date = fromDate==null?'':JSON.stringify(fromDate);
-	var t_date = toDate==null?'':JSON.stringify(toDate);
-	fDates = f_date.replace(new RegExp('"',"gm"),'');
-	tDates = t_date.replace(new RegExp('"',"gm"),'');
-	
 	
 	var params = {
-			shop : $("#shop_search").val(),
+			shop : shop,
 			area : isNullOrBlank(area)?'ALL':area,
 			zone : isNullOrBlank(zone)?'ALL':zone,
 			shift : isNullOrBlank(shift)?'ALL':shift,
-			formWeek : formWeek,
-			toWeek : toWeek,
-			jobId : isNullOrBlank(jobId)?'ALL':jobId,
-			fromDates : fDates,
-			toDates : tDates,
+			type : param
 	} ;
 	//图片
 	var image = new Image();
@@ -1013,62 +721,8 @@ function report(param) {
 	params.echarepxport1 = echarepxport1;
 	params.echarepxport2 = echarepxport2;
 
-	//table preDownTime
-	var tableDownTimetrleg = $('#preDownTime tbody').find('tr').length;
-	var tableDownTimetdleg = $('#preDownTime tbody').find('tr').eq(0).find('td').length;
-	var tableDownTimeArray = {};
-	var x = 0;
-	for(var i = 0 ;i<tableDownTimetrleg;i++){
-		for(var j = 0 ; j<tableDownTimetdleg ; j++){
-			if( j != 6 && j != 7){
-				params['dTime_'+x] = $.trim($('#preDownTime tbody tr:eq(' + i + ') td:eq(' + j + ')').text());
-				x++;
-			}else if(j == 6){
-				params['dTime_'+x] = tableDownTimeparetoImgArray[i].replace("data:image/png;base64,", "");
-				x++;
-			}else if(j == 7){
-				params['dTime_'+x] = tableDownTimestatusImgArray[i].replace("data:image/png;base64,", "");
-				x++;
-			}
-		}
-	}
-	
-	//table preOcc
-	var tableOccparamstrleg = $('#preOcc tbody').find('tr').length;
-	var tableOccparamstdleg = $('#preOcc tbody').find('tr').eq(0).find('td').length;
-	var tableOccparamsArray = {};
-	var y = 0;
-	for(var a = 0 ; a<tableOccparamstrleg ; a ++){
-		for(var b = 0 ; b < tableOccparamstdleg ; b ++){
-			if(b != 6 && b != 7){
-				params['occ_'+y] = $.trim($('#preOcc tbody tr:eq(' + a + ') td:eq(' + b + ')').text());
-				y++;
-			}else if(b == 6){
-				params['occ_'+y] = tableOccparetoImgArray[a].replace("data:image/png;base64,", "");
-				y++;
-			}else if(b == 7){
-				params['occ_'+y] = tableOccstatusImgArray[a].replace("data:image/png;base64,", "");
-				y++;
-			}
-		}
-	}
-	
-	params.tableOccparamsArray = tableOccparamsArray;
-	params.t10DTimeOld = $("#top10DownTimeOld").text();
-	params.t10DTimeNew = $("#top10DownTimeNew").text();
-	params.dTimeOldTol = $("#totalDownTimeOld").text();
-	params.dTimeNewTol = $("#totalDownTimeNew").text();
-	
-	params.t10OccOld = $("#top10OccurrenceOld").text();
-	params.t10OccNew = $("#top10OccurrenceNew").text();
-	params.occOldTol = $("#totalOccurrenceOld").text();
-	params.occNewTol = $("#totalOccurrenceNew").text();
 	createReportInput(params);
-	if('doc'== param){
-		document.getElementById("fromexport").action = baseURL +'modules/report/panel/report';
-	}else if('xls' == param) {
-		document.getElementById("fromexport").action = baseURL +'modules/report/panel/report/excel';
-	}
+	document.getElementById("fromexport").action = baseURL +'/report/loss/exportFault';
 	$("#fromexport").submit();
 }
 

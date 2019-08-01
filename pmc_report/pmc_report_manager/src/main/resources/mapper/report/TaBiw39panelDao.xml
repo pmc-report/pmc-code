@@ -180,7 +180,8 @@
 										and tav_flag!=1
 						)T group by facility_id,fault_description
 				)ALL_DATA
-	  )FINAL where ROWNUMS = 1
+			)FINAL
+	 <!--  )FINAL where ROWNUMS = 1 -->
 	  order by Duration1 desc, Occurrences1 desc, facility_id1,fault_description1
 	</select>
 	
@@ -303,7 +304,7 @@
 						group by facility_id,fault_description
 						)ALL_DATA
 					)FINAL
-		  where ROWNUMS = 1
+	 <!--  )FINAL where ROWNUMS = 1 -->
 		  order by Occurrences1 desc, Duration1 desc, facility_id1,fault_description1
 	</select>
 	
@@ -345,6 +346,119 @@
 					)ALL_DATA
 				)FINAL order by Occurrences2 desc, Duration2 desc, facility_id2,fault_description2
 	  )TOPVALS order by ROWNUMS,Occurrences2 desc
+	</select>
+	
+	<select id="queryTaSummary" resultType="java.util.HashMap">
+		select 
+			t.zone ,
+			avg(t.tar_tech_avail) tar_tech_avail ,
+			avg(t.tech_avail) tech_avail,
+			avg(t.tech_avail*100-t.tar_tech_avail) "Gap",
+			(DATEADD(wk,DATEDIFF(wk,0,t.start_time),0))"firstDay"
+		from PMC_9PANEL_TA t LEFT JOIN Final_BIW3_OPR o 
+		ON t.zone = o.zone
+		where 1=1
+		<if test="startTime!=null">
+			and  t.start_time between #{startTime} and #{endTime}
+		</if>
+		<if test="area!=null and area!=''">
+			AND t.shop = #{shop}
+		</if>
+		<if test="area!=null and area!=''">
+			AND t.line = #{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND t.ZONE = #{zone}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND t.shift = #{shift}
+		</if>
+		<if test="level!=null and level!=''">
+			AND t.jobId = #{jobId}
+		</if>
+		and o.production_volume >= 0
+		and o.frequency='Shiftwise'
+		group by t.zone,(DATEADD(wk,DATEDIFF(wk,0,t.start_time),0))
+		order by t.zone,(DATEADD(wk,DATEDIFF(wk,0,t.start_time),0))
+	</select>
+	
+	<select id="queryVol" resultType="java.util.HashMap">
+		select count(good_cycle_count)"prod_vol" ,zone
+		from PMC_BIW_CYCLE
+		where 1 = 1
+		<if test="endTime!=null">
+			and end_time between #{startTime} and #{endTime}
+		</if>
+		<if test="area!=null and area!=''">
+			AND area = #{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND ZONE = #{zone}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift = #{shift}
+		</if>
+		<if test="jobId!=null and jobId!=''">
+			AND job_id = #{jobId}
+		</if>
+		and production_flag = 1
+		group by zone
+	</select>
+	
+	<select id="queryTrendChart" resultMap="panelVoMap">
+		with CTE as(
+		select ROW_NUMBER () OVER (order by P."Week" desc) RN,isNull(P.[TAV%],0) "TAV %",Q.MondayOfCurrentWeek"Week",isNULL(P.tar_TA,0) "Tar_TA" from
+		(SELECT 
+		 WeekRange ,
+		 DATEADD(wk,WeekRange,DATEADD(wk, DATEDIFF(wk,0,getdate()), 0)) "MondayOfCurrentWeek",
+		  DATEPART("wk", DATEADD(wk,WeekRange,DATEADD(wk, DATEDIFF(wk,0,getdate()), 0))) "WeekNumber"
+		 FROM  ( SELECT 0 AS WeekRange UNION ALL
+		                SELECT -1 AS WeekRange UNION ALL
+		                SELECT -2 AS WeekRange UNION ALL
+		                SELECT -3 AS WeekRange UNION ALL
+		                SELECT -4 AS WeekRange UNION ALL
+		                SELECT -5 AS WeekRange UNION ALL
+		                SELECT -6 AS WeekRange UNION ALL
+		                SELECT -7 AS WeekRange UNION ALL
+		                SELECT -8 AS WeekRange UNION ALL
+		                SELECT -9 AS WeekRange UNION ALL
+		                SELECT -10 AS WeekRange UNION ALL
+		                SELECT -11 AS WeekRange UNION ALL
+		                SELECT -12 AS WeekRange UNION ALL
+		                SELECT -13 AS WeekRange UNION ALL
+		                SELECT -14 AS WeekRange UNION ALL
+		                SELECT -15 AS WeekRange UNION ALL
+		                SELECT -16 AS WeekRange UNION ALL
+		                SELECT -17 AS WeekRange UNION ALL
+		                SELECT -18 AS WeekRange UNION ALL
+		                SELECT -19 AS WeekRange UNION ALL
+		                SELECT -20 AS WeekRange UNION ALL
+		                SELECT -21 AS WeekRange UNION ALL
+		                SELECT -22 AS WeekRange UNION ALL
+		                SELECT -23 AS WeekRange UNION ALL
+		                SELECT -24 AS WeekRange 
+		             ) t2)Q
+		             left join 
+		   (select TOP 25 DATEADD(dd, -(DATEPART(DW, start_time)-2), start_time) "Week",tech_avail*100 "TAV%",tar_tech_avail "tar_TA"
+		  from PMC_9PANEL_TA
+		  where 1 = 1
+		  	<if test="area!=null and area!=''">
+				AND shop = #{shop}
+			</if>
+			<if test="zone!=null and zone!=''">
+				AND ZONE = #{zone}
+			</if>
+			<if test="shift!=null and shift!=''">
+				AND shift = #{shift}
+			</if>
+		  and  levels='zone'
+		  and frequency=2
+		  order by start_time desc)P
+		  on DATEPART(ISOWK,Week)=WeekNumber)
+  
+		 select  Top 24 [Current Row].[TAV %]-[Next Row].[TAV %]"TAV",[Current Row].Week "Week",[Current Row].Tar_TA "Target_TAV"
+			FROM CTE [Current Row]
+			LEFT JOIN CTE [Next Row] ON [Next Row].RN = [Current Row].RN + 1
 	</select>
 	
 </mapper>

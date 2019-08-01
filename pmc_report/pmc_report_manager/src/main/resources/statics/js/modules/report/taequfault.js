@@ -220,7 +220,6 @@ function initTable(url,queryParams){
 	 var dateFormatter = function(value, row, index){
  	    return sec_to_time(value);
      } 
-	 console.log(duration+"++++++++++++++++++++++++++++")
      var columns = [
           
     	  {title: '序号', align: 'center', formatter: function indexFormatter(value, row, index) {return index + 1;},

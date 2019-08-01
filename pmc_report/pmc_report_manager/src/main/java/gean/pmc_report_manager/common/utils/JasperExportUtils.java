@@ -1,8 +1,6 @@
 package gean.pmc_report_manager.common.utils;
 
 import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectOutputStream;
@@ -15,6 +13,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.jasperreports.engine.JRAbstractExporter;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -30,6 +29,7 @@ import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRRtfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
@@ -196,12 +196,22 @@ public class JasperExportUtils {
 	  String fileName = new String((exportName+".doc").getBytes("GBK"), "ISO8859_1");
 	  response.setHeader("Content-disposition", "attachment; filename="
 	    + fileName);
-	  JRExporter exporter = new JRRtfExporter();
-	  exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-	  exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, response
-	    .getOutputStream());
+	  if("OPR报表".equals(exportName)) {
+		  JRExporter exporter = new JRRtfExporter();
+		  exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+		  exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, response
+		    .getOutputStream());
 
-	  exporter.exportReport();
+		  exporter.exportReport();
+	  }else {
+		  JRAbstractExporter exporter = new JRDocxExporter();
+		  exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+		  exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, response
+		    .getOutputStream());
+
+		  exporter.exportReport();
+	  }  
+	 
 	 }
 	
 	 /**

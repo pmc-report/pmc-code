@@ -1,9 +1,9 @@
 package gean.pmc_report_manager.modules.report.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -40,6 +40,12 @@ public interface TaBiw39panelDao extends BaseMapper<TaBiw39panelEntity> {
     List<PanelVo> queryTop10OccurrenceOld(PageParamVo vo);
     
     List<PanelVo> queryTop10OccurrenceNew(PageParamVo vo);
+    
+    Map<String,Object> queryTaSummary(PageParamVo vo);
+    
+    Map<String,Object> queryVol(PageParamVo vo);
+    
+    List<PanelVo> queryTrendChart(PageParamVo vo);
     
     
 }
