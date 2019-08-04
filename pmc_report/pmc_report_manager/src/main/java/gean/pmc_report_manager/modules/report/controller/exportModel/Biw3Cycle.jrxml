@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="1300" pageHeight="595" orientation="Landscape" columnWidth="1260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c380ecfa-0df5-43c4-b6b3-f6db35fb75c6">
+	<property name="ireport.zoom" value="1.1269722013523682"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="shop" class="java.lang.String"/>
+	<field name="zone" class="java.lang.String"/>
+	<field name="area" class="java.lang.String"/>
+	<field name="equipment" class="java.lang.String"/>
+	<field name="station" class="java.lang.String"/>
+	<field name="jobId" class="java.lang.String"/>
+	<field name="facilityDesc" class="java.lang.String"/>
+	<field name="startTime" class="java.lang.String"/>
+	<field name="endTime" class="java.lang.String"/>
+	<field name="shift" class="java.lang.String"/>
+	<field name="facilityId" class="java.lang.String"/>
+	<field name="stdCycleTime" class="java.lang.String"/>
+	<field name="designCycleTime" class="java.lang.String"/>
+	<field name="minCycleTime" class="java.lang.Integer"/>
+	<field name="maxCycleTime" class="java.lang.Integer"/>
+	<field name="avgCycleTime" class="java.lang.Integer"/>
+	<field name="effeciveCycleTime" class="java.lang.Float"/>
+	<field name="cycleOffset" class="java.lang.Float"/>
+	<field name="echarepxport" class="java.lang.String"/>
+	<field name="_station" class="java.lang.String"/>
+	<field name="_facilityId" class="java.lang.String"/>
+	<field name="_jobId" class="java.lang.String"/>
+	<variable name="index" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$V{index}.valueOf(1)]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="274" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="1160" height="58" uuid="8cae7e01-1dbd-4d61-b631-52103e547c4d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="20" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[  Cycle Time Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="58" width="100" height="34" backcolor="#CCCCCC" uuid="9213922e-4b98-4bcd-911a-0e56ff87145f"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[车间]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="58" width="100" height="34" uuid="7f3ae071-8643-4d62-a321-5bf8b26efa49"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shop}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="200" y="58" width="100" height="34" backcolor="#CCCCCC" uuid="7252d2e5-4152-40e4-ab1d-12a092fa7388"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Zone]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="58" width="100" height="34" uuid="c22dcb2a-a6bb-42c0-937a-6acc889d83d3"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{zone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="400" y="58" width="100" height="34" backcolor="#CCCCCC" uuid="b5b2c042-6b30-4b8a-92d2-06cc40b2f633"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[设备]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="500" y="58" width="100" height="34" uuid="983338c9-e7d2-433e-b57c-82782ea8338c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{equipment}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="600" y="58" width="100" height="34" backcolor="#CCCCCC" uuid="a7f852fc-dbf6-431d-8fce-2093955326b9"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[时间范围从]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="700" y="58" width="180" height="34" uuid="d1b4e37b-0313-49a5-a0a5-a7dda1258938"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{startTime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="880" y="58" width="100" height="34" backcolor="#CCCCCC" uuid="b1d19cf8-61f7-4422-9bc9-030b4c7337fc"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[班次]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="980" y="58" width="180" height="34" uuid="bf424c2f-6c3e-459e-a366-43f2a91a1952"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{shift}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="92" width="100" height="35" backcolor="#CCCCCC" uuid="6999c509-1f95-4503-b855-c782d7d6b162"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[区域]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="92" width="100" height="35" uuid="a348a463-b901-4b31-a44f-1846fb793ac5"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="200" y="92" width="100" height="35" backcolor="#CCCCCC" uuid="c4f63da5-7331-4515-883c-d19884956dc4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[工位]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="300" y="92" width="100" height="35" uuid="c7de3ebc-bdf4-42e4-9edc-bb5b8aa071e2"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{station}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="400" y="92" width="100" height="35" backcolor="#CCCCCC" uuid="aed948f7-841f-4568-bad5-1c9f948c3fc3"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[车型]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="500" y="92" width="100" height="35" uuid="91a6d078-cb65-4361-a0bb-d64ba72a6551"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jobId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="600" y="92" width="100" height="35" backcolor="#CCCCCC" uuid="ce6d9e80-cb78-48cb-9085-eb1e6fcef40d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[到]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="700" y="92" width="180" height="35" uuid="9997e983-2941-464c-a284-9c26faf91be6"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{endTime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="880" y="92" width="100" height="35" backcolor="#CCCCCC" uuid="d0c1998d-407c-4a6f-b97e-44cac561e609"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[报表生成时间]]></text>
+			</staticText>
+			<textField pattern="yyyy-MM-dd HH:mm:ss">
+				<reportElement x="980" y="92" width="180" height="35" uuid="6672fd9e-277f-4a10-9a6c-008b48df915a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[java.util.Calendar.getInstance().getTime()]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement x="0" y="128" width="1260" height="145" uuid="869e6cbb-df8f-47a3-b7f6-b1fad5db293a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64(new StringBuffer($F{echarepxport}).toString().getBytes("UTF-8")))]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="403" y="2" width="68" height="34" backcolor="#009900" uuid="6f7c01a8-ad8c-4842-9ddc-08f0773b6bee"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[车型]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="66" y="2" width="118" height="34" backcolor="#009900" uuid="288ae6d5-e8bd-47ff-b50b-5e0148a8fd02"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[工位]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="296" y="2" width="107" height="34" backcolor="#009900" uuid="7c047fa3-5688-41ee-87cf-4b8f1047619b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[设备名称]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="184" y="2" width="112" height="34" backcolor="#009900" uuid="38170252-f104-4992-a64f-2c2534ff5432"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[设备号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="471" y="2" width="86" height="34" backcolor="#009900" uuid="529c6c43-4843-4872-b834-3c2ee000e899"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[标准节拍时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="557" y="2" width="87" height="34" backcolor="#009900" uuid="aa725d92-c772-4d8a-8c0b-17b5d50e77ee"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[设计节拍时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="644" y="2" width="84" height="34" backcolor="#009900" uuid="cd1c2358-04a8-4cd1-a50a-f6d07cbb2de5"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[最短节拍时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="728" y="2" width="128" height="34" backcolor="#009900" uuid="487e46be-d0a4-4ab7-8f2c-e6e84e64d7ad"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[最长节拍时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="856" y="2" width="134" height="34" backcolor="#009900" uuid="70cee3ca-ab43-4ad8-a033-a8d8ef403ffb"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[平均节拍时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1111" y="2" width="149" height="34" backcolor="#009900" uuid="b2512f6e-99eb-469f-be91-0fe82d4bf588"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[节拍时间偏移量]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="990" y="2" width="121" height="34" backcolor="#009900" uuid="e97e3de3-3197-4ddf-9228-dd6abbcb5788"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[有效节拍时间]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="2" width="66" height="34" backcolor="#339900" uuid="fa8260e8-0349-40fb-8fc4-a37132c035f9"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[序号]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="184" y="0" width="112" height="30" uuid="d948b0ed-6b83-44c9-8135-d4c0b78c5904"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{_facilityId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="0" width="118" height="30" uuid="8a2a3a9b-e71a-4c91-adba-276aabdc0880"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{_station}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="296" y="0" width="107" height="30" uuid="f6016df0-a79c-44b4-8c68-6d689f6ce715"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{facilityDesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="471" y="0" width="86" height="30" uuid="a1f850ab-0ab2-4359-8e5c-01000c5af9c0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{stdCycleTime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="403" y="0" width="68" height="30" uuid="40204d7c-4566-47e2-ad9e-c99c65353c07"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{_jobId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="557" y="0" width="87" height="30" uuid="ac4194ca-dce2-4f3a-b5aa-547f669d8763"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{designCycleTime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="644" y="0" width="84" height="30" uuid="a449e4f7-cbb1-4e81-85d5-b870c8d0116a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{minCycleTime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="728" y="0" width="128" height="30" uuid="129d15c3-bbc2-41e6-9fdc-f00c94c17901"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{maxCycleTime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="856" y="0" width="134" height="30" uuid="aac94bd2-9ccd-46f9-abdd-2fedbb45ae59"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{avgCycleTime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="990" y="0" width="121" height="30" uuid="da195dd0-c098-483f-9516-ff72810a68ca"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{effeciveCycleTime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1111" y="0" width="149" height="30" uuid="2f1927a7-e99d-42f2-8776-ee774c41e3fe"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{cycleOffset}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="66" height="30" uuid="5a4b790e-fea8-45f4-9259-382549b9980e"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{index}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="34" splitType="Stretch"/>
+	</summary>
+</jasperReport>

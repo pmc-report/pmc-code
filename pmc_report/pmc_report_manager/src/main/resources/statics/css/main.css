@@ -183,6 +183,27 @@ tbody > tr > th {font-weight: normal; }
 	border-left:1px solid #fff;
 }
 
+#cycleTableStyle table thead .th-inner{
+	background-color : #2E8B57;
+	color:#fff;
+}
+
+#cycleTableHeader{
+	width:100%;
+	border :1px solid #000;
+	margin-bottom:10px;
+}
+
+#cycleTableHeader tr td {
+	padding: 10px 5px;
+	border-top:1px solid #000;
+	border-left : 1px solid #fff;
+}
+
+#cycleTableStyle .fixed-table-footer {
+	height: 40px;
+} 
+
 .fixed-table-footer {
 	height: 2px;
 } 

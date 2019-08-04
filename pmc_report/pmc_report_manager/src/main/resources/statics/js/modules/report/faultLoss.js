@@ -324,6 +324,7 @@ function queryReport(tag,params){
 		initLossTableTitle(params)
 		initLossTable(params);
 	}
+	clearForm("fromexport");
 }
 
 function echars(params){

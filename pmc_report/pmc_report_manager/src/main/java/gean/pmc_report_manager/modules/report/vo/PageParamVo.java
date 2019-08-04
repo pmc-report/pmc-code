@@ -49,8 +49,8 @@ public class PageParamVo {
 	
 	public PageParamVo(Map<String, Object> params) {
 		
-		limit = (String)params.get("limit")==null?"0":(String)params.get("limit");
-		page = (String)params.get("page")==null?"0":(String)params.get("page");
+		limit = (String)params.get("limit")==null?"10":(String)params.get("limit");
+		page = (String)params.get("page")==null?"1":(String)params.get("page");
 		shop = (String)params.get("shop")==null?"":(String)params.get("shop");
 		line = (String)params.get("line")==null?"":(String)params.get("line");
 		zone = (String)params.get("zone")==null?"":(String)params.get("zone");

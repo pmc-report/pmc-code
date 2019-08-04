@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>设备节拍报表</title>
+		<#include "/header.html">
+</head>
+<body>
+<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+					 <span class='glyphicon glyphicon-search'>&nbsp查询条件</span>
+				</a>
+			</h4>
+		</div>
+		<div id="collapseOne" class="panel-collapse collapse in">
+			<div class="panel-body">
+				<form id="gen-form" class="form-vertical" role="form">
+					<!--<div class="select-list">-->
+						<!--<ul>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									         <!--车间： <select id="shop_search" name="shop" lay-verify="required" onchange="selectShop()"></select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									         <!--区域： <select id="area_search" name="area" lay-verify="required" onchange="selectArea()"></select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									    <!--ZONE： <select id="zone_search" name="zone" lay-verify="required" onchange="selectZone()"></select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									   	 <!--工位： <select id="station_search" name="station" lay-verify="required" onchange="selectStation()"></select>	-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									   	 <!--设备： <select id="equ_search" name="jobId" lay-verify="required"></select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									   	 <!--车型： <select id="jobId_search" name="jobId" lay-verify="required">-->
+									   	 <!--</select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li class="select-time" onclick="selectTime()">-->
+								<!--<label>时间范围： </label>-->
+								<!--<input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginTime]"/>-->
+								<!--<span>-</span>-->
+								<!--<input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endTime]"/>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<div class="layui-form-item">-->
+									<!--<div class="layui-input-block">-->
+									   <!--&lt;!&ndash; 	 时间频率： <select id="frequency_search" name="frequency" lay-verify="required"> &ndash;&gt;-->
+									   	<!--班次： <select id="shift_search" name="shift" lay-verify="required">-->
+									   	 <!--</select>-->
+									<!--</div>-->
+								 <!--</div>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<button type="button" class="btn btn-primary btn-sm" onclick="search('EQUFA')">-->
+									<!--<span class="glyphicon glyphicon-search"></span>&nbsp;查询-->
+								<!--</button>-->
+								<!--<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">-->
+									<!--<span class="glyphicon glyphicon-refresh"></span>&nbsp;重置-->
+								<!--</button>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</div>-->
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">车间</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="shop_search" name="shop" lay-verify="required" onchange="selectShop()"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">区域</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="area_search" name="area" lay-verify="required" onchange="selectArea()"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">ZONE</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="zone_search" name="zone" lay-verify="required" onchange="selectZone()"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">工位</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="station_search" name="station" lay-verify="required" onchange="selectStation()"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">设备</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="equ_search" name="equipment" lay-verify="required"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">车型</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="jobId_search" name="jobId" lay-verify="required"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">开始时间</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<input class="form-control time-input" type="text" id="startTime" placeholder="开始时间" name="params[beginTime]" onclick="selectTime()"/>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">结束时间</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<input class="form-control time-input" type="text" id="endTime" placeholder="结束时间" name="params[endTime]" onclick="selectTime()"/>
+						</div>
+					</div>
+					<div class="form-group form-group-sm col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<label class="control-label col-xs-12 col-sm-3 col-md-3 col-lg-3 ">班次</label>
+						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 ">
+							<select class="form-control" id="shift_search" name="shift" lay-verify="required"></select>
+						</div>
+					</div>
+					<div class="form-group form-group-sm find-action col-xs-12 col-sm-6 col-md-4 col-lg-3">
+						<div class="col-xs-12">
+							<button type="button" class="btn btn-primary btn-sm" onclick="search('Biw3Cycle')">
+								<span class="glyphicon glyphicon-search"></span>&nbsp;查询
+							</button>
+							<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">
+								<span class="glyphicon glyphicon-refresh"></span>&nbsp;重置
+							</button>
+							<div class="btn-group">
+    							<button id="cycleBtn" type="button" class="btn btn-primary dropdown-toggle btn-sm" disabled="disabled" data-toggle="dropdown">导出
+       								<span class="caret"></span>
+    							</button>
+    							<ul class="dropdown-menu" role="menu">
+       								<li>
+            							<a href="#" onclick="exportcycle('word')">word</a>
+        							</li>
+        							<li>
+            							<a href="#" onclick="exportcycle('excel')">excel</a>
+        							</li>
+    							</ul>
+							</div>
+							<!-- <button type="button" class="btn btn-warning btn-sm" onclick="more()">
+								<i class="fa fa-angle-double-down" aria-hidden="false"></i>更多
+							</button> -->
+						</div>
+					</div>
+				</form>
+				<form method="post" id = "exportcycle" style ="float: right;">
+					<input type = "hidden" name = "shop" id = "cycleshop" />
+					<input type = "hidden" name = "area" id = "cyclearea"/>
+					<input type = "hidden" name = "zone" id = "cyclezone"/>
+					<input type = "hidden" name = "station" id = "cyclestation"/>
+					<input type = "hidden" name = "equipment" id = "cycleequipment"/>
+					<input type = "hidden" name = "jobId" id = "cyclejobId"/>
+					<input type = "hidden" name = "sTime" id = "cyclestime"/>
+					<input type = "hidden" name = "eTime" id = "cycleeTime"/>
+					<input type = "hidden" name = "shift" id = "cycleshift"/>
+					<input type = "hidden" name = "exoprtType" id = "selectExportType"/>
+				</form>
+			</div>
+		</div>    		
+	</div>
+	
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+			    <a data-toggle="collapse" data-parent="#accordion" href="#result">
+					 <span class='glyphicon glyphicon-th'>&nbsp查询结果-表</span>
+				</a>
+			</h3>
+		</div>
+		<div id="result" class="panel-collapse collapse in">
+			<div class="panel-body" >
+				<div>
+					<div id = "cycleTableTitle">
+						<h1 style = "text-indent : 5px;width: 50%;margin: 10px">Cycle Time Report</h1>
+						<table id = "cycleTableHeader" ></table>
+					</div>
+					<div id="main" style="width:100%;height:300px;margin-top: 50px">
+						<script type="text/javascript">
+							var echart=echarts.init(document.getElementById('main'));
+						</script>
+					</div>
+					<div id ="cycleTableStyle">
+						<table id="cycleTable"></table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<form action="" id = "fromexport" method="post">
+	</form>
+	<script src="${request.contextPath}/statics/js/modules/report/tabiw3cycle.js?_${.now?long}"></script>
+</body>
+</html>

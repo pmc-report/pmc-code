@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gean.pmc_report_manager.modules.report.dao.TaBiw3CycleDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="gean.pmc_report_manager.modules.report.entity.TaBiw3CycleEntity" id="taBiw3CycleMap">
+        <result property="shop" column="shop"/>
+        <result property="area" column="area"/>
+        <result property="zone" column="zone"/>
+        <result property="facilityId" column="facility_id"/>
+        <result property="facilityDesc" column="facility_desc"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="cycleTime" column="cycle_time"/>
+        <result property="cycleType" column="cycle_type"/>
+        <result property="goodCycleCount" column="good_cycle_count"/>
+        <result property="badCycleCount" column="bad_cycle_count"/>
+        <result property="totalCycleCount" column="total_cycle_count"/>
+        <result property="productId1" column="product_id1"/>
+        <result property="productId2" column="product_id2"/>
+        <result property="shift" column="shift"/>
+        <result property="cycleStatePerformance" column="cycle_state_performance"/>
+        <result property="performancePercentage" column="performance_percentage"/>
+        <result property="tavFlag" column="tav_flag"/>
+        <result property="equipment" column="equipment"/>
+        <result property="station" column="station"/>
+        <result property="designCycleTime" column="design_cycle_time"/>
+        <result property="productionFlag" column="production_flag"/>
+        <result property="jobId" column="job_id"/>
+        <result property="dbTimeStamp" column="db_time_stamp"/>
+    </resultMap>
+    
+    <resultMap type="gean.pmc_report_manager.modules.report.vo.CycleVo" id="cycleVoMap">
+        <result property="shop" column="shop"/>
+        <result property="area" column="area"/>
+        <result property="zone" column="zone"/>
+        <result property="station" column="station"/>
+        <result property="equipment" column="equipment"/>
+        <result property="shift" column="shift"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="jobId" column="Job ID"/>
+        <result property="facilityId" column="FacilityID"/>
+        <result property="facilityDesc" column="facility_desc"/>
+        <result property="cycleTime" column="cycle_time"/>
+        <result property="cycleType" column="cycle_type"/>
+        <result property="goodCycleCount" column="good_cycle_count"/>
+        <result property="badCycleCount" column="bad_cycle_count"/>
+        <result property="totalCycleCount" column="total_cycle_count"/>
+        <result property="designCycleTime" column="Design Cycle Time"/>
+        <result property="stdCycleTime" column="Std Cycle Time"/>
+        <result property="minCycleTime" column="Min Cycle Time"/>
+        <result property="maxCycleTime" column="Max Cycle Time"/>
+        <result property="avgCycleTime" column="Avg Cycle Time"/>
+        <result property="effeciveCycleTime" column="effecive_cycle_time"/>
+        <result property="cycleOffset" column="cycle_offset"/>
+        <result property="totalCycleTime" column="Total Cycle Time"/>
+        <result property="goodCycleTime" column="Good Cycle Time"/>
+        <result property="badCycleTime" column="Bad Cycle Time"/>
+    </resultMap>
+    	
+    	
+    	
+    <select id="qureyTotalList" resultType="java.lang.Integer" >
+    	SELECT COUNT(1) FROM PMC_BIW_CYCLE 
+    	WHERE 1 = 1
+    	<if test="shop!=null and shop!=''">
+			AND shop =#{shop}
+		</if>
+		<if test="area!=null and area!=''">
+			AND area =#{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND zone =#{zone}
+		</if>
+		<if test="station!=null and station!=''">
+			AND station=#{station}
+		</if>
+		<if test="equipment!=null and equipment!=''">
+			AND equipment = #{equipment}
+		</if>
+		<if test="jobId!=null and jobId!=''">
+			AND job_id = #{jobId}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift =#{shift}
+		</if>
+		<if test="startTime!=null">
+			AND end_Time &gt;= CONVERT(datetime2,#{startTime},121)
+		</if>
+		<if test="endTime!=null">
+			AND end_Time &lt;= CONVERT(datetime2,#{endTime},121)
+		</if>
+    	group by facility_id,station,facility_desc,job_id,design_cycle_time
+    </select>
+    
+    <select id="qureyEchart" resultMap="cycleVoMap">
+	WITH mainquery AS (
+		SELECT
+			facility_id,station,facility_desc,cycle_time,design_cycle_time,
+			job_id "Job ID",cycle_type,bad_cycle_count
+			from PMC.dbo.PMC_BIW_CYCLE
+			where 1 = 1
+			<if test="shop!=null and shop!=''">
+				AND shop =#{shop}
+			</if>
+			<if test="area!=null and area!=''">
+				AND area =#{area}
+			</if>
+			<if test="zone!=null and zone!=''">
+				AND zone =#{zone}
+			</if>
+			<if test="station!=null and station!=''">
+				AND station=#{station}
+			</if>
+			<if test="equipment!=null and equipment!=''">
+				AND equipment = #{equipment}
+			</if>
+			<if test="jobId!=null and jobId!=''">
+				AND job_id = #{jobId}
+			</if>
+			<if test="shift!=null and shift!=''">
+				AND shift =#{shift}
+			</if>
+			<if test="startTime!=null">
+				AND end_Time &gt;= CONVERT(datetime2,#{startTime},121)
+			</if>
+			<if test="endTime!=null">
+				AND end_Time &lt;= CONVERT(datetime2,#{endTime},121)
+			</if>
+		)
+		select
+			x.facility_id as "FacilityID",
+			x.station,
+			x.facility_desc,
+			x.[Job ID],
+			x.design_cycle_time "Std Cycle Time",
+			x.design_cycle_time "Design Cycle Time",
+			ISNULL((select MIN(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] ),0)"Min Cycle Time",
+			ISNULL((select MAX(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] ),0)"Max Cycle Time",
+			ISNULL((select AVG(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] ),0)"Avg Cycle Time",
+			ISNULL((select sum(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] ),0)"Total Cycle Time",
+			ISNULL((select count(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] and y.cycle_type='Good Cycle'),0)"Good Cycle Time",
+			ISNULL((select count(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] and y.bad_cycle_count = 1),0)"Bad Cycle Time"
+		from (
+			SELECT
+				y.facility_id,y.station,y.facility_desc,y.[Job ID],y.design_cycle_time
+			FROM mainquery y
+			group by y.facility_id,station,facility_desc,y.[Job ID],y.design_cycle_time
+		) x order by FacilityID
+    </select>
+    	
+   	 <select id="qureyCycleList" resultMap="cycleVoMap">
+		WITH mainquery AS (
+			SELECT
+				facility_id,station,facility_desc,cycle_time,design_cycle_time,
+				job_id "Job ID",cycle_type,bad_cycle_count
+				from PMC.dbo.PMC_BIW_CYCLE
+				where 1 = 1
+				<if test="shop!=null and shop!=''">
+					AND shop =#{shop}
+				</if>
+				<if test="area!=null and area!=''">
+					AND area =#{area}
+				</if>
+				<if test="zone!=null and zone!=''">
+					AND zone =#{zone}
+				</if>
+				<if test="station!=null and station!=''">
+					AND station=#{station}
+				</if>
+				<if test="equipment!=null and equipment!=''">
+					AND equipment = #{equipment}
+				</if>
+				<if test="jobId!=null and jobId!=''">
+					AND job_id = #{jobId}
+				</if>
+				<if test="shift!=null and shift!=''">
+					AND shift =#{shift}
+				</if>
+				<if test="startTime!=null">
+					AND end_Time &gt;= CONVERT(datetime2,#{startTime},121)
+				</if>
+				<if test="endTime!=null">
+					AND end_Time &lt;= CONVERT(datetime2,#{endTime},121)
+				</if>
+		)
+		select
+			x.facility_id as "FacilityID",
+			x.station,
+			x.facility_desc,
+			x.[Job ID],
+			x.design_cycle_time "Std Cycle Time",
+			x.design_cycle_time "Design Cycle Time",
+			ISNULL((select MIN(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] ),0)"Min Cycle Time",
+			ISNULL((select MAX(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] ),0)"Max Cycle Time",
+			ISNULL((select AVG(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] ),0)"Avg Cycle Time",
+			ISNULL((select sum(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] ),0)"Total Cycle Time",
+			ISNULL((select count(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] and y.cycle_type='Good Cycle'),0)"Good Cycle Time",
+			ISNULL((select count(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] and y.bad_cycle_count = 1),0)"Bad Cycle Time"
+		from (
+			SELECT
+				top 100 PERCENT ROW_NUMBER() OVER (ORDER BY y.facility_id) ROWNUMS,
+				y.facility_id,y.station,y.facility_desc,y.[Job ID],y.design_cycle_time
+			FROM mainquery y
+			group by y.facility_id,station,facility_desc,y.[Job ID],y.design_cycle_time
+		) x WHERE ROWNUMS BETWEEN #{page} AND #{limit} order by ROWNUMS
+    </select>
+	
+</mapper>

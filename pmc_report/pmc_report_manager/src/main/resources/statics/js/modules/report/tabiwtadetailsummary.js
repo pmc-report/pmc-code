@@ -146,6 +146,7 @@ function queryReport(tag,params){
 		initTASummaryTable(url,params);
 		echars(params);
 	}
+	clearForm("fromexport");
 	setPorpById('exportBtn','disabled',true);
 }
 
