@@ -1,6 +1,7 @@
 package gean.pmc_report_manager.modules.report.service.impl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,24 +26,6 @@ public class TaEquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFault
 	
 	@Override
 	 public TaEquFaultEntity queryTotalMins(Map<String, Object> params){
-
-			/* Map<String, Object> faultMap = new HashMap<>();
-				for(String str : params.keySet()) {
-					String sTime = (String)params.get("sTime");
-					if(StringUtils.isNotNull(sTime)&&"sTime".equals(str)) {
-						sTime = sTime+" 00:00:00";
-						//Date startTime = DateUtils.stringToDate(sTime, DateUtils.DATE_TIME_PATTERN);
-						faultMap.put(str,sTime);
-					}
-					
-					String eTime = (String)params.get("eTime");
-					if(StringUtils.isNotNull(eTime)&&"eTime".equals(str)) {
-						eTime = eTime+" 23:59:59";
-						//Date endTime = DateUtils.stringToDate(eTime, DateUtils.DATE_TIME_PATTERN);
-						faultMap.put(str, eTime);
-					}
-					faultMap.put(str, params.get(str) != null ? params.get(str) : null);
-				}*/
 		
 				PageParamVo vo = new PageParamVo(params);
 						
@@ -118,5 +101,25 @@ public class TaEquFaultServiceImpl extends ServiceImpl<TaEquFaultDao, TaEquFault
 
 		List<FaultVo> faultList = baseMapper.qureyFualtList(vo);
 		return faultList;
+	}
+	
+	
+	
+	@Override
+	public List<FaultVo> queryFaultsList(Map<String, Object> params) {
+		PageParamVo vo = new PageParamVo(params);
+		List<FaultVo> faultsList= baseMapper.queryFaultsList(vo);
+		List<FaultVo> list = new ArrayList<>();
+		FaultVo _new = null;
+		for (FaultVo faultsVo : faultsList) {
+			_new = new FaultVo();
+			_new.setFacilityId(faultsVo.getFacilityId());
+			_new.setOccurence(faultsVo.getOccurence());
+			_new.setMinutes(faultsVo.getMinutes());
+			_new.setStation(faultsVo.getStation());
+			_new.setFaultDescription(faultsVo.getFaultDescription());
+			list.add(_new);
+		}
+		return list;
 	}
 }

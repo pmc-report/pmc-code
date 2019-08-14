@@ -65,6 +65,9 @@ public class JasperExportUtils {
 			prepareReport(jasperReport, type);
 			JRDataSource ds = new JRBeanCollectionDataSource(datas, false);
 			Map parameters = new HashMap();
+			if("TA_Detail_报表".equals(exportName)) {
+				parameters.put("SUBREPORT_DIR", "export/");
+			}
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 
 			if (EXCEL_TYPE.equals(type)) {

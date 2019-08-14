@@ -757,6 +757,8 @@ function resetTableTitle(){
 	resetTableHeader("faultOrderTableHeader");
 	resetTableHeader("taSTableTitleHeader");
 	resetTableHeader("lossTableHeader");
+	resetTableHeader("tadTableTitleHeader");
+	resetTableHeader("cycleTableHeader");
 }
 
 function resetTableHeader(tableid){

@@ -36,5 +36,7 @@ public interface TaEquFaultService extends IService<TaEquFaultEntity> {
      */
     List<FaultVo> queryExportFault(Map<String, Object> params);
 
+    
+    List<FaultVo> queryFaultsList(Map<String, Object> params);
 }
 

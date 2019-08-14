@@ -52,15 +52,14 @@ public class FaultLossController {
 	
 	@RequestMapping("/lossList")
 	public R findLossList(@RequestParam Map<String, Object> params) {
-		PageUtils page = lossService.queryFaultLossOcc(params);
-		return R.ok().put("page", page);
+		List<LossOPRVo> list = lossService.queryFaultLossOcc(params);
+		return R.ok().put("list", list);
 	}
 	
 	@RequestMapping("/exportFault")
     public void exportEquFault(HttpServletRequest request,HttpServletResponse response,@RequestParam Map<String,Object> params) {
 
-		PageUtils page = lossService.queryFaultLossOcc(params);
-		List<LossOPRVo> result = (List<LossOPRVo>) page.getList();
+		List<LossOPRVo> result = lossService.queryFaultLossOcc(params);
         List<LossOPRVo> exportList = new ArrayList<LossOPRVo>();
         if(result!= null && !result.isEmpty()) {
         	for (LossOPRVo loss : result) {
@@ -68,7 +67,6 @@ public class FaultLossController {
         		loss.setArea(!StringUtils.isNotBlank((String)params.get("area")) ? "ALL" : (String)params.get("area"));
         		loss.setZone(!StringUtils.isNotBlank((String)params.get("zone")) ? "ALL" : (String)params.get("zone"));
         		loss.setShift(!StringUtils.isNotBlank((String)params.get("shift")) ? "ALL" : (String)params.get("shift"));
-        		loss.setYear("2019");
         		loss.setOprEchart(!StringUtils.isNotBlank((String)params.get("echarepxport")) ? "" : (String)params.get("echarepxport"));
         		loss.setMinLossEchart(!StringUtils.isNotBlank((String)params.get("echarepxport1")) ? "" : (String)params.get("echarepxport1"));
         		loss.setProdLossEchart(!StringUtils.isNotBlank((String)params.get("echarepxport2")) ? "" : (String)params.get("echarepxport2"));

@@ -40,6 +40,9 @@ public class TaSummaryServiceImpl implements TaSummaryService{
 		PageParamVo paramVo = new PageParamVo(param);
 		paramVo.setStartTime(preStartTime);
 		paramVo.setEndTime(preEndTime);
+		
+		PanelVo ta = panelDao.queryTarTavMtbf(paramVo);
+		
 		Map<String,Object> preTaMap = panelDao.queryTaSummary(paramVo);
 		Map<String,Object> preVolMap = panelDao.queryVol(paramVo);
 		
@@ -74,13 +77,15 @@ public class TaSummaryServiceImpl implements TaSummaryService{
 			curPordVol = Integer.valueOf(curVolMap.get("prod_vol").toString());
 		}
 		if(!StringUtils.isEmpty(preTaMap)) {
-			targetTa = Float.valueOf(preTaMap.get("tar_tech_avail")==null?"0.00":preTaMap.get("tar_tech_avail").toString());
+			targetTa = Float.valueOf(df.format(ta.getTargetTav()));
+
+			//targetTa = Float.valueOf(preTaMap.get("tar_tech_avail")==null?"0.00":preTaMap.get("tar_tech_avail").toString());
 			preActTa = Float.valueOf(preTaMap.get("tech_avail")==null?"0.00":preTaMap.get("tech_avail").toString());
-			preGap = Float.valueOf(preTaMap.get("Gap")==null?"0.00":preTaMap.get("Gap").toString());
+			preGap = Float.valueOf((preActTa*100)-targetTa);
 		}
 		if(!StringUtils.isEmpty(curTaMap)) {
 			curActTa = Float.valueOf(curTaMap.get("tech_avail")==null?"0.00":curTaMap.get("tech_avail").toString());
-			curGap = Float.valueOf(curTaMap.get("Gap")==null?"0.00":curTaMap.get("Gap").toString());
+			curGap = Float.valueOf((curActTa*100)- targetTa);
 			
 		}
 		

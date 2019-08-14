@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2" language="groovy" pageWidth="1300" pageHeight="595" orientation="Landscape" columnWidth="1260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c380ecfa-0df5-43c4-b6b3-f6db35fb75c6">
-	<property name="ireport.zoom" value="1.1269722013523682"/>
+	<property name="ireport.zoom" value="0.699761070314601"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<field name="shop" class="java.lang.String"/>
@@ -518,7 +518,7 @@
 	</columnHeader>
 	<detail>
 		<band height="30" splitType="Stretch">
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="184" y="0" width="112" height="30" uuid="d948b0ed-6b83-44c9-8135-d4c0b78c5904"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -530,7 +530,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{_facilityId}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="66" y="0" width="118" height="30" uuid="8a2a3a9b-e71a-4c91-adba-276aabdc0880"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -542,7 +542,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{_station}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="296" y="0" width="107" height="30" uuid="f6016df0-a79c-44b4-8c68-6d689f6ce715"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -554,7 +554,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{facilityDesc}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="471" y="0" width="86" height="30" uuid="a1f850ab-0ab2-4359-8e5c-01000c5af9c0"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -566,7 +566,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{stdCycleTime}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="403" y="0" width="68" height="30" uuid="40204d7c-4566-47e2-ad9e-c99c65353c07"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -580,7 +580,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{_jobId}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="557" y="0" width="87" height="30" uuid="ac4194ca-dce2-4f3a-b5aa-547f669d8763"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -592,7 +592,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{designCycleTime}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="644" y="0" width="84" height="30" uuid="a449e4f7-cbb1-4e81-85d5-b870c8d0116a"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -604,7 +604,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{minCycleTime}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="728" y="0" width="128" height="30" uuid="129d15c3-bbc2-41e6-9fdc-f00c94c17901"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -616,7 +616,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{maxCycleTime}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="856" y="0" width="134" height="30" uuid="aac94bd2-9ccd-46f9-abdd-2fedbb45ae59"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -628,7 +628,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{avgCycleTime}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="990" y="0" width="121" height="30" uuid="da195dd0-c098-483f-9516-ff72810a68ca"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -640,7 +640,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{effeciveCycleTime}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="1111" y="0" width="149" height="30" uuid="2f1927a7-e99d-42f2-8776-ee774c41e3fe"/>
 				<box>
 					<pen lineWidth="0.5"/>

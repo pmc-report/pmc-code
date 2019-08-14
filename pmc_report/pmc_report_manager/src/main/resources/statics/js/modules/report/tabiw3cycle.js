@@ -128,6 +128,15 @@ function Appendzero(obj){
 }
 
 function queryReport(tag,params){
+	console.log(params)
+	if(isNullOrBlank(params.sTime)){
+		alert("请选择开始时间");
+    	return ;
+	}
+	if(isNullOrBlank(params.eTime)){
+		alert("请选择查结束时间");
+    	return ;
+	}
 	
 	var url = baseURL + 'report/cycle/list';
 	if(tag == 'Biw3Cycle'){

@@ -7,10 +7,10 @@ $(function () {
 	//初始化查询条件展示栏
 	inittadtableTitle();
 	
-	//初始化MS01表格
-	inittadms01Table();
+	//初始化MS表格
+	//inittadmsTable();
 	//初始化Faults表格
-	inittadfaultsTable();
+	//inittadfaultsTable();
 	selectChange();
 });
 
@@ -59,34 +59,158 @@ function inittadtableTitle(params) {
 	$('#tadTableTitleHeader tr:eq(0) td:last-child').html('');
 	$('#tadTableTitleHeader tr:eq(1) td:eq(5)').html('');
 	$('#tadTableTitleHeader tr:eq(1) td:last-child').html('');
+		if(params != null && params != ''){
+		
+		if(params.shop != null && params.shop.trim() != ''){
+			$('#tadTableTitleHeader tr:eq(0) td:eq(1)').html(params.shop);
+		}else{
+			$('#tadTableTitleHeader tr:eq(0) td:eq(1)').html("All");
+		}
+		
+		if(params.area != null && params.area.trim() != ''){
+			$('#tadTableTitleHeader tr:eq(0) td:eq(3)').html(params.area);
+		}else{
+			$('#tadTableTitleHeader tr:eq(0) td:eq(3)').html("All");
+		}
+		
+		if(params.zone != null && params.zone.trim() != ''){
+			$('#tadTableTitleHeader tr:eq(0) td:eq(5)').html(params.zone);
+		}else{
+			$('#tadTableTitleHeader tr:eq(0) td:eq(5)').html("All");
+		}
+		
+		if(params.shift != null && params.shift.trim() != ''){
+			$('#tadTableTitleHeader tr:eq(1) td:eq(1)').html(params.shift);
+		}else{
+			$('#tadTableTitleHeader tr:eq(1) td:eq(1)').html("All");
+		}
+		
+		if(params.sTime != null && params.sTime.trim() != ''){
+			$('#tadTableTitleHeader tr:eq(0) td:eq(7)').html(params.sTime);
+		}else{
+			$('#tadTableTitleHeader tr:eq(0) td:eq(7)').html("All");
+		}
+		
+		if(params.jobId != null && params.jobId.trim() != ''){
+			$('#tadTableTitleHeader tr:eq(1) td:eq(3)').html(params.jobId);
+		}else{
+			$('#tadTableTitleHeader tr:eq(1) td:eq(3)').html("All");
+		}
+		
+		if(params.eTime != null && params.eTime.trim() != ''){
+			$('#tadTableTitleHeader tr:eq(1) td:eq(7)').html(params.eTime);
+		}else{
+			$('#tadTableTitleHeader tr:eq(1) td:eq(7)').html("All");
+		}
+		
+		var mydate = new Date();
+		var createTime = mydate.getFullYear() + '-'+ Appendzero(mydate.getMonth()+1) + '-' + Appendzero(mydate.getDate()) +'  '+mydate.getHours() + ':' + Appendzero(mydate.getMinutes())+':'+Appendzero(mydate.getSeconds());
+		$('#tadTableTitleHeader tr:eq(1) td:eq(9)').html(createTime);
+		}
+}
+
+function Appendzero(obj){
+	if (obj < 10) {
+		return "0" + "" + obj;
+	} else {
+		return obj;
+	}
 }
 
 function queryReport(tag,params){
 	
-	var url = baseURL + 'report/opr/list';
-	if(tag=='TADOPR'){
+	var sTime = params.sTime;
+	var eTime = params.eTime;
+	var area = params.area;
+	var zone = params.zone;
+	if(isNullOrBlank(area)){
+		alert("请选择区域");
+    	return ;
+	}
+	if(isNullOrBlank(zone)){
+		alert("请选择Zone");
+    	return ;
+	}
+	if(isNullOrBlank(sTime)){
+		alert("请选择开始时间");
+    	return ;
+	}
+	if(isNullOrBlank(eTime)){
+		alert("请选择结束时间");
+    	return ;
+	}
+	
+	var url = baseURL + 'report/detail/list';
+	
+	if(tag=='TADETAIL'){
 		
 		inittadtableTitle(params);
-		inittadms01Table(url,params);
-		inittadfaultsTable(url,params);
+		inittadmsTable(params);
+		inittadfaultsTable(params);
 	}
+	clearForm("fromexport");
+	setPorpById('detailBtn','disabled',false);
 }
 
-function inittadms01Table(url,queryParams){
+var sec_to_time = function(s) {
+    var t;
+    if(s > -1){
+        var hour = Math.floor(s/3600);
+        var min = Math.floor(s/60) % 60;
+        var sec = s % 60;
+        if(hour < 10) {
+            t = '0'+ hour + ":";
+        } else {
+            t = hour + ":";
+        }
+
+        if(min < 10){t += "0";}
+        t += min + ":";
+        if(sec < 10){t += "0";}
+        t += sec.toFixed(0);
+    }
+    return t;
+}
+
+function inittadmsTable(queryParams){
 	
-   var columns = [
-        { field: 'date', title: 'Date', align: 'center'},
-        { field: 'targetTa', title: 'Target TA', align: 'center'}, 
-        { field: 'ta', title: 'TA', align: 'center',},
+	var responseHandler = function (e) {
+	      //console.log(e);
+		  if (e.list !=null && e.list.length > 0) {
+	          return { "rows": e.list, "total": e.totalCount };
+	      } else {
+	          return { "rows": [], "total": 0};
+	      }
+	 }
+	
+	 var uidHandle = function (res) {
+	      var html = "<a href='#'>"+ res + "</a>";
+	      return html;
+	 }
+	 
+	 var dateFormatter = function(value, row, index){
+	    return sec_to_time(value);
+	 } 
+	 
+	 var numFormatter = function(value){
+		 if(value != null){
+			 return value.toFixed(2);
+		 }
+	 }
+	 var columns = [
+	   	{ field: 'equipment', title: 'MS', align: 'center'},
+        { field: 'workDay', title: 'Date', align: 'center'},
+        { field: 'tarTechAvail', title: 'Target TA', align: 'center',formatter: numFormatter}, 
+        { field: 'techAvail', title: 'TA', align: 'center',formatter: numFormatter},
         { field: 'goodPartCount', title: 'Good Part Count', align:'center'}, 
-        { field: 'downTime', title: 'Downtime', align: 'center'}, 
-        { field: 'occ', title: 'Occ', align: 'center'},
-        { field: 'buildTime', title: 'Build Time', align: 'center'}
+        { field: 'downtime', title: 'Downtime', align: 'center',formatter: numFormatter}, 
+        { field: 'faultOcc', title: 'Occ', align: 'center'},
+        { field: 'buildTime', title: 'Build Time', align: 'center',formatter: numFormatter}
     ];
    
-	  $('#tad_MS01').empty();
-	  $('#tad_MS01').bootstrapTable('destroy').bootstrapTable({
-	      url: url,   						  //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
+	  $('#tad_MS').empty();
+	  $('#tad_MS').bootstrapTable('destroy').bootstrapTable({
+	      url: 'detail/listMS',   						  //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
 	      method: "post",                     //使用get请求到服务器获取数据
 	      dataType: "json",
 	      contentType: "application/x-www-form-urlencoded",
@@ -109,7 +233,7 @@ function inittadms01Table(url,queryParams){
 	      clickToSelect: true,                //是否启用点击选中行
 	      minimumCountColumns: 2,             //最少允许的列数 clickToSelect: true, //是否启用点击选中行
 	      pageNumber: 1,                      //初始化加载第一页，默认第一页
-	      pageSize: 10,                    	  //每页的记录行数（*）
+	      pageSize: 100,                    	  //每页的记录行数（*）
 	      pageList: [10, 25, 50, 100],     	  //可供选择的每页的行数（*）
 	      //showExport: true,  				  //是否显示导出按钮  
 		  exportDataType:'all', 			  //导出所有数据
@@ -119,14 +243,16 @@ function inittadms01Table(url,queryParams){
 	     // smartDisplay: true,					//智能显示分页按钮
 	     // paginationPreText: "上一页",
 	     // paginationNextText: "下一页",
-//	      responseHandler: responseHandler,
+	      responseHandler: responseHandler,
 	      hasPreviousPage: true,
 	     // hasNextPage: true,
 	    //  lastPage: true,
 	    //  firstPage: true,
 	      columns: columns,
+	      
 	      queryParams : function(params) {
-		      return {
+	    	  
+	    	  return {
 	            	area : queryParams.area,
 					zone : queryParams.zone,
 					eTime: queryParams.eTime,
@@ -135,20 +261,8 @@ function inittadms01Table(url,queryParams){
 					shop: queryParams.shop,
 					jobId : queryParams.jobId,
 		      	}
+		      
 		  },
-//	      exportOptions : {  
-//	          ignoreColumn: [0],  				//忽略某一列的索引  
-//	          fileName: '区域OPR报表',  			//文件名称设置  
-//	          worksheetName: '区域 OPR',  			//表格工作区名称  
-//	          tableName: '区域OPR报表',  
-//	          excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],  
-//	          onMsoNumberFormat: function DoOnMsoNumberFormat(cell, row, col) {  
-//					               var result = "";  
-//					               if (row > 0 && col == 0)  
-//					                   result = "\\@";  
-//					               return result;  
-//	           		}    
-//	      }, 
 	      onLoadSuccess: function (data) { 		//加载成功时执行
 	          //console.log(data);
 	      },
@@ -158,18 +272,37 @@ function inittadms01Table(url,queryParams){
 	  });
 }
 
-function inittadfaultsTable(url,queryParams){
+function inittadfaultsTable(queryParams){
 	
+	var responseHandler = function (e) {
+	      //console.log(e);
+		  if (e.list !=null && e.list.length > 0) {
+	          return { "rows": e.list, "total": e.totalCount };
+	      } else {
+	          return { "rows": [], "total": 0 };
+	      }
+		
+	 }
+		
+		 var uidHandle = function (res) {
+		      var html = "<a href='#'>"+ res + "</a>";
+		      return html;
+		 }
+		 
+		 var dateFormatter = function(value, row, index){
+		    return sec_to_time(value);
+	   } 
 	   var columns = [
-	        { field: 'occ2', title: 'Occ', align: 'center'},
+		   	{ field: 'station', title: 'MS', align: 'center'},
+	        { field: 'occurence', title: 'Occ', align: 'center'},
 	        { field: 'minutes', title: 'Minutes', align: 'center',}, 
-	        { field: 'station', title: 'Station', align: 'center',},
-	        { field: 'description', title: 'Description', align:'center',}, 
+	        { field: 'facilityId', title: 'Station', align: 'center',},
+	        { field: 'faultDescription', title: 'Description', align:'center',}, 
 	    ];
 	   
 		  $('#tad_Faults').empty();
 		  $('#tad_Faults').bootstrapTable('destroy').bootstrapTable({
-		      url: url,   						  //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
+		      url: 'detail/listFaults',   						  //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
 		      method: "post",                     //使用get请求到服务器获取数据
 		      dataType: "json",
 		      contentType: "application/x-www-form-urlencoded",
@@ -192,7 +325,7 @@ function inittadfaultsTable(url,queryParams){
 		      clickToSelect: true,                //是否启用点击选中行
 		      minimumCountColumns: 2,             //最少允许的列数 clickToSelect: true, //是否启用点击选中行
 		      pageNumber: 1,                      //初始化加载第一页，默认第一页
-		      pageSize: 10,                    	  //每页的记录行数（*）
+		      pageSize: 100,                    	  //每页的记录行数（*）
 		      pageList: [10, 25, 50, 100],     	  //可供选择的每页的行数（*）
 		      //showExport: true,  				  //是否显示导出按钮  
 			  exportDataType:'all', 			  //导出所有数据
@@ -202,14 +335,14 @@ function inittadfaultsTable(url,queryParams){
 		     // smartDisplay: true,					//智能显示分页按钮
 		     // paginationPreText: "上一页",
 		     // paginationNextText: "下一页",
-//		      responseHandler: responseHandler,
+		      responseHandler: responseHandler,
 		      hasPreviousPage: true,
 		     // hasNextPage: true,
 		    //  lastPage: true,
 		    //  firstPage: true,
 		      columns: columns,
 		      queryParams : function(params) {
-			      return {
+		    	 return {
 		            	area : queryParams.area,
 						zone : queryParams.zone,
 						eTime: queryParams.eTime,
@@ -219,24 +352,62 @@ function inittadfaultsTable(url,queryParams){
 						jobId : queryParams.jobId,
 			      	}
 			  },
-//		      exportOptions : {  
-//		          ignoreColumn: [0],  				//忽略某一列的索引  
-//		          fileName: '区域OPR报表',  			//文件名称设置  
-//		          worksheetName: '区域 OPR',  			//表格工作区名称  
-//		          tableName: '区域OPR报表',  
-//		          excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],  
-//		          onMsoNumberFormat: function DoOnMsoNumberFormat(cell, row, col) {  
-//						               var result = "";  
-//						               if (row > 0 && col == 0)  
-//						                   result = "\\@";  
-//						               return result;  
-//		           		}    
-//		      }, 
+		      exportOptions : {  
+		          ignoreColumn: [0],  				//忽略某一列的索引  
+		          fileName: 'TA DETAIL报表',  			//文件名称设置  
+		          worksheetName: 'TA DETAIL',  			//表格工作区名称  
+		          tableName: 'TA DETAIL报表',  
+		          excelstyles: ['background-color', 'color', 'font-size', 'font-weight'],  
+		          onMsoNumberFormat: function DoOnMsoNumberFormat(cell, row, col) {  
+					               var result = "";  
+						               if (row > 0 && col == 0)  
+					                   result = "\\@";  
+					               return result;  
+	           		}    
+		      }, 
 		      onLoadSuccess: function (data) { 		//加载成功时执行
 		          //console.log(data);
+		    	  setPorpById('detailBtn','disabled',false);
 		      },
 		      onLoadError: function (res) { 		//加载失败时执行
 		          //console.log(res);
 		      }
 		  });
 	}
+
+function exportdetail(param) {
+	
+	var area = $("#area_search").val();
+	var zone = $("#zone_search").val();
+	var jobId = $("#jobId_search").val();
+	var startTime = $("#startTime").val();
+	var endTime = $("#endTime").val();
+	var shift = $("#shift_search").val();
+	 
+
+	var params = {
+		shop : $("#shop_search").val(),
+		area : isNullOrBlank(area)?'':area,
+		zone : isNullOrBlank(zone)?'':zone,
+		shift : isNullOrBlank(shift)?'':shift,
+		jobId : isNullOrBlank(jobId)?'':jobId,
+		sTime : startTime,
+		eTime : endTime,
+		exportType: param
+		} ;
+
+		createReportInput(params);
+		document.getElementById("fromexport").action = baseURL +'modules/report/detail/exportDetail';
+		$("#fromexport").submit();
+}
+
+function createReportInput(params){
+	var inputParams = '';
+	var inputSearch = '';
+	debugger
+	for(var index in params){
+		inputSearch += '<input type = "hidden" name = "'+index+'" value = "'+params[index]+'"/>'
+	}
+	inputParams += inputSearch;
+	$("#fromexport").prepend(inputParams);
+ }

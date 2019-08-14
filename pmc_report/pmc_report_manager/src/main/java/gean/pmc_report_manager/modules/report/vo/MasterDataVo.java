@@ -32,5 +32,10 @@ public class MasterDataVo {
     /*** 设计节拍时间*/
     private Integer standardCycleTime;
     
-
+    /*** 编号*/
+    private Integer rn;
+    
+    /** tavStation*/
+    private String tavStation;
+    
 }

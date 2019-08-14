@@ -114,5 +114,16 @@ public class AtPmcMasterdataConfigServiceImpl extends ServiceImpl<AtPmcMasterdat
 		}
 		return null;
 	}
+
+	@Override
+	public List<MasterDataVo> queryTAV(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		List<MasterDataVo> tavData = baseMapper.queryTavInfo(params);
+		if(tavData != null && !tavData.isEmpty()) {
+			return tavData;
+		}else {
+			return null;
+		}
+	}
 	
 }

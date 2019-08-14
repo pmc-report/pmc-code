@@ -47,5 +47,7 @@ public interface TaBiw39panelDao extends BaseMapper<TaBiw39panelEntity> {
     
     List<PanelVo> queryTrendChart(PageParamVo vo);
     
+    List<TaBiw39panelEntity> queryMsList(PageParamVo vo);
+    
     
 }

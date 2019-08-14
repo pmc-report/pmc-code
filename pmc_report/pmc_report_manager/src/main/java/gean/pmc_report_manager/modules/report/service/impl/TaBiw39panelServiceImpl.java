@@ -330,5 +330,33 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 		return null;
 	}
 
+	@Override
+	public List<TaBiw39panelEntity> queryMsList(Map<String, Object> params) {
+		PageParamVo vo = new PageParamVo(params);
+		if(vo.getShift()==null
+				||"".equals(vo.getShift())) {
+			vo.setShift("ALL");
+		}
+		List<TaBiw39panelEntity> msList= baseMapper.queryMsList(vo);
+		List<TaBiw39panelEntity> list = new ArrayList<>();
+		TaBiw39panelEntity _new = null;
+		DecimalFormat df = new DecimalFormat("##0.00");
+		if(!StringUtils.isEmpty(msList)) {
+			for (TaBiw39panelEntity taBiw39panelEntity : msList) {
+				_new = new TaBiw39panelEntity();
+				_new.setEquipment(taBiw39panelEntity.getEquipment());
+				_new.setWorkDay(taBiw39panelEntity.getWorkDay());
+				_new.setTarTechAvail(Float.parseFloat(df.format(taBiw39panelEntity.getTarTechAvail())));
+				_new.setTechAvail(Float.parseFloat(df.format(taBiw39panelEntity.getTechAvail())));
+				_new.setGoodPartCount(taBiw39panelEntity.getGoodPartCount());
+				//_new.setDowntime(Float.parseFloat(df.format(taBiw39panelEntity.getDowntime())));
+				_new.setFaultOcc(taBiw39panelEntity.getFaultOcc());
+				//_new.setBuildTime(Float.parseFloat(df.format(taBiw39panelEntity.getBuildTime())));
+				list.add(_new);
+			}
+		}
+		
+		return list;
+	}
 	
 }

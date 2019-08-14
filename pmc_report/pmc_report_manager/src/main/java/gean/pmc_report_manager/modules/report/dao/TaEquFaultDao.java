@@ -35,5 +35,7 @@ public interface TaEquFaultDao extends BaseMapper<TaEquFaultEntity> {
 	List<FaultOrderVo> queryCurrShiftFaults(PageParamVo vo);
 	
 	List<FaultOrderVo> queryPreShiftFaults(PageParamVo vo);
+	
+	List<FaultVo> queryFaultsList(PageParamVo vo);
 
 }

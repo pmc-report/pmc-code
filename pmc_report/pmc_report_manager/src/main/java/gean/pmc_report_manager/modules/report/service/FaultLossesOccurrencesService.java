@@ -29,5 +29,5 @@ public interface FaultLossesOccurrencesService extends IService<TaEquFaultEntity
 	 * @param params
 	 * @return fault loss list
 	 */
-	PageUtils queryFaultLossOcc(Map<String, Object> params);
+	List<LossOPRVo> queryFaultLossOcc(Map<String, Object> params);
 }

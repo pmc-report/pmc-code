@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>OPR 报表</title>
+    <title>TA DETAIL 报表</title>
 		<#include "/header.html">
 </head>
 <body>
@@ -61,23 +61,33 @@
 					</div>
 					<div class="form-group form-group-sm find-action col-xs-12 col-sm-6 col-md-4 col-lg-3" data-field="Q_name_EQ">
 						<div class="col-xs-12">
-							<button type="button" class="btn btn-primary btn-sm" onclick="search('TADOPR')">&nbsp;查询</button>
+							<button type="button" class="btn btn-primary btn-sm" onclick="search('TADETAIL')">&nbsp;查询</button>
 							<button type="button" class="btn btn-warning btn-sm" onclick="resetParam()">&nbsp;重置</button>
 							<div class="btn-group">
-    							<button id="exportBtn" type="button" class="btn btn-primary dropdown-toggle btn-sm" disabled="disabled" data-toggle="dropdown">导出
+    							<button id="detailBtn" type="button" class="btn btn-primary dropdown-toggle btn-sm" disabled="disabled" data-toggle="dropdown">导出
        								<span class="caret"></span>
     							</button>
     							<ul class="dropdown-menu" role="menu">
        								<li>
-            							<a href="#" >word</a>
+            							<a href="#" onclick="exportdetail('word')">word</a>
         							</li>
         							<li>
-            							<a href="#" >excel</a>
+            							<a href="#" onclick="exportdetail('excel')">excel</a>
         							</li>
     							</ul>
 							</div>
 						</div>
 					</div>
+				</form>
+				<form method="post" id = "exportdetail" style ="float: right;">
+					<input type = "hidden" name = "shop" id = "detailshop" />
+					<input type = "hidden" name = "area" id = "detailarea"/>
+					<input type = "hidden" name = "zone" id = "detailzone"/>
+					<input type = "hidden" name = "jobId" id = "detailjobId"/>
+					<input type = "hidden" name = "sTime" id = "detailstime"/>
+					<input type = "hidden" name = "eTime" id = "detaileTime"/>
+					<input type = "hidden" name = "shift" id = "detailshift"/>
+					<input type = "hidden" name = "exoprtType" id = "selectExportType"/>
 				</form>
 			</div>
 		</div>    		
@@ -92,15 +102,15 @@
 		<div class="panel-heading">
 			<h3 class="panel-title">
 			    <a data-toggle="collapse" data-parent="#accordion" href="#result">
-					 <span class='glyphicon glyphicon-th'>&nbsp查询结果-MS01</span>
+					 <span class='glyphicon glyphicon-th'>&nbsp查询结果-MS</span>
 				</a>
 			</h3>
 		</div>
 		<div id="result" class="panel-collapse collapse in">
 			<div class="panel-body">
 				<div>
-					<div>
-						<table id="tad_MS01"></table>
+					<div id ="tadTableStyle">
+						<table id="tad_MS"></table>
 					</div>
 				</div>
 			</div>
@@ -117,13 +127,15 @@
 		<div id="collapseTwo" class="panel-collapse collapse in">
 			<div class="panel-body">
 				<div>
-					<div>
+					<div id ="tadTableStyle">
 						<table id="tad_Faults"></table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<form action="" id = "fromexport" method="post">
+	</form> 
 	<script src="${request.contextPath}/statics/js/modules/report/tabiwtadetail.js?_${.now?long}"></script>
 </body>
 </html>

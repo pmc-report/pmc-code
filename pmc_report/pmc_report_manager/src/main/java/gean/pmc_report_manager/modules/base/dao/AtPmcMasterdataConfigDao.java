@@ -69,11 +69,15 @@ public interface AtPmcMasterdataConfigDao extends BaseMapper<AtPmcMasterdataConf
 	/** 查当前一班次信息*/
 	@Transactional
     @DataSource("slave2")
-	 Map<String,Object> queryBeforeShift();
+	Map<String,Object> queryBeforeShift();
 	
 	/** 查当当班次信息*/
 	@Transactional
     @DataSource("slave2")
-	 Map<String,Object> queryCurrentShift();
+	Map<String,Object> queryCurrentShift();
 	
+	/** 获取zone下的TAV信息*/
+	@Transactional
+    @DataSource("slave2")
+	List<MasterDataVo> queryTavInfo(Map<String, Object> params);
 }

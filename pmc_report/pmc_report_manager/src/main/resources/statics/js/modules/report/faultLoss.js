@@ -118,8 +118,8 @@ function initLossTable(queryParams){
 	});
 	// console.log(queryParams);
 	var responseHandler = function (e) {
-	      if (e.page.list !=null && e.page.list.length > 0) {
-	          return { "rows": e.page.list, "total": e.page.totalCount };
+	      if (e.list !=null && e.list.length > 0) {
+	          return { "rows": e.list, "total": e.list.length };
 	      } else {
 	          return { "rows": [], "total": 0 };
 	      }
@@ -135,6 +135,13 @@ function initLossTable(queryParams){
 	 var dateFormatter = function(value, row, index){
  	    return sec_to_time(value);
      } 
+	 
+	 var replaceFormatter = function(value, row, index){
+		 if(value==null){
+			 return "0";
+		 }
+		 return value;
+	 }
 	 
      var columns = [
     	 	[
@@ -163,41 +170,41 @@ function initLossTable(queryParams){
 	          { field: 'facilityDesc', title: '设备', align: 'center', sortable:false },
 	          { field: 'facilityId', title: '设备号', align: 'center', sortable:false }, 
 	          { field: 'pps', title: 'PPS', align: 'center', sortable:false }, 
-	          { field: 'loss1', title: 'L', align: 'center'},
-	          { field: 'occ1', title: 'O', align:'center' }, 
+	          { field: 'loss1', title: 'L', align: 'center',formatter:replaceFormatter},
+	          { field: 'occ1', title: 'O', align:'center',formatter:replaceFormatter }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss2', title: 'L', align: 'center'},
-	          { field: 'occ2', title: 'O', align:'center' }, 
+	          { field: 'loss2', title: 'L', align: 'center',formatter:replaceFormatter},
+	          { field: 'occ2', title: 'O', align:'center',formatter:replaceFormatter }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss3', title: 'L', align: 'center'},
-	          { field: 'occ3', title: 'O', align:'center' }, 
+	          { field: 'loss3', title: 'L', align: 'center',formatter:replaceFormatter},
+	          { field: 'occ3', title: 'O', align:'center',formatter:replaceFormatter }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss4', title: 'L', align: 'center'},
-	          { field: 'occ4', title: 'O', align:'center' }, 
+	          { field: 'loss4', title: 'L', align: 'center',formatter:replaceFormatter},
+	          { field: 'occ4', title: 'O', align:'center',formatter:replaceFormatter }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss5', title: 'L', align: 'center'},
-	          { field: 'occ5', title: 'O', align:'center' }, 
+	          { field: 'loss5', title: 'L', align: 'center',formatter:replaceFormatter},
+	          { field: 'occ5', title: 'O', align:'center',formatter:replaceFormatter }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss6', title: 'L', align: 'center'},
-	          { field: 'occ6', title: 'O', align:'center' }, 
+	          { field: 'loss6', title: 'L', align: 'center',formatter:replaceFormatter},
+	          { field: 'occ6', title: 'O', align:'center',formatter:replaceFormatter }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss7', title: 'L', align: 'center'},
-	          { field: 'occ7', title: 'O', align:'center' }, 
+	          { field: 'loss7', title: 'L', align: 'center',formatter:replaceFormatter},
+	          { field: 'occ7', title: 'O', align:'center',formatter:replaceFormatter }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss8', title: 'L', align: 'center'},
-	          { field: 'occ8', title: 'O', align:'center' }, 
+	          { field: 'loss8', title: 'L', align: 'center',formatter:replaceFormatter},
+	          { field: 'occ8', title: 'O', align:'center',formatter:replaceFormatter }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss9', title: 'L', align: 'center'},
-	          { field: 'occ9', title: 'O', align:'center' }, 
+	          { field: 'loss9', title: 'L', align: 'center',formatter:replaceFormatter},
+	          { field: 'occ9', title: 'O', align:'center',formatter:replaceFormatter }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss10', title: 'L', align: 'center'},
-	          { field: 'occ10', title: 'O', align:'center' }, 
+	          { field: 'loss10', title: 'L', align: 'center',formatter:replaceFormatter},
+	          { field: 'occ10', title: 'O', align:'center',formatter:replaceFormatter }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss11', title: 'L', align: 'center'},
-	          { field: 'occ11', title: 'O', align:'center' }, 
+	          { field: 'loss11', title: 'L', align: 'center',formatter:replaceFormatter},
+	          { field: 'occ11', title: 'O', align:'center',formatter:replaceFormatter }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss12', title: 'L', align: 'center'},
-	          { field: 'occ12', title: 'O', align:'center' }, 
+	          { field: 'loss12', title: 'L', align: 'center',formatter:replaceFormatter},
+	          { field: 'occ12', title: 'O', align:'center',formatter:replaceFormatter }, 
 	          { field: 'input', title: 'A', align: 'center'}
 	         ]
      ];
@@ -217,16 +224,16 @@ function initLossTable(queryParams){
 	                                          //设置为"limit",符合 RESTFul 格式的参数,可以获取limit, offset, search, sort, order 
 	      sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）                 //是否启用排序;意味着整个表格都会排序         // 设置默认排序为 name
 	      sortOrder: "asc",                   //排序方式
-	      pagination: true,                   //是否显示分页（*）
+	      pagination: false,                   //是否显示分页（*）
 	      search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 	      strictSearch: true,
 	      //showColumns: true,                  //是否显示所有的列
 	      //showRefresh: true,                  //是否显示刷新按钮
 	      //showToggle:true,                    //是否显示详细视图和列表视图
 	      //clickToSelect: true,                //是否启用点击选中行
-	      minimumCountColumns: 2,             //最少允许的列数 clickToSelect: true, //是否启用点击选中行
-	      pageNumber: 1,                      //初始化加载第一页，默认第一页
-	      pageSize: 100,                    	  //每页的记录行数（*）
+	      //minimumCountColumns: 2,             //最少允许的列数 clickToSelect: true, //是否启用点击选中行
+	      //pageNumber: 1,                      //初始化加载第一页，默认第一页
+	      //pageSize: 100,                    	  //每页的记录行数（*）
 	      responseHandler: responseHandler,
 	      columns: columns,
 	      queryParams : function(params) {
@@ -624,10 +631,10 @@ function echars2(params){
       	    
         	var	option = {
 					 grid:{
-						    x:40,
-			                y:20,
-			                x2:40,
-			                y2:20,
+						    x:50,
+			                y:30,
+			                x2:50,
+			                y2:30,
 			                borderWidth:1,
 			            },
 						title: {  

@@ -4,7 +4,7 @@
 <mapper namespace="gean.pmc_report_manager.modules.report.dao.TaBiw39panelDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity" id="taBiw39panelMap">
+      <resultMap type="gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity" id="taBiw39panelMap">
         <result property="shop" column="shop"/>
         <result property="area" column="area"/>
         <result property="zone" column="zone"/>
@@ -19,7 +19,7 @@
         <result property="techAvail" column="tech_avail"/>
         <result property="mtbf" column="mtbf"/>
         <result property="frequency" column="frequency"/>
-        <result property="workDay" column="work_day"/>
+        <result property="workDay" column="workingDay"/>
         <result property="levels" column="levels"/>
         <result property="shift" column="shift"/>
         <result property="tarTechAvail" column="tar_tech_avail"/>
@@ -460,5 +460,32 @@
 			FROM CTE [Current Row]
 			LEFT JOIN CTE [Next Row] ON [Next Row].RN = [Current Row].RN + 1
 	</select>
+	
+	<select id="queryMsList" resultMap="taBiw39panelMap">
+		select
+		equipment,workingDay,tar_tech_avail,tech_avail,good_part_count,downtime,fault_occ,build_time,facility_id
+		from PMC_9PANEL_TA
+		where 1 = 1
+		<if test="shop!=null and shop!=''">
+			AND shop =#{shop}
+		</if>
+		<if test="area!=null and area!=''">
+			AND line =#{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND Zone =#{zone}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift =#{shift}
+		</if>
+		<if test="startTime!=null">
+			AND start_time &gt;= CONVERT(datetime2,#{startTime},121)
+		</if>
+		<if test="endTime!=null">
+			AND start_time &lt;= CONVERT(datetime2,#{endTime},121)
+		</if>
+		order by facility_id  
+	</select>
+	
 	
 </mapper>

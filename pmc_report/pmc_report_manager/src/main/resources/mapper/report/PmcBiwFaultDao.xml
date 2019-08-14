@@ -52,6 +52,7 @@
         <result property="posWord31" column="pos_word31"/>
         <result property="totalDuration" column="total_duration"/>
         <result property="occurence" column="occurence"/>
+        <result property="minutes" column="Minutes"/>
     </resultMap>
     
 	<resultMap type="gean.pmc_report_manager.modules.report.vo.LossOPRVo" id="LossOprVoMap">
@@ -85,6 +86,7 @@
         <result property="mins" column="Duration1"/>
         <result property="occ" column="Occurrences1"/>
     </resultMap>
+
 
 	<sql id="common_sql">
 		select * from PMC.dbo.PMC_BIW_FAULT t where 1 = 1 
@@ -346,5 +348,41 @@
 	  <if test="flag!=null and flag==1">
 	  	order by Occurrences1 desc;
 	  </if>
+	</select>
+	
+	<select id="queryFaultsList" resultMap="FaultVoMap">
+		SELECT
+		equipment,
+		COUNT (1) "occurence",
+		SUM (datediff(MINUTE,[start_time],ISNULL(end_time, GETDATE()))) "Minutes",
+		facility_id,
+		fault_description
+		FROM
+		PMC_BIW_FAULT
+		WHERE 1 = 1
+		<if test="shop!=null and shop!=''">
+			AND shop = #{shop}
+		</if>
+		<if test="area!=null and area!=''">
+			AND line = #{area}
+		</if>
+		<if test="zone!=null and zone!=''">
+			AND ZONE = #{zone}
+		</if>
+		<if test="shift!=null and shift!=''">
+			AND shift = #{shift}
+		</if>
+		<if test="startTime!=null">
+			AND start_Time &gt;= CONVERT(datetime2,#{startTime},121)
+		</if>
+		<if test="endTime!=null">
+			AND end_Time &lt;= CONVERT(datetime2,#{endTime},121)
+		</if>
+		<if test="jobId!=null and jobId!=''">
+			AND job_id = #{jobId}
+		</if>
+		AND end_time IS NOT NULL
+		GROUP BY facility_id,fault_description,equipment
+		ORDER BY SUM (duration),COUNT (1),facility_id,fault_description
 	</select>
 </mapper>

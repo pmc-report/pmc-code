@@ -26,4 +26,6 @@ public class FaultVo {
 	private String reasonDescription;
     private Integer posWord31;
     private Integer totalDuration;
+    private Integer minutes;
+    private Integer occurence;
 }

@@ -51,5 +51,8 @@ public interface AtPmcMasterdataConfigService extends IService<AtPmcMasterdataCo
     Map<String,Object> queryBeforeShift();
     /** 当前班次信息*/
     Map<String,Object> queryCurrentShift();
+    
+    /**查询TAV信息*/
+    List<MasterDataVo> queryTAV(Map<String, Object> params);
 }
 

@@ -52,6 +52,8 @@
         <result property="equipmentType" column="EQUIPMENT_TYPE_S"/>
         <result property="designCycleTime" column="design_cycle_time_i"/>
         <result property="standardCycleTime" column="standard_cycle_time_i"/>
+        <result property="rn" column="RN"/>
+        <result property="tavStation" column="TAV_STATION_I"/>
 	</resultMap>
 
 	<sql id="conmmonSql_MasterData">
@@ -142,6 +144,7 @@
 		and eol_flag_y=1
 		order by zone_s asc
 	</select>
+	
 	<select id="queryEolArea" resultMap="MasterDataVoMap">
 		select c.shop_s, c.line_s, c.zone_s, c.facility_id_i
 		from at_PMC_MasterData_Config c
@@ -196,5 +199,19 @@
 			ORDER by CAL2.START_TIME_T desc
 			)
 		where ROWNUM = 1
+	</select>
+	
+	<select id="queryTavInfo" resultMap="MasterDataVoMap">
+		select DENSE_RANK() OVER(ORDER BY B.EQUIPMENT_S) "RN",
+		       A.FACILITY_ID_I "FACILITY_ID_I",
+		       A.TAV_STATION_I "TAV_STATION_I",
+		       B.EQUIPMENT_S
+		 from AT_PMC_MASTERDATA_CONFIG A
+		 inner join AT_PMC_MASTERDATA_CONFIG B
+		    on A.TAV_STATION_I = B.FACILITY_ID_I
+		   and A.SHOP_S = B.SHOP_S
+		 where A.shop_s = #{shop}
+		   and A.zone_s = #{zone}
+		   and A.tav_pos_i = 0
 	</select>
 </mapper>
