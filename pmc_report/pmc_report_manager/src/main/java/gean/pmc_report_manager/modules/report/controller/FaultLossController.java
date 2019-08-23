@@ -40,8 +40,7 @@ public class FaultLossController {
 	@RequestMapping("/minutesLoss")
 	public R findMinutesLoss(@RequestParam Map<String, Object> params) {
 		List<LossOPRVo> list = lossService.queryMinutesEchart(params);
-		int week = list.get(list.size()-1).getWeekNo2();
-		return R.ok().put("minutesLoss", list).put("week",week==0?DateUtils.weekOfYear():week );
+		return R.ok().put("minutesLoss", list).put("week",DateUtils.weekOfYear());
 	}
 	
 	@RequestMapping("/equipmentLoss")

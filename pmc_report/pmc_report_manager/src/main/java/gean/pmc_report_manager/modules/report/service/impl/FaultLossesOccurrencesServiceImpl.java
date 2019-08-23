@@ -3,10 +3,13 @@ package gean.pmc_report_manager.modules.report.service.impl;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import gean.pmc_report_common.common.utils.DateUtils;
+import gean.pmc_report_common.common.utils.StringUtils;
 import gean.pmc_report_manager.modules.report.dao.TaBiw3OprDao;
 import gean.pmc_report_manager.modules.report.dao.TaEquFaultDao;
 import gean.pmc_report_manager.modules.report.entity.TaEquFaultEntity;
@@ -129,6 +133,13 @@ public class FaultLossesOccurrencesServiceImpl extends ServiceImpl<TaEquFaultDao
 			}
 		}
 		if(allFaultLossResult.size()>0) {
+			
+			Collections.sort(allFaultLossResult, new Comparator<LossOPRVo>() {
+				@Override
+				public int compare(LossOPRVo o1, LossOPRVo o2) {
+					int i = o1.getWeekNo2() - o2.getWeekNo2();
+					return i;
+				}});
 			return allFaultLossResult;
 		}
 		return null;
@@ -143,151 +154,328 @@ public class FaultLossesOccurrencesServiceImpl extends ServiceImpl<TaEquFaultDao
 		 * 2.遍历map
 		 */
 		PageParamVo paramVo = new PageParamVo(params);
-		Map<String,Object> groupMap = new LinkedHashMap<>();
+		Map<Integer,List<LossOPRVo>> groupMap = new HashMap<>();
 		List<LossOPRVo> allFaultList = baseMapper.queryFaultLoss(paramVo);
 		List<LossOPRVo> lossList = new ArrayList<>();
-		DecimalFormat df = new DecimalFormat("##0.00");
-		Calendar ca = Calendar.getInstance();
 		if(allFaultList.size()>0) {
-			
-			LossOPRVo lossVo = null;
 			/*
 			 * 组装数据-遍历所有的数据，按照weekNo、设备ID划分
 			 */
-			int curWeek = DateUtils.weekOfYear();
-			float loss = 0.00f;
-			int occ = 0;
 			for(LossOPRVo vo : allFaultList) {
-				for(int i=curWeek;i>curWeek-12;i--) {
-					System.out.println(i);
-					lossVo = new LossOPRVo();
-					if(i>vo.getWeekNo2()) {
-						lossVo.setLoss1(loss);
-						lossVo.setOcc1(occ);
-						lossVo.setWeek1(i);
-						lossVo.setFacilityDesc(vo.getFacilityDesc());
-						lossVo.setFacilityId(vo.getFacilityId());
-						lossVo.setPps("");
-						lossVo.setInput("");
-						lossVo.setYear(ca.get(Calendar.YEAR)+"");
-					}
-					
-					if(vo.getRn()==1) {
-						lossVo.setLoss1(loss);
-						lossVo.setOcc1(occ);
-						lossVo.setWeek1(i);
-						lossVo.setFacilityDesc(vo.getFacilityDesc());
-						lossVo.setFacilityId(vo.getFacilityId());
-						lossVo.setPps("");
-						lossVo.setInput("");
-						lossVo.setYear(ca.get(Calendar.YEAR)+"");
-					}else if(vo.getRn()==1&&i==vo.getWeekNo2()){
-						lossVo.setLoss1(vo.getLoss1()==null?loss:vo.getLoss1());
-						lossVo.setOcc1(vo.getOcc1()==null?occ:vo.getOcc1());
-						lossVo.setWeek1(i);
-						lossVo.setFacilityDesc(vo.getFacilityDesc());
-						lossVo.setFacilityId(vo.getFacilityId());
-						lossVo.setPps("");
-						lossVo.setInput("");
-						lossVo.setYear(ca.get(Calendar.YEAR)+"");
-					}
-					if(vo.getRn()==2&&i>vo.getWeekNo2()) {
-						System.out.println(i+"-----------"+vo.getWeekNo2());
-						lossVo.setLoss2(vo.getLoss2()==null?loss:vo.getLoss2());
-						lossVo.setOcc2(vo.getOcc2()==null?occ:vo.getOcc2());
-						lossVo.setWeek2(i);
+				Integer idKey = vo.getFacilityId();
+				if(StringUtils.isNotNull(idKey)) {
+					List<LossOPRVo> tempList = groupMap.get(idKey);
+					if(!StringUtils.isEmpty(tempList)) {
+						tempList.add(vo);
+					}else {
+						tempList = new ArrayList<>();
+						tempList.add(vo);
+						groupMap.put(idKey, tempList);
 					}
 				}
-				/*if(loss.getRn()==1) {
-					lossVo = new LossOPRVo();
-					lossVo.setFacilityDesc(loss.getFacilityDesc());
-					lossVo.setFacilityId(loss.getFacilityId());
-					lossVo.setPps("");
-					lossVo.setInput("");
-					lossVo.setYear(ca.get(Calendar.YEAR)+"");
-					lossVo.setWeek1(loss.getWeekNo2());
-					lossVo.setWeek2(loss.getWeekNo2()-1);
-					lossVo.setWeek3(loss.getWeekNo2()-2);
-					lossVo.setWeek4(loss.getWeekNo2()-3);
-					lossVo.setWeek5(loss.getWeekNo2()-4);
-					lossVo.setWeek6(loss.getWeekNo2()-5);
-					lossVo.setWeek7(loss.getWeekNo2()-6);
-					lossVo.setWeek8(loss.getWeekNo2()-7);
-					lossVo.setWeek9(loss.getWeekNo2()-8);
-					lossVo.setWeek10(loss.getWeekNo2()-9);
-					lossVo.setWeek11(loss.getWeekNo2()-10);
-					lossVo.setWeek12(loss.getWeekNo2()-11);
-					lossVo.setLoss1(Float.parseFloat(df.format((float)loss.getLoss()/60)));
-					lossVo.setOcc1(loss.getOcc());
-					lossList.add(lossVo);
-				}else {
-					groupMap.put(loss.getFacilityId()+"-"+loss.getRn(),loss.getLoss()+"-"+loss.getOcc());
-				}*/
+			}
+			
+			Set<Integer> idSet = groupMap.keySet();
+			for(Integer id : idSet) {
+				List<LossOPRVo> list = groupMap.get(id);
+				if(!StringUtils.isEmpty(list)) {
+					LossOPRVo loss = generateLossList(list);
+					lossList.add(loss);
+				}
 			}
 		}
-		generateLossList(lossList,groupMap);
+		
+		Collections.sort(lossList, new Comparator<LossOPRVo>() {
+			@Override
+			public int compare(LossOPRVo o1, LossOPRVo o2) {
+				int i = o1.getFacilityId() - o2.getFacilityId();
+				return i;
+			}});
 		
 		return lossList;
 	}
 
-	private void generateLossList(List<LossOPRVo> lossList,Map<String,Object> groupMap){
+	private LossOPRVo generateLossList(List<LossOPRVo> lossList){
 		
 		DecimalFormat df = new DecimalFormat("##0.00");
+		Calendar ca = Calendar.getInstance();
+		int curWeek = DateUtils.weekOfYear();
+		float loss = 0.00f;
+		int occ = 0;
+		boolean flag1 = true;
+		boolean flag2 = true;
+		boolean flag3 = true;
+		boolean flag4 = true;
+		boolean flag5 = true;
+		boolean flag6 = true;
+		boolean flag7 = true;
+		boolean flag8 = true;
+		boolean flag9 = true;
+		boolean flag10 = true;
+		boolean flag11 = true;
+		boolean flag12 = true;
+		LossOPRVo lossVo = new LossOPRVo();
+		//遍历分组后的lossList数据
 		for(LossOPRVo vo : lossList) {
-			for(int i=2;i<12;i++) {
-				String key = vo.getFacilityId()+"-"+i;
-				String value = (String)groupMap.get(key);
-				if(value!=null) {
-					String[] valArr = value.split("-");
-					int lo = Integer.parseInt(valArr[0]);
-					Float loss = Float.parseFloat(df.format((float)lo/60));
-					int occ = Integer.parseInt(valArr[1]);
-					if(i==2) {
-						vo.setLoss2(loss);
-						vo.setOcc2(occ);
-					}
-					if(i==3) {
-						vo.setLoss3(loss);
-						vo.setOcc3(occ);
-					}
-					if(i==4) {
-						vo.setLoss4(loss);
-						vo.setOcc4(occ);
-					}
-					if(i==5) {
-						vo.setLoss5(loss);
-						vo.setOcc5(occ);
-					}
-					if(i==6) {
-						vo.setLoss6(loss);
-						vo.setOcc6(occ);
-					}
-					if(i==7) {
-						vo.setLoss7(loss);
-						vo.setOcc7(occ);
-					}
-					if(i==8) {
-						vo.setLoss8(loss);
-						vo.setOcc8(occ);
-					}
-					if(i==9) {
-						vo.setLoss9(loss);
-						vo.setOcc9(occ);
-					}
-					if(i==10) {
-						vo.setLoss10(loss);
-						vo.setOcc10(occ);
-					}
-					if(i==11) {
-						vo.setLoss11(loss);
-						vo.setOcc11(occ);
-					}
-					if(i==12) {
-						vo.setLoss12(loss);
-						vo.setOcc12(occ);
-					}
+			//生成最近12周的周数
+			//创建实例对象
+			if(StringUtils.isNotNull(vo.getWeekNo2())) {
+				Float faultLoss = Float.parseFloat(df.format((float)vo.getLoss()/60));
+				if(curWeek==vo.getWeekNo2()) {
+					lossVo.setLoss1(faultLoss);
+					lossVo.setOcc1(vo.getOcc()==null?0:vo.getOcc());
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek1(vo.getWeekNo2());
+					flag1 = false;
+				}else if(flag1){
+					lossVo.setLoss1(loss);
+					lossVo.setOcc1(occ);
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek1(curWeek);
+					flag1 = false;
+				}
+				if(curWeek-1==vo.getWeekNo2()) {
+					lossVo.setLoss2(faultLoss);
+					lossVo.setOcc2(vo.getOcc()==null?0:vo.getOcc());
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek2(vo.getWeekNo2());
+					flag2 = false;
+				}else if(flag2) {
+					lossVo.setLoss2(loss);
+					lossVo.setOcc2(occ);
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek2(curWeek-1);
+					flag2 = false;
+				}
+				if(curWeek-2==vo.getWeekNo2()) {
+					lossVo.setLoss3(faultLoss);
+					lossVo.setOcc3(vo.getOcc()==null?0:vo.getOcc());
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek3(vo.getWeekNo2());
+					flag2 = false;
+				}else if(flag3) {
+					lossVo.setLoss3(loss);
+					lossVo.setOcc3(occ);
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek3(curWeek-2);
+					flag3 = false;
+				}
+				if(curWeek-3==vo.getWeekNo2()) {
+					lossVo.setLoss4(faultLoss);
+					lossVo.setOcc4(vo.getOcc()==null?0:vo.getOcc());
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek4(vo.getWeekNo2());
+					flag4 = false;
+				}else if(flag4) {
+					lossVo.setLoss4(loss);
+					lossVo.setOcc4(occ);
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek4(curWeek-3);
+					flag4 = false;
+				}
+				if(curWeek-4==vo.getWeekNo2()) {
+					lossVo.setLoss5(faultLoss);
+					lossVo.setOcc5(vo.getOcc()==null?0:vo.getOcc());
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek5(vo.getWeekNo2());
+					flag5 = false;
+				}else if(flag5) {
+					lossVo.setLoss5(loss);
+					lossVo.setOcc5(occ);
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek5(curWeek-4);
+					flag5 = false;
+				}
+				if(curWeek-5==vo.getWeekNo2()) {
+					lossVo.setLoss6(faultLoss);
+					lossVo.setOcc6(vo.getOcc()==null?0:vo.getOcc());
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek6(vo.getWeekNo2());
+					flag6 = false;
+				}else if(flag6) {
+					lossVo.setLoss6(loss);
+					lossVo.setOcc6(occ);
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek6(curWeek-5);
+					flag6 = false;
+				}
+				if(curWeek-6==vo.getWeekNo2()) {
+					lossVo.setLoss7(faultLoss);
+					lossVo.setOcc7(vo.getOcc()==null?0:vo.getOcc());
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek7(vo.getWeekNo2());
+					flag7 = false;
+				}else if(flag7) {
+					lossVo.setLoss7(loss);
+					lossVo.setOcc7(occ);
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek7(curWeek-6);
+					flag7 = false;
+				}
+				if(curWeek-7==vo.getWeekNo2()) {
+					lossVo.setLoss8(faultLoss);
+					lossVo.setOcc8(vo.getOcc()==null?0:vo.getOcc());
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek8(vo.getWeekNo2());
+					flag8 = false;
+				}else if(flag8){
+					lossVo.setLoss8(loss);
+					lossVo.setOcc8(occ);
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek8(curWeek-7);
+					flag8 = false;
+				}
+				if(curWeek-8==vo.getWeekNo2()) {
+					lossVo.setLoss9(faultLoss);
+					lossVo.setOcc9(vo.getOcc()==null?0:vo.getOcc());
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek9(vo.getWeekNo2());
+					flag9 = false;
+				}else if(flag9){
+					lossVo.setLoss9(loss);
+					lossVo.setOcc9(occ);
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek9(curWeek-8);
+					flag9 = false;
+				}
+				if(curWeek-9==vo.getWeekNo2()) {
+					lossVo.setLoss10(faultLoss);
+					lossVo.setOcc10(vo.getOcc()==null?0:vo.getOcc());
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek10(vo.getWeekNo2());
+					flag10 = false;
+				}else if(flag10){
+					lossVo.setLoss10(loss);
+					lossVo.setOcc10(occ);
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek10(curWeek-9);
+					flag10 = false;
+				}
+				if(curWeek-10==vo.getWeekNo2()) {
+					lossVo.setLoss11(faultLoss);
+					lossVo.setOcc11(vo.getOcc()==null?0:vo.getOcc());
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek11(vo.getWeekNo2());
+					flag11 = false;
+				}else if(flag11){
+					lossVo.setLoss11(loss);
+					lossVo.setOcc11(occ);
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek11(curWeek-10);
+					flag11 = false;
+				}
+				if(curWeek-11==vo.getWeekNo2()) {
+					lossVo.setLoss12(faultLoss);
+					lossVo.setOcc12(vo.getOcc()==null?0:vo.getOcc());
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek12(vo.getWeekNo2());
+					flag12 = false;
+				}else if(flag12){
+					lossVo.setLoss12(loss);
+					lossVo.setOcc12(occ);
+					lossVo.setFacilityId(vo.getFacilityId());
+					lossVo.setFacilityDesc(vo.getFacilityDesc());
+					lossVo.setInput("");
+					lossVo.setPps("");
+					lossVo.setYear(ca.get(Calendar.YEAR)+"");
+					lossVo.setWeek12(curWeek-11);
+					flag12 = false;
 				}
 			}
 		}
+		return lossVo;
 	}
+	
 }

@@ -134,7 +134,7 @@ function queryReport(tag,params){
     	return ;
 	}
 	if(isNullOrBlank(params.eTime)){
-		alert("请选择查结束时间");
+		alert("请选择结束时间");
     	return ;
 	}
 	

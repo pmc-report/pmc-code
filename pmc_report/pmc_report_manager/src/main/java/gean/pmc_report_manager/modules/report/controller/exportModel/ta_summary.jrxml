@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fault Loss" pageWidth="1200" pageHeight="1600" whenNoDataType="AllSectionsNoDetail" columnWidth="1140" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="f75a4b5d-7633-4b47-8a01-e1ad04477650">
-	<property name="ireport.zoom" value="1.5394743546921545"/>
-	<property name="ireport.x" value="633"/>
-	<property name="ireport.y" value="70"/>
+	<property name="ireport.zoom" value="1.156629868288621"/>
+	<property name="ireport.x" value="44"/>
+	<property name="ireport.y" value="0"/>
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<import value="net.sf.jasperreports.engine.*"/>
@@ -103,7 +103,7 @@
 	</background>
 	<title>
 		<band height="298" splitType="Stretch">
-			<textField isBlankWhenNull="false">
+			<textField isBlankWhenNull="true">
 				<reportElement key="textField-2" x="54" y="53" width="115" height="30" uuid="22aae8af-c52c-4e08-9d00-41a1be0dc76d"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -117,7 +117,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{shop}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="false">
+			<textField pattern="yyyy-MM-dd HH.mm.ss" isBlankWhenNull="false">
 				<reportElement key="textField-5" x="678" y="83" width="262" height="30" uuid="097768b8-4a66-401b-8e83-4b6cce8b3ba1"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -187,7 +187,7 @@
 				</textElement>
 				<text><![CDATA[班次:]]></text>
 			</staticText>
-			<textField pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="true">
 				<reportElement key="textField" x="266" y="53" width="109" height="30" uuid="13c25442-0889-4117-b197-736ecc22a79f"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -201,7 +201,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="54" y="83" width="115" height="30" uuid="e8bbe4f5-9370-44f7-ba1d-270f57002c3e"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -268,7 +268,7 @@
 				</textElement>
 				<text><![CDATA[Zone:]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="466" y="53" width="115" height="30" uuid="57c9f007-844d-484b-8d90-797f1c849d2e"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -282,7 +282,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{zone}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="678" y="53" width="262" height="30" uuid="73d29fe7-8c3f-49bf-b79f-0c977c8187c4"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -310,7 +310,7 @@
 				</textElement>
 				<text><![CDATA[对比周]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="266" y="83" width="109" height="30" uuid="bb7c35dc-9eb0-4f0f-aba7-f4b0b91d5729"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -338,7 +338,7 @@
 				</textElement>
 				<text><![CDATA[当前周]]></text>
 			</staticText>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="466" y="83" width="115" height="30" uuid="717bce26-67ec-4ad9-93d9-5ebbcd533569"/>
 				<box>
 					<pen lineWidth="0.5"/>

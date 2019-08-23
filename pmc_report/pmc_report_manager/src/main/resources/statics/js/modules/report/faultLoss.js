@@ -136,13 +136,6 @@ function initLossTable(queryParams){
  	    return sec_to_time(value);
      } 
 	 
-	 var replaceFormatter = function(value, row, index){
-		 if(value==null){
-			 return "0";
-		 }
-		 return value;
-	 }
-	 
      var columns = [
     	 	[
     	 		{ title : '&nbsp',halign : "center",align : "center",colspan : 3},
@@ -170,41 +163,41 @@ function initLossTable(queryParams){
 	          { field: 'facilityDesc', title: '设备', align: 'center', sortable:false },
 	          { field: 'facilityId', title: '设备号', align: 'center', sortable:false }, 
 	          { field: 'pps', title: 'PPS', align: 'center', sortable:false }, 
-	          { field: 'loss1', title: 'L', align: 'center',formatter:replaceFormatter},
-	          { field: 'occ1', title: 'O', align:'center',formatter:replaceFormatter }, 
+	          { field: 'loss1', title: 'L', align: 'center'},
+	          { field: 'occ1', title: 'O', align:'center' }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss2', title: 'L', align: 'center',formatter:replaceFormatter},
-	          { field: 'occ2', title: 'O', align:'center',formatter:replaceFormatter }, 
+	          { field: 'loss2', title: 'L', align: 'center'},
+	          { field: 'occ2', title: 'O', align:'center'}, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss3', title: 'L', align: 'center',formatter:replaceFormatter},
-	          { field: 'occ3', title: 'O', align:'center',formatter:replaceFormatter }, 
+	          { field: 'loss3', title: 'L', align: 'center'},
+	          { field: 'occ3', title: 'O', align:'center' }, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss4', title: 'L', align: 'center',formatter:replaceFormatter},
-	          { field: 'occ4', title: 'O', align:'center',formatter:replaceFormatter }, 
+	          { field: 'loss4', title: 'L', align: 'center'},
+	          { field: 'occ4', title: 'O', align:'center'}, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss5', title: 'L', align: 'center',formatter:replaceFormatter},
-	          { field: 'occ5', title: 'O', align:'center',formatter:replaceFormatter }, 
+	          { field: 'loss5', title: 'L', align: 'center'},
+	          { field: 'occ5', title: 'O', align:'center'}, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss6', title: 'L', align: 'center',formatter:replaceFormatter},
-	          { field: 'occ6', title: 'O', align:'center',formatter:replaceFormatter }, 
+	          { field: 'loss6', title: 'L', align: 'center'},
+	          { field: 'occ6', title: 'O', align:'center'}, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss7', title: 'L', align: 'center',formatter:replaceFormatter},
-	          { field: 'occ7', title: 'O', align:'center',formatter:replaceFormatter }, 
+	          { field: 'loss7', title: 'L', align: 'center'},
+	          { field: 'occ7', title: 'O', align:'center'}, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss8', title: 'L', align: 'center',formatter:replaceFormatter},
-	          { field: 'occ8', title: 'O', align:'center',formatter:replaceFormatter }, 
+	          { field: 'loss8', title: 'L', align: 'center'},
+	          { field: 'occ8', title: 'O', align:'center'}, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss9', title: 'L', align: 'center',formatter:replaceFormatter},
-	          { field: 'occ9', title: 'O', align:'center',formatter:replaceFormatter }, 
+	          { field: 'loss9', title: 'L', align: 'center'},
+	          { field: 'occ9', title: 'O', align:'center'}, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss10', title: 'L', align: 'center',formatter:replaceFormatter},
-	          { field: 'occ10', title: 'O', align:'center',formatter:replaceFormatter }, 
+	          { field: 'loss10', title: 'L', align: 'center'},
+	          { field: 'occ10', title: 'O', align:'center'}, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss11', title: 'L', align: 'center',formatter:replaceFormatter},
-	          { field: 'occ11', title: 'O', align:'center',formatter:replaceFormatter }, 
+	          { field: 'loss11', title: 'L', align: 'center'},
+	          { field: 'occ11', title: 'O', align:'center'}, 
 	          { field: 'input', title: 'A', align: 'center'},
-	          { field: 'loss12', title: 'L', align: 'center',formatter:replaceFormatter},
-	          { field: 'occ12', title: 'O', align:'center',formatter:replaceFormatter }, 
+	          { field: 'loss12', title: 'L', align: 'center'},
+	          { field: 'occ12', title: 'O', align:'center'}, 
 	          { field: 'input', title: 'A', align: 'center'}
 	         ]
      ];

@@ -134,10 +134,6 @@ function queryReport(tag,params){
 		alert("请选择Zone");
     	return ;
 	}
-	if(isNullOrBlank(jobId)){
-		alert("请指定车型");
-    	return ;
-	}
 	
 	var url = baseURL + 'report/summary/info';
 	if(tag=='TAS'){
@@ -243,7 +239,7 @@ function initTASummaryTable(url,queryParams){
 					sTime: queryParams.sTime,
 					shift: queryParams.shift,
 					shop: queryParams.shop,
-					jobId : queryParams.jobId,
+					jobId : isNullOrBlank(queryParams.jobId)?null:queryParams.jobId,
 		      	}
 		  },
 	      onLoadSuccess: function (data) { 		//加载成功时执行
@@ -379,7 +375,7 @@ function exportSummary(param) {
 			area : isNullOrBlank(area)?'ALL':area,
 			zone : isNullOrBlank(zone)?'ALL':zone,
 			shift : isNullOrBlank(shift)?'ALL':shift,
-			jobId :jobId,
+			jobId :isNullOrBlank(jobId)?'ALL':jobId,
 			preWeekNo:preWeekNo,
 			curWeekNo:curWeekNo,
 			sTime: sTime,

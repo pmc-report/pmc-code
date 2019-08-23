@@ -349,9 +349,9 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 				_new.setTarTechAvail(Float.parseFloat(df.format(taBiw39panelEntity.getTarTechAvail())));
 				_new.setTechAvail(Float.parseFloat(df.format(taBiw39panelEntity.getTechAvail())));
 				_new.setGoodPartCount(taBiw39panelEntity.getGoodPartCount());
-				//_new.setDowntime(Float.parseFloat(df.format(taBiw39panelEntity.getDowntime())));
+				_new.setDowntime(Float.parseFloat(df.format(taBiw39panelEntity.getDowntime())));
 				_new.setFaultOcc(taBiw39panelEntity.getFaultOcc());
-				//_new.setBuildTime(Float.parseFloat(df.format(taBiw39panelEntity.getBuildTime())));
+				_new.setBuildTime(Float.parseFloat(df.format(taBiw39panelEntity.getBuildTime())));
 				list.add(_new);
 			}
 		}

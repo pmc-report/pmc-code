@@ -60,7 +60,7 @@ public class TaSummaryServiceImpl implements TaSummaryService{
 		
 		String area = (String)param.get("area")==null?"":(String)param.get("area");
 		String zone = (String)param.get("zone")==null?"":(String)param.get("zone");
-		String jobId = (String)param.get("jobId")==null?"":(String)param.get("jobId");
+		String jobId = "".equals((String)param.get("jobId"))?"ALL":(String)param.get("jobId");
 		Integer prePordVol = 0;
 		Integer curPordVol = 0;
 		Float targetTa = 0f;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Fault Loss" pageWidth="1743" pageHeight="1600" whenNoDataType="AllSectionsNoDetail" columnWidth="1683" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="f75a4b5d-7633-4b47-8a01-e1ad04477650">
-	<property name="ireport.zoom" value="1.156629868288619"/>
+	<property name="ireport.zoom" value="1.5394743546921554"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<property name="ireport.scriptlethandling" value="0"/>
@@ -124,7 +124,176 @@
 			<band splitType="Stretch"/>
 		</groupHeader>
 		<groupFooter>
-			<band height="1" splitType="Stretch"/>
+			<band height="94" splitType="Stretch">
+				<textField isBlankWhenNull="true">
+					<reportElement x="1" y="24" width="64" height="23" backcolor="#009900" uuid="21f5330b-7780-4fd1-98a4-21b9ad59a1c2"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="65" y="24" width="127" height="23" backcolor="#009900" uuid="e3135865-9101-4312-b449-314f3a8d05ff"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="192" y="24" width="127" height="23" backcolor="#009900" uuid="37a87fb4-743a-4cfa-9b41-a273f091c8c8"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="1" y="47" width="64" height="23" backcolor="#009900" uuid="7acfe799-bdf0-4811-86c9-d67c8a568d86"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="192" y="47" width="127" height="23" backcolor="#009900" uuid="27c01a51-456a-4f15-8871-ee60d9dd97f7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="65" y="47" width="127" height="23" backcolor="#009900" uuid="64b7d84d-0ad8-484b-ae5c-9ae21cbe52b5"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="1" y="0" width="64" height="24" backcolor="#339900" uuid="938b265b-316f-4a41-a715-a5bb91efa985"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Sr.NO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="65" y="0" width="127" height="24" backcolor="#339900" uuid="5adbc5c9-089e-496b-843c-8bfe33a9d2be"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Fault Details]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="192" y="0" width="127" height="24" backcolor="#339900" uuid="0d15fee5-daaf-4ccb-9d00-84e9621f2a1a"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Corrective Actions]]></text>
+				</staticText>
+				<textField isBlankWhenNull="true">
+					<reportElement x="1" y="70" width="64" height="23" backcolor="#009900" uuid="6525c02b-b9e7-4405-af56-a5c2811f1225"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="192" y="70" width="127" height="23" backcolor="#009900" uuid="76052cf2-2809-4177-b105-ddec1be107bb"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="65" y="70" width="127" height="23" backcolor="#009900" uuid="44e41868-5aa0-45f3-a6d8-354b3de7d9d7"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
+				</textField>
+			</band>
 		</groupFooter>
 	</group>
 	<background>
@@ -132,7 +301,7 @@
 	</background>
 	<title>
 		<band height="298" splitType="Stretch">
-			<textField isBlankWhenNull="false">
+			<textField isBlankWhenNull="true">
 				<reportElement key="textField-2" x="54" y="53" width="115" height="30" uuid="22aae8af-c52c-4e08-9d00-41a1be0dc76d"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -146,7 +315,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{shop}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="false">
+			<textField pattern="yyyy-MM-dd HH.mm.ss" isBlankWhenNull="true">
 				<reportElement key="textField-5" x="266" y="83" width="365" height="30" uuid="097768b8-4a66-401b-8e83-4b6cce8b3ba1"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -216,7 +385,7 @@
 				</textElement>
 				<text><![CDATA[Zone:]]></text>
 			</staticText>
-			<textField pattern="" isBlankWhenNull="false">
+			<textField pattern="" isBlankWhenNull="true">
 				<reportElement key="textField" x="266" y="53" width="365" height="30" uuid="13c25442-0889-4117-b197-736ecc22a79f"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -230,7 +399,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="54" y="83" width="115" height="30" uuid="e8bbe4f5-9370-44f7-ba1d-270f57002c3e"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -1665,182 +1834,13 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band splitType="Stretch"/>
+		<band height="9" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band splitType="Stretch"/>
 	</pageFooter>
 	<lastPageFooter>
-		<band height="93" splitType="Stretch">
-			<textField isBlankWhenNull="true">
-				<reportElement x="1" y="24" width="64" height="23" backcolor="#009900" uuid="21f5330b-7780-4fd1-98a4-21b9ad59a1c2"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="65" y="24" width="127" height="23" backcolor="#009900" uuid="e3135865-9101-4312-b449-314f3a8d05ff"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="192" y="24" width="127" height="23" backcolor="#009900" uuid="37a87fb4-743a-4cfa-9b41-a273f091c8c8"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="1" y="47" width="64" height="23" backcolor="#009900" uuid="7acfe799-bdf0-4811-86c9-d67c8a568d86"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="192" y="47" width="127" height="23" backcolor="#009900" uuid="27c01a51-456a-4f15-8871-ee60d9dd97f7"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="65" y="47" width="127" height="23" backcolor="#009900" uuid="64b7d84d-0ad8-484b-ae5c-9ae21cbe52b5"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="1" y="70" width="64" height="23" backcolor="#009900" uuid="6525c02b-b9e7-4405-af56-a5c2811f1225"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="192" y="70" width="127" height="23" backcolor="#009900" uuid="76052cf2-2809-4177-b105-ddec1be107bb"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="65" y="70" width="127" height="23" backcolor="#009900" uuid="44e41868-5aa0-45f3-a6d8-354b3de7d9d7"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="10"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{input}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement mode="Opaque" x="1" y="0" width="64" height="24" backcolor="#339900" uuid="938b265b-316f-4a41-a715-a5bb91efa985"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Sr.NO]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="65" y="0" width="127" height="24" backcolor="#339900" uuid="5adbc5c9-089e-496b-843c-8bfe33a9d2be"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Fault Details]]></text>
-			</staticText>
-			<staticText>
-				<reportElement mode="Opaque" x="192" y="0" width="127" height="24" backcolor="#339900" uuid="0d15fee5-daaf-4ccb-9d00-84e9621f2a1a"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[Corrective Actions]]></text>
-			</staticText>
-		</band>
+		<band height="9" splitType="Stretch"/>
 	</lastPageFooter>
 	<summary>
 		<band splitType="Stretch"/>
