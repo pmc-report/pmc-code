@@ -398,7 +398,7 @@
 		<if test="shift!=null and shift!=''">
 			AND shift = #{shift}
 		</if>
-		<if test="jobId!=null and jobId!=''">
+		<if test="jobId!=null and jobId!='' and jobId!='ALL'">
 			AND job_id = #{jobId}
 		</if>
 		and production_flag = 1

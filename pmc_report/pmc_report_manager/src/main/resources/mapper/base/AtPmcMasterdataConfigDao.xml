@@ -210,8 +210,13 @@
 		 inner join AT_PMC_MASTERDATA_CONFIG B
 		    on A.TAV_STATION_I = B.FACILITY_ID_I
 		   and A.SHOP_S = B.SHOP_S
-		 where A.shop_s = #{shop}
-		   and A.zone_s = #{zone}
+		 where 1=1
+			<if test="shop!=null and shop!=''">
+				and A.shop_s=#{shop}
+			</if>
+			<if test="zone!=null and zone!=''">
+				and A.zone_s=#{zone}
+			</if>
 		   and A.tav_pos_i = 0
 	</select>
 </mapper>

@@ -47,6 +47,7 @@ public class TaDetailServiceImpl implements TaDetailService{
 				tavList.add(msKey);
 			}
 		}
+		
 		//组装数据
 		if(!StringUtils.isEmpty(faultList)) {
 			for(int i=0;i<tavList.size();i++) {

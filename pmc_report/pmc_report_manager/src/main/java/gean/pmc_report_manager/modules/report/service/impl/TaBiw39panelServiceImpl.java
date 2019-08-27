@@ -193,23 +193,31 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 			//5.3
 			for(int i=0;i<=9;i++) {
 				int count = top10DownTimeNewList.size();
+				PanelVo newVo = null;
 				if(i<=count-1) {
-					PanelVo newVo = top10DownTimeNewList.get(i);
-					if(i<resultList.size()) {
-						PanelVo oldVo = resultList.get(i);
-						if(i==0) {
-							float totalDur2 = totalDownTimeForTo.get(0).getTotalDuration2();
-							oldVo.setTotalDuration2(Float.parseFloat(df.format(totalDur2)));
-						}
-						Integer newOrder = newVo.get_new();
-						oldVo.set_new(newOrder);
-						oldVo.setOcc2(newVo.getOcc2());
-						oldVo.setMins2(Float.parseFloat(df.format(newVo.getMins2())));
-						oldVo.setStn2(newVo.getStn2());
-						oldVo.setDescription2(newVo.getDescription2());
-						if(oldVo.getStatus()==null) {
-							oldVo.setStatus(1);//故障消失
-						}
+					newVo = top10DownTimeNewList.get(i);
+				}else {
+					newVo = new PanelVo();
+				}
+				if(i<resultList.size()) {
+					PanelVo oldVo = resultList.get(i);
+					if(i==0) {
+						float totalDur2 = totalDownTimeForTo.get(0).getTotalDuration2();
+						oldVo.setTotalDuration2(Float.parseFloat(df.format(totalDur2)));
+					}
+					Integer newOrder = newVo.get_new();
+					oldVo.set_new(newOrder);
+					oldVo.setOcc2(newVo.getOcc2());
+					Float mins = newVo.getMins2();
+					if(mins!=null) {
+						oldVo.setMins2(Float.parseFloat(df.format(mins)));
+					}else {
+						oldVo.setMins2(null);
+					}
+					oldVo.setStn2(newVo.getStn2());
+					oldVo.setDescription2(newVo.getDescription2());
+					if(oldVo.getStatus()==null) {
+						oldVo.setStatus(1);//故障消失
 					}
 				}
 			}
@@ -302,23 +310,31 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 			//5.3
 			for(int i=0;i<=9;i++) {
 				int count = top10OccurrenceNewList.size();
+				PanelVo newVo = null;
 				if(i <= count -1) {
-					PanelVo newVo = top10OccurrenceNewList.get(i);
-					if(i<resultList.size()) {
-						PanelVo oldVo = resultList.get(i);
-						if(i==0) {
-							int totalOcc2 = totalOccurrenceForTo.get(0).getTotalOcc2();
-							oldVo.setTotalOcc2(totalOcc2);
-						}
-						Integer newOrder = newVo.get_new();
-						oldVo.set_new(newOrder);
-						oldVo.setOcc2(newVo.getOcc2());
-						oldVo.setMins2(Float.parseFloat(df.format(newVo.getMins2())));
-						oldVo.setStn2(newVo.getStn2());
-						oldVo.setDescription2(newVo.getDescription2());
-						if(oldVo.getStatus()== null) {
-							oldVo.setStatus(1);//故障消失
-						}
+					newVo = top10OccurrenceNewList.get(i);
+				}else {
+					newVo = new PanelVo();
+				}
+				if(i<resultList.size()) {
+					PanelVo oldVo = resultList.get(i);
+					if(i==0) {
+						int totalOcc2 = totalOccurrenceForTo.get(0).getTotalOcc2();
+						oldVo.setTotalOcc2(totalOcc2);
+					}
+					Integer newOrder = newVo.get_new();
+					oldVo.set_new(newOrder);
+					oldVo.setOcc2(newVo.getOcc2());
+					Float mins = newVo.getMins2();
+					if(mins!=null) {
+						oldVo.setMins2(Float.parseFloat(df.format(mins)));
+					}else {
+						oldVo.setMins2(null);
+					}
+					oldVo.setStn2(newVo.getStn2());
+					oldVo.setDescription2(newVo.getDescription2());
+					if(oldVo.getStatus()== null) {
+						oldVo.setStatus(1);//故障消失
 					}
 				}
 			}

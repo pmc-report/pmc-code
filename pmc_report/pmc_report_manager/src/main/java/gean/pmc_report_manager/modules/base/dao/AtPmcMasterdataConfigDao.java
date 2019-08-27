@@ -46,14 +46,13 @@ public interface AtPmcMasterdataConfigDao extends BaseMapper<AtPmcMasterdataConf
     @DataSource("slave1")
     List<MasterDataVo> queryEquipmentForStation(Map<String, Object> params);
 	
-	 /** 工位下的设备*/
 	@Transactional
-    @DataSource("slave1")
+    @DataSource("slave2")
     List<String> queryDates(String params);
 	
 	/** OPR基础查询：设备ID、zone、设计节拍时间*/
 	@Transactional
-    @DataSource("slave1")
+    @DataSource("slave2")
     List<MasterDataVo> queryOPRData(Map<String, Object> params);
 	
 	/** OPR shift plan*/
@@ -63,7 +62,7 @@ public interface AtPmcMasterdataConfigDao extends BaseMapper<AtPmcMasterdataConf
 	
 	/** Area OPR EOL*/
 	@Transactional
-    @DataSource("slave1")
+    @DataSource("slave2")
 	List<MasterDataVo> queryEolArea(Map<String, Object> params);
 	
 	/** 查当前一班次信息*/
