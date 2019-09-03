@@ -219,4 +219,18 @@
 			</if>
 		   and A.tav_pos_i = 0
 	</select>
+	
+	<select id="queryMS" resultType="java.lang.String">
+		select t.equipment_s
+		  from AT_PMC_MASTERDATA_CONFIG t
+		 where 1 = 1 
+		 	<if test="shop!=null and shop!=''">
+				and t.shop_s=#{shop}
+			</if>
+			<if test="zone!=null and zone!=''">
+				and t.zone_s=#{zone}
+			</if>
+		   and t.equipment_type_s = 'TAV'
+		 order by t.facility_id_i asc
+	</select>
 </mapper>

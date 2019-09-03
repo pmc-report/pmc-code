@@ -237,7 +237,7 @@ function initTASummaryTable(url,queryParams){
 					zone : queryParams.zone,
 					eTime: queryParams.eTime,
 					sTime: queryParams.sTime,
-					shift: queryParams.shift,
+					shift: isNullOrBlank(queryParams.shift)?'ALL':queryParams.shift,
 					shop: queryParams.shop,
 					jobId : isNullOrBlank(queryParams.jobId)?null:queryParams.jobId,
 		      	}

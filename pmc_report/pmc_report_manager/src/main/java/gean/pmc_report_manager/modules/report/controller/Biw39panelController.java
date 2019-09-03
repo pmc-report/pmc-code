@@ -91,11 +91,12 @@ public class Biw39panelController {
 
     
     /**
-     * 测试用
+     * 获取目标TA
      */
-    @RequestMapping("/panelTest")
-    public R panelTest() {
-    	return R.ok();
+    @RequestMapping("/getTa")
+    public R getTa(@RequestParam Map<String, Object> params) {
+    	String tarTa = taBiw39panelService.queryTa(params);
+    	return R.ok().put("tarTa", tarTa==null?"0.0":tarTa);
     }
     
     /**

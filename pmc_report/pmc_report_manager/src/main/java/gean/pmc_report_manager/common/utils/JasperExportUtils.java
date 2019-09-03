@@ -66,7 +66,47 @@ public class JasperExportUtils {
 			JRDataSource ds = new JRBeanCollectionDataSource(datas, false);
 			Map parameters = new HashMap();
 			if("TA_Detail_报表".equals(exportName)) {
-				parameters.put("SUBREPORT_DIR", "export/");
+				//for(int i=1;i<38;i++) {
+					parameters.put("SUBREPORT_DIR1", "export/");
+				//}
+					parameters.put("SUBREPORT_DIR2", "export/");
+					parameters.put("SUBREPORT_DIR3", "export/");
+					parameters.put("SUBREPORT_DIR4", "export/");
+					parameters.put("SUBREPORT_DIR5", "export/");
+					parameters.put("SUBREPORT_DIR6", "export/");
+					parameters.put("SUBREPORT_DIR7", "export/");
+					parameters.put("SUBREPORT_DIR8", "export/");
+					parameters.put("SUBREPORT_DIR9", "export/");
+					parameters.put("SUBREPORT_DIR10", "export/");
+					parameters.put("SUBREPORT_DIR11", "export/");
+					parameters.put("SUBREPORT_DIR12", "export/");
+					parameters.put("SUBREPORT_DIR13", "export/");
+					parameters.put("SUBREPORT_DIR14", "export/");
+					parameters.put("SUBREPORT_DIR15", "export/");
+					parameters.put("SUBREPORT_DIR16", "export/");
+					parameters.put("SUBREPORT_DIR17", "export/");
+					parameters.put("SUBREPORT_DIR18", "export/");
+					parameters.put("SUBREPORT_DIR19", "export/");
+					parameters.put("SUBREPORT_DIR20", "export/");
+					parameters.put("SUBREPORT_DIR21", "export/");
+					parameters.put("SUBREPORT_DIR22", "export/");
+					parameters.put("SUBREPORT_DIR23", "export/");
+					parameters.put("SUBREPORT_DIR24", "export/");
+					parameters.put("SUBREPORT_DIR25", "export/");
+					parameters.put("SUBREPORT_DIR26", "export/");
+					parameters.put("SUBREPORT_DIR27", "export/");
+					parameters.put("SUBREPORT_DIR28", "export/");
+					parameters.put("SUBREPORT_DIR29", "export/");
+					parameters.put("SUBREPORT_DIR30", "export/");
+						parameters.put("SUBREPORT_DIR31", "export/");
+						parameters.put("SUBREPORT_DIR32", "export/");
+						parameters.put("SUBREPORT_DIR33", "export/");
+						parameters.put("SUBREPORT_DIR34", "export/");
+						parameters.put("SUBREPORT_DIR35", "export/");
+						parameters.put("SUBREPORT_DIR36", "export/");
+						parameters.put("SUBREPORT_DIR37", "export/");
+						parameters.put("SUBREPORT_DIR38", "export/");
+				
 			}
 			JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, ds);
 

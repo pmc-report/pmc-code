@@ -79,4 +79,10 @@ public interface AtPmcMasterdataConfigDao extends BaseMapper<AtPmcMasterdataConf
 	@Transactional
     @DataSource("slave2")
 	List<MasterDataVo> queryTavInfo(Map<String, Object> params);
+	
+	/** 获取zone下的MS信息*/
+	@Transactional
+    @DataSource("slave2")
+	List<String> queryMS(Map<String, Object> params);
 }
+

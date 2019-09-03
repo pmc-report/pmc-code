@@ -142,11 +142,14 @@ function queryReport(tag,params){
 	
 	var url = baseURL + 'report/detail/list';
 	
+	$("#tadTableStyle").html('');
+	
 	if(tag=='TADETAIL'){
 		
 		inittadtableTitle(params);
-		inittadmsTable(params);
-		inittadfaultsTable(params);
+		//(params);
+		//inittadfaultsTable(params);
+		queryMSInfo(params);
 	}
 	clearForm("fromexport");
 	setPorpById('detailBtn','disabled',false);
@@ -172,7 +175,7 @@ var sec_to_time = function(s) {
     return t;
 }
 
-function inittadmsTable(queryParams){
+/*function inittadmsTable(queryParams){
 	
 	var responseHandler = function (e) {
 	      //console.log(e);
@@ -203,7 +206,7 @@ function inittadmsTable(queryParams){
         { field: 'tarTechAvail', title: 'Target TA', align: 'center',formatter: numFormatter}, 
         { field: 'techAvail', title: 'TA', align: 'center',formatter: numFormatter},
         { field: 'goodPartCount', title: 'Good Part Count', align:'center'}, 
-        { field: 'downtime', title: 'Downtime', align: 'center',formatter: numFormatter}, 
+        { field: 'downTime', title: 'Downtime', align: 'center',formatter: numFormatter}, 
         { field: 'faultOcc', title: 'Occ', align: 'center'},
         { field: 'buildTime', title: 'Build Time', align: 'center',formatter: numFormatter}
     ];
@@ -270,9 +273,9 @@ function inittadmsTable(queryParams){
 	          //console.log(res);
 	      }
 	  });
-}
+}*/
 
-function inittadfaultsTable(queryParams){
+/*function inittadfaultsTable(queryParams){
 	
 	var responseHandler = function (e) {
 	      //console.log(e);
@@ -373,7 +376,90 @@ function inittadfaultsTable(queryParams){
 		          //console.log(res);
 		      }
 		  });
-	}
+	}*/
+
+function queryMSInfo(queryParams){
+	
+	$.ajax({ 
+        type: 'post', 
+        data:{ 
+        	area : queryParams.area,
+			zone : queryParams.zone,
+			eTime: queryParams.eTime,
+			sTime: queryParams.sTime,
+			shift: queryParams.shift,
+			shop: queryParams.shop,
+			jobId : queryParams.jobId
+        },
+        url: 'detail/list',
+        cache: false,  
+        async : false,  //同步
+        dataType:'json', 
+        success: function (data) {
+        	debugger
+	    	var map = data.map;
+	    	$.each(map,function(key,value){
+	            console.info("key: " + key + ", Value: " + value );
+	            var params = value;
+	    		createMsTable(key,params);
+	    	})
+           
+        },
+        error: function (data, XMLHttpRequest, textStatus, errorThrown) {
+        	bootbox.alert('data:'+typeof(data) +",XMLHttpRequest:"+XMLHttpRequest+",textStatus:"+textStatus+",errorThrown:"+errorThrown);
+        }
+      });
+}
+
+function createMsTable(key,params){
+	
+	var str = JSON.stringify(params[0].msList);
+	var msData = JSON.parse(str);
+	
+	var msTab =  $('<table id ="msTab" class="table table-striped table-bordered"></table>');
+	
+	var columns = [
+		 	[{ title: key, halign : "center",align: 'center',colspan : 7}],
+	   	[{ field: 'workDay', title: '日期', align: 'center'},
+	    { field: 'tarTechAvail', title: '目标TA', align: 'center'}, 
+	    { field: 'techAvail', title: 'TA', align: 'center'},
+	    { field: 'goodPartCount', title: '合格件', align:'center'}, 
+	    { field: 'downTime', title: '停机时间', align: 'center'}, 
+	    { field: 'faultOcc', title: '次数', align: 'center'},
+	    { field: 'buildTime', title: '生产时间', align: 'center'}]
+	];
+	
+	msTab.bootstrapTable('destroy').bootstrapTable({
+	      striped: true, 
+	      columns: columns,
+	      data:msData
+	});
+	 
+	 $("#tadTableStyle").append(msTab);
+	 
+	 var faultTab =  $('<table id ="faultTab" class="table table-striped table-bordered"></table>');
+	 
+	 var str = JSON.stringify(params[0].faultList);
+	 var faultData = JSON.parse(str);
+	
+	 var columns = [
+		 	[{ title: key +' Fault', halign : "center",align: 'center',colspan : 7}],
+		 	[{ field: 'occurence', title: '次数', align: 'center'},
+		     { field: 'minutes', title: '分钟', align: 'center',}, 
+		     { field: 'facilityId', title: '工位', align: 'center',},
+		     { field: 'faultDescription', title: '故障描述', align:'center',}]
+		 ];
+		
+	 faultTab.bootstrapTable('destroy').bootstrapTable({
+	      striped: true, 
+	      columns: columns,
+	      data:faultData
+	  });
+	 
+	 $("#tadTableStyle").append(faultTab);
+}
+
+
 
 function exportdetail(param) {
 	
@@ -404,7 +490,7 @@ function exportdetail(param) {
 function createReportInput(params){
 	var inputParams = '';
 	var inputSearch = '';
-	debugger
+	
 	for(var index in params){
 		inputSearch += '<input type = "hidden" name = "'+index+'" value = "'+params[index]+'"/>'
 	}

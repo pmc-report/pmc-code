@@ -54,5 +54,8 @@ public interface AtPmcMasterdataConfigService extends IService<AtPmcMasterdataCo
     
     /**查询TAV信息*/
     List<MasterDataVo> queryTAV(Map<String, Object> params);
+    
+    /**查询MS信息*/
+    List<String> queryMS(Map<String, Object> params);
 }
 

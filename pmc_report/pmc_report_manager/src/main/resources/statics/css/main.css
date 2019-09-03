@@ -188,6 +188,17 @@ tbody > tr > th {font-weight: normal; }
 	color:#fff;
 }
 
+
+#msTab thead {
+	background-color : #2E8B57;
+	color:#fff;
+}
+
+#faultTab thead {
+	background-color : #2E8B57;
+	color:#fff;
+}
+
 #cycleTableHeader{
 	width:100%;
 	border :1px solid #000;

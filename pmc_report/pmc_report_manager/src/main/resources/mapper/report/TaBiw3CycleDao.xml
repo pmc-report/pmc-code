@@ -142,7 +142,7 @@
 			ISNULL((select AVG(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] ),0)"Avg Cycle Time",
 			ISNULL((select sum(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] ),0)"Total Cycle Time",
 			ISNULL((select count(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] and y.cycle_type='Good Cycle'),0)"Good Cycle Time",
-			ISNULL((select count(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] and y.bad_cycle_count = 1),0)"Bad Cycle Time"
+			ISNULL((select count(cycle_time) from mainquery y where x.facility_id = y.facility_id and y.[Job ID]=x.[Job ID] and y.cycle_type = 'Bad Cycle'),0)"Bad Cycle Time"
 		from (
 			SELECT
 				y.facility_id,y.station,y.facility_desc,y.[Job ID],y.design_cycle_time

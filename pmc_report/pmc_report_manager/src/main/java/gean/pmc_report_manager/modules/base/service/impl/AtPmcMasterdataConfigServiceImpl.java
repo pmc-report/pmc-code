@@ -126,4 +126,15 @@ public class AtPmcMasterdataConfigServiceImpl extends ServiceImpl<AtPmcMasterdat
 		}
 	}
 	
+	@Override
+	public List<String> queryMS(Map<String, Object> params) {
+		// TODO Auto-generated method stub
+		List<String> msList = baseMapper.queryMS(params);
+		if(msList != null && !msList.isEmpty()) {
+			return msList;
+		}else {
+			return null;
+		}
+	}
+	
 }

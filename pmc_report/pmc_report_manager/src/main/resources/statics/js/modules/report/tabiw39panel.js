@@ -24,6 +24,8 @@ var tableOccparetoImgArray = new Array();
 //用于存放status-->Img
 var tableOccstatusImgArray = new Array();
 
+var targetTa = '';
+
 function initpanelTableTitle(params){
 
 	$('#panelTableHeader').empty();   //每次变化时清空所有子节点
@@ -149,12 +151,10 @@ function initpanelTableTitle(params){
 		}else{
 			$('#panelTableHeader tr:eq(4) td:eq(1)').html("All");
 		}
-		/*if(params.eTime != null && params.eTime.trim() != ''){
-			$('#panelTableHeader tr:eq(5) td:eq(1)').html(params.eTime);
-		}else{
-			$('#panelTableHeader tr:eq(5) td:eq(1)').html("All");
-		}
-		*/
+		
+		
+		$('#panelTableHeader tr:eq(5) td:eq(1)').html(targetTa);
+		
 		var mydate = new Date();
 		var createTime = mydate.getFullYear() + '-'+ Appendzero(mydate.getMonth()+1) + '-' + Appendzero(mydate.getDate()) +'  '+mydate.getHours() + ':' + Appendzero(mydate.getMinutes())+':'+Appendzero(mydate.getSeconds());
 		$('#panelTableHeader tr:eq(4) td:eq(3)').html(createTime);
@@ -436,6 +436,8 @@ function initPreDownTime(queryParams){
 function createDownTimeExportImg(){
 	var tableDownTimetrleg = $('#preDownTime tbody').find('tr').length;
 	var tableDownTimetdleg = $('#preDownTime tbody').find('tr').eq(0).find('td').length;
+	tableDownTimeparetoImgArray = new Array();
+	tableDownTimestatusImgArray = new Array();
 	for(var i = 0 ; i <tableDownTimetrleg;i++){
 		for(var j = 0;j<tableDownTimetdleg;j++){
 			if(j == 6 || j == 7){
@@ -767,6 +769,8 @@ function createOccExportImg(){
 	var tableOccparamstrleg = $('#preOcc tbody').find('tr').length;
 	var tableOccparamstdleg = $('#preOcc tbody').find('tr').eq(0).find('td').length;
 	var node = '';
+	tableOccparetoImgArray = new Array();
+	tableOccstatusImgArray = new Array();
 	for(var i = 0 ; i <tableOccparamstrleg;i++){
 		for(var j = 0;j<tableOccparamstdleg;j++){
 			if(j == 6 || j == 7){
@@ -859,6 +863,8 @@ function queryReport(tag,params){
 		echars1(params);
 		echars2(params);
 		
+		getTa(params);
+		
 		initpanelTableTitle(params)
 		initPreDownTime(params)
 		initOccTab(params);
@@ -869,6 +875,20 @@ function queryReport(tag,params){
 	setPorpByClass('select','selectpicker show-tick form-control','disabled',true);
 	setPorpByName('select','select','disabled',true);
 	clearForm("fromexport");
+}
+
+function getTa(params){
+	$.ajax({
+        type: "post",
+        url: baseURL + 'modules/report/panel/getTa',
+        data: params,
+        dataType: "json",
+        async: false,
+        success: function(data){
+        	targetTa = data.tarTa;
+        	console.log(targetTa)
+        }
+	});
 }
 
 function echars(params){

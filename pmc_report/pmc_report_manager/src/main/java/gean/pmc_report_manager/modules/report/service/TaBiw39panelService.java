@@ -3,12 +3,10 @@ package gean.pmc_report_manager.modules.report.service;
 import java.util.List;
 import java.util.Map;
 
-
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity;
-import gean.pmc_report_manager.modules.report.vo.PageParamVo;
+import gean.pmc_report_manager.modules.report.vo.MsDataVo;
 import gean.pmc_report_manager.modules.report.vo.PanelVo;
 
 /**
@@ -20,7 +18,7 @@ import gean.pmc_report_manager.modules.report.vo.PanelVo;
  */
 public interface TaBiw39panelService extends IService<TaBiw39panelEntity> {
 
-    PageUtils queryPage(Map<String, Object> params);
+    String queryTa(Map<String, Object> params);
     
     List<PanelVo> queryEchart(Map<String, Object> params);
     
@@ -28,6 +26,6 @@ public interface TaBiw39panelService extends IService<TaBiw39panelEntity> {
     
     List<PanelVo> queryTop10Occurrence(Map<String, Object> params);
     
-    List<TaBiw39panelEntity> queryMsList(Map<String, Object> params);
+    List<MsDataVo> queryMsList(Map<String, Object> params);
 }
 

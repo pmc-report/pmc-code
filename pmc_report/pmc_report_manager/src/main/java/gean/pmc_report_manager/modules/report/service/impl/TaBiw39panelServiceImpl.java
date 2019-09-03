@@ -10,16 +10,13 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import gean.pmc_report_common.common.utils.PageUtils;
 import gean.pmc_report_common.common.utils.StringUtils;
-import gean.pmc_report_manager.common.utils.Query;
 import gean.pmc_report_manager.modules.report.dao.TaBiw39panelDao;
 import gean.pmc_report_manager.modules.report.entity.TaBiw39panelEntity;
 import gean.pmc_report_manager.modules.report.service.TaBiw39panelService;
+import gean.pmc_report_manager.modules.report.vo.MsDataVo;
 import gean.pmc_report_manager.modules.report.vo.PageParamVo;
 import gean.pmc_report_manager.modules.report.vo.PanelVo;
 
@@ -28,13 +25,14 @@ import gean.pmc_report_manager.modules.report.vo.PanelVo;
 public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw39panelEntity> implements TaBiw39panelService {
 
     @Override
-    public PageUtils queryPage(Map<String, Object> params) {
-        IPage<TaBiw39panelEntity> page = this.page(
-                new Query<TaBiw39panelEntity>().getPage(params),
-                new QueryWrapper<TaBiw39panelEntity>()
-        );
-
-        return new PageUtils(page);
+    public String queryTa(Map<String, Object> params) {
+    	PageParamVo vo = new PageParamVo(params);
+    	DecimalFormat df = new DecimalFormat("##0.00");
+    	PanelVo panelVo = baseMapper.queryTarTavMtbf(vo);
+    	if(panelVo!= null) {
+    		 return df.format(panelVo.getTargetTav());
+    	}
+       return null;
     }
 
 	@Override
@@ -347,27 +345,29 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 	}
 
 	@Override
-	public List<TaBiw39panelEntity> queryMsList(Map<String, Object> params) {
+	public List<MsDataVo> queryMsList(Map<String, Object> params) {
 		PageParamVo vo = new PageParamVo(params);
 		if(vo.getShift()==null
 				||"".equals(vo.getShift())) {
 			vo.setShift("ALL");
 		}
+		
+		List<MsDataVo> list = new ArrayList<>();
 		List<TaBiw39panelEntity> msList= baseMapper.queryMsList(vo);
-		List<TaBiw39panelEntity> list = new ArrayList<>();
-		TaBiw39panelEntity _new = null;
+		
+		MsDataVo _new = null;
 		DecimalFormat df = new DecimalFormat("##0.00");
 		if(!StringUtils.isEmpty(msList)) {
 			for (TaBiw39panelEntity taBiw39panelEntity : msList) {
-				_new = new TaBiw39panelEntity();
+				_new = new MsDataVo();
 				_new.setEquipment(taBiw39panelEntity.getEquipment());
 				_new.setWorkDay(taBiw39panelEntity.getWorkDay());
-				_new.setTarTechAvail(Float.parseFloat(df.format(taBiw39panelEntity.getTarTechAvail())));
-				_new.setTechAvail(Float.parseFloat(df.format(taBiw39panelEntity.getTechAvail())));
+				_new.setTarTechAvail(Float.parseFloat(df.format(taBiw39panelEntity.getTarTechAvail()==null?0.00f:taBiw39panelEntity.getTarTechAvail())));
+				_new.setTechAvail(Float.parseFloat(df.format(taBiw39panelEntity.getTechAvail()==null?0.00f:taBiw39panelEntity.getTechAvail())));
 				_new.setGoodPartCount(taBiw39panelEntity.getGoodPartCount());
-				_new.setDowntime(Float.parseFloat(df.format(taBiw39panelEntity.getDowntime())));
+				_new.setDownTime(Float.parseFloat(df.format(taBiw39panelEntity.getDowntime()==null?0.00f:taBiw39panelEntity.getDowntime())));
 				_new.setFaultOcc(taBiw39panelEntity.getFaultOcc());
-				_new.setBuildTime(Float.parseFloat(df.format(taBiw39panelEntity.getBuildTime())));
+				_new.setBuildTime(Float.parseFloat(df.format(taBiw39panelEntity.getBuildTime()==null?0.00f:taBiw39panelEntity.getBuildTime())));
 				list.add(_new);
 			}
 		}

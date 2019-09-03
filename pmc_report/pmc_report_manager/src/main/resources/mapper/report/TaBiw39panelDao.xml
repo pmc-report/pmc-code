@@ -484,9 +484,9 @@
 		<if test="endTime!=null">
 			AND start_time &lt;= CONVERT(datetime2,#{endTime},121)
 		</if>
-		and levels = 'zone'
-		and frequency = 1
-		order by facility_id  
+		and levels = 'MS'
+		<!-- and frequency = 1 -->
+		order by workingDay  
 	</select>
 	
 	
