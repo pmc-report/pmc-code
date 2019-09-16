@@ -27,6 +27,14 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
     @Override
     public String queryTa(Map<String, Object> params) {
     	PageParamVo vo = new PageParamVo(params);
+    	if(vo.getZone()!=null
+				&&!"".equals(vo.getZone())) {
+			vo.setFlag(1);
+		}
+		if(!"".equals(vo.getArea())
+				&&"".equals(vo.getZone())) {
+			vo.setFlag(0);
+		}
     	DecimalFormat df = new DecimalFormat("##0.00");
     	PanelVo panelVo = baseMapper.queryTarTavMtbf(vo);
     	if(panelVo!= null) {
@@ -60,8 +68,7 @@ public class TaBiw39panelServiceImpl extends ServiceImpl<TaBiw39panelDao, TaBiw3
 		
 		List<PanelVo> list = baseMapper.queryEchart(vo);
 		
-		if("Closure".equals(vo.getArea())||"Closure area".equals(vo.getArea())) {
-			vo.setArea("Closure area");
+		if("Closure area".equals(vo.getArea())) {
 			vo.setFlag(1);
 		}
 		if("Frame Line".equals(vo.getArea())) {

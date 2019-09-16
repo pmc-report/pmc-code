@@ -886,7 +886,7 @@ function getTa(params){
         async: false,
         success: function(data){
         	targetTa = data.tarTa;
-        	console.log(targetTa)
+        	//console.log(targetTa)
         }
 	});
 }

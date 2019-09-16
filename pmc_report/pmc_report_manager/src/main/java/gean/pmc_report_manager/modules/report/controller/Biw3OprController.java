@@ -115,11 +115,11 @@ public class Biw3OprController {
     	}
     	String exoprt = params.get("exoprtType") == null ? "word" : (String)params.get("exoprtType");
     	try {
-    		InputStream is = this.getClass().getResourceAsStream("exportModel/OPR_Map.jasper");//获取同包下模版文件
+    		InputStream is = this.getClass().getResourceAsStream("exportModel/OPR_Map_excel.jasper");//获取同包下模版文件
         	
-        	if(exoprt.equals("excel")) {
+        	/*if(exoprt.equals("excel")) {
         		is = this.getClass().getResourceAsStream("exportModel/OPR_Map_excel.jasper");//获取同包下模版文件
-        	}
+        	}*/
         	String exportName = "OPR报表";
     		JasperExportUtils.export(list, exoprt, is, request, response,exportName);
 		} catch (Exception e) {

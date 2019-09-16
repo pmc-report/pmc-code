@@ -231,6 +231,7 @@
 				and t.zone_s=#{zone}
 			</if>
 		   and t.equipment_type_s = 'TAV'
-		 order by t.facility_id_i asc
+		 <!-- order by t.facility_id_i asc -->
+		  order by  to_number(TRANSLATE(t.station_s,'0123456789'||t.station_s,'0123456789') )
 	</select>
 </mapper>

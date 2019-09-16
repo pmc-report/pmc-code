@@ -59,7 +59,8 @@ public class BiwTaDetailController {
 	
 	@RequestMapping("/exportDetail")
 	 public void exportDetail(HttpServletRequest request,HttpServletResponse response,@RequestParam Map<String,Object> params) { 
-		Map<String,List<MsDataVo>> msMap = taDetailService.queryTaDetailList(params);
+		//Map<String,List<MsDataVo>> msMap = taDetailService.queryTaDetailList(params);
+		Map<String,List<TaDetailVo>> msMap = taDetailService.queryTAVInfo(params);
     	List<FaultVo> faultList = taDetailService.findFaults(params);
     	List<DetailVo> dList = new ArrayList<DetailVo>();
     	
@@ -85,13 +86,8 @@ public class BiwTaDetailController {
     	int count = 0;
     	for(String key : equSet) {
     		if(count==0) {
-    			detailVo.setMsList(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -100,13 +96,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList(tavList);
     		}
     		if(count==1) {
-    			detailVo.setMsList1(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList1(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -115,13 +106,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList1(tavList);
     		}
     		if(count==2) {
-    			detailVo.setMsList2(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList2(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -130,13 +116,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList2(tavList);
     		}
     		if(count==3) {
-    			detailVo.setMsList3(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList3(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -145,13 +126,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList3(tavList);
     		}
     		if(count==4) {
-    			detailVo.setMsList4(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList4(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -160,13 +136,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList4(tavList);
     		}
     		if(count==5) {
-    			detailVo.setMsList5(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList5(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -175,13 +146,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList5(tavList);
     		}
     		if(count==6) {
-    			detailVo.setMsList6(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList6(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -190,13 +156,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList6(tavList);
     		}
     		if(count==7) {
-    			detailVo.setMsList7(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList7(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -205,13 +166,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList7(tavList);
     		}
     		if(count==8) {
-    			detailVo.setMsList8(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList8(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -220,13 +176,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList8(tavList);
     		}
     		if(count==9) {
-    			detailVo.setMsList9(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList9(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -235,13 +186,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList9(tavList);
     		}
     		if(count==10) {
-    			detailVo.setMsList10(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList10(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -250,13 +196,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList10(tavList);
     		}
     		if(count==11) {
-    			detailVo.setMsList11(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList11(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -265,13 +206,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList11(tavList);
     		}
     		if(count==12) {
-    			detailVo.setMsList12(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList12(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -280,13 +216,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList12(tavList);
     		}
     		if(count==13) {
-    			detailVo.setMsList1(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList13(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -295,13 +226,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList13(tavList);
     		}
     		if(count==14) {
-    			detailVo.setMsList14(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList14(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -310,13 +236,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList14(tavList);
     		}
     		if(count==15) {
-    			detailVo.setMsList15(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList15(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -325,13 +246,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList15(tavList);
     		}
     		if(count==16) {
-    			detailVo.setMsList16(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList16(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -340,13 +256,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList16(tavList);
     		}
     		if(count==17) {
-    			detailVo.setMsList17(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList17(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);
@@ -355,13 +266,8 @@ public class BiwTaDetailController {
         		detailVo.setFaultList17(tavList);
     		}
     		if(count==18) {
-    			detailVo.setMsList18(msMap.get(key));
-        		List<FaultVo> tavList = new ArrayList<>();
-        		for(FaultVo vo : faultList) {
-        			if(key.equals(vo.getStation())) {
-        				tavList.add(vo);
-        			}
-        		}
+    			detailVo.setMsList18(msMap.get(key).get(0).getMsList());
+        		List<FaultVo> tavList = msMap.get(key).get(0).getFaultList();
         		if(StringUtils.isEmpty(tavList)) {
         			FaultVo vo = new FaultVo();
         			vo.setStation(key);

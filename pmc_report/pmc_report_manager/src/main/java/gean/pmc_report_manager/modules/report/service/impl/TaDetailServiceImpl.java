@@ -3,6 +3,7 @@ package gean.pmc_report_manager.modules.report.service.impl;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -35,7 +36,7 @@ public class TaDetailServiceImpl implements TaDetailService{
 	@Override
 	public Map<String,List<TaDetailVo>> queryTAVInfo(Map<String, Object> param) {
 		
-		Map<String,List<TaDetailVo>> groupMap = new HashMap<>();
+		Map<String,List<TaDetailVo>> groupMap = new LinkedHashMap<>();
 		
 		List<TaDetailVo> taDetailList = new ArrayList<>();
 		
@@ -45,24 +46,30 @@ public class TaDetailServiceImpl implements TaDetailService{
 		
 		List<FaultVo> faultList = this.findFaults(param);
 		
-		for(String key : mss) {
-			TaDetailVo taVo = new TaDetailVo();
-			List<FaultVo> faults = new ArrayList<>();
-			List<MsDataVo> ms = new ArrayList<>();
-			for(MsDataVo msVo : msList) {
-				if(key.equals(msVo.getEquipment())) {
-					ms.add(msVo);
+		if(!StringUtils.isEmpty(mss)) {
+			for(String key : mss) {
+				TaDetailVo taVo = new TaDetailVo();
+				List<FaultVo> faults = new ArrayList<>();
+				List<MsDataVo> ms = new ArrayList<>();
+				if(!StringUtils.isEmpty(msList)) {
+					for(MsDataVo msVo : msList) {
+						if(key.equals(msVo.getEquipment())) {
+							ms.add(msVo);
+						}
+					}
 				}
-			}
-			for(FaultVo fVo: faultList) {
-				if(key.equals(fVo.getStation())) {
-					faults.add(fVo);
+				if(!StringUtils.isEmpty(faultList)) {
+					for(FaultVo fVo: faultList) {
+						if(key.equals(fVo.getStation())) {
+							faults.add(fVo);
+						}
+					}
 				}
+				taVo.setEquipment(key);
+				taVo.setFaultList(faults);
+				taVo.setMsList(ms);
+				taDetailList.add(taVo);
 			}
-			taVo.setEquipment(key);
-			taVo.setFaultList(faults);
-			taVo.setMsList(ms);
-			taDetailList.add(taVo);
 		}
 		
 		if(!StringUtils.isEmpty(taDetailList)) {
@@ -80,7 +87,7 @@ public class TaDetailServiceImpl implements TaDetailService{
 				}
 			}
 		}
-		if(!StringUtils.isEmpty(mss)) {
+		/*if(!StringUtils.isEmpty(mss)) {
 			for(String key : mss) {
 				if(StringUtils.isNotBlank(key)) {
 					if(!groupMap.containsKey(key)) {
@@ -101,9 +108,9 @@ public class TaDetailServiceImpl implements TaDetailService{
 				return o1.compareTo(o2);
 			}
 		});
-		sortMap.putAll(groupMap);
+		sortMap.putAll(groupMap);*/
 
-		return sortMap;
+		return groupMap;
 	}
 	
 	public List<FaultVo> findFaults(Map<String, Object> param){
@@ -151,7 +158,7 @@ public class TaDetailServiceImpl implements TaDetailService{
 	@Override
 	public Map<String,List<MsDataVo>> queryTaDetailList(Map<String, Object> params) {
 	
-		Map<String,List<MsDataVo>> groupMap = new HashMap<>();
+		Map<String,List<MsDataVo>> groupMap = new LinkedHashMap<>();
 		
 		List<String> mss = masterService.queryMS(params);
 		
@@ -174,7 +181,7 @@ public class TaDetailServiceImpl implements TaDetailService{
 				}
 			}
 		}
-		if(!StringUtils.isEmpty(mss)) {
+		/*if(!StringUtils.isEmpty(mss)) {
 			for(String key : mss) {
 				if(StringUtils.isNotBlank(key)) {
 					if(!groupMap.containsKey(key)) {
@@ -195,10 +202,10 @@ public class TaDetailServiceImpl implements TaDetailService{
 				return o1.compareTo(o2);
 			}
 		});
-		sortMap.putAll(groupMap);
+		sortMap.putAll(groupMap);*/
 
 		
-		return sortMap;
+		return groupMap;
 	}
 
 }

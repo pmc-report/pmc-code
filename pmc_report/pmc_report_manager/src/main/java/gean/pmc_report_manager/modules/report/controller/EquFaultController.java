@@ -161,9 +161,9 @@ public class EquFaultController {
     	String exoprt = params.get("exoprtType") == null ? "word" : (String)params.get("exoprtType");
     	try {
     		InputStream is = EquFaultController.class.getResourceAsStream("exportModel/TaEquFault_Word.jasper");//获取同包下模版文件
-    		if(exoprt.equals("excel")) {
+    		/*if(exoprt.equals("excel")) {
         		is = this.getClass().getResourceAsStream("exportModel/TaEquFault_Excel.jasper");
-        	}
+        	}*/
     		String exportName = "设备故障报表";
     		JasperExportUtils.export(exportList, exoprt, is, request, response,exportName);
     		long endTime = System.currentTimeMillis();

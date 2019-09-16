@@ -463,7 +463,7 @@
 	
 	<select id="queryMsList" resultMap="taBiw39panelMap">
 		select
-		equipment,workingDay,tar_tech_avail,tech_avail,good_part_count,downtime/60"downtime",fault_occ,build_time/60"build_time",facility_id
+		equipment,workingDay,tar_tech_avail,tech_avail*100"tech_avail",good_part_count,downtime/60"downtime",fault_occ,build_time/60"build_time",facility_id
 		from PMC_9PANEL_TA
 		where 1 = 1
 		<if test="shop!=null and shop!=''">
