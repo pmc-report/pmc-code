@@ -51,4 +51,37 @@ public class DateFormatTest {
 		
 		
 	}
+	
+	@Test
+	public void testFlag() {
+		
+		boolean flag = false;
+		
+		if(!flag) {
+			System.out.println("异常----");
+		}
+		
+		if(flag==false) {
+			System.out.println("正常----");
+		}
+		
+	}
+	
+	@Test
+	public void testInteger() {
+		
+		//String str = (Integer.valueOf("0000000001"))+1+"";
+		
+		//System.out.println("转化后的字符串："+str);
+		
+		String target = "0001";
+		String sub ="";
+		try {
+			sub = target.substring(0,target.length()-9);
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+		System.out.println("截取后的字符串："+sub);
+	}
 }

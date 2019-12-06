@@ -4,11 +4,11 @@
 <mapper namespace="gean.pmc_report_manager.modules.sys.dao.SysMenuDao">
 
 	<select id="queryListParentId" resultType="gean.pmc_report_manager.modules.sys.entity.SysMenuEntity">
-		select * from sys_menu where parent_id = #{parentId} and menu_id not in (5,6,27,36,30)  order by order_num asc 
+		select * from sys_menu where parent_id = #{parentId}   order by order_num asc 
 	</select>
 	
 	<select id="queryNotButtonList" resultType="gean.pmc_report_manager.modules.sys.entity.SysMenuEntity">
-		select * from sys_menu where type != 2 and menu_id not in (5,6,27,36,30)  order by order_num asc 
+		select * from sys_menu where type != 2 and menu_id not in (5,6,27,36,30) order by order_num asc 
 	</select>
 	
 </mapper>
