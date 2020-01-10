@@ -113,7 +113,6 @@
 						AND shift = #{shift}
 				</if>
 				and CONVERT(VARCHAR,end_time,23) = CONVERT(VARCHAR,start_time,23)
-				and start_time != start_time
 		)
 
 		select  x.zone, x.facility_id as "facilityId",

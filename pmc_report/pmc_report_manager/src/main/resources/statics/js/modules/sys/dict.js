@@ -1,3 +1,5 @@
+
+//jQuery 的表格
 $(function () {
     $("#jqGrid").jqGrid({
         url: baseURL + 'sys/dict/list',
@@ -37,9 +39,10 @@ $(function () {
     });
 });
 
+//初始化实例
 var vm = new Vue({
-	el:'#reportApp',
-	data:{
+	el:'#reportApp',//对象
+	data:{//参数
         q:{
             name: null
         },
@@ -47,15 +50,18 @@ var vm = new Vue({
 		title: null,
 		dict: {}
 	},
-	methods: {
+	methods: {//方法
+		//查询
 		query: function () {
 			vm.reload();
 		},
+		//新增
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
 			vm.dict = {};
 		},
+		//更新
 		update: function (event) {
 			var id = getSelectedRow();
 			if(id == null){
@@ -66,6 +72,7 @@ var vm = new Vue({
             
             vm.getInfo(id)
 		},
+		//保存
 		saveOrUpdate: function (event) {
 			var url = vm.dict.id == null ? "sys/dict/save" : "sys/dict/update";
 			$.ajax({
@@ -84,6 +91,7 @@ var vm = new Vue({
 				}
 			});
 		},
+		//删除
 		del: function (event) {
 			var ids = getSelectedRows();
 			if(ids == null){
@@ -108,11 +116,13 @@ var vm = new Vue({
 				});
 			});
 		},
+		//获取list
 		getInfo: function(id){
 			$.get(baseURL + "sys/dict/info/"+id, function(r){
                 vm.dict = r.dict;
             });
 		},
+		//刷新表格
 		reload: function (event) {
 			vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="9Panel" pageWidth="1490" pageHeight="1600" whenNoDataType="AllSectionsNoDetail" columnWidth="1430" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="f75a4b5d-7633-4b47-8a01-e1ad04477650">
-	<property name="ireport.zoom" value="2.143588810000044"/>
-	<property name="ireport.x" value="1458"/>
-	<property name="ireport.y" value="276"/>
+	<property name="ireport.zoom" value="1.000000000000025"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="903"/>
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<import value="net.sf.jasperreports.engine.*"/>
@@ -692,7 +692,7 @@
 		</band>
 	</title>
 	<pageHeader>
-		<band height="1272" splitType="Stretch">
+		<band height="1271" splitType="Stretch">
 			<elementGroup/>
 			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" onErrorType="Blank">
 				<reportElement mode="Transparent" x="0" y="0" width="476" height="184" backcolor="#FFFFFF" uuid="8dcb2075-3327-42c6-a0c4-1a7d554b9abe"/>
@@ -3095,70 +3095,75 @@
 				<textFieldExpression><![CDATA[$F{dTimeOldTol}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="302" y="675" width="126" height="21" uuid="7a28e666-5192-401a-852c-3f2746b76d44"/>
+				<reportElement x="326" y="653" width="102" height="60" uuid="7a28e666-5192-401a-852c-3f2746b76d44"/>
+				<box topPadding="0" bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concern Worse]]></text>
 			</staticText>
-			<rectangle radius="10">
-				<reportElement mode="Opaque" x="281" y="675" width="21" height="21" backcolor="#FF0000" uuid="13449e95-e911-4aa6-9dff-948969adc5ad"/>
-				<graphicElement>
-					<pen lineWidth="1.0"/>
-				</graphicElement>
-			</rectangle>
 			<staticText>
-				<reportElement x="463" y="675" width="153" height="21" uuid="ba11c935-006a-4f60-b2ce-dc9f63cc95ad"/>
+				<reportElement x="489" y="653" width="127" height="60" uuid="ba11c935-006a-4f60-b2ce-dc9f63cc95ad"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concern Unchanged]]></text>
 			</staticText>
-			<rectangle radius="10">
-				<reportElement mode="Opaque" x="442" y="675" width="21" height="21" backcolor="#FFFF00" uuid="33d4c04b-2e63-450c-ae9e-8a46eb56e68d"/>
-				<graphicElement>
-					<pen lineWidth="1.0"/>
-				</graphicElement>
-			</rectangle>
 			<staticText>
-				<reportElement x="644" y="675" width="139" height="21" uuid="389e7b3a-791f-4124-9a49-c34918953d10"/>
+				<reportElement x="677" y="653" width="106" height="60" uuid="389e7b3a-791f-4124-9a49-c34918953d10"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concern improved]]></text>
 			</staticText>
-			<rectangle radius="10">
-				<reportElement mode="Opaque" x="624" y="675" width="20" height="21" backcolor="#339900" uuid="377b8ddb-ce43-48fc-bd6e-1809fa7c6f23"/>
-				<graphicElement>
-					<pen lineWidth="1.0"/>
-				</graphicElement>
-			</rectangle>
 			<staticText>
-				<reportElement x="812" y="675" width="138" height="21" uuid="e705e57d-02c4-4ed2-807a-6dd80651e1df"/>
+				<reportElement x="844" y="653" width="107" height="60" uuid="e705e57d-02c4-4ed2-807a-6dd80651e1df"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concern Out of 10]]></text>
 			</staticText>
-			<rectangle radius="10">
-				<reportElement mode="Opaque" x="792" y="675" width="20" height="21" backcolor="#FFFFFF" uuid="31ea8410-d972-4ec3-bae2-8f354b1c3c61"/>
-				<graphicElement>
-					<pen lineWidth="1.0"/>
-				</graphicElement>
-			</rectangle>
 			<staticText>
-				<reportElement x="983" y="675" width="135" height="20" uuid="7c660853-9cd1-4280-87e6-7431b883d898"/>
+				<reportElement x="1011" y="653" width="107" height="60" uuid="7c660853-9cd1-4280-87e6-7431b883d898"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concern Resolved]]></text>
 			</staticText>
-			<rectangle radius="10">
-				<reportElement mode="Opaque" x="962" y="675" width="20" height="20" forecolor="#000000" backcolor="#333333" uuid="f8d0de95-33d2-4cf6-abc2-319a1f74910f"/>
-				<graphicElement>
-					<pen lineWidth="1.0"/>
-				</graphicElement>
-			</rectangle>
 			<staticText>
 				<reportElement x="1118" y="653" width="172" height="30" uuid="33ec60a8-490b-4497-a487-5779a7ebf451"/>
 				<box>
@@ -5385,7 +5390,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{occ_71}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isBlankWhenNull="true">
 				<reportElement x="120" y="1061" width="57" height="40" uuid="fd06812b-21b3-4e82-8caa-58ce0c0d28c4"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -5397,7 +5402,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="SansSerif" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{occ_123}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{occ_122}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="120" y="1021" width="57" height="40" uuid="e83f6879-38d5-4b5a-9791-c1c58161d349"/>
@@ -5643,68 +5648,76 @@
 				</textElement>
 				<text><![CDATA[Total Occurrencefor All Faults]]></text>
 			</staticText>
-			<rectangle radius="10">
-				<reportElement x="961" y="1201" width="20" height="20" backcolor="#000000" uuid="8f3d2387-2328-4272-9253-a2231b43e4b2"/>
-			</rectangle>
 			<staticText>
-				<reportElement x="299" y="1204" width="129" height="20" uuid="5d84522a-ca32-473a-88bd-66c14a1f5a1b"/>
+				<reportElement x="326" y="1181" width="103" height="60" uuid="5d84522a-ca32-473a-88bd-66c14a1f5a1b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concern Worse]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="460" y="1204" width="156" height="21" uuid="e6413781-6d6b-4759-8ccd-7c5ff289e09b"/>
+				<reportElement x="489" y="1181" width="127" height="60" uuid="e6413781-6d6b-4759-8ccd-7c5ff289e09b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concern Unchanged]]></text>
 			</staticText>
-			<rectangle radius="10">
-				<reportElement mode="Opaque" x="627" y="1200" width="20" height="20" backcolor="#339900" uuid="080b112a-b599-49b8-89de-10a3aacac950"/>
-				<graphicElement>
-					<pen lineWidth="1.0"/>
-				</graphicElement>
-			</rectangle>
 			<staticText>
-				<reportElement x="647" y="1200" width="135" height="20" uuid="86750142-9181-46a8-9b98-1d7f3e6aad5e"/>
+				<reportElement x="676" y="1181" width="107" height="60" uuid="86750142-9181-46a8-9b98-1d7f3e6aad5e"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concern improved]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="810" y="1201" width="139" height="20" uuid="d4710305-4d88-4676-82ef-91b4a4a71f1b"/>
+				<reportElement x="843" y="1181" width="107" height="60" uuid="d4710305-4d88-4676-82ef-91b4a4a71f1b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concern Out of 10]]></text>
 			</staticText>
-			<rectangle radius="10">
-				<reportElement mode="Opaque" x="789" y="1201" width="21" height="20" backcolor="#FFFFFF" uuid="00821812-c6dc-488f-a2c3-256947966abc"/>
-				<graphicElement>
-					<pen lineWidth="1.0"/>
-				</graphicElement>
-			</rectangle>
 			<staticText>
-				<reportElement x="981" y="1201" width="137" height="20" uuid="b50d27fc-78f5-4ec6-a5ba-348db0e92a32"/>
+				<reportElement x="1010" y="1181" width="108" height="60" uuid="b50d27fc-78f5-4ec6-a5ba-348db0e92a32"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Concern Resolved]]></text>
 			</staticText>
-			<rectangle radius="10">
-				<reportElement mode="Opaque" x="439" y="1204" width="21" height="21" backcolor="#FFFF00" uuid="ba303d51-f944-4fd5-9049-bb5cf97c65f3"/>
-				<graphicElement>
-					<pen lineWidth="1.0"/>
-				</graphicElement>
-			</rectangle>
-			<rectangle radius="10">
-				<reportElement mode="Opaque" x="278" y="1204" width="21" height="20" backcolor="#FF0000" uuid="80f0d880-f5d7-4e75-9cc0-7b375b98d752"/>
-				<graphicElement>
-					<pen lineWidth="1.0"/>
-				</graphicElement>
-			</rectangle>
 			<textField isBlankWhenNull="true">
 				<reportElement x="886" y="252" width="102" height="40" uuid="0c49ecdf-1392-4efd-a380-abb563514741"/>
 				<box>
@@ -6109,19 +6122,6 @@
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="886" y="1021" width="102" height="40" uuid="1bacacf5-b036-426a-98f4-fbde7de3b634"/>
-				<box>
-					<pen lineWidth="0.5"/>
-					<topPen lineWidth="0.5"/>
-					<leftPen lineWidth="0.5"/>
-					<bottomPen lineWidth="0.5"/>
-					<rightPen lineWidth="0.5"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="SansSerif" size="9"/>
-				</textElement>
-			</textField>
-			<textField isBlankWhenNull="true">
 				<reportElement x="886" y="941" width="102" height="40" uuid="8cb3032c-8bd1-4180-b56c-ab13ac7715a8"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -6161,7 +6161,7 @@
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="988" y="1061" width="54" height="39" uuid="cee083cd-1710-4aa2-a076-25f17cd8552a"/>
+				<reportElement x="988" y="1061" width="54" height="40" uuid="cee083cd-1710-4aa2-a076-25f17cd8552a"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -6213,7 +6213,7 @@
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="988" y="1100" width="54" height="41" uuid="701fc0cd-9aaa-4663-8c73-f1bafd7cd5a4"/>
+				<reportElement x="988" y="1101" width="54" height="40" uuid="701fc0cd-9aaa-4663-8c73-f1bafd7cd5a4"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -6267,243 +6267,129 @@
 				</textElement>
 				<text><![CDATA[Old]]></text>
 			</staticText>
-			<line>
-				<reportElement x="950" y="653" width="1" height="60" uuid="7b8afd6e-6a3b-4a3f-8e91-351caa35b18c"/>
-			</line>
-			<line>
-				<reportElement x="783" y="653" width="1" height="59" uuid="fc1df981-f4d0-46dc-ac7e-6036b21538d4"/>
-			</line>
-			<line>
-				<reportElement x="616" y="653" width="1" height="59" uuid="ec503fff-8cec-478e-8df4-97c55018cb01"/>
-			</line>
-			<line>
-				<reportElement x="428" y="653" width="1" height="59" uuid="e81eada2-5d7b-458e-aaa7-89f23fde9693"/>
-			</line>
-			<line>
-				<reportElement x="266" y="1241" width="852" height="1" uuid="a0da486b-2ad4-43da-895a-c2fe62da3a92"/>
-			</line>
-			<line>
-				<reportElement x="949" y="1181" width="1" height="60" uuid="969de311-206c-44da-9509-5c797932ab19"/>
-			</line>
-			<line>
-				<reportElement x="782" y="1181" width="1" height="60" uuid="df4bf660-ffb8-4838-8b92-6a2fbc453c36"/>
-			</line>
-			<line>
-				<reportElement x="616" y="1181" width="1" height="60" uuid="51c835a3-1ebb-4a5c-83ef-8e7a2086a400"/>
-			</line>
-			<line>
-				<reportElement x="428" y="1182" width="1" height="59" uuid="7310aabb-87fe-48a7-a3a0-83160c191f75"/>
-			</line>
-			<staticText>
-				<reportElement x="266" y="653" width="162" height="22" uuid="5667031e-8e83-4129-b135-c30be85c64ea"/>
+			<image scaleImage="Clip" hAlign="Center" vAlign="Middle">
+				<reportElement x="266" y="653" width="60" height="60" uuid="ae45d152-3313-48f0-8d52-aa133587ebc0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64(new StringBuffer("iVBORw0KGgoAAAANSUhEUgAAAEAAAAAkCAYAAAA5DDySAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARgSURBVGhD7VjbS9RbFJai6EZFd4puFEE9VFAPPfUQ9RJBf0Ev4uWpoMDKK4qJeAVBxbvg7aigeUPN29G8oI6OU845wzDqYbwNNqOozFHzOOc7a+3DLzoerJH2HoZ0v8w8zOy9v299a61vbR9s8eWzxfFjm4BtBWxxBjyWAk6nExaLBT09PWhsbER9fT3q6upQXV0tvut0OkxOTno8HMoJWFlZwfDwMDo7O2EymTA1NQW73Q67wYBPzc2YmJjAyMgIBgcH0draipqaGlitVo8RoZSA2dlZAXxsbAzz4+NYfvMGaw8ewHX5Mv66dAmfL17E8oULcF67Boe/P8bevoVerxfK4P+tra0pJ0IZAaOjo+jr68Pc3BycDQ1w3bkDXLnyP/B/njsH59mzWDxzBvOnT2P8+XN8HBhAM6mjoqICrCCVSwkBMzMzQtLz9Lny+rUA7g74uVOn4Dh5EtO3bmG4qAhNTU0oKSlRiV++D+Bi19vbC5b/5xcvNg3efuIEZo4dw/T58+gn5ZSVlaGlpUUZCdIVMDQ0JIqYky6+2chr4G1Hj2LqyBFY7t9HR0cHUlJSROFUsaQSsLi4iO7ubsxTVXc35zXZrwc/cfgwrIcOYSA8HOXl5cjPz1eBX24KcLvjlrb86tWmcn4j8H8cPAgL1YSm2lpERERgaWlJOglSFcB93Gaz4W8qYutb3fpq/73IM/jRAwdg2b8f76OikJSUhK6uLu8lgKPDxWqWSJAJ3rx3L/ofP0ZGRoaSNJCmAO737e3tsFdW/sfk/EjkGbxpzx7037uH7OxsJCcne68CuEq3tbXBnpX1xeHJAP/77t3Q3byJ3NxcREZGei8B3PfZuNioYrO9lQXeuGsXeu7eRWpqKuLj472XADZAVVVVsL57JxX8x5070f7oERISEpCWlua9BPDNKin/jUYjFm7f/uLtN1PttZxn2XPkGbxhxw7UUAsMCQlBLbVD2UtaEeSL8fDDRmj66VMx2MgAryNDVJSXB19fX9FiZS+pBDgcDuHajDQIfbpxQww23zI5Wp/fKPJ6Hx9UvXyJuLg4xMbGwuVyycYv1wny7bgVcjf4jaa4HwX/KxW/wsJC+NNbAaeWiiVVAXxBnt8LCgqEazM/ewZtsNG8/dcO71uR7zt+HCWZmQgNDUUepYCK6PN9pRPAm/J7AF+aX3UMZGPHacTlwcZd8O+vX8cv1PYSExMRHR2NhYUFFcEXeyohgDfmoSiLTBE/gHaSIkzUGb6X87p9+1AbECAUFEXEsfFRUfi+ZlMZAXwIu0O2rzk5Of++84WFYeDhQ3y4ehVaq9PT7N9NTq/hyROUUp/n3wcGBiI9PV1p5DUSlBKgHcKPGmEEnqt5JuU1z/Yc5eLiYgGUDU44zf1+fn5i7OWHUVU5vz6XPEIAH7q6ugoDPYWzp4+JiUFQUBACSO7BwcGCnNLSUpjNZmW5vtHGHiPA48jcPHCbADeJ+ml/tq2Anza0bgLb8gr4B/OxsQKW4SExAAAAAElFTkSuQmCC").toString().getBytes("UTF-8")))]]></imageExpression>
+			</image>
+			<image scaleImage="Clip" hAlign="Center" vAlign="Middle">
+				<reportElement x="428" y="653" width="61" height="60" uuid="080e18d3-5a99-4585-a59f-e4b3a9d5ee04"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64(new StringBuffer("iVBORw0KGgoAAAANSUhEUgAAAEAAAAAkCAYAAAA5DDySAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARYSURBVGhD7VjZS9xXFJaWlm60oWmT0tKNlkL70AaShz7lobQvpdC/oC/i8tRCC7Z1xcGKuIKg4i64ZRS0bqh1izoqTkbHiU4yDDoGHXWYzIIOE7eM+XrObX+SpjUZ03uHIXpBGMbf3N/9vnPOd75zY3DCV8wJx49TAk4z4IQzELESCAaDWFxcxNTUFPr7+9Hb24uenh50dnaKzyaTCWtraxEPh3ICdnd3sbCwAIPBAJvNhvX1dXg8Hvqz4PbtQTidTiwtLWF2dhbDw8Po6urCyspKxIhQSoDP5xPAl5eXsbm5ip2d3xAKfYWDgw9x9+4H2Nt7n757D8HgJ/B64+m532E2m0Vm8O9CoZByIpQR4HA4YDQa4ff7CWAfgf6cwHz0L/B37rxD/38bgcBbRNKbWF39EfPzMxgcHERbWxs4g1QuJQS43W6R0pubbgLwqwAeDni//w3KhPPY2LhIZdOIgYEBNDc3q8Qv3wew2E1PT4PTf2/vp2OD93jOwe1+jUh4F9eu9aGlpQVDQ0PKSJCeAXNzc0LEgsGWxwbvcp0lsXyVusaXGBsbQ3FxsRBOFUsqAYFAAJOTk5T6S2HXvJb2WuQ18E7nGSLyFczMpKO1tRV1dXUq8MstAW533NJ2dn45Vs0fBf7WrZcpC86TFnQjIyMD29vb0kmQmgHcx10uF+7du/hItX9U5Bm8w/ESEfAixsd1KCwsxMTERPQSwNFhsfL5hqWCt9ufJzH8FuXl5UrKQFoGcL8fHR0lsWr/h8l5sM8fJ/IM3mZ7jgj4AlVVVSgqKoreDGCVHhkZIQIqDx2eDPA3bz5Lc8IF1NTUIDMzM3oJ4L7PxsXlahX2VhZ4q/UZGqAuo6SkBHl5edFLABugjo4Oal1/SAU/P/80ldY3yM/PR2lpafQSwCdrb2+H1WrF1talQ2//ODXPac+RZ/AWy1M0IWYgJSUF3d3d0U0ADz9shDY2vheDjQzwJtMZNDbWIjY2VrRY2UtaF+CDeb1e4dqs1lma9T8Tg83DTI7W5zW1fzDyZnMMldXPyM3NRU5ODrXXA9n45TpBPh23Qu4GN240/2/wV69eRkNDA+Lj40VpqVhSM4APyPN7fX29cG12+w+Utn8NNpq3v9/hPSzyRuPrNApXIDU1FbW1tUqiz+eVTgBvyvcBfGi+1bFYdHTJcU4MNuGCHx//FFeulKCgoABZWVkkqlsqgi/2VEIAb8xDUWVlpbgANRjqydFdOvT2R0XeZHqBlD5BZJBOpxPGR4Xw3c+mMgL4JewO2b5WV1f/fc+XRuPt17h+/WNogmc2n6XOcQF9fd9Bry8VzycmJqKsrExp5DUSlBKgvYQvNdLS0oSaV1RUiKGGo9zU1CSAssFJT09HXFycGHv5YlSF4v9XHUWEAH7x/v4+6YFFePrs7GwkJSUhISEBycnJghy9Xk+iaVdW60dtHDECIo4szBeeEhAmUU/sY6cZ8MSGNkxgJz4D/gT8f8/6IvPJiwAAAABJRU5ErkJggg==").toString().getBytes("UTF-8")))]]></imageExpression>
+			</image>
+			<image scaleImage="Clip" hAlign="Center" vAlign="Middle">
+				<reportElement x="616" y="653" width="61" height="60" uuid="e244de77-e73d-402a-b8d6-5a2710b51365"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64(new StringBuffer("iVBORw0KGgoAAAANSUhEUgAAAEAAAAAkCAYAAAA5DDySAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAROSURBVGhD7VhLSJtZFL6rLkofbtpFuymFLgql3XZRXHXVLrsrtLQS43I6M8SJUUNsGoLmgQ5JxsS8fGIcdaJRR3xkFB+jRI2DFhUfU1Gxjg9QRESUb/5zZyIdGdso/w2heuGChN//v993vnPOdy7DGV/sjOPHOQHnCjjjDCQsBba3tzE9PY3+/n60traipaUFTU1NaGho4H9HIhEsLi4mPBzCCdjd3cXY2Bh6enowMTGBpaUlrK6uIvJnBKH3ISwsLGBmZgbDw8Po7OxEY2Mj5ufnE0aEUALW19c58Lm5OXz46wPe9L7BnZ/vgHkYWIm0ndL+ieGK6wqeBZ8hMBjAyMgIVwb93/7+vnAihBEwOzuLwcFBbGxsoHaqFterroP5JMBHwDO79JtN2j9Ku5BB8YsCkWgE7e3tqKurAylI5BJCwMrKCpf0x/WPeP3b63+AxwGeWaXnzAy37LfgD/vR1taGqqoqkfjl9wFU7AYGBkDyf975/MTgmUkiIZ/hsvkymrubEQgE0NHRIYwE2RUQjUZ5EXOPuU8NnhklEgwMDx0P0d3djaKiIl44RSxZCdja2kJfXx8mlyfjzvmY7GORj4FneomEtwzqajVqamrg8/lE4Jc3BajdUUt7FX51opw/DjzTMVx6ewmhX0PQarXY2dmRnQRZFUB9fHl5GVcrrn6x2n8p8gSeaaWdw6Ct0MJisaC3tzd5CaDoULFqnmyWFTzTMDwpeoLi4mIhaSCbAqjfd3V1oWK04j8m52ifP0nkCTxTM6SaU1FSUgKr1Zq8CqAqHQ6HYfndcujw5ADPfmC49+4ePB4PdDpd8hJAfZ+MS+lQKbe3coFnKoZHxkew2WwoKChIXgLIAAWDQYSiIVnBs+8ZnpqewmQywW63Jy8BdLL6+nqMj4/jpufmobc/Tc6T7CnyBJ59K3UBlxYajQahUCi5CaDhh4zQy+BLPtjIAT5FlQJvqRdpaWm8xcq9ZOsCdLC1tTXu2ob+GMINxw0+2HzO5MT6fKzaH408+4Yh056J/Px8GI1GHBwcyI1fXidIp6NWSN2gtEsqhv8ONkft7acm53PgU/WpKC8vR3p6Ok8tEUtWBdABaX4vKyvjrk0RUOC04K9lXoPT70R2dja8Xq+Q6NN5ZSeAXkr3AXRoutXR1GpwwXCBDzbxRv6+9j5sXhvMZjP0ej02NzdFBJ+/UwgB9GIailwuF78A9Tf5cddy99DbHyf7i99dhLJQyRWUl5fHjY+Iwvcpm8IIoI+QOyT76na7+T2fulyNx4WPcfvdbcQKXoo6BQ90D/DC+gJ2n50/n5GRAYfDITTyMRKEEhD7CF1q5OTk8GrudDr5UENRrqys5EDJ4OTm5kKhUPCxly5GRVT8/8ujhBBAH97b28Po6Cj39AaDASqVCkqlEllZWZyc6upqTE1NCcv1416cMAISjizOD54TECdRX+1j5wr4akMbJ7Azr4C/AQjX+mRPKa2UAAAAAElFTkSuQmCC").toString().getBytes("UTF-8")))]]></imageExpression>
+			</image>
+			<image scaleImage="Clip" hAlign="Center" vAlign="Middle">
+				<reportElement x="783" y="653" width="61" height="60" uuid="256453a1-4b3a-40d5-897b-ea4b7adb9a81"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64(new StringBuffer("iVBORw0KGgoAAAANSUhEUgAAAEAAAAAkCAYAAAA5DDySAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOoSURBVGhD7VhpS3JhFOy3Rssv6EObFBHRCkGGbQZa0WK7RbZhq0qY0b6X7dFGIRFRTMyB+yJhvIrPc4n0AcEPeu+dOXPmzLkZSPGTkeL4kSYgrYAUZ8C0FohEIjg4OMDy8jImJiYwPj4Ot9uN4eFh+b6ysoKLiwvTy6GdgLe3N2xsbGBhYQE7Ozu4vLzE3d0dbm5ucHV1hfPzcxweHiIYDGJmZgYjIyMIh8OmEaGVgIeHBwF+fHyMp6cnPD4+yocE3N7e4vr6WgghCaenp9jf38fq6qoog//7+PjQToQ2Ao6OjhAIBATw/8Cz4icnJ+B/dnd3sb6+jqmpKfT394MK0nm0EMDqUtLRwH+qfDR4KoAEbG1tiRImJyfR1dWlE7/6HECz8/v9oPwTqbwBfnt7G5ubm6ICKqinpwfT09PaSFCugFAoJCZm9HsilY8Gv7a2JpNhbm4O9fX14hs6jlICXl5esLS0pAQ8W4gE0Ax7e3vR3t6uA7/aFuC440ij/JOpvAGeLeDz+eDxeGCxWPD6+qqcBKUK4BznaFMJfnFxUSZCbW0t+F31UUYAq0Oz4gSINedjuf33nv9eeQKen5+X69psNi1toIwAVt3r9Uq6+x5ykgHPa1IBLS0tqKurUy0AdR7Aqs/Ozkqej054yYLnNekBbW1tKCkp+b0E0PgYXM7Ozv7FWxXgKX8uSw0NDaiqqvq9BDAADQ0NSe5ntlcFnqSOjo6iuroaVqv19xLAJxsYGJAUx8XGyPaxEh5Dzk+Gx56n7Fl5gufq3NfXh4KCAiFC9VFmgnwwzm0GIe79XGxUgOdm2NHRgczMTPEW1UcpAff395LaGIj29vZksYl31MWq/NjYmOwClZWVqKiowOfnp2r86qaA8WQGEMo8WfCDg4NwOp3Izs6W1tJxlCqAD8j93eFwSGrjSsutLtGeZ+XZ75R+YWEh7Ha7lurzeZUTwIsyCPGhuchwNU7E8Aie06SzsxM1NTUoKyvD8/OzjuLLNbUQwAtzKWpubhYXZ1vwZSgXGyPexup5Gh49hAoqLS2V4KPD+KLZ1EYAb8J0yPja2toq7/kYabkwccwZo44pj3J3uVzy9oe/z83NRWNjo9bKGyRoJcC4CV9qFBUViZs3NTXJUsMqU+YEyoBTXFyMrKwsWXvpHTocP1YfmUIAb/z+/i5myExfXl6OvLw85OTkID8/X8jp7u6W0Wn2MY0As4HFe780AfEy9Vd/l1bAX61svLhSXgFfZU2aLBJcvLAAAAAASUVORK5CYII=").toString().getBytes("UTF-8")))]]></imageExpression>
+			</image>
+			<image scaleImage="Clip" hAlign="Center" vAlign="Middle">
+				<reportElement x="951" y="653" width="60" height="60" uuid="f7f528a8-f2da-4e9d-97c4-0e2a1f581159"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64(new StringBuffer("iVBORw0KGgoAAAANSUhEUgAAAEAAAAAkCAYAAAA5DDySAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOoSURBVGhD7ZhJKO1RHMfvykKmDQs2UhZKbC1kZcXSThEybG3IHEkylkLmmRAyJ1NkiIxFIUOEkKFIkuj7+v7qvjzvve69751zu+HUrTv87znn9/l9f8M5BnzxYfji9uMbwLcCvjgBq4XA4+Mj9vf3sbi4iLGxMYyOjmJ4eBgDAwPyfmVlBWdnZ1Z3h3YAz8/P2NrawtzcHHZ2dnB+fo7r62sxeGhoCKenpzg4OMDa2hqmpqYwODiIk5MTq4HQCuD29lYMPzo6wvHxMRITE+Ht7Q2DwfDLy8nJCWFhYejq6sL6+roog/97fX3VDkIbgMPDQywvL+Pu7g49PT1wc3P7zfCPIPg5NjZW1DExMYHe3l5QQTqHFgBXV1ci6cvLS0RHR5tl+HsYnp6eaGpqwvj4ODo6OnTar74PYLJbWloC5R8eHm6x8UYQjo6OGBkZkbCYnJzUBkG5AjY2NiSJ1dXV/bPxRggBAQGYnZ1FWVmZJE4dQymAh4cHLCwsYHd31+yY/1MeeP9dSkoKuru70djYqMN+tSHAcseSFhUV9d/eN0JwcHCQcpmVlYWnpyflEJQqgHX84uICzs7OygAQBI0vKSnB/Py87QKgd5ismLhMydrS30NCQlBVVaUlDJQpgPV+ZmYGbW1tygEEBQWhtrYWpaWltqsAZunp6WmRqqUeNvW8r68v6uvrkZ2dbbsAWPfZuDQ3NysHEBgYiPLychQWFtouADZA/f39krFNedTS30NDQ1FUVISKigrbBcCd9fX1YXt7Gx4eHkohsAqkpaUJXNVDWRLkxnj4YSMUGRmpDICLiwsaGhoQExMjJVb1UArg5uZGurbV1VW4u7srgZCcnIyCggLk5+fj7e1Ntf1qO0HujqWQ1UBFMmT5a21tRVxcnISWjqFUAdwgz+8tLS3StfFsb2nCMz7v6uqK6upqpKenSwjo8D73qxwAJ+V9ADfNWx0mLzs7O4tA+Pn5SdkrLi5Gbm4u7u/vdThf5tQCgBPzUFRTUyMXoLzc8PHxMQnB3t4e8fHxoqCcnBxpfHQkvvc0tQHgIuwO2b7yboD3fDzaBgcHw8vL6ycMZnl/f39ERERInefzCQkJqKys1Op5IwStAIyL8FIjIyNDsjnjmmd7erm9vV0MpeGZmZmSM1jzeTGqK+Y/xpJVAHDRl5cXbG5uSk+fl5eHpKQkkXtqaqrA6ezsxN7enrZY/9vEVgNgdcvMXPAbgJmgPu1j3wr4tK4107Avr4AfqYVCk5xyIFkAAAAASUVORK5CYII=").toString().getBytes("UTF-8")))]]></imageExpression>
+			</image>
+			<image scaleImage="Clip" hAlign="Center" vAlign="Middle">
+				<reportElement x="266" y="1181" width="60" height="60" uuid="8e4c181f-daf1-42bf-89a1-3dd427598ef8"/>
+				<box bottomPadding="0">
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64(new StringBuffer("iVBORw0KGgoAAAANSUhEUgAAAEAAAAAkCAYAAAA5DDySAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARgSURBVGhD7VjbS9RbFJai6EZFd4puFEE9VFAPPfUQ9RJBf0Ev4uWpoMDKK4qJeAVBxbvg7aigeUPN29G8oI6OU845wzDqYbwNNqOozFHzOOc7a+3DLzoerJH2HoZ0v8w8zOy9v299a61vbR9s8eWzxfFjm4BtBWxxBjyWAk6nExaLBT09PWhsbER9fT3q6upQXV0tvut0OkxOTno8HMoJWFlZwfDwMDo7O2EymTA1NQW73Q67wYBPzc2YmJjAyMgIBgcH0draipqaGlitVo8RoZSA2dlZAXxsbAzz4+NYfvMGaw8ewHX5Mv66dAmfL17E8oULcF67Boe/P8bevoVerxfK4P+tra0pJ0IZAaOjo+jr68Pc3BycDQ1w3bkDXLnyP/B/njsH59mzWDxzBvOnT2P8+XN8HBhAM6mjoqICrCCVSwkBMzMzQtLz9Lny+rUA7g74uVOn4Dh5EtO3bmG4qAhNTU0oKSlRiV++D+Bi19vbC5b/5xcvNg3efuIEZo4dw/T58+gn5ZSVlaGlpUUZCdIVMDQ0JIqYky6+2chr4G1Hj2LqyBFY7t9HR0cHUlJSROFUsaQSsLi4iO7ubsxTVXc35zXZrwc/cfgwrIcOYSA8HOXl5cjPz1eBX24KcLvjlrb86tWmcn4j8H8cPAgL1YSm2lpERERgaWlJOglSFcB93Gaz4W8qYutb3fpq/73IM/jRAwdg2b8f76OikJSUhK6uLu8lgKPDxWqWSJAJ3rx3L/ofP0ZGRoaSNJCmAO737e3tsFdW/sfk/EjkGbxpzx7037uH7OxsJCcne68CuEq3tbXBnpX1xeHJAP/77t3Q3byJ3NxcREZGei8B3PfZuNioYrO9lQXeuGsXeu7eRWpqKuLj472XADZAVVVVsL57JxX8x5070f7oERISEpCWlua9BPDNKin/jUYjFm7f/uLtN1PttZxn2XPkGbxhxw7UUAsMCQlBLbVD2UtaEeSL8fDDRmj66VMx2MgAryNDVJSXB19fX9FiZS+pBDgcDuHajDQIfbpxQww23zI5Wp/fKPJ6Hx9UvXyJuLg4xMbGwuVyycYv1wny7bgVcjf4jaa4HwX/KxW/wsJC+NNbAaeWiiVVAXxBnt8LCgqEazM/ewZtsNG8/dcO71uR7zt+HCWZmQgNDUUepYCK6PN9pRPAm/J7AF+aX3UMZGPHacTlwcZd8O+vX8cv1PYSExMRHR2NhYUFFcEXeyohgDfmoSiLTBE/gHaSIkzUGb6X87p9+1AbECAUFEXEsfFRUfi+ZlMZAXwIu0O2rzk5Of++84WFYeDhQ3y4ehVaq9PT7N9NTq/hyROUUp/n3wcGBiI9PV1p5DUSlBKgHcKPGmEEnqt5JuU1z/Yc5eLiYgGUDU44zf1+fn5i7OWHUVU5vz6XPEIAH7q6ugoDPYWzp4+JiUFQUBACSO7BwcGCnNLSUpjNZmW5vtHGHiPA48jcPHCbADeJ+ml/tq2Anza0bgLb8gr4B/OxsQKW4SExAAAAAElFTkSuQmCC").toString().getBytes("UTF-8")))]]></imageExpression>
+			</image>
+			<image scaleImage="Clip" hAlign="Center" vAlign="Middle">
+				<reportElement x="429" y="1181" width="60" height="60" uuid="a53c2c0c-a71b-408b-958b-144a5c0148f8"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64(new StringBuffer("iVBORw0KGgoAAAANSUhEUgAAAEAAAAAkCAYAAAA5DDySAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARYSURBVGhD7VjZS9xXFJaWlm60oWmT0tKNlkL70AaShz7lobQvpdC/oC/i8tRCC7Z1xcGKuIKg4i64ZRS0bqh1izoqTkbHiU4yDDoGHXWYzIIOE7eM+XrObX+SpjUZ03uHIXpBGMbf3N/9vnPOd75zY3DCV8wJx49TAk4z4IQzELESCAaDWFxcxNTUFPr7+9Hb24uenh50dnaKzyaTCWtraxEPh3ICdnd3sbCwAIPBAJvNhvX1dXg8Hvqz4PbtQTidTiwtLWF2dhbDw8Po6urCyspKxIhQSoDP5xPAl5eXsbm5ip2d3xAKfYWDgw9x9+4H2Nt7n757D8HgJ/B64+m532E2m0Vm8O9CoZByIpQR4HA4YDQa4ff7CWAfgf6cwHz0L/B37rxD/38bgcBbRNKbWF39EfPzMxgcHERbWxs4g1QuJQS43W6R0pubbgLwqwAeDni//w3KhPPY2LhIZdOIgYEBNDc3q8Qv3wew2E1PT4PTf2/vp2OD93jOwe1+jUh4F9eu9aGlpQVDQ0PKSJCeAXNzc0LEgsGWxwbvcp0lsXyVusaXGBsbQ3FxsRBOFUsqAYFAAJOTk5T6S2HXvJb2WuQ18E7nGSLyFczMpKO1tRV1dXUq8MstAW533NJ2dn45Vs0fBf7WrZcpC86TFnQjIyMD29vb0kmQmgHcx10uF+7du/hItX9U5Bm8w/ESEfAixsd1KCwsxMTERPQSwNFhsfL5hqWCt9ufJzH8FuXl5UrKQFoGcL8fHR0lsWr/h8l5sM8fJ/IM3mZ7jgj4AlVVVSgqKoreDGCVHhkZIQIqDx2eDPA3bz5Lc8IF1NTUIDMzM3oJ4L7PxsXlahX2VhZ4q/UZGqAuo6SkBHl5edFLABugjo4Oal1/SAU/P/80ldY3yM/PR2lpafQSwCdrb2+H1WrF1talQ2//ODXPac+RZ/AWy1M0IWYgJSUF3d3d0U0ADz9shDY2vheDjQzwJtMZNDbWIjY2VrRY2UtaF+CDeb1e4dqs1lma9T8Tg83DTI7W5zW1fzDyZnMMldXPyM3NRU5ODrXXA9n45TpBPh23Qu4GN240/2/wV69eRkNDA+Lj40VpqVhSM4APyPN7fX29cG12+w+Utn8NNpq3v9/hPSzyRuPrNApXIDU1FbW1tUqiz+eVTgBvyvcBfGi+1bFYdHTJcU4MNuGCHx//FFeulKCgoABZWVkkqlsqgi/2VEIAb8xDUWVlpbgANRjqydFdOvT2R0XeZHqBlD5BZJBOpxPGR4Xw3c+mMgL4JewO2b5WV1f/fc+XRuPt17h+/WNogmc2n6XOcQF9fd9Bry8VzycmJqKsrExp5DUSlBKgvYQvNdLS0oSaV1RUiKGGo9zU1CSAssFJT09HXFycGHv5YlSF4v9XHUWEAH7x/v4+6YFFePrs7GwkJSUhISEBycnJghy9Xk+iaVdW60dtHDECIo4szBeeEhAmUU/sY6cZ8MSGNkxgJz4D/gT8f8/6IvPJiwAAAABJRU5ErkJggg==").toString().getBytes("UTF-8")))]]></imageExpression>
+			</image>
+			<image scaleImage="Clip" hAlign="Center" vAlign="Middle">
+				<reportElement x="616" y="1181" width="60" height="60" uuid="5a5b553e-c6af-4130-83a2-edfaca4f5db9"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64(new StringBuffer("iVBORw0KGgoAAAANSUhEUgAAAEAAAAAkCAYAAAA5DDySAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAROSURBVGhD7VhLSJtZFL6rLkofbtpFuymFLgql3XZRXHXVLrsrtLQS43I6M8SJUUNsGoLmgQ5JxsS8fGIcdaJRR3xkFB+jRI2DFhUfU1Gxjg9QRESUb/5zZyIdGdso/w2heuGChN//v993vnPOdy7DGV/sjOPHOQHnCjjjDCQsBba3tzE9PY3+/n60traipaUFTU1NaGho4H9HIhEsLi4mPBzCCdjd3cXY2Bh6enowMTGBpaUlrK6uIvJnBKH3ISwsLGBmZgbDw8Po7OxEY2Mj5ufnE0aEUALW19c58Lm5OXz46wPe9L7BnZ/vgHkYWIm0ndL+ieGK6wqeBZ8hMBjAyMgIVwb93/7+vnAihBEwOzuLwcFBbGxsoHaqFterroP5JMBHwDO79JtN2j9Ku5BB8YsCkWgE7e3tqKurAylI5BJCwMrKCpf0x/WPeP3b63+AxwGeWaXnzAy37LfgD/vR1taGqqoqkfjl9wFU7AYGBkDyf975/MTgmUkiIZ/hsvkymrubEQgE0NHRIYwE2RUQjUZ5EXOPuU8NnhklEgwMDx0P0d3djaKiIl44RSxZCdja2kJfXx8mlyfjzvmY7GORj4FneomEtwzqajVqamrg8/lE4Jc3BajdUUt7FX51opw/DjzTMVx6ewmhX0PQarXY2dmRnQRZFUB9fHl5GVcrrn6x2n8p8gSeaaWdw6Ct0MJisaC3tzd5CaDoULFqnmyWFTzTMDwpeoLi4mIhaSCbAqjfd3V1oWK04j8m52ifP0nkCTxTM6SaU1FSUgKr1Zq8CqAqHQ6HYfndcujw5ADPfmC49+4ePB4PdDpd8hJAfZ+MS+lQKbe3coFnKoZHxkew2WwoKChIXgLIAAWDQYSiIVnBs+8ZnpqewmQywW63Jy8BdLL6+nqMj4/jpufmobc/Tc6T7CnyBJ59K3UBlxYajQahUCi5CaDhh4zQy+BLPtjIAT5FlQJvqRdpaWm8xcq9ZOsCdLC1tTXu2ob+GMINxw0+2HzO5MT6fKzaH408+4Yh056J/Px8GI1GHBwcyI1fXidIp6NWSN2gtEsqhv8ONkft7acm53PgU/WpKC8vR3p6Ok8tEUtWBdABaX4vKyvjrk0RUOC04K9lXoPT70R2dja8Xq+Q6NN5ZSeAXkr3AXRoutXR1GpwwXCBDzbxRv6+9j5sXhvMZjP0ej02NzdFBJ+/UwgB9GIailwuF78A9Tf5cddy99DbHyf7i99dhLJQyRWUl5fHjY+Iwvcpm8IIoI+QOyT76na7+T2fulyNx4WPcfvdbcQKXoo6BQ90D/DC+gJ2n50/n5GRAYfDITTyMRKEEhD7CF1q5OTk8GrudDr5UENRrqys5EDJ4OTm5kKhUPCxly5GRVT8/8ujhBBAH97b28Po6Cj39AaDASqVCkqlEllZWZyc6upqTE1NCcv1416cMAISjizOD54TECdRX+1j5wr4akMbJ7Azr4C/AQjX+mRPKa2UAAAAAElFTkSuQmCC").toString().getBytes("UTF-8")))]]></imageExpression>
+			</image>
+			<image scaleImage="Clip" hAlign="Center" vAlign="Middle">
+				<reportElement x="783" y="1181" width="60" height="60" uuid="5e0c5fca-cee4-4b50-af69-edc3b690580d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64(new StringBuffer("iVBORw0KGgoAAAANSUhEUgAAAEAAAAAkCAYAAAA5DDySAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOoSURBVGhD7VhpS3JhFOy3Rssv6EObFBHRCkGGbQZa0WK7RbZhq0qY0b6X7dFGIRFRTMyB+yJhvIrPc4n0AcEPeu+dOXPmzLkZSPGTkeL4kSYgrYAUZ8C0FohEIjg4OMDy8jImJiYwPj4Ot9uN4eFh+b6ysoKLiwvTy6GdgLe3N2xsbGBhYQE7Ozu4vLzE3d0dbm5ucHV1hfPzcxweHiIYDGJmZgYjIyMIh8OmEaGVgIeHBwF+fHyMp6cnPD4+yocE3N7e4vr6WgghCaenp9jf38fq6qoog//7+PjQToQ2Ao6OjhAIBATw/8Cz4icnJ+B/dnd3sb6+jqmpKfT394MK0nm0EMDqUtLRwH+qfDR4KoAEbG1tiRImJyfR1dWlE7/6HECz8/v9oPwTqbwBfnt7G5ubm6ICKqinpwfT09PaSFCugFAoJCZm9HsilY8Gv7a2JpNhbm4O9fX14hs6jlICXl5esLS0pAQ8W4gE0Ax7e3vR3t6uA7/aFuC440ij/JOpvAGeLeDz+eDxeGCxWPD6+qqcBKUK4BznaFMJfnFxUSZCbW0t+F31UUYAq0Oz4gSINedjuf33nv9eeQKen5+X69psNi1toIwAVt3r9Uq6+x5ykgHPa1IBLS0tqKurUy0AdR7Aqs/Ozkqej054yYLnNekBbW1tKCkp+b0E0PgYXM7Ozv7FWxXgKX8uSw0NDaiqqvq9BDAADQ0NSe5ntlcFnqSOjo6iuroaVqv19xLAJxsYGJAUx8XGyPaxEh5Dzk+Gx56n7Fl5gufq3NfXh4KCAiFC9VFmgnwwzm0GIe79XGxUgOdm2NHRgczMTPEW1UcpAff395LaGIj29vZksYl31MWq/NjYmOwClZWVqKiowOfnp2r86qaA8WQGEMo8WfCDg4NwOp3Izs6W1tJxlCqAD8j93eFwSGrjSsutLtGeZ+XZ75R+YWEh7Ha7lurzeZUTwIsyCPGhuchwNU7E8Aie06SzsxM1NTUoKyvD8/OzjuLLNbUQwAtzKWpubhYXZ1vwZSgXGyPexup5Gh49hAoqLS2V4KPD+KLZ1EYAb8J0yPja2toq7/kYabkwccwZo44pj3J3uVzy9oe/z83NRWNjo9bKGyRoJcC4CV9qFBUViZs3NTXJUsMqU+YEyoBTXFyMrKwsWXvpHTocP1YfmUIAb/z+/i5myExfXl6OvLw85OTkID8/X8jp7u6W0Wn2MY0As4HFe780AfEy9Vd/l1bAX61svLhSXgFfZU2aLBJcvLAAAAAASUVORK5CYII=").toString().getBytes("UTF-8")))]]></imageExpression>
+			</image>
+			<image scaleImage="Clip" hAlign="Center" vAlign="Middle">
+				<reportElement x="950" y="1181" width="60" height="60" uuid="96436bc5-ed42-4067-831e-6f86b5cbb337"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<imageExpression><![CDATA[new java.io.ByteArrayInputStream(org.apache.commons.codec.binary.Base64.decodeBase64(new StringBuffer("iVBORw0KGgoAAAANSUhEUgAAAEAAAAAkCAYAAAA5DDySAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOoSURBVGhD7ZhJKO1RHMfvykKmDQs2UhZKbC1kZcXSThEybG3IHEkylkLmmRAyJ1NkiIxFIUOEkKFIkuj7+v7qvjzvve69751zu+HUrTv87znn9/l9f8M5BnzxYfji9uMbwLcCvjgBq4XA4+Mj9vf3sbi4iLGxMYyOjmJ4eBgDAwPyfmVlBWdnZ1Z3h3YAz8/P2NrawtzcHHZ2dnB+fo7r62sxeGhoCKenpzg4OMDa2hqmpqYwODiIk5MTq4HQCuD29lYMPzo6wvHxMRITE+Ht7Q2DwfDLy8nJCWFhYejq6sL6+roog/97fX3VDkIbgMPDQywvL+Pu7g49PT1wc3P7zfCPIPg5NjZW1DExMYHe3l5QQTqHFgBXV1ci6cvLS0RHR5tl+HsYnp6eaGpqwvj4ODo6OnTar74PYLJbWloC5R8eHm6x8UYQjo6OGBkZkbCYnJzUBkG5AjY2NiSJ1dXV/bPxRggBAQGYnZ1FWVmZJE4dQymAh4cHLCwsYHd31+yY/1MeeP9dSkoKuru70djYqMN+tSHAcseSFhUV9d/eN0JwcHCQcpmVlYWnpyflEJQqgHX84uICzs7OygAQBI0vKSnB/Py87QKgd5ismLhMydrS30NCQlBVVaUlDJQpgPV+ZmYGbW1tygEEBQWhtrYWpaWltqsAZunp6WmRqqUeNvW8r68v6uvrkZ2dbbsAWPfZuDQ3NysHEBgYiPLychQWFtouADZA/f39krFNedTS30NDQ1FUVISKigrbBcCd9fX1YXt7Gx4eHkohsAqkpaUJXNVDWRLkxnj4YSMUGRmpDICLiwsaGhoQExMjJVb1UArg5uZGurbV1VW4u7srgZCcnIyCggLk5+fj7e1Ntf1qO0HujqWQ1UBFMmT5a21tRVxcnISWjqFUAdwgz+8tLS3StfFsb2nCMz7v6uqK6upqpKenSwjo8D73qxwAJ+V9ADfNWx0mLzs7O4tA+Pn5SdkrLi5Gbm4u7u/vdThf5tQCgBPzUFRTUyMXoLzc8PHxMQnB3t4e8fHxoqCcnBxpfHQkvvc0tQHgIuwO2b7yboD3fDzaBgcHw8vL6ycMZnl/f39ERERInefzCQkJqKys1Op5IwStAIyL8FIjIyNDsjnjmmd7erm9vV0MpeGZmZmSM1jzeTGqK+Y/xpJVAHDRl5cXbG5uSk+fl5eHpKQkkXtqaqrA6ezsxN7enrZY/9vEVgNgdcvMXPAbgJmgPu1j3wr4tK4107Avr4AfqYVCk5xyIFkAAAAASUVORK5CYII=").toString().getBytes("UTF-8")))]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="886" y="1021" width="102" height="40" uuid="bc7e936f-974b-4cea-9620-5196abb770b9"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
+					<font fontName="SansSerif" size="9"/>
 				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="266" y="696" width="162" height="17" uuid="0dba2d63-a6fd-41f7-9661-9ad097cc15f5"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="429" y="653" width="187" height="22" uuid="25ff0660-58cf-4ece-a659-7f8d60945147"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="429" y="696" width="187" height="17" uuid="ce4df4c1-e9c0-494e-89eb-9daf2c545b52"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="617" y="653" width="166" height="22" uuid="99a08802-c989-4efe-877c-12ac8cb7a673"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="617" y="696" width="166" height="17" uuid="d250b1ea-8887-4314-8d3e-056d3d22b308"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="784" y="653" width="166" height="22" uuid="a1f3a3e5-6e31-4952-be8a-f13004ce30b0"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="784" y="696" width="166" height="17" uuid="d3889860-e967-470d-921c-7ee47a5f2dac"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="266" y="675" width="15" height="21" uuid="72f41caa-a672-42c6-8cd2-740725bf14ad"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="429" y="675" width="13" height="21" uuid="ee6ed309-b5f8-4f90-a508-288e8be86834"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="617" y="675" width="7" height="21" uuid="a1f925af-e1e0-46d1-a3d8-af888e5b7b31"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="784" y="675" width="8" height="21" uuid="148fd3df-3fc8-4a76-b6cf-8cfb343d645f"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="951" y="653" width="167" height="22" uuid="2e7938d0-0702-450b-b66e-cbd0e99d6ec2"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="951" y="695" width="167" height="18" uuid="70fef984-e1ba-47e9-93dd-2e37b24c968a"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="951" y="675" width="11" height="20" uuid="772f2bc4-a112-4d11-9b04-82c27c2e1cc1"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="266" y="1181" width="162" height="23" uuid="8103847f-3875-4838-a8ed-2ffb0f0d8d29"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="266" y="1224" width="162" height="16" uuid="66e24509-1bdf-484b-894a-9be053adabcb"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="266" y="1204" width="12" height="20" uuid="9fb1fbed-fbed-42c3-a4aa-18b9a1eb42ee"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="429" y="1204" width="10" height="21" uuid="da294a31-d5bd-425d-a900-3ec8bff42f04"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="429" y="1225" width="187" height="15" uuid="e549ecd0-4e36-4938-bece-e60f2137cdfc"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="429" y="1181" width="187" height="23" uuid="7cc94fda-a163-4439-912e-6bcbfc372781"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="617" y="1181" width="165" height="19" uuid="d88b7128-213d-475c-977f-bf21f50ea2ab"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="617" y="1200" width="10" height="20" uuid="12feeb55-73f8-4b04-bc81-47a9cdd66bbf"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="617" y="1220" width="165" height="20" uuid="aae37ae0-e2e7-4a3f-a09f-81f80a774949"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="783" y="1201" width="6" height="20" uuid="5f651bcb-3073-4aa0-87ab-540b346618c4"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="783" y="1181" width="166" height="20" uuid="66c521a2-586b-47a5-8659-8557b2e2727c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="783" y="1221" width="166" height="19" uuid="e69864a8-ad4a-4b79-ba64-861b1a236f8c"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="950" y="1221" width="168" height="19" uuid="b908fb0e-ee31-4995-9926-8025b43a9b75"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="950" y="1201" width="11" height="20" uuid="455deedd-6312-4f63-8d97-78d858a95bbb"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="950" y="1181" width="168" height="20" uuid="8af3dd3d-038f-42b8-9243-a3558bbda3a4"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font isBold="true"/>
-				</textElement>
-				<text><![CDATA[]]></text>
-			</staticText>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>

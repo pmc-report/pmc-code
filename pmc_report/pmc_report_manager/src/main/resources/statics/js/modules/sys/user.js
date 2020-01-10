@@ -1,3 +1,4 @@
+//jquery 的表格
 $(function () {
     $("#jqGrid").jqGrid({
         url: baseURL + 'sys/user/list',

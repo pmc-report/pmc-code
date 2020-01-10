@@ -70,9 +70,9 @@ public class DateFormatTest {
 	@Test
 	public void testInteger() {
 		
-		//String str = (Integer.valueOf("0000000001"))+1+"";
+		String str = (Integer.valueOf("0000000000"))+1+"";
 		
-		//System.out.println("转化后的字符串："+str);
+		System.out.println("转化后的字符串："+str);
 		
 		String target = "0001";
 		String sub ="";
