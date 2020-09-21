@@ -1,5 +1,22 @@
 package gean.pmc_report_manager.modules.job.service.impl;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
+
+import org.apache.commons.lang.StringUtils;
+import org.quartz.CronTrigger;
+import org.quartz.Scheduler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,20 +28,16 @@ import gean.pmc_report_manager.modules.job.dao.ScheduleJobDao;
 import gean.pmc_report_manager.modules.job.entity.ScheduleJobEntity;
 import gean.pmc_report_manager.modules.job.service.ScheduleJobService;
 import gean.pmc_report_manager.modules.job.utils.ScheduleUtils;
-import org.apache.commons.lang.StringUtils;
-import org.quartz.CronTrigger;
-import org.quartz.Scheduler;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.PostConstruct;
-import java.util.*;
 
 @Service("scheduleJobService")
-public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, ScheduleJobEntity> implements ScheduleJobService {
+public class ScheduleJobServiceImpl extends ServiceImpl<ScheduleJobDao, ScheduleJobEntity> implements ScheduleJobService ,ApplicationListener<ApplicationStartedEvent> {
 	@Autowired
     private Scheduler scheduler;
+	
+	  @Override
+	  public void onApplicationEvent(ApplicationStartedEvent applicationStartedEvent) {
+		   init();
+	  }
 	
 	/**
 	 * 项目启动时，初始化定时器
